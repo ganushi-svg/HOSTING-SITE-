@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import Todo from '../components/Todo.astro';
+import TODO from '../components/TODO.astro';
 import { contact } from '../data/site';
 
 const field = 'w-full rounded-[var(--radius-btn)] border border-line bg-bg px-3 py-2.5 text-ink focus:border-accent focus:outline-none';
@@ -27,15 +27,15 @@ const label = 'flex flex-col gap-1.5 text-sm font-semibold text-muted';
         </div>
         <div>
           <p class="eyebrow mb-1">WhatsApp</p>
-          {contact.whatsapp ? <span class="select-all font-medium">{contact.whatsapp}</span> : <Todo source="content/contact.md" inline>WhatsApp number</Todo>}
+          {contact.whatsapp ? <span class="select-all font-medium">{contact.whatsapp}</span> : <TODO source="content/contact.md" inline>WhatsApp number</TODO>}
         </div>
         <div>
           <p class="eyebrow mb-1">Your contact</p>
-          {contact.person ? <span>{contact.person}</span> : <Todo source="content/contact.md" inline>Name and title</Todo>}
+          {contact.person ? <span>{contact.person}</span> : <TODO source="content/contact.md" inline>Name and title</TODO>}
         </div>
         <div>
           <p class="eyebrow mb-1">Hours</p>
-          {contact.hours ? <span>{contact.hours}</span> : <Todo source="content/contact.md" inline>Office hours</Todo>}
+          {contact.hours ? <span>{contact.hours}</span> : <TODO source="content/contact.md" inline>Office hours</TODO>}
         </div>
       </div>
 
@@ -48,7 +48,7 @@ const label = 'flex flex-col gap-1.5 text-sm font-semibold text-muted';
         <label class:list={[label, 'sm:col-span-2']}>Message<textarea id="f-message" name="message" rows="4" class={field}></textarea></label>
         <button type="submit" class="btn btn-gold sm:col-span-2">Send request</button>
         <div class="sm:col-span-2">
-          <Todo source="Resend">Form not connected yet. It will send to {contact.email} through Resend once the server endpoint is approved.</Todo>
+          <TODO source="Resend">Form not connected yet. It will send to {contact.email} through Resend once the server endpoint is approved.</TODO>
         </div>
         <p id="f-status" class="text-sm font-semibold text-muted sm:col-span-2" role="status" hidden></p>
       </form>

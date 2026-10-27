@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import Todo from '../components/Todo.astro';
+import TODO from '../components/TODO.astro';
 import CtaBand from '../components/CtaBand.astro';
 
 const terms = ['Contract length', 'Notice period', 'Who contracts with you', 'Payment terms', 'Machine delivery and return'];
@@ -21,7 +21,7 @@ const terms = ['Contract length', 'Notice period', 'Who contracts with you', 'Pa
         {[2, 3, 4].map((n) => (
           <li class="panel flex flex-col gap-2 p-5">
             <span class="font-mono text-xs font-semibold text-accent">Step {n}</span>
-            <Todo source="content/contract-and-onboarding.md">Step title and description</Todo>
+            <TODO source="content/contract-and-onboarding.md">Step title and description</TODO>
           </li>
         ))}
       </ol>
@@ -37,7 +37,7 @@ const terms = ['Contract length', 'Notice period', 'Who contracts with you', 'Pa
             {terms.map((t) => (
               <tr class="border-b border-line last:border-0">
                 <th scope="row" class="w-1/3 px-5 py-4 font-semibold">{t}</th>
-                <td class="px-5 py-4"><Todo source="content/contract-and-onboarding.md" inline>to be provided</Todo></td>
+                <td class="px-5 py-4"><TODO source="content/contract-and-onboarding.md" inline>to be provided</TODO></td>
               </tr>
             ))}
           </tbody>

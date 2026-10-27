@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import Todo from '../components/Todo.astro';
+import TODO from '../components/TODO.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { pricing } from '../data/site';
 
@@ -32,7 +32,7 @@ const open = [
           {open.map((item) => (
             <li class="flex flex-col gap-1.5 border-b border-line pb-3 last:border-0 last:pb-0">
               <span class="font-medium">{item}</span>
-              <Todo source="content/pricing.md" inline>to be provided</Todo>
+              <TODO source="content/pricing.md" inline>to be provided</TODO>
             </li>
           ))}
         </ul>

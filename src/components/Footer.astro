@@ -1,6 +1,6 @@
 ---
 import { company, contact, nav } from '../data/site';
-import Todo from './Todo.astro';
+import TODO from './TODO.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-line bg-wash">
@@ -29,8 +29,8 @@ const year = new Date().getFullYear();
     <div class="container-page flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-muted">
       <span>© {year} {company.legalNames.join(' · ')}</span>
       <span class="flex flex-wrap gap-2">
-        <Todo source="legal" inline>Privacy policy</Todo>
-        <Todo source="legal" inline>Terms of use</Todo>
+        <TODO source="legal" inline>Privacy policy</TODO>
+        <TODO source="legal" inline>Terms of use</TODO>
       </span>
     </div>
   </div>

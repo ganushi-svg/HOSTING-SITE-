@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import Todo from '../components/Todo.astro';
+import TODO from '../components/TODO.astro';
 import CtaBand from '../components/CtaBand.astro';
 
 const groups = [
@@ -13,7 +13,7 @@ const groups = [
 ---
 <Base title="Services" description="What Segments Cloud mining hosting includes: power, cooling, operations and repair, and monitoring.">
   <PageHead eyebrow="Services" title="What hosting includes">
-    <Todo source="content/services.md">One-paragraph overview of the hosting service</Todo>
+    <TODO source="content/services.md">One-paragraph overview of the hosting service</TODO>
   </PageHead>
 
   <section class="section">
@@ -21,7 +21,7 @@ const groups = [
       {groups.map((g) => (
         <article id={g.id} class="panel flex scroll-mt-32 flex-col gap-3 p-6">
           <h2 class="text-xl font-bold">{g.title}</h2>
-          <Todo source="content/services.md">What is included under {g.title.toLowerCase()}</Todo>
+          <TODO source="content/services.md">What is included under {g.title.toLowerCase()}</TODO>
         </article>
       ))}
     </div>
