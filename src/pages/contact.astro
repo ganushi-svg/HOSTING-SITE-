@@ -46,11 +46,12 @@ const label = 'flex flex-col gap-1.5 text-sm font-semibold text-muted';
         <label class={label}>Number of machines<input id="f-qty" name="quantity" type="number" min="1" inputmode="numeric" class={field} /></label>
         <label class:list={[label, 'sm:col-span-2']}>Machine models<input id="f-models" name="models" placeholder="e.g. Antminer S21" class={field} /></label>
         <label class:list={[label, 'sm:col-span-2']}>Message<textarea id="f-message" name="message" rows="4" class={field}></textarea></label>
-        <button type="submit" class="btn btn-gold sm:col-span-2">Send request</button>
-        <div class="sm:col-span-2">
-          <TODO source="Resend">Form not connected yet. It will send to {contact.email} through Resend once the server endpoint is approved.</TODO>
+        <!-- Honeypot for spam bots; hidden from people and screen readers -->
+        <div class="hidden" aria-hidden="true">
+          <label>Website<input id="f-website" name="website" tabindex="-1" autocomplete="off" /></label>
         </div>
-        <p id="f-status" class="text-sm font-semibold text-muted sm:col-span-2" role="status" hidden></p>
+        <button id="f-submit" type="submit" class="btn btn-gold sm:col-span-2">Send request</button>
+        <p id="f-status" class="text-sm font-semibold sm:col-span-2" role="status" hidden></p>
       </form>
     </div>
   </section>
@@ -59,10 +60,40 @@ const label = 'flex flex-col gap-1.5 text-sm font-semibold text-muted';
 <script>
   const form = document.getElementById('enquiry') as HTMLFormElement | null;
   const status = document.getElementById('f-status');
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!form.reportValidity() || !status) return;
+  const submit = document.getElementById('f-submit') as HTMLButtonElement | null;
+
+  function show(message: string, ok: boolean) {
+    if (!status) return;
     status.hidden = false;
-    status.textContent = 'This form is not connected yet. Please email or call us using the details on this page.';
+    status.textContent = message;
+    status.classList.toggle('text-green-700', ok);
+    status.classList.toggle('dark:text-green-400', ok);
+    status.classList.toggle('text-red-700', !ok);
+    status.classList.toggle('dark:text-red-400', !ok);
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const data = Object.fromEntries(new FormData(form).entries());
+    if (submit) { submit.disabled = true; submit.textContent = 'Sending…'; }
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (res.ok && body.ok) {
+        form.reset();
+        show('Request sent. We will reply by email.', true);
+      } else {
+        show(body.error || 'We could not send your request. Please email or call us.', false);
+      }
+    } catch {
+      show('We could not send your request. Please email or call us.', false);
+    } finally {
+      if (submit) { submit.disabled = false; submit.textContent = 'Send request'; }
+    }
   });
 </script>

@@ -2,16 +2,17 @@
 import Base from '../layouts/Base.astro';
 import TODO from '../components/TODO.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { company, pricing } from '../data/site';
+import Photo from '../components/Photo.astro';
+import { company, pricing, services as svc, sites, photos } from '../data/site';
 
 // Labels only. Values come from content/performance.md when provided.
 const proof = ['Uptime', 'Machines hosted', 'Hosting clients', 'Power capacity'];
 // Groups approved in the page plan. Descriptions come from content/services.md.
 const services = [
-  { title: 'Power', href: '/services#power' },
-  { title: 'Cooling', href: '/services#cooling' },
-  { title: 'Operations and repair', href: '/services#operations' },
-  { title: 'Monitoring', href: '/services#monitoring' },
+  { title: 'Power', href: '/services#power', text: svc.power[0] },
+  { title: 'Cooling', href: '/services#cooling', text: 'Air-cooled halls, plus a hydro-cooled zone for hydro models.' },
+  { title: 'Operations and repair', href: '/services#operations', text: 'On-site technicians and in-house repair. You approve each repair quote.' },
+  { title: 'Monitoring', href: '/services#monitoring', text: 'Every machine tracked, and a monthly report with running days, energy and charge.' },
 ];
 ---
 <Base
@@ -67,7 +68,7 @@ const services = [
         {services.map((s) => (
           <a href={s.href} class="panel flex flex-col gap-3 p-5 text-ink no-underline transition-colors hover:border-accent">
             <h3 class="text-lg font-bold">{s.title}</h3>
-            <TODO source="content/services.md">Short description</TODO>
+            <p class="text-[0.9375rem] text-muted">{s.text}</p>
           </a>
         ))}
       </div>
@@ -80,12 +81,14 @@ const services = [
       <div class="flex flex-col gap-3">
         <p class="eyebrow">Sites</p>
         <h2 class="text-[1.75rem] font-bold">Where your machines run</h2>
-        <TODO source="content/sites.md">Areas, cooling types and capacity, at city or area level</TODO>
+        <p class="text-muted">{sites.activeCount} active hosting sites in the {company.serviceArea}, each with a site in-charge and on-site technicians.</p>
+        <ul class="flex flex-col gap-1.5 text-[0.9375rem]">
+          {sites.cooling.map((c) => <li class="flex gap-2"><span class="mt-2.5 h-1.5 w-1.5 flex-none rounded-full bg-accent"></span>{c}</li>)}
+        </ul>
+        <TODO source="content/sites.md">Power capacity per site</TODO>
         <a href="/sites" class="mt-2 font-semibold text-accent">See sites and infrastructure →</a>
       </div>
-      <div class="flex aspect-[4/3] max-w-full items-center justify-center rounded-[var(--radius-card)] border border-dashed border-line bg-panel p-6">
-        <TODO source="assets/photos">Real site photo</TODO>
-      </div>
+      <Photo photo={photos.hallFanWall} />
     </div>
   </section>
 

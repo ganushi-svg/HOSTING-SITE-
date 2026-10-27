@@ -9,11 +9,17 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/vercel": "11.0.16",
     "@tailwindcss/vite": "4.3.3",
     "astro": "7.4.1",
+    "resend": "6.35.0",
     "tailwindcss": "4.3.3"
   },
   "engines": {
     "node": ">=22.22.0"
+  },
+  "overrides": {
+    "path-to-regexp": "6.3.0",
+    "zod": "4.6.7"
   }
 }

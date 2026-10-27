@@ -3,21 +3,33 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import TODO from '../components/TODO.astro';
 import CtaBand from '../components/CtaBand.astro';
+import SampleReport from '../components/SampleReport.astro';
+import { services } from '../data/site';
 ---
-<Base title="Monitoring and reporting" description="How Segments Cloud hosting clients see their machines and receive reports.">
-  <PageHead eyebrow="Monitoring and reporting" title="See what your machines are doing">
-    <TODO source="content/services.md">What clients can see, and how often they receive reports</TODO>
-  </PageHead>
+<Base title="Monitoring and reporting" description="How Segments Cloud hosting clients see their machines, and a redacted sample of the monthly power and hosting report.">
+  <PageHead eyebrow="Monitoring and reporting" title="See what your machines are doing" lead="Every machine is tracked, and every charge on your invoice can be traced to a machine and a day." />
 
   <section class="section">
+    <div class="container-page grid gap-4 md:grid-cols-2">
+      {services.monitoring.map((m) => (
+        <div class="panel flex gap-3 p-5 text-[0.9375rem]">
+          <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-accent"></span><span>{m}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section bg-wash">
     <div class="container-page flex flex-col gap-6">
-      <div class="flex max-w-[62ch] flex-col gap-2">
+      <div class="flex max-w-[66ch] flex-col gap-2">
         <h2 class="text-[1.75rem] font-bold">Sample client report</h2>
-        <p class="text-muted">A real report with client names, wallet addresses, IP addresses and worker names removed.</p>
+        <p class="text-muted">
+          An extract from a real September 2026 report. Client name, worker IDs, serial numbers, asset tags, IP addresses,
+          pool addresses and site codes are removed, and charges are shown at today's published rate.
+        </p>
       </div>
-      <div class="flex aspect-[16/10] max-w-full items-center justify-center rounded-[var(--radius-card)] border border-dashed border-line bg-wash p-6">
-        <TODO source="assets/report-sample">Redacted report screenshot, reviewed by Ganushi before publishing</TODO>
-      </div>
+      <SampleReport />
+      <TODO source="assets/report-sample">Ganushi to approve this redacted extract before the site goes live</TODO>
     </div>
   </section>
 
