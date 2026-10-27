@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Todo from '../components/Todo.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const terms = ['Contract length', 'Notice period', 'Who contracts with you', 'Payment terms', 'Machine delivery and return'];
+---
+<Base title="How it works" description="Onboarding steps and contract terms for Segments Cloud mining hosting.">
+  <PageHead eyebrow="How it works" title="From first enquiry to running machines" />
+
+  <section class="section">
+    <div class="container-page flex flex-col gap-6">
+      <h2 class="text-[1.75rem] font-bold">Onboarding steps</h2>
+      <ol class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <li class="panel flex flex-col gap-2 p-5">
+          <span class="font-mono text-xs font-semibold text-accent">Step 1</span>
+          <h3 class="text-lg font-bold">Request a quote</h3>
+          <p class="text-sm text-muted">Send your machine models and quantity through the contact form.</p>
+        </li>
+        {[2, 3, 4].map((n) => (
+          <li class="panel flex flex-col gap-2 p-5">
+            <span class="font-mono text-xs font-semibold text-accent">Step {n}</span>
+            <Todo source="content/contract-and-onboarding.md">Step title and description</Todo>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section bg-wash">
+    <div class="container-page flex flex-col gap-6">
+      <h2 class="text-[1.75rem] font-bold">Contract terms</h2>
+      <div class="panel overflow-x-auto">
+        <table class="w-full min-w-[520px] border-collapse text-left text-[0.9375rem]">
+          <tbody>
+            {terms.map((t) => (
+              <tr class="border-b border-line last:border-0">
+                <th scope="row" class="w-1/3 px-5 py-4 font-semibold">{t}</th>
+                <td class="px-5 py-4"><Todo source="content/contract-and-onboarding.md" inline>to be provided</Todo></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

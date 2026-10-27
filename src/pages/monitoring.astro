@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Todo from '../components/Todo.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+<Base title="Monitoring and reporting" description="How Segments Cloud hosting clients see their machines and receive reports.">
+  <PageHead eyebrow="Monitoring and reporting" title="See what your machines are doing">
+    <Todo source="content/services.md">What clients can see, and how often they receive reports</Todo>
+  </PageHead>
+
+  <section class="section">
+    <div class="container-page flex flex-col gap-6">
+      <div class="flex max-w-[62ch] flex-col gap-2">
+        <h2 class="text-[1.75rem] font-bold">Sample client report</h2>
+        <p class="text-muted">A real report with client names, wallet addresses, IP addresses and worker names removed.</p>
+      </div>
+      <div class="flex aspect-[16/10] max-w-full items-center justify-center rounded-[var(--radius-card)] border border-dashed border-line bg-wash p-6">
+        <Todo source="assets/report-sample">Redacted report screenshot, reviewed by Ganushi before publishing</Todo>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

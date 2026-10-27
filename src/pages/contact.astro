@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Todo from '../components/Todo.astro';
+import { contact } from '../data/site';
+
+const field = 'w-full rounded-[var(--radius-btn)] border border-line bg-bg px-3 py-2.5 text-ink focus:border-accent focus:outline-none';
+const label = 'flex flex-col gap-1.5 text-sm font-semibold text-muted';
+---
+<Base title="Contact" description="Request a mining hosting quote from Segments Cloud.">
+  <PageHead eyebrow="Contact" title="Request a hosting quote" lead="Tell us about your fleet and we will reply with a quote." />
+
+  <section class="section">
+    <div class="container-page grid gap-6 md:grid-cols-[1fr_1.4fr]">
+      <div class="panel flex flex-col gap-5 p-6">
+        <div>
+          <p class="eyebrow mb-1">Office</p>
+          <address class="not-italic">{contact.office}</address>
+        </div>
+        <div>
+          <p class="eyebrow mb-1">Email</p>
+          <span class="select-all font-medium">{contact.email}</span>
+        </div>
+        <div>
+          <p class="eyebrow mb-1">Phone</p>
+          <span class="select-all font-medium">{contact.phone}</span>
+        </div>
+        <div>
+          <p class="eyebrow mb-1">WhatsApp</p>
+          {contact.whatsapp ? <span class="select-all font-medium">{contact.whatsapp}</span> : <Todo source="content/contact.md" inline>WhatsApp number</Todo>}
+        </div>
+        <div>
+          <p class="eyebrow mb-1">Your contact</p>
+          {contact.person ? <span>{contact.person}</span> : <Todo source="content/contact.md" inline>Name and title</Todo>}
+        </div>
+        <div>
+          <p class="eyebrow mb-1">Hours</p>
+          {contact.hours ? <span>{contact.hours}</span> : <Todo source="content/contact.md" inline>Office hours</Todo>}
+        </div>
+      </div>
+
+      <form id="enquiry" class="panel grid gap-4 p-6 sm:grid-cols-2" novalidate>
+        <label class={label}>Full name<input id="f-name" name="name" required autocomplete="name" class={field} /></label>
+        <label class={label}>Company<input id="f-company" name="company" autocomplete="organization" class={field} /></label>
+        <label class={label}>Email<input id="f-email" name="email" type="email" required autocomplete="email" class={field} /></label>
+        <label class={label}>Number of machines<input id="f-qty" name="quantity" type="number" min="1" inputmode="numeric" class={field} /></label>
+        <label class:list={[label, 'sm:col-span-2']}>Machine models<input id="f-models" name="models" placeholder="e.g. Antminer S21" class={field} /></label>
+        <label class:list={[label, 'sm:col-span-2']}>Message<textarea id="f-message" name="message" rows="4" class={field}></textarea></label>
+        <button type="submit" class="btn btn-gold sm:col-span-2">Send request</button>
+        <div class="sm:col-span-2">
+          <Todo source="Resend">Form not connected yet. It will send to {contact.email} through Resend once the server endpoint is approved.</Todo>
+        </div>
+        <p id="f-status" class="text-sm font-semibold text-muted sm:col-span-2" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('enquiry') as HTMLFormElement | null;
+  const status = document.getElementById('f-status');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity() || !status) return;
+    status.hidden = false;
+    status.textContent = 'This form is not connected yet. Please email or call us using the details on this page.';
+  });
+</script>

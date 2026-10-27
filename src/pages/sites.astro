@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Todo from '../components/Todo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { company } from '../data/site';
+---
+<Base title="Sites and infrastructure" description={`Segments Cloud hosting sites in the ${company.serviceArea}: locations, cooling and capacity.`}>
+  <PageHead eyebrow="Sites and infrastructure" title={`Our hosting sites in the ${company.serviceArea}`}>
+    <Todo source="content/sites.md">Short overview of the sites</Todo>
+  </PageHead>
+
+  <section class="section">
+    <div class="container-page flex flex-col gap-6">
+      <h2 class="text-[1.75rem] font-bold">Sites</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        {[1, 2, 3].map(() => (
+          <article class="panel flex flex-col gap-3 p-5">
+            <Todo source="content/sites.md">Area (city or area level only), cooling type, capacity if approved for publishing</Todo>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-wash">
+    <div class="container-page flex flex-col gap-6">
+      <h2 class="text-[1.75rem] font-bold">Photos and video</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {[1, 2, 3].map(() => (
+          <div class="flex aspect-[4/3] max-w-full items-center justify-center rounded-[var(--radius-card)] border border-dashed border-line bg-panel p-6">
+            <Todo source="assets/photos">Real site photo with alt text</Todo>
+          </div>
+        ))}
+      </div>
+      <Todo source="assets/photos">Site video</Todo>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

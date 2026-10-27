@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Todo from '../components/Todo.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const groups = [
+  { id: 'power', title: 'Power' },
+  { id: 'cooling', title: 'Cooling' },
+  { id: 'operations', title: 'Operations and repair' },
+  { id: 'monitoring', title: 'Monitoring' },
+];
+---
+<Base title="Services" description="What Segments Cloud mining hosting includes: power, cooling, operations and repair, and monitoring.">
+  <PageHead eyebrow="Services" title="What hosting includes">
+    <Todo source="content/services.md">One-paragraph overview of the hosting service</Todo>
+  </PageHead>
+
+  <section class="section">
+    <div class="container-page grid gap-4 md:grid-cols-2">
+      {groups.map((g) => (
+        <article id={g.id} class="panel flex scroll-mt-32 flex-col gap-3 p-6">
+          <h2 class="text-xl font-bold">{g.title}</h2>
+          <Todo source="content/services.md">What is included under {g.title.toLowerCase()}</Todo>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

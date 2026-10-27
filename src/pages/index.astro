@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import Todo from '../components/Todo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { company, pricing } from '../data/site';
+
+// Labels only. Values come from content/performance.md when provided.
+const proof = ['Uptime', 'Machines hosted', 'Hosting clients', 'Power capacity'];
+// Groups approved in the page plan. Descriptions come from content/services.md.
+const services = [
+  { title: 'Power', href: '/services#power' },
+  { title: 'Cooling', href: '/services#cooling' },
+  { title: 'Operations and repair', href: '/services#operations' },
+  { title: 'Monitoring', href: '/services#monitoring' },
+];
+---
+<Base
+  title={company.brand}
+  description={`Bitcoin mining hosting in the ${company.serviceArea} at ${pricing.rateLabel} per kWh. Request a hosting quote from ${company.brand}.`}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-band-1 via-band-2 to-band-3 text-band-ink">
+    <div class="container-page grid items-center gap-10 py-14 md:grid-cols-[1.25fr_1fr] md:py-20">
+      <div class="flex flex-col gap-5">
+        <p class="eyebrow !text-gold">Bitcoin mining hosting · {company.serviceArea}</p>
+        <h1 class="text-[clamp(2.2rem,5.4vw,3.25rem)] font-bold">Hosting for your mining machines in the {company.serviceArea}</h1>
+        <p class="max-w-[54ch] text-lg text-band-muted">
+          {company.brand} hosts mining machines for owners, funds and fleet operators. Tell us about your fleet and we will send you a quote.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/contact" class="btn btn-gold">Request a quote</a>
+          <a href="/pricing" class="btn !border-white/30 !bg-transparent !text-band-ink">See pricing</a>
+        </div>
+      </div>
+      <aside class="rounded-[20px] border border-white/15 bg-white/5 p-6" aria-label="Hosting rate">
+        <p class="eyebrow !text-gold">Hosting rate</p>
+        <p class="mt-3 font-display text-[clamp(2.6rem,6vw,3.4rem)] font-bold leading-none tracking-tight">
+          {pricing.rateLabel}<span class="ml-2 text-lg font-medium text-band-muted">per kWh</span>
+        </p>
+        <div class="mt-5 border-t border-white/15 pt-4">
+          <Todo source="content/pricing.md">What the rate includes</Todo>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Proof strip -->
+  <section class="border-b border-line bg-wash" aria-label="Performance">
+    <div class="container-page grid grid-cols-2 gap-4 py-8 md:grid-cols-4">
+      {proof.map((label) => (
+        <div class="panel flex min-w-0 flex-col gap-2 p-5">
+          <span class="text-sm text-muted">{label}</span>
+          <Todo source="content/performance.md" inline>value</Todo>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Services summary -->
+  <section class="section">
+    <div class="container-page flex flex-col gap-8">
+      <div class="flex max-w-[62ch] flex-col gap-2">
+        <p class="eyebrow">Services</p>
+        <h2 class="text-[1.75rem] font-bold">What hosting covers</h2>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {services.map((s) => (
+          <a href={s.href} class="panel flex flex-col gap-3 p-5 text-ink no-underline transition-colors hover:border-accent">
+            <h3 class="text-lg font-bold">{s.title}</h3>
+            <Todo source="content/services.md">Short description</Todo>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sites teaser -->
+  <section class="section bg-wash">
+    <div class="container-page grid items-center gap-8 md:grid-cols-2">
+      <div class="flex flex-col gap-3">
+        <p class="eyebrow">Sites</p>
+        <h2 class="text-[1.75rem] font-bold">Where your machines run</h2>
+        <Todo source="content/sites.md">Areas, cooling types and capacity, at city or area level</Todo>
+        <a href="/sites" class="mt-2 font-semibold text-accent">See sites and infrastructure →</a>
+      </div>
+      <div class="flex aspect-[4/3] max-w-full items-center justify-center rounded-[var(--radius-card)] border border-dashed border-line bg-panel p-6">
+        <Todo source="assets/photos">Real site photo</Todo>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
