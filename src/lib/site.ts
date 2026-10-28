@@ -47,12 +47,54 @@ export const capacity = {
   totalMw: 45,
 };
 
+export const quality = {
+  // content/quality.md
+  airReport: { visits: 3, manDays: 13, giFilters: 272, disposableFilters: 272, month: "August 2026" },
+  airWork: [
+    "Mesh (GI) pre-filters and disposable intake filters cleaned, then replaced the next day.",
+    "Floors cleaned across the data center, warehouse and office areas.",
+    "Fan motors fixed and pipes cleaned.",
+  ],
+  hydroSteps: [
+    { title: "Walk-around", text: "Look, listen and smell for drips, new noises and alarms." },
+    { title: "Record the numbers", text: "Temperatures, pressures and coolant flow, compared with last week." },
+    { title: "Sump check", text: "Spray-water level, clarity and dissolved solids." },
+    { title: "Pump filter", text: "Spray-pump suction filter washed and refitted." },
+    { title: "Louvres and grilles", text: "Air inlets brushed clear of desert dust." },
+    { title: "Nozzles", text: "Every spray nozzle checked for a full, even cone." },
+    { title: "Inside the container", text: "Hoses, quick-connects, leak-detection belt and pumps." },
+    { title: "Coolant reserve", text: "Make-up tank level on the sight glass." },
+    { title: "Coil and close-out", text: "Coil checked for scale, log signed and photographed." },
+  ],
+  hydroTargets: [
+    { label: "Coolant flow", value: "≥ 85 m³/h" },
+    { label: "Return pressure", value: "> 0.05 MPa" },
+    { label: "Make-up tank", value: "≥ 2/3 full" },
+  ],
+  coolant: [
+    { check: "Water used", target: "Distilled or deionised only, never tap water" },
+    { check: "Visual and level", target: "Weekly: no rust, sediment or algae; top up with the same coolant only" },
+    { check: "pH", target: "7.0 to 9.0" },
+    { check: "Conductivity", target: "Under 5 µS/cm for deionised water" },
+    { check: "Glycol mix", target: "30 to 50% (refractometer)" },
+    { check: "Tubing and fittings", target: "Quarterly check for corrosion, leaks and deposits" },
+    { check: "Flush", target: "When coolant is over 6 months old or contaminated" },
+  ],
+  schedule: [
+    { when: "Daily", what: "Water levels and readings checked" },
+    { when: "Weekly", what: "The nine-step cleaning and inspection routine, with a signed log" },
+    { when: "Every 6 months", what: "Coolant pH test and pipe leak survey" },
+    { when: "Yearly", what: "Coolant lab test before summer" },
+  ],
+};
+
 export const nav = [
   { href: "/services", label: "Services" },
   { href: "/models", label: "Models" },
   { href: "/pricing", label: "Pricing" },
   { href: "/turnkey", label: "Turnkey" },
   { href: "/sites", label: "Sites" },
+  { href: "/quality", label: "Quality" },
   { href: "/monitoring", label: "Monitoring" },
   { href: "/how-it-works", label: "How it works" },
 ];
@@ -73,6 +115,12 @@ export const photos = {
   powerDistribution: { src: "/photos/power-distribution-1600.webp", w: 1280, h: 720, alt: "Wall-mounted electrical distribution boards with breakers and indicator lights", caption: "Power distribution boards for a hall, September 2025" },
   hallFanWall: { src: "/photos/hall-fan-wall-1600.webp", w: 1600, h: 1200, alt: "Row of large exhaust fans along the wall of an air-cooled mining hall", caption: "Exhaust fan wall in an air-cooled hall, August 2025" },
   siteExterior: { src: "/photos/site-exterior-1600.webp", w: 960, h: 1280, alt: "Arched mining halls on open desert ground at a Segments Cloud site", caption: "Mining halls at a UAE site, September 2025" },
+  qcNewFiltersWall: { src: "/photos/qc-new-filters-wall-1600.webp", w: 1200, h: 1600, alt: "Wall of new blue disposable air filters in a diamond frame along a hall's air intake", caption: "New intake filters fitted along a hall wall, October 2026" },
+  qcNewFiltersAisle: { src: "/photos/qc-new-filters-aisle-1600.webp", w: 1600, h: 1200, alt: "Long corridor lined with fresh blue intake filters", caption: "Fresh filters along an intake corridor, October 2026" },
+  qcMeshPrefilters: { src: "/photos/qc-mesh-prefilters-1600.webp", w: 1200, h: 1600, alt: "Steel frame holding mesh pre-filters in front of a hall's intake wall", caption: "Mesh pre-filters in front of the intake wall, October 2026" },
+  qcMeshOutdoor: { src: "/photos/qc-mesh-outdoor-1600.webp", w: 1600, h: 1200, alt: "Outdoor intake wall covered with mesh filter panels beside palm trees", caption: "Outdoor mesh pre-filter wall, October 2026" },
+  qcFiltersReplaced: { src: "/photos/qc-filters-replaced-1600.webp", w: 1200, h: 1600, alt: "Used filter frames leaning against a wall after removal", caption: "Used filter frames taken out for replacement, October 2026" },
+  qcCleanHall: { src: "/photos/qc-clean-hall-1600.webp", w: 860, h: 1600, alt: "Clean, empty hall floor in front of mesh filter walls", caption: "Hall floor after cleaning, October 2026" },
   hydroPumps: { src: "/photos/hydro-pumps-1600.webp", w: 1280, h: 961, alt: "Water tank with two pumps and pipework beside a hall wall at night", caption: "Pumps and tank for a hydro-cooled hall, September 2025" }, // TODO: confirm caption (content/sites.md)
 } satisfies Record<string, Photo>;
 

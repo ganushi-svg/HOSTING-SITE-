@@ -23,6 +23,7 @@ Read these before writing or changing any page. If a fact is not in these files,
 - `content/contract-and-onboarding.md` - contract terms and onboarding steps
 - `content/sites.md` - sites, capacity, cooling
 - `content/models.md` - machine models, nameplate power, algorithm
+- `content/quality.md` - quality team, maintenance routines and standards
 - `content/performance.md` - real uptime and client numbers
 - `content/contact.md` - address, phone, email, WhatsApp
 - `content/references.md` - 2-3 websites I like, for layout and tone only
@@ -42,6 +43,7 @@ Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and
 7. Contact: enquiry form and contact details
 8. Models: one page per machine model (featured: Antminer Z15 Pro), from `content/models.md`
 9. Turnkey: turnkey solution pricing and enquiry, from `content/pricing.md`
+10. Quality: the dedicated quality team for sites and machines, from `content/quality.md`
 
 ## Stack
 - Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.

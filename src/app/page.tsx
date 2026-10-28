@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Building2, Check, CircleHelp, Cpu, Droplets, Fan, FileBarChart, Gauge, MessageCircle, ShieldCheck, Wrench, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Building2, Check, ClipboardCheck, CircleHelp, Cpu, Droplets, Fan, FileBarChart, Gauge, MessageCircle, ShieldCheck, Wrench, Zap } from "lucide-react";
 import { FacilityVisual } from "@/components/FacilityVisual";
 import { Reveal } from "@/components/Reveal";
 import { LeadForm } from "@/components/LeadForm";
 import { ModelCard } from "@/components/ModelCard";
 import { SitePhoto } from "@/components/SitePhoto";
 import { TODO } from "@/components/TODO";
-import { capacity, contact, faqs, photos, pricing, site, sites } from "@/lib/site";
+import { capacity, contact, faqs, photos, pricing, quality, site, sites } from "@/lib/site";
 import { getModel, models, type Model } from "@/lib/models";
 
 const modelCount = models.length;
@@ -138,6 +138,26 @@ export default function Home() {
             <p><Link href="/sites" className="text-link">See our sites and photos <ArrowRight size={18} aria-hidden="true" /></Link></p>
           </Reveal>
           <Reveal delay={0.1} className="infra-photo"><SitePhoto photo={photos.finishedHallAisle} sizes="(min-width: 880px) 40vw, 100vw" /></Reveal>
+        </div>
+      </section>
+
+      <section className="section section-alt" id="quality" aria-labelledby="quality-title">
+        <div className="container quality-band">
+          <Reveal>
+            <span className="section-kicker">Quality control</span>
+            <h2 id="quality-title">A dedicated team for <span>sites and machines.</span></h2>
+            <p className="section-lede">Intake filters cleaned and replaced, a nine-step weekly inspection on every hydro container, coolant tested against set standards, and every job tracked until it is closed.</p>
+            <ul className="check-list" style={{ marginTop: 18 }}>
+              <li><ClipboardCheck size={17} aria-hidden="true" /> {quality.airReport.giFilters + quality.airReport.disposableFilters} intake filters serviced at one site in {quality.airReport.month}</li>
+              <li><ClipboardCheck size={17} aria-hidden="true" /> Coolant pH kept between 7.0 and 9.0, deionised water only</li>
+              <li><ClipboardCheck size={17} aria-hidden="true" /> Signed, photographed log after every weekly inspection</li>
+            </ul>
+            <p><Link href="/quality" className="text-link">How our quality team works <ArrowRight size={18} aria-hidden="true" /></Link></p>
+          </Reveal>
+          <Reveal delay={0.1} className="quality-band-photos">
+            <SitePhoto photo={photos.qcNewFiltersWall} crop sizes="(min-width: 880px) 22vw, 50vw" />
+            <SitePhoto photo={photos.qcMeshPrefilters} crop sizes="(min-width: 880px) 22vw, 50vw" />
+          </Reveal>
         </div>
       </section>
 
