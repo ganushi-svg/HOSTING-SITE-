@@ -12,7 +12,7 @@ export function SampleReport() {
           <p className="report-period">Period: {reportMeta.period}</p>
         </div>
         <dl>
-          <dt>Hosting rate</dt><dd>${reportMeta.rate.toFixed(3)} / kWh</dd>
+          <dt>Example rate</dt><dd>${reportMeta.rate.toFixed(3)} / kWh</dd>
           <dt>Billing hours / day</dt><dd>{reportMeta.billingHours}</dd>
         </dl>
       </div>

@@ -22,7 +22,7 @@ export default function ContactPage() {
             <div><MapPin size={19} aria-hidden="true" /><span><small>Office</small><address style={{ fontStyle: "normal" }}>{contact.office}</address></span></div>
             <div><Mail size={19} aria-hidden="true" /><span><small>Email</small><span className="selectable">{contact.email}</span></span></div>
             <div><Phone size={19} aria-hidden="true" /><span><small>Phone</small><span className="selectable">{contact.phone}</span></span></div>
-            <div><MessageCircle size={19} aria-hidden="true" /><span><small>WhatsApp</small>{contact.whatsapp ? <span className="selectable">{contact.whatsapp}</span> : <TODO source="content/contact.md" inline>WhatsApp number</TODO>}</span></div>
+            <div><MessageCircle size={19} aria-hidden="true" /><span><small>WhatsApp</small>{contact.whatsapp ? <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">{contact.whatsapp}</a> : <TODO source="content/contact.md" inline>WhatsApp number</TODO>}</span></div>
             <div><User size={19} aria-hidden="true" /><span><small>Your contact</small>{contact.person ? <span>{contact.person}</span> : <TODO source="content/contact.md" inline>Name and title</TODO>}</span></div>
             <div><Clock size={19} aria-hidden="true" /><span><small>Hours</small>{contact.hours ? <span>{contact.hours}</span> : <TODO source="content/contact.md" inline>Office hours</TODO>}</span></div>
           </div>

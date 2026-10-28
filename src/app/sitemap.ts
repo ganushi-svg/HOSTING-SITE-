@@ -1,10 +1,14 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
+import { models } from "@/lib/models";
 
 const routes: { path: string; priority: number }[] = [
   { path: "", priority: 1 },
   { path: "/services", priority: 0.8 },
+  { path: "/models", priority: 0.8 },
+  ...models.map((m) => ({ path: `/models/${m.slug}`, priority: m.featured ? 0.8 : 0.6 })),
   { path: "/pricing", priority: 0.9 },
+  { path: "/turnkey", priority: 0.8 },
   { path: "/sites", priority: 0.8 },
   { path: "/monitoring", priority: 0.7 },
   { path: "/how-it-works", priority: 0.7 },

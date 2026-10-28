@@ -12,7 +12,7 @@ export function Footer() {
             <Image src="/logo-mark.webp" width={26} height={30} alt="" />
             <span className="brand-text">{site.name}</span>
           </Link>
-          <p>Bitcoin mining hosting in the {site.serviceArea}.</p>
+          <p>Mining hosting and turnkey capacity in the {site.serviceArea}.</p>
           <address className="footer-small">{contact.office}</address>
         </div>
         <div>
@@ -26,6 +26,7 @@ export function Footer() {
           <strong>Contact</strong>
           <span className="selectable">{contact.email}</span>
           <span className="selectable">{contact.phone}</span>
+          {contact.whatsapp && <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>}
           <Link href="/privacy">Privacy notice (draft)</Link>
           <span>Terms of use <TODO source="legal" inline>Terms of use</TODO></span>
         </div>

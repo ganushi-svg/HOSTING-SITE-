@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { contact, site } from "@/lib/site";
 import { Nav } from "@/components/Nav";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <Nav />
         {children}
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );

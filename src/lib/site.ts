@@ -9,7 +9,7 @@ export const site = {
   legalNames: ["Segments Cloud Computing LLC", "Segments Cloud Electronics LLC"], // TODO: confirm which entity contracts with hosting clients (CLAUDE.md)
   serviceArea: "UAE", // content/contact.md
   description:
-    "Bitcoin mining hosting in the UAE at $0.060 per kWh: air and hydro-cooled halls, in-house repair and a per-machine monthly power report.",
+    "ASIC mining hosting in the UAE: 45 MW of operating capacity, plug and play hosting from $0.058 per kWh, turnkey builds, air and hydro-cooled halls, in-house repair and monthly power reports.",
   // TODO: set NEXT_PUBLIC_SITE_URL to the real domain once approved (CLAUDE.md › Domain)
   url: (process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || "http://localhost:3000").replace(/\/$/, ""),
   // Keep the preview out of search engines until management approves the launch.
@@ -21,20 +21,37 @@ export const contact = {
   office: "Office 2712, Concord Tower, Media City, Dubai",
   email: "ganushi@segments.ae",
   phone: "+971 54 211 9496",
-  whatsapp: null as string | null, // TODO: content/contact.md
+  whatsapp: "+971 54 211 9496" as string | null,
+  whatsappUrl: "https://wa.me/971542119496",
   person: null as string | null, // TODO: content/contact.md
   hours: null as string | null, // TODO: content/contact.md
 };
 
 export const pricing = {
-  // content/pricing.md
-  ratePerKwhUsd: 0.06,
-  rateLabel: "$0.060",
+  // content/pricing.md › Plug and play hosting
+  plugFromUsd: 0.058,
+  plugToUsd: 0.068,
+  plugFromLabel: "$0.058",
+  plugRangeLabel: "$0.058 – $0.068",
+  // content/pricing.md › Turnkey solution
+  turnkeyPowerFromUsd: 0.039,
+  turnkeyPowerFromLabel: "$0.039",
+  turnkeyCapexPerMwUsd: 300_000,
+  turnkeyCapexPerMwLabel: "USD 300,000",
+  // Rate used to recalculate the sample report: an example inside the plug and play range.
+  sampleRateUsd: 0.06,
+};
+
+export const capacity = {
+  // content/performance.md
+  totalMw: 45,
 };
 
 export const nav = [
   { href: "/services", label: "Services" },
+  { href: "/models", label: "Models" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/turnkey", label: "Turnkey" },
   { href: "/sites", label: "Sites" },
   { href: "/monitoring", label: "Monitoring" },
   { href: "/how-it-works", label: "How it works" },
@@ -72,12 +89,13 @@ export const services = {
     "A monthly power and hosting report with running days, energy and charge for each machine.",
     "A repair log showing every stage of each repair.",
   ],
-  modelsAir: ["Antminer S21 XP", "S21+", "S21", "S19 XP", "L9", "L7", "D9", "KS5", "Whatsminer M30S++", "IceRiver AL3"],
+  modelsAir: ["Antminer Z15 Pro", "S21 XP", "S21+", "S21", "S19 XP", "L9", "L7", "D9", "KS5", "Whatsminer M30S++", "IceRiver AL3"],
   modelsHydro: ["Antminer S21 XP Hydro", "S21+ Hydro", "S21 Hydro", "S19 XP Hydro", "S19 Pro+ Hydro", "S19 Pro Hydro"],
 };
 
 export const billing = [
   // content/pricing.md › How the charge is calculated
+  "Plug and play rate from $0.058 to $0.068 per kWh, set by the number of machines you host.",
   "Charge per machine = watts × 24 hours × running days ÷ 1,000 × rate.",
   "Running days come from your pool data: an offline machine counts up to its last share.",
   "Days a machine is offline are not charged.",
@@ -95,12 +113,17 @@ export const faqs = [
   {
     question: "How is my hosting charge calculated?",
     answer:
-      "Each machine is billed at $0.060 per kWh: watts × 24 hours × running days ÷ 1,000 × rate. Running days come from your pool data, and days a machine is offline are not charged.",
+      "Plug and play hosting costs $0.058 to $0.068 per kWh depending on how many machines you host. Each machine is billed as watts × 24 hours × running days ÷ 1,000 × rate. Running days come from your pool data, and days a machine is offline are not charged.",
   },
   {
     question: "Which machines can you host?",
     answer:
-      "We run air-cooled models such as the Antminer S21 series, S19 XP, L9, L7, D9 and KS5, and hydro models such as the S21 XP Hydro and S21+ Hydro. Ask us about any model not listed.",
+      "We run air-cooled models such as the Antminer Z15 Pro, S21 series, S19 XP, L9, L7, D9 and KS5, and hydro models such as the S21 XP Hydro and S21+ Hydro. Each has its own page under Models. Ask us about any model not listed.",
+  },
+  {
+    question: "What is the turnkey solution?",
+    answer:
+      "A dedicated build for larger fleets, with power from $0.039 per kWh and capex of USD 300,000 per MW. See the Turnkey page for details and ask us for a proposal.",
   },
   {
     question: "What happens when a machine breaks?",

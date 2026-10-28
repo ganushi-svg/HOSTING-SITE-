@@ -1,15 +1,16 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check, CircleHelp, Droplets, Fan, FileBarChart, Gauge, Mail, ShieldCheck, Wrench, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Building2, Check, CircleHelp, Cpu, Droplets, Fan, FileBarChart, Gauge, MessageCircle, ShieldCheck, Wrench, Zap } from "lucide-react";
 import { FacilityVisual } from "@/components/FacilityVisual";
 import { Reveal } from "@/components/Reveal";
 import { LeadForm } from "@/components/LeadForm";
 import { SitePhoto } from "@/components/SitePhoto";
 import { TODO } from "@/components/TODO";
-import { faqs, photos, pricing, site, sites } from "@/lib/site";
+import { capacity, contact, faqs, photos, pricing, site, sites } from "@/lib/site";
 
 // Every line below traces to content/ (see src/lib/site.ts for the source of each fact).
 const trust = [
-  `${pricing.rateLabel} per kWh`,
+  `${capacity.totalMw} MW operating capacity`,
+  `Hosting from ${pricing.plugFromLabel} per kWh`,
   "Billed only on days your machines run",
   "Air and hydro-cooled halls",
   "In-house repair center",
@@ -19,13 +20,15 @@ const services = [
   { n: "01", icon: Zap, title: "Power and cooling", text: "Power tracked per site and zone, air-cooled halls, and a hydro-cooled zone for hydro models.", href: "/services#power" },
   { n: "02", icon: Wrench, title: "Operations and repair", text: "On-site technicians and in-house repair. You approve each repair quote before work starts.", href: "/services#operations" },
   { n: "03", icon: FileBarChart, title: "Monitoring and reporting", text: "Every machine tracked, and a monthly report with running days, energy and charge per machine.", href: "/monitoring" },
-  { n: "04", icon: Gauge, title: "Simple pricing", text: `One rate of ${pricing.rateLabel} per kWh, charged only for the days each machine runs.`, href: "/pricing" },
+  { n: "04", icon: Gauge, title: "Plug and play pricing", text: `${pricing.plugRangeLabel} per kWh depending on quantity, charged only for the days each machine runs.`, href: "/pricing" },
+  { n: "05", icon: Cpu, title: "Every major model", text: "Z15 Pro, S21 series, L9, KS5, hydro models and more, each with its own hosting page.", href: "/models" },
+  { n: "06", icon: Building2, title: "Turnkey solution", text: `Capacity built for your fleet, with power from ${pricing.turnkeyPowerFromLabel} per kWh.`, href: "/turnkey" },
 ];
 
 const pillars = [
-  { icon: Fan, eyebrow: "AIR", title: "Air-cooled halls", text: "Exhaust-fan halls for air-cooled ASICs such as the Antminer S21 series, L9 and KS5." },
+  { icon: Fan, eyebrow: "AIR", title: "Air-cooled halls", text: "Exhaust-fan halls for air-cooled ASICs such as the Antminer Z15 Pro, S21 series, L9 and KS5." },
   { icon: Droplets, eyebrow: "HYDRO", title: "Hydro-cooled zone", text: "A dedicated zone for hydro models such as the S21 XP Hydro and S21+ Hydro." },
-  { icon: Zap, eyebrow: "POWER", title: "Capacity tracked", text: "Load is read from the fleet platform before new machines are placed." },
+  { icon: Zap, eyebrow: "POWER", title: `${capacity.totalMw} MW operating`, text: "Load is read from the fleet platform before new machines are placed." },
   { icon: Wrench, eyebrow: "REPAIR", title: "In-house repair", text: "Pickup, diagnosis, quote and repair at the Segments repair center." },
 ];
 
@@ -37,7 +40,7 @@ export default function Home() {
         <div className="hero-glow" aria-hidden="true" />
         <div className="container hero-container">
           <div className="hero-copy">
-            <div className="eyebrow"><span className="pulse-dot" aria-hidden="true" /> Bitcoin mining hosting · {site.serviceArea} <span className="eyebrow-line" aria-hidden="true" /></div>
+            <div className="eyebrow"><span className="pulse-dot" aria-hidden="true" /> ASIC mining hosting · {site.serviceArea} <span className="eyebrow-line" aria-hidden="true" /></div>
             <h1>Hosting for your <em>mining machines</em> in the {site.serviceArea}.</h1>
             <p className="hero-sub">{site.name} hosts ASIC miners for owners, funds and fleet operators. Tell us about your fleet and we will send you a quote.</p>
             <div className="hero-actions">
@@ -45,9 +48,10 @@ export default function Home() {
               <Link href="/pricing" className="button button-outline">See pricing <ArrowRight size={18} aria-hidden="true" /></Link>
             </div>
             <ul className="hero-facts">
-              <li><span className="tiny-diamond" aria-hidden="true" /> <b>{pricing.rateLabel}</b> per kWh</li>
+              <li><span className="tiny-diamond" aria-hidden="true" /> <b>{capacity.totalMw} MW</b> operating</li>
+              <li><span className="tiny-diamond" aria-hidden="true" /> From <b>{pricing.plugFromLabel}</b> per kWh</li>
               <li><span className="tiny-diamond" aria-hidden="true" /> Air + hydro cooling</li>
-              <li><span className="tiny-diamond" aria-hidden="true" /> In-house repair</li>
+              <li><span className="tiny-diamond" aria-hidden="true" /> Turnkey from <b>{pricing.turnkeyPowerFromLabel}</b></li>
             </ul>
           </div>
           <div className="hero-visual"><FacilityVisual /></div>
@@ -69,10 +73,11 @@ export default function Home() {
             </div>
           </Reveal>
           <div className="stat-grid">
+            <div className="stat"><span className="stat-value">{capacity.totalMw} MW</span><span className="stat-label">Operating power capacity</span></div>
             <div className="stat"><span className="stat-value">{sites.activeCount}</span><span className="stat-label">Active hosting sites in the {site.serviceArea}</span></div>
             <div className="stat"><span className="stat-label">Uptime</span><TODO source="content/performance.md" inline>value</TODO></div>
             <div className="stat"><span className="stat-label">Machines hosted</span><TODO source="content/performance.md" inline>value</TODO></div>
-            <div className="stat"><span className="stat-label">Power capacity</span><TODO source="content/performance.md" inline>value</TODO></div>
+
           </div>
         </div>
       </section>
@@ -170,9 +175,9 @@ export default function Home() {
               <h2 id="quote-title">Ready to host <span>your miners?</span></h2>
               <p>Tell us what you want to host. We reply by email with a quote for your fleet.</p>
               <ul className="contact-points">
-                <li><Check size={18} aria-hidden="true" /> {pricing.rateLabel} per kWh, billed on running days</li>
+                <li><Check size={18} aria-hidden="true" /> From {pricing.plugFromLabel} per kWh, billed on running days</li>
                 <li><Check size={18} aria-hidden="true" /> Air and hydro-cooled halls</li>
-                <li><Mail size={18} aria-hidden="true" /> Or email us directly from the contact page</li>
+                {contact.whatsapp && <li><MessageCircle size={18} aria-hidden="true" /> <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp {contact.whatsapp}</a></li>}
               </ul>
             </div>
           </Reveal>

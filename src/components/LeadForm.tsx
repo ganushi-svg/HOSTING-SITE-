@@ -6,7 +6,7 @@ import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
 type State = "idle" | "sending" | "success" | "error";
 
-export function LeadForm() {
+export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
   const [status, setStatus] = useState<State>("idle");
   const [message, setMessage] = useState("");
 
@@ -53,7 +53,7 @@ export function LeadForm() {
           </select>
         </label>
       </div>
-      <label>Machine models<input id="lf-models" name="models" maxLength={200} placeholder="e.g. Antminer S21+, L9" /></label>
+      <label>Machine models<input id="lf-models" name="models" maxLength={200} defaultValue={defaultModels} placeholder="e.g. Antminer Z15 Pro, S21+" /></label>
       <label>Message<textarea id="lf-notes" name="notes" rows={4} maxLength={4000} placeholder="Timeline, cooling preference, questions" /></label>
       <div className="hp-field" aria-hidden="true"><label>Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
       <label className="consent">

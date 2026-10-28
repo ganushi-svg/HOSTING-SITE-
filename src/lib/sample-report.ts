@@ -1,14 +1,14 @@
 // Redacted extract of a real client report (content/services.md › Monitoring).
 // Source: Drive › September 2026 power and hosting report, Sheet 1, first two rows.
 // Removed: client name, worker IDs, serial numbers, asset tags, IP addresses, pool addresses, site codes.
-// Charges recalculated at the published rate (content/pricing.md); watts and days are as reported.
+// Charges recalculated at an example rate inside the plug and play range (content/pricing.md); watts and days are as reported.
 import { pricing } from "./site";
 
 export const reportMeta = {
   title: "Monthly power and hosting report",
   period: "01 Sep – 30 Sep 2026 (30 days)",
   billingHours: 24,
-  rate: pricing.ratePerKwhUsd,
+  rate: pricing.sampleRateUsd,
 };
 
 const raw = [

@@ -6,6 +6,7 @@ Publish at "UAE" level only (Ganushi, 27 Oct 2026). Do not publish site names, c
 - Active hosting sites: 8 (one more listed as inactive). TODO: Ganushi to confirm the count before publishing.
 - Cooling: all sites have air-cooled zones; one site also has a hydro-cooled zone.
 - Each site has a named site in-charge.
+- Total operating power capacity: 45 MW (content/performance.md).
 - Power capacity per site: TODO (capacity column is empty in the source sheet).
 
 ## Photos

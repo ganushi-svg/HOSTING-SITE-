@@ -3,7 +3,7 @@ import { PageHero } from "@/components/PageHero";
 import { QuoteCallout } from "@/components/QuoteCallout";
 import { SitePhoto } from "@/components/SitePhoto";
 import { TODO } from "@/components/TODO";
-import { photos, site, sites } from "@/lib/site";
+import { photos, site, sites, capacity } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Hosting Sites and Infrastructure",
@@ -27,7 +27,7 @@ export default function SitesPage() {
         <section className="subpage-block grid-3" aria-label="Site facts">
           <div className="stat"><span className="section-kicker">Sites</span><span className="stat-value">{sites.activeCount}</span><span className="stat-label">Active hosting sites in the {site.serviceArea}</span></div>
           <div className="stat"><span className="section-kicker">Cooling</span><ul className="dot-list">{sites.cooling.map((c) => <li key={c}>{c}</li>)}</ul></div>
-          <div className="stat"><span className="section-kicker">Capacity</span><TODO source="content/sites.md">Power capacity per site, if approved for publishing</TODO></div>
+          <div className="stat"><span className="section-kicker">Capacity</span><span className="stat-value">{capacity.totalMw} MW</span><span className="stat-label">Operating power capacity across our sites</span></div>
         </section>
 
         <section className="subpage-block" aria-labelledby="photos-title">

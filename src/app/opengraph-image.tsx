@@ -12,7 +12,7 @@ export default function Image() {
         <div style={{ display: "flex", color: "#fbd24e", fontSize: 28, fontWeight: 700, letterSpacing: 6 }}>SEGMENTS CLOUD</div>
         <div style={{ display: "flex", fontSize: 76, fontWeight: 800, letterSpacing: -3, lineHeight: 1.06, marginTop: 34 }}>Bitcoin mining hosting</div>
         <div style={{ display: "flex", fontSize: 76, fontWeight: 800, letterSpacing: -3, lineHeight: 1.06, color: "#6aa8ff" }}>in the {site.serviceArea}.</div>
-        <div style={{ display: "flex", fontSize: 30, color: "#b4c3e3", marginTop: 34 }}>{pricing.rateLabel} per kWh · Air and hydro cooling · In-house repair</div>
+        <div style={{ display: "flex", fontSize: 30, color: "#b4c3e3", marginTop: 34 }}>45 MW · Hosting from {pricing.plugFromLabel}/kWh · Turnkey from {pricing.turnkeyPowerFromLabel}/kWh</div>
         <div style={{ display: "flex", position: "absolute", bottom: 0, left: 0, width: "100%", height: 12, background: "#f7be27" }} />
       </div>
     ),
