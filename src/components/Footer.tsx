@@ -27,7 +27,7 @@ export function Footer() {
           <span className="selectable">{contact.email}</span>
           <span className="selectable">{contact.phone}</span>
           <Link href="/privacy">Privacy notice (draft)</Link>
-          <TODO source="legal" inline>Terms of use</TODO>
+          <span>Terms of use <TODO source="legal" inline>Terms of use</TODO></span>
         </div>
       </div>
       <div className="container footer-bottom">
