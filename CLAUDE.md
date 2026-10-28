@@ -41,14 +41,16 @@ Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and
 7. Contact: enquiry form and contact details
 
 ## Stack
-- Astro + Tailwind CSS, static first. No backend or database until I ask.
-- Deploy on Vercel.
-- Enquiry form: send to ganushi@segments.ae through Resend. Keep the API key in an environment variable (`RESEND_API_KEY`), never in the repo.
-- Define brand colors and fonts once (Tailwind config), then reuse them everywhere.
+- Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.
+- All facts in `src/lib/site.ts`, each naming its `content/` source. Pages in `src/app/*/page.tsx`. Favour Server Components; `"use client"` only for Nav, LeadForm and Reveal.
+- Deploy on Vercel. Preview builds are `noindex` until `NEXT_PUBLIC_ALLOW_INDEXING=true` is set at launch.
+- Enquiry form: `src/app/api/enquiry/route.ts` sends to ganushi@segments.ae through Resend. Keys in environment variables only (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`), never in the repo and never prefixed `NEXT_PUBLIC_`.
+- Before public launch: shared rate limiting (e.g. Upstash), a bot check (e.g. Cloudflare Turnstile), verified sender domain with DMARC, legally approved privacy notice and terms.
 
 ## Design
 - Professional, calm and infrastructure-grade. Trust matters more than flash.
-- Mobile-first, readable in light and dark mode, accessible (contrast, alt text, keyboard focus).
+- Dark premium look in Segments navy, blue and gold (Segments Cloud Design System, console theme). Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page), respects reduced motion.
+- The hero rack graphic is concept art and is labelled as such; never present it as a real site.
 - Real photos over stock images. Take layout and tone cues from `content/references.md`, never copy their text or assets.
 - Fast: compress images, no heavy libraries without asking.
 
@@ -61,8 +63,9 @@ Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and
 
 ## Commands
 - `npm run dev` - local preview
+- `npm run lint` and `npm run typecheck` - must pass
 - `npm run build` - production build, must pass before I review
-- `npm run preview` - preview the built site
+- `npm start` - serve the production build
 
 ## How to work with me
 - Plan first. For any new page or big change, propose the approach and wait for my approval.

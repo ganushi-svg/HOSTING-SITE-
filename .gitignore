@@ -1,7 +1,10 @@
 node_modules/
-dist/
-.astro/
-.env
-.env.*
+.next/
+out/
+build/
+*.log
+.DS_Store
+.env*
 !.env.example
 .vercel/
+*.tsbuildinfo
