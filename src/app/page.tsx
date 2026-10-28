@@ -3,9 +3,14 @@ import { ArrowRight, ArrowUpRight, Building2, Check, CircleHelp, Cpu, Droplets, 
 import { FacilityVisual } from "@/components/FacilityVisual";
 import { Reveal } from "@/components/Reveal";
 import { LeadForm } from "@/components/LeadForm";
+import { ModelCard } from "@/components/ModelCard";
 import { SitePhoto } from "@/components/SitePhoto";
 import { TODO } from "@/components/TODO";
 import { capacity, contact, faqs, photos, pricing, site, sites } from "@/lib/site";
+import { getModel, models, type Model } from "@/lib/models";
+
+const modelCount = models.length;
+const showcase = ["antminer-z15-pro", "antminer-s21-xp", "antminer-l9", "antminer-s21-xp-hydro"].map((slug) => getModel(slug)).filter((m): m is Model => Boolean(m));
 
 // Every line below traces to content/ (see src/lib/site.ts for the source of each fact).
 const trust = [
@@ -104,10 +109,25 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section" id="machines" aria-labelledby="machines-title">
+        <div className="container">
+          <Reveal>
+            <div className="section-head">
+              <div><span className="section-kicker">03 / Machines we host</span><h2 id="machines-title">Pick your model, <span>see the cost.</span></h2></div>
+              <p>Click any machine for its full hosting details: power draw, cooling, a 30-day power estimate and a quote form. Drawings are illustrations.</p>
+            </div>
+          </Reveal>
+          <div className="model-grid">
+            {showcase.map((m, i) => <Reveal key={m.slug} delay={i * 0.07}><ModelCard m={m} /></Reveal>)}
+          </div>
+          <p style={{ marginTop: 28 }}><Link href="/models" className="text-link">See all {modelCount} models <ArrowRight size={18} aria-hidden="true" /></Link></p>
+        </div>
+      </section>
+
       <section className="section" id="sites" aria-labelledby="sites-title">
         <div className="container infra-grid">
           <Reveal className="infra-copy">
-            <span className="section-kicker">03 / Our sites</span>
+            <span className="section-kicker">04 / Our sites</span>
             <h2 id="sites-title">Built for <span>every watt.</span></h2>
             <p className="section-lede">{sites.activeCount} active hosting sites in the {site.serviceArea}, each with a site in-charge and on-site hosting technicians.</p>
             <div className="pillar-grid">
@@ -117,7 +137,7 @@ export default function Home() {
             </div>
             <p><Link href="/sites" className="text-link">See our sites and photos <ArrowRight size={18} aria-hidden="true" /></Link></p>
           </Reveal>
-          <Reveal delay={0.1}><SitePhoto photo={photos.hallFanWall} /></Reveal>
+          <Reveal delay={0.1} className="infra-photo"><SitePhoto photo={photos.finishedHallAisle} sizes="(min-width: 880px) 40vw, 100vw" /></Reveal>
         </div>
       </section>
 
@@ -133,7 +153,7 @@ export default function Home() {
         <div className="container">
           <Reveal>
             <div className="section-head">
-              <div><span className="section-kicker">04 / How it works</span><h2 id="process-title">From enquiry to <span>running machines.</span></h2></div>
+              <div><span className="section-kicker">05 / How it works</span><h2 id="process-title">From enquiry to <span>running machines.</span></h2></div>
               <p>The full onboarding steps and contract terms are on the How it works page.</p>
             </div>
           </Reveal>
@@ -150,7 +170,7 @@ export default function Home() {
         <div className="container faq-grid">
           <Reveal>
             <div>
-              <span className="section-kicker">05 / Questions</span>
+              <span className="section-kicker">06 / Questions</span>
               <h2 id="faq-title">Good questions. <span>Clear answers.</span></h2>
               <p className="section-lede">What hosting buyers ask us first.</p>
               <div className="faq-ornament" aria-hidden="true"><CircleHelp size={60} strokeWidth={1} /></div>
@@ -171,7 +191,7 @@ export default function Home() {
         <div className="container contact-grid">
           <Reveal>
             <div className="contact-copy">
-              <span className="section-kicker">06 / Request a quote</span>
+              <span className="section-kicker">07 / Request a quote</span>
               <h2 id="quote-title">Ready to host <span>your miners?</span></h2>
               <p>Tell us what you want to host. We reply by email with a quote for your fleet.</p>
               <ul className="contact-points">

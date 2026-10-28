@@ -45,7 +45,7 @@ Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and
 
 ## Stack
 - Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.
-- All facts in `src/lib/site.ts`, each naming its `content/` source. Pages in `src/app/*/page.tsx`. Favour Server Components; `"use client"` only for Nav, LeadForm and Reveal.
+- All facts in `src/lib/site.ts`, each naming its `content/` source. Pages in `src/app/*/page.tsx`. Favour Server Components; `"use client"` only for Nav, LeadForm, Reveal and SiteVideo. Miner and hydro-loop graphics are SVG illustrations, labelled as such, never product photos.
 - Deploy on Vercel. Preview builds are `noindex` until `NEXT_PUBLIC_ALLOW_INDEXING=true` is set at launch.
 - Enquiry form: `src/app/api/enquiry/route.ts` sends to ganushi@segments.ae through Resend. Keys in environment variables only (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`), never in the repo and never prefixed `NEXT_PUBLIC_`.
 - Before public launch: shared rate limiting (e.g. Upstash), a bot check (e.g. Cloudflare Turnstile), verified sender domain with DMARC, legally approved privacy notice and terms.

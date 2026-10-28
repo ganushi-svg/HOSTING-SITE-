@@ -65,12 +65,22 @@ export const sites = {
 
 export type Photo = { src: string; w: number; h: number; alt: string; caption: string };
 
-export const photos: Record<"hallFanWall" | "siteExterior" | "coolingUnit" | "hydroPumps", Photo> = {
-  // content/sites.md › Photos. Originals in assets/photos.
-  hallFanWall: { src: "/photos/hall-fan-wall-1600.webp", w: 1600, h: 1200, alt: "Row of large exhaust fans along the wall of an air-cooled mining hall during fit-out", caption: "Exhaust fan wall in an air-cooled hall during fit-out, August 2025" },
+export const photos = {
+  // content/sites.md › Photos. Originals in assets/photos. Captions name no site, per content/sites.md.
+  finishedHallAisle: { src: "/photos/finished-hall-aisle-1600.webp", w: 596, h: 1280, alt: "Long air-cooled hall with lit racks on both sides and a clean tiled floor", caption: "Finished air-cooled hall, ready for machines. UAE site, September 2025" },
+  rackRows: { src: "/photos/rack-rows-pdu-1600.webp", w: 1280, h: 720, alt: "Steel racks fitted with vertical power distribution strips and network cabling", caption: "Racks wired with power strips and network cabling, September 2025" },
+  rackAisle: { src: "/photos/rack-aisle-1600.webp", w: 596, h: 1280, alt: "Rows of mining racks along a finished hall", caption: "Rack rows in a finished hall, September 2025" },
+  powerDistribution: { src: "/photos/power-distribution-1600.webp", w: 1280, h: 720, alt: "Wall-mounted electrical distribution boards with breakers and indicator lights", caption: "Power distribution boards for a hall, September 2025" },
+  hallFanWall: { src: "/photos/hall-fan-wall-1600.webp", w: 1600, h: 1200, alt: "Row of large exhaust fans along the wall of an air-cooled mining hall", caption: "Exhaust fan wall in an air-cooled hall, August 2025" },
   siteExterior: { src: "/photos/site-exterior-1600.webp", w: 960, h: 1280, alt: "Arched mining halls on open desert ground at a Segments Cloud site", caption: "Mining halls at a UAE site, September 2025" },
-  coolingUnit: { src: "/photos/cooling-unit-1600.webp", w: 1201, h: 1600, alt: "White louvred equipment unit being installed next to scaffolding", caption: "Equipment installation on site, September 2025" }, // TODO: confirm caption (content/sites.md)
-  hydroPumps: { src: "/photos/hydro-pumps-1600.webp", w: 1280, h: 961, alt: "Water tank with two pumps and pipework beside a hall wall at night", caption: "Pumps and tank for a hydro-cooled hall during installation, September 2025" }, // TODO: confirm caption (content/sites.md)
+  hydroPumps: { src: "/photos/hydro-pumps-1600.webp", w: 1280, h: 961, alt: "Water tank with two pumps and pipework beside a hall wall at night", caption: "Pumps and tank for a hydro-cooled hall, September 2025" }, // TODO: confirm caption (content/sites.md)
+} satisfies Record<string, Photo>;
+
+export const siteVideo = {
+  // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.
+  src: "/video/installed-miners.mp4",
+  poster: "/video/installed-miners-poster.webp",
+  caption: "Installed miners and power strips in an air-cooled hall at a UAE site",
 };
 
 export const services = {

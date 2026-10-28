@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check, MessageCircle } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
+import { MinerArt } from "@/components/MinerArt";
 import { TODO } from "@/components/TODO";
 import { getModel, models, monthlyEstimate, usd } from "@/lib/models";
 import { contact, pricing, services, site } from "@/lib/site";
@@ -41,10 +42,16 @@ export default async function ModelPage({ params }: Props) {
     <main id="main" className="subpage">
       <div className="container">
         <p className="crumbs"><Link href="/models" className="text-link"><ArrowLeft size={16} aria-hidden="true" /> All models</Link></p>
-        <section className="subpage-hero">
-          <span className="section-kicker">{m.maker} · {m.cooling}-cooled · {m.algorithm}</span>
-          <h1>{m.name} <span>hosting in the {site.serviceArea}.</span></h1>
-          <p className="section-lede">We host the {m.name} in {hall}, with on-site technicians, in-house repair and a monthly power report for every machine.</p>
+        <section className="subpage-hero model-hero">
+          <div>
+            <span className="section-kicker">{m.maker} · {m.cooling}-cooled · {m.algorithm}</span>
+            <h1>{m.name} <span>hosting in the {site.serviceArea}.</span></h1>
+            <p className="section-lede">We host the {m.name} in {hall}, with on-site technicians, in-house repair and a monthly power report for every machine.</p>
+          </div>
+          <figure className="model-hero-art">
+            <MinerArt id={`${m.slug}-hero`} cooling={m.cooling} algorithm={m.algorithm} />
+            <figcaption>Illustration, not a product photo</figcaption>
+          </figure>
         </section>
 
         <section className="subpage-block split" aria-label="Specification and cost">
