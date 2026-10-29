@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Building2, Check, ClipboardCheck, CircleHelp, Cpu, Droplets, Fan, FileBarChart, Gauge, MessageCircle, ShieldCheck, Wrench, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Building2, Check, ClipboardCheck, CircleHelp, Cpu, Droplets, Fan, FileBarChart, Gauge, ShieldCheck, Wrench, Zap } from "lucide-react";
 import { FacilityVisual } from "@/components/FacilityVisual";
 import { Reveal } from "@/components/Reveal";
 import { LeadForm } from "@/components/LeadForm";
@@ -8,6 +8,8 @@ import { SitePhoto } from "@/components/SitePhoto";
 import { TODO } from "@/components/TODO";
 import { capacity, contact, faqs, photos, pricing, quality, site, sites } from "@/lib/site";
 import { getModel, models, type Model } from "@/lib/models";
+import { QuoteIcon } from "@/components/QuoteIcon";
+import { WhatsAppIcon } from "@/components/WhatsAppButton";
 
 const modelCount = models.length;
 const showcase = ["antminer-z15-pro", "antminer-s21-xp", "antminer-l9", "antminer-s21-xp-hydro"].map((slug) => getModel(slug)).filter((m): m is Model => Boolean(m));
@@ -49,7 +51,7 @@ export default function Home() {
             <h1>Hosting for your <em>mining machines</em> in the {site.serviceArea}.</h1>
             <p className="hero-sub">{site.name} hosts ASIC miners for owners, funds and fleet operators. Tell us about your fleet and we will send you a quote.</p>
             <div className="hero-actions">
-              <Link href="/contact" className="button">Request a quote <ArrowUpRight size={20} aria-hidden="true" /></Link>
+              <Link href="/contact" className="button">Request a quote <QuoteIcon size={30} /></Link>
               <Link href="/pricing" className="button button-outline">See pricing <ArrowRight size={18} aria-hidden="true" /></Link>
             </div>
             <ul className="hero-facts">
@@ -217,7 +219,7 @@ export default function Home() {
               <ul className="contact-points">
                 <li><Check size={18} aria-hidden="true" /> From {pricing.plugFromLabel} per kWh, billed on running days</li>
                 <li><Check size={18} aria-hidden="true" /> Air and hydro-cooled halls</li>
-                {contact.whatsapp && <li><MessageCircle size={18} aria-hidden="true" /> <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp {contact.whatsapp}</a></li>}
+                {contact.whatsapp && <li><WhatsAppIcon size={20} /> <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp {contact.whatsapp}</a></li>}
               </ul>
             </div>
           </Reveal>

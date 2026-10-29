@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Check, MessageCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerArt } from "@/components/MinerArt";
 import { TODO } from "@/components/TODO";
 import { getModel, models, monthlyEstimate, usd } from "@/lib/models";
 import { contact, pricing, services, site } from "@/lib/site";
+import { QuoteIcon } from "@/components/QuoteIcon";
+import { WhatsAppIcon } from "@/components/WhatsAppButton";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -64,7 +66,7 @@ export default async function ModelPage({ params }: Props) {
               <strong>{usd(est.from)} – {usd(est.to)}</strong>
               <small>{Math.round(est.kwh).toLocaleString("en-US")} kWh × rate. Power only. Billed on actual running days.</small>
             </div>
-            <Link className="button" href="#model-quote">Get a quote for the {m.name}</Link>
+            <Link className="button" href="#model-quote">Get a quote for the {m.name} <QuoteIcon /></Link>
           </div>
           <div className="stack">
             <div className="panel">
@@ -95,7 +97,7 @@ export default async function ModelPage({ params }: Props) {
             <p className="section-lede">Tell us how many units and when they arrive. We reply by email with a quote.</p>
             {contact.whatsapp && (
               <a className="button button-outline" href={`${contact.whatsappUrl}?text=${encodeURIComponent(`Hello Segments, I would like a hosting quote for ${m.name}.`)}`} target="_blank" rel="noopener noreferrer">
-                <MessageCircle size={18} aria-hidden="true" /> Ask on WhatsApp
+                <WhatsAppIcon size={22} /> Ask on WhatsApp
               </a>
             )}
           </div>

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Building2, Droplets, MessageCircle, Wrench, Zap } from "lucide-react";
+import { Building2, Droplets, Wrench, Zap } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
 import { PageHero } from "@/components/PageHero";
 import { TODO } from "@/components/TODO";
 import { usd } from "@/lib/models";
 import { capacity, contact, pricing, site } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Turnkey Mining Solution",
@@ -106,7 +107,7 @@ export default function TurnkeyPage() {
             <p className="section-lede">Tell us the capacity you need, your machine models and your timeline.</p>
             {contact.whatsapp && (
               <a className="button button-outline" href={`${contact.whatsappUrl}?text=${encodeURIComponent("Hello Segments, I would like a turnkey proposal.")}`} target="_blank" rel="noopener noreferrer">
-                <MessageCircle size={18} aria-hidden="true" /> Ask on WhatsApp
+                <WhatsAppIcon size={22} /> Ask on WhatsApp
               </a>
             )}
           </div>

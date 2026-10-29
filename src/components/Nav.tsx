@@ -4,8 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { nav, site } from "@/lib/site";
+import { QuoteIcon } from "./QuoteIcon";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -30,7 +31,7 @@ export function Nav() {
           ))}
         </div>
         <Link className="button button-small nav-cta" href="/contact">
-          Request a quote <ArrowUpRight size={16} aria-hidden="true" />
+          Request a quote <QuoteIcon size={26} />
         </Link>
         <button
           className="menu-toggle"
@@ -51,7 +52,7 @@ export function Nav() {
             </Link>
           ))}
           <Link className="button" href="/contact" onClick={close}>
-            Request a quote <ArrowUpRight size={16} aria-hidden="true" />
+            Request a quote <QuoteIcon size={26} />
           </Link>
         </div>
       )}

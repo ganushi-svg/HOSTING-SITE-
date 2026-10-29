@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { QuoteCallout } from "@/components/QuoteCallout";
 import { TODO } from "@/components/TODO";
 import { billing, pricing } from "@/lib/site";
+import { QuoteIcon } from "@/components/QuoteIcon";
 
 export const metadata: Metadata = {
   title: "Hosting Pricing",
@@ -25,7 +26,7 @@ export default function PricingPage() {
             <span className="section-kicker">Plug and play hosting</span>
             <p className="rate-value">{pricing.plugFromLabel}<small>per kWh, from</small></p>
             <p className="muted-line">{pricing.plugRangeLabel} per kWh depending on quantity. Your machines, our halls, billed on running days.</p>
-            <Link className="button" href="/contact">Request a quote <ArrowUpRight size={18} aria-hidden="true" /></Link>
+            <Link className="button" href="/contact">Request a quote <QuoteIcon /></Link>
           </div>
           <div className="rate-card rate-card-alt">
             <span className="section-kicker">Turnkey solution</span>

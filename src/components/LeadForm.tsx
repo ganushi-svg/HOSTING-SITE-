@@ -2,7 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, LoaderCircle } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
+import { QuoteIcon } from "./QuoteIcon";
 
 type State = "idle" | "sending" | "success" | "error";
 
@@ -61,7 +62,7 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
         <span>I agree that Segments Cloud may use these details to reply to this enquiry. <Link href="/privacy">Privacy notice</Link>.</span>
       </label>
       <button type="submit" className="button form-submit" disabled={status === "sending"}>
-        {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending…</> : <>Send request <ArrowUpRight size={18} aria-hidden="true" /></>}
+        {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending…</> : <>Send request <QuoteIcon /></>}
       </button>
       {message && <p className={`form-feedback ${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
     </form>
