@@ -32,8 +32,8 @@ at the plug and play range in content/pricing.md. Power only, at 100% running da
 
 ## Renders (added 29 Oct 2026)
 Source: Miner-Studio-Assets.zip uploaded by Ganushi KC (Miner Studio pack, 29 Oct 2026).
-- public/miners/posters/*.webp: 15 posters rendered from locally authored, photo-guided 3D models. Not manufacturer CAD and not product photos; captioned "3D render for illustration".
-- public/miners/video/: 6-second turntable loops for the Z15 Pro and S21 XP Hydro, cropped to remove the pack's title text.
+- public/miners/posters/*.webp: 16 posters (1920 x 1440) re-rendered at high quality from the pack's locally authored, photo-guided 3D models. Not manufacturer CAD and not product photos; captioned "3D render for illustration".
+- public/miners/video/: 8-second 1440 x 840 turntable loops for the Z15 Pro and S21 XP Hydro, re-rendered with no text in the frame.
+- public/miners/models/*.glb: 16 interactive 3D models, shown on each model page behind an "Explore in 3D" button (@google/model-viewer, approved by Ganushi KC 29 Oct 2026). Loaded only on click.
 - The pack's 15 product photos are NOT used: the pack itself says reuse permission has not been obtained. TODO: get written permission from the manufacturer or reseller, or supply our own product photos.
-- The interactive GLB 3D viewer is NOT installed yet: it needs a new dependency (@google/model-viewer). TODO: Ganushi to approve.
-- Antminer KS5 has no render in the pack and keeps the SVG illustration. TODO: render for the KS5.
+- Antminer KS5: not in the pack. Its render and 3D model were built from the pack's own geometry code (classic air-cooled chassis), so it is a generic likeness, not the exact KS5 casing.

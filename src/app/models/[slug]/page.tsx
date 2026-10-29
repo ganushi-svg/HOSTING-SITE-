@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
 import Image from "next/image";
 import { MinerArt } from "@/components/MinerArt";
+import { MinerViewer } from "@/components/MinerViewer";
 import { SiteVideo } from "@/components/SiteVideo";
 import { TODO } from "@/components/TODO";
 import { getModel, models, monthlyEstimate, renderFor, usd } from "@/lib/models";
@@ -53,18 +54,23 @@ export default async function ModelPage({ params }: Props) {
             <h1>{m.name} <span>hosting in the {site.serviceArea}.</span></h1>
             <p className="section-lede">We host the {m.name} in {hall}, with on-site technicians, in-house repair and a monthly power report for every machine.</p>
           </div>
-          {render?.video ? (
-            <div className="model-hero-art model-hero-video">
-              <SiteVideo src={render.video} poster={render.videoPoster ?? render.poster} label={`Rotating 3D render of the ${m.name}`} caption="3D render for illustration, not a product photo" />
+          {render ? (
+            <div className={`model-hero-art${render.video ? " model-hero-video" : ""}`}>
+              <MinerViewer name={m.name} src={render.model} poster={render.poster} cooling={m.cooling}>
+                {render.video ? (
+                  <SiteVideo src={render.video} poster={render.videoPoster ?? render.poster} label={`Rotating 3D render of the ${m.name}`} caption="3D render for illustration, not a product photo" />
+                ) : (
+                  <figure className="miner-viewer-still">
+                    <Image className="model-render" src={render.poster} alt={`3D render of the ${m.name}`} width={960} height={720} priority sizes="(min-width: 880px) 40vw, 90vw" />
+                    <figcaption>3D render for illustration, not a product photo</figcaption>
+                  </figure>
+                )}
+              </MinerViewer>
             </div>
           ) : (
             <figure className="model-hero-art">
-              {render ? (
-                <Image className="model-render" src={render.poster} alt={`3D render of the ${m.name}`} width={960} height={720} priority sizes="(min-width: 880px) 36vw, 90vw" />
-              ) : (
-                <MinerArt id={`${m.slug}-hero`} cooling={m.cooling} algorithm={m.algorithm} />
-              )}
-              <figcaption>{render ? "3D render for illustration, not a product photo" : "Illustration, not a product photo"}</figcaption>
+              <MinerArt id={`${m.slug}-hero`} cooling={m.cooling} algorithm={m.algorithm} />
+              <figcaption>Illustration, not a product photo</figcaption>
             </figure>
           )}
         </section>

@@ -18,11 +18,12 @@ export type Model = {
 };
 
 // 3D renders from the Miner Studio pack (content/models.md › Renders): locally authored, photo-guided
-// presentation models, not product photos or manufacturer CAD. The KS5 has no render yet.
+// presentation models, not product photos or manufacturer CAD. The KS5 render and model were built from the
+// pack's own geometry (classic chassis).
 const rendered = new Set([
   "antminer-z15-pro", "antminer-s21-xp", "antminer-s21-plus", "antminer-s21", "antminer-s19-xp", "whatsminer-m30s-plus-plus",
   "antminer-l9", "antminer-l7", "antminer-d9", "antminer-s21-xp-hydro", "antminer-s21-plus-hydro", "antminer-s21-hydro",
-  "antminer-s19-xp-hydro", "antminer-s19-pro-plus-hydro", "antminer-s19-pro-hydro",
+  "antminer-s19-xp-hydro", "antminer-s19-pro-plus-hydro", "antminer-s19-pro-hydro", "antminer-ks5",
 ]);
 const looped = new Set(["antminer-z15-pro", "antminer-s21-xp-hydro"]);
 
@@ -30,6 +31,7 @@ export function renderFor(slug: string) {
   if (!rendered.has(slug)) return null;
   return {
     poster: `/miners/posters/${slug}.webp`,
+    model: `/miners/models/${slug}.glb`,
     video: looped.has(slug) ? `/miners/video/${slug}-loop.mp4` : undefined,
     videoPoster: looped.has(slug) ? `/miners/video/${slug}-poster.webp` : undefined,
   };
