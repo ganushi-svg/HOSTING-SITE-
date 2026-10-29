@@ -31,7 +31,7 @@ export function Nav() {
           ))}
         </div>
         <Link className="button button-small nav-cta" href="/contact">
-          Request a quote <QuoteIcon size={26} />
+          Request a quote <QuoteIcon size={24} />
         </Link>
         <button
           className="menu-toggle"
@@ -52,7 +52,7 @@ export function Nav() {
             </Link>
           ))}
           <Link className="button" href="/contact" onClick={close}>
-            Request a quote <QuoteIcon size={26} />
+            Request a quote <QuoteIcon size={24} />
           </Link>
         </div>
       )}

@@ -310,21 +310,16 @@ h1, h2, h3, p { overflow-wrap: break-word; }
 .data-table thead th { color: var(--muted); font-family: var(--ff-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; }
 .data-table tbody tr:last-child th, .data-table tbody tr:last-child td { border-bottom: 0; }
 .data-table tbody th { font-weight: 600; }
-.whatsapp-float { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 7px 20px 7px 7px; border-radius: 999px; color: #04341a; font-weight: 700; font-size: 15px; letter-spacing: 0.01em; text-decoration: none;
-  background: linear-gradient(180deg, #6ef59c 0%, #2bd96c 45%, #1fb85a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.55), inset 0 -3px 0 rgba(4, 70, 31, 0.35), 0 5px 0 #0e7a3c, 0 14px 28px rgba(0, 0, 0, 0.45), 0 0 26px rgba(37, 211, 102, 0.35);
-  transition: transform 0.18s, box-shadow 0.18s; animation: wa-float 3.6s ease-in-out infinite; }
-.whatsapp-float:hover { transform: translateY(-2px); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), inset 0 -3px 0 rgba(4, 70, 31, 0.35), 0 7px 0 #0e7a3c, 0 18px 34px rgba(0, 0, 0, 0.45), 0 0 34px rgba(37, 211, 102, 0.5); animation-play-state: paused; }
-.whatsapp-float:active { transform: translateY(4px); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(4, 70, 31, 0.35), 0 1px 0 #0e7a3c, 0 6px 14px rgba(0, 0, 0, 0.4); }
-.whatsapp-float:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
-.wa-icon { flex: none; filter: drop-shadow(0 3px 3px rgba(4, 52, 26, 0.45)); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
-.whatsapp-float:hover .wa-icon { transform: rotate(-10deg) scale(1.08); }
-.wa-label { text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35); }
-.wa-ring { position: absolute; left: 7px; top: 50%; width: 34px; height: 34px; margin-top: -17px; border-radius: 50%; border: 2px solid rgba(37, 211, 102, 0.7); animation: wa-ping 2.4s ease-out infinite; pointer-events: none; }
-@keyframes wa-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-@keyframes wa-ping { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.1); opacity: 0; } }
-@media (max-width: 580px) { .wa-label { display: none; } .whatsapp-float { padding: 7px; right: 16px; bottom: 16px; } }
+.whatsapp-float { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 6px 18px 6px 6px; border-radius: 999px; color: var(--text); font-weight: 600; font-size: 14px; text-decoration: none;
+  background: rgba(13, 24, 48, 0.82); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(37, 211, 102, 0.35); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+.whatsapp-float:hover { transform: translateY(-1px); border-color: rgba(37, 211, 102, 0.7); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 34px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(37, 211, 102, 0.08); }
+.whatsapp-float:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.wa-icon { flex: none; }
+.wa-ring { position: absolute; left: 6px; top: 50%; width: 32px; height: 32px; margin-top: -16px; border-radius: 50%; border: 1.5px solid rgba(37, 211, 102, 0.55); animation: wa-ping 3s ease-out infinite; pointer-events: none; }
+@keyframes wa-ping { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.8); opacity: 0; } }
+@media (max-width: 580px) { .wa-label { display: none; } .whatsapp-float { padding: 6px; right: 16px; bottom: 16px; } }
 
 /* FOOTER */
 .footer { padding-top: 72px; background: rgba(3, 7, 18, 0.86); border-top: 1px solid var(--line); }
@@ -376,23 +371,23 @@ body { background: var(--bg); position: relative; isolation: isolate; }
 .panel, .stat, .pillar { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s, border-color 0.35s; }
 .panel:hover, .stat:hover, .pillar:hover, .service-card:hover { transform: translateY(-4px); border-color: rgba(106, 168, 255, 0.45); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 26px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(106, 168, 255, 0.12), 0 0 40px rgba(77, 141, 255, 0.12); }
 .button { position: relative; overflow: hidden; isolation: isolate; }
-.button:not(.button-outline)::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%); transform: translateX(-120%); animation: shimmer 4.5s ease-in-out infinite; }
-@keyframes shimmer { 0%, 60% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+.button:not(.button-outline)::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.35) 50%, transparent 65%); transform: translateX(-120%); transition: transform 0.7s ease; }
+.button:not(.button-outline):hover::after { transform: translateX(120%); }
 .button-outline { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.03); }
 .stat-value { background: linear-gradient(120deg, #ffffff, #b9d4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-/* 3D QUOTE BUTTONS */
-.button:not(.button-outline) { background: linear-gradient(180deg, #ffe07a 0%, #f7be27 48%, #e5a512 100%); border-color: rgba(255, 236, 170, 0.8);
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), inset 0 -3px 0 rgba(122, 78, 0, 0.3), 0 4px 0 #a8740a, 0 12px 26px rgba(0, 0, 0, 0.35); }
-.button:not(.button-outline):hover { background: linear-gradient(180deg, #ffe68f 0%, #fbd24e 48%, #eeb21c 100%); transform: translateY(-2px);
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.65), inset 0 -3px 0 rgba(122, 78, 0, 0.3), 0 6px 0 #a8740a, 0 16px 32px rgba(0, 0, 0, 0.38), 0 0 30px rgba(247, 190, 39, 0.3); }
-.button:not(.button-outline):active { transform: translateY(3px); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), 0 1px 0 #a8740a, 0 6px 14px rgba(0, 0, 0, 0.3); }
+/* PRIMARY BUTTONS: flat gold, soft highlight, quiet shadow */
+.button:not(.button-outline) { background: linear-gradient(180deg, #fbcd45 0%, #f3b822 100%); border-color: rgba(255, 228, 140, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 22px rgba(247, 190, 39, 0.16); }
+.button:not(.button-outline):hover { background: linear-gradient(180deg, #fcd55c 0%, #f6c034 100%); transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3), 0 12px 28px rgba(247, 190, 39, 0.24); }
+.button:not(.button-outline):active { transform: translateY(0); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.3); }
 .button:has(.quote-icon) { padding-right: 8px; gap: 12px; }
-.button-small:has(.quote-icon) { padding-right: 6px; }
-@media (max-width: 580px) { .hero-actions .button { white-space: nowrap; font-size: 13px; } .hero-actions .quote-icon { width: 24px; height: 24px; } .hero-actions .button:has(.quote-icon) { gap: 8px; padding-right: 6px; } }
-.quote-icon { flex: none; filter: drop-shadow(0 3px 3px rgba(80, 50, 0, 0.45)); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
-.button:hover .quote-icon { transform: rotate(-12deg) scale(1.1) translate(1px, -1px); }
-.wa-icon-inline, .contact-list .wa-icon, .button-outline .wa-icon, .contact-points .wa-icon { filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.45)); }
+.button-small:has(.quote-icon) { padding-right: 6px; gap: 10px; }
+.quote-icon { flex: none; transition: transform 0.25s ease; }
+.hero-actions .button, .nav-cta { white-space: nowrap; }
+@media (max-width: 580px) { .hero-actions .button { font-size: 13px; } .hero-actions .button:has(.quote-icon) { gap: 8px; } }
+.button:hover .quote-icon { transform: translate(1px, -1px); }
 
 /* MOVING ACRYLIC DOT TEXTURE */
 body::after { content: ""; position: fixed; inset: -60px; z-index: -1; pointer-events: none;
@@ -559,9 +554,8 @@ body::after { content: ""; position: fixed; inset: -60px; z-index: -1; pointer-e
   body::after { animation-duration: 120s, 18s; }
   .art-fan { animation-duration: 4s; }
   .art-flow { animation-duration: 2.5s; }
-  .button:not(.button-outline)::after { animation-duration: 9s; }
-  .whatsapp-float, .model-hero-art { animation-duration: 7s; }
-  .wa-ring { animation-duration: 4s; }
+  .model-hero-art { animation-duration: 7s; }
+  .wa-ring { animation-duration: 5s; }
   .reveal { transition-duration: 0.9s; }
   .reveal.reveal-pending { transform: translateY(10px); }
 }

@@ -51,7 +51,7 @@ export default function Home() {
             <h1>Hosting for your <em>mining machines</em> in the {site.serviceArea}.</h1>
             <p className="hero-sub">{site.name} hosts ASIC miners for owners, funds and fleet operators. Tell us about your fleet and we will send you a quote.</p>
             <div className="hero-actions">
-              <Link href="/contact" className="button">Request a quote <QuoteIcon size={30} /></Link>
+              <Link href="/contact" className="button">Request a quote <QuoteIcon size={28} /></Link>
               <Link href="/pricing" className="button button-outline">See pricing <ArrowRight size={18} aria-hidden="true" /></Link>
             </div>
             <ul className="hero-facts">
