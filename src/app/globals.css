@@ -416,7 +416,7 @@ body::after { content: ""; position: fixed; inset: -60px; z-index: -1; pointer-e
 .model-card-art { margin: -4px -6px 2px; padding: 8px 10px 0; border-radius: 12px; background: radial-gradient(120% 90% at 50% 100%, rgba(106, 168, 255, 0.12), transparent 70%); transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
 .model-card:hover .model-card-art { transform: translateY(-6px) scale(1.03); }
 .model-card:hover .art-fan { animation-duration: 0.7s; }
-.model-hero { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 40px; align-items: center; }
+.model-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
 .model-hero-art { margin: 0; padding: 24px; border-radius: 22px; border: 1px solid rgba(160, 190, 240, 0.2); background: radial-gradient(100% 80% at 50% 100%, rgba(106, 168, 255, 0.18), transparent 70%), rgba(13, 24, 48, 0.45); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); animation: float 6s ease-in-out infinite; }
 .model-hero-art figcaption, .hydro-loop figcaption { color: var(--dim); font-size: 12.5px; text-align: center; margin-top: 10px; }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -441,6 +441,17 @@ body::after { content: ""; position: fixed; inset: -60px; z-index: -1; pointer-e
 .quality-band { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
 .quality-band-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 880px) { .quality-gallery, .steps-grid, .quality-band { grid-template-columns: 1fr; } }
+
+/* 3D RENDERS (Miner Studio pack) */
+.model-render { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.45)); transform: perspective(900px) rotateY(0deg) translateY(0); transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s; }
+.model-card:hover .model-render { transform: perspective(900px) rotateY(-9deg) rotateX(3deg) translateY(-6px) scale(1.04); filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 22px rgba(106, 168, 255, 0.18)); }
+.model-card-art:has(.model-render) { padding: 4px 0 0; }
+.model-hero-art .model-render { animation: render-sway 9s ease-in-out infinite; }
+@keyframes render-sway { 0%, 100% { transform: perspective(900px) rotateY(-6deg); } 50% { transform: perspective(900px) rotateY(6deg) translateY(-6px); } }
+.model-hero-video { padding: 0; overflow: hidden; animation: none; }
+.model-hero-video .site-video video { aspect-ratio: 960 / 560; border: 0; border-radius: 22px 22px 0 0; background: #0b0f1a; }
+.model-hero-video .site-video figcaption { padding: 0 16px 14px; text-align: center; font-size: 12.5px; }
+@media (prefers-reduced-motion: reduce) { .model-hero-art .model-render { animation-duration: 18s; } }
 
 /* SITE MEDIA */
 .showcase { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }

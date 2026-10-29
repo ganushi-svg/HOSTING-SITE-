@@ -116,7 +116,7 @@ export default function Home() {
           <Reveal>
             <div className="section-head">
               <div><span className="section-kicker">03 / Machines we host</span><h2 id="machines-title">Pick your model, <span>see the cost.</span></h2></div>
-              <p>Click any machine for its full hosting details: power draw, cooling, a 30-day power estimate and a quote form. Drawings are illustrations.</p>
+              <p>Click any machine for its full hosting details: power draw, cooling, a 30-day power estimate and a quote form. Images are 3D renders for illustration.</p>
             </div>
           </Reveal>
           <div className="model-grid">

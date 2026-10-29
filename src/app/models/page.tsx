@@ -43,7 +43,7 @@ export default function ModelsPage() {
           <span className="section-kicker">Hydro-cooled zone</span>
           <h2 id="hydro-title">Hydro-cooled models</h2>
           <div className="model-grid">{hydro.map((m, i) => <Reveal key={m.slug} delay={(i % 4) * 0.06}><ModelCard m={m} /></Reveal>)}</div>
-          <p className="fine-print">Power cost estimates are power only, for 30 running days at the plug and play range of {pricing.plugRangeLabel} per kWh. Wattage is the nameplate figure from our fleet records. Your quote depends on quantity. Machine drawings are illustrations, not product photos.</p>
+          <p className="fine-print">Power cost estimates are power only, for 30 running days at the plug and play range of {pricing.plugRangeLabel} per kWh. Wattage is the nameplate figure from our fleet records. Your quote depends on quantity. Machine images are 3D renders for illustration, not product photos.</p>
           <TODO source="content/models.md">IceRiver AL3 / AL-BOX: confirm the model name before it gets a page</TODO>
         </section>
 

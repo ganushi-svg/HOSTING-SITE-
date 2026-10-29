@@ -17,6 +17,24 @@ export type Model = {
   todo?: string;
 };
 
+// 3D renders from the Miner Studio pack (content/models.md › Renders): locally authored, photo-guided
+// presentation models, not product photos or manufacturer CAD. The KS5 has no render yet.
+const rendered = new Set([
+  "antminer-z15-pro", "antminer-s21-xp", "antminer-s21-plus", "antminer-s21", "antminer-s19-xp", "whatsminer-m30s-plus-plus",
+  "antminer-l9", "antminer-l7", "antminer-d9", "antminer-s21-xp-hydro", "antminer-s21-plus-hydro", "antminer-s21-hydro",
+  "antminer-s19-xp-hydro", "antminer-s19-pro-plus-hydro", "antminer-s19-pro-hydro",
+]);
+const looped = new Set(["antminer-z15-pro", "antminer-s21-xp-hydro"]);
+
+export function renderFor(slug: string) {
+  if (!rendered.has(slug)) return null;
+  return {
+    poster: `/miners/posters/${slug}.webp`,
+    video: looped.has(slug) ? `/miners/video/${slug}-loop.mp4` : undefined,
+    videoPoster: looped.has(slug) ? `/miners/video/${slug}-poster.webp` : undefined,
+  };
+}
+
 const tab = "Fleet nameplate table";
 
 export const models: Model[] = [

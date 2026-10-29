@@ -29,3 +29,11 @@ Not given a page yet: IceRiver AL3 / AL-BOX (1,500 W in the Models tab). TODO: c
 
 Monthly power estimates on the model pages = nameplate W × 24 h × 30 days ÷ 1,000 × rate,
 at the plug and play range in content/pricing.md. Power only, at 100% running days.
+
+## Renders (added 29 Oct 2026)
+Source: Miner-Studio-Assets.zip uploaded by Ganushi KC (Miner Studio pack, 29 Oct 2026).
+- public/miners/posters/*.webp: 15 posters rendered from locally authored, photo-guided 3D models. Not manufacturer CAD and not product photos; captioned "3D render for illustration".
+- public/miners/video/: 6-second turntable loops for the Z15 Pro and S21 XP Hydro, cropped to remove the pack's title text.
+- The pack's 15 product photos are NOT used: the pack itself says reuse permission has not been obtained. TODO: get written permission from the manufacturer or reseller, or supply our own product photos.
+- The interactive GLB 3D viewer is NOT installed yet: it needs a new dependency (@google/model-viewer). TODO: Ganushi to approve.
+- Antminer KS5 has no render in the pack and keeps the SVG illustration. TODO: render for the KS5.
