@@ -552,8 +552,17 @@ body::after { content: ""; position: fixed; inset: -60px; z-index: -1; pointer-e
   .subpage-callout .button { grid-column: 1; grid-row: auto; margin-top: 18px; }
   .panel { padding: 22px; }
 }
+/* Motion stays on for everyone (Ganushi, 29 Oct 2026). Visitors who ask their device for reduced motion get a gentler version: same effects, slower and softer. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  .reveal.reveal-pending { opacity: 1; transform: none; }
+  body::before { animation-duration: 60s; }
+  body::after { animation-duration: 120s, 18s; }
+  .art-fan { animation-duration: 4s; }
+  .art-flow { animation-duration: 2.5s; }
+  .button:not(.button-outline)::after { animation-duration: 9s; }
+  .whatsapp-float, .model-hero-art { animation-duration: 7s; }
+  .wa-ring { animation-duration: 4s; }
+  .reveal { transition-duration: 0.9s; }
+  .reveal.reveal-pending { transform: translateY(10px); }
 }
+

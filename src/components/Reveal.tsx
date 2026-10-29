@@ -4,7 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 
 /**
  * Fades content in as it scrolls into view. Content is fully visible in the server HTML
- * and stays visible without JavaScript, above the fold, and for reduced-motion users.
+ * and stays visible without JavaScript and above the fold. Reduced-motion users get a gentler version (globals.css).
  * It checks position on scroll, so a fast jump past a section can never leave it hidden.
  */
 export function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
@@ -12,7 +12,7 @@ export function Reveal({ children, delay = 0, className = "" }: { children: Reac
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!el) return;
     const inView = () => el.getBoundingClientRect().top < window.innerHeight * 0.92;
     if (inView()) return; // already on screen: never hide it
     el.classList.add("reveal-pending");

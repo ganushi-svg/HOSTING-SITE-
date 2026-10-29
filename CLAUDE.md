@@ -54,7 +54,7 @@ Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and
 
 ## Design
 - Professional, calm and infrastructure-grade. Trust matters more than flash.
-- Dark premium look in Segments navy, blue and gold (Segments Cloud Design System, console theme). Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page), respects reduced motion.
+- Dark premium look in Segments navy, blue and gold (Segments Cloud Design System, console theme). Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page). Motion stays on for everyone (Ganushi, 29 Oct 2026); visitors with reduced motion set get a slower, softer version, never none. The site video keeps its controls so it can be paused.
 - The hero rack graphic is concept art and is labelled as such; never present it as a real site.
 - Real photos over stock images. Take layout and tone cues from `content/references.md`, never copy their text or assets.
 - Fast: compress images, no heavy libraries without asking.

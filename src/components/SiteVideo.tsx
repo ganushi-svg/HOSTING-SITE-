@@ -2,13 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
-/** Short muted loop of real site footage. Plays only when the visitor has not asked for reduced motion. */
+/** Short muted loop of real site footage. Plays for every visitor; controls stay visible so it can be paused. */
 export function SiteVideo({ src, poster, label, caption }: { src: string; poster: string; label: string; caption: string }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const v = ref.current;
-    if (!v || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!v) return;
     v.play().catch(() => {});
   }, []);
 
