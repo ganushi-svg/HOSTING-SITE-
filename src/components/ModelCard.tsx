@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Droplets, Fan } from "lucide-react";
 import { MinerArt } from "@/components/MinerArt";
+import { MinerViewer } from "@/components/MinerViewer";
 import { monthlyEstimate, renderFor, usd, type Model } from "@/lib/models";
 
-/** Clickable model card: the whole card opens the model's hosting page. */
+/** Clickable model card: the whole card opens the model's hosting page. The 3D model loads as the card scrolls into view. */
 export function ModelCard({ m }: { m: Model }) {
   const est = monthlyEstimate(m.watts);
   const render = renderFor(m.slug);
@@ -12,7 +13,9 @@ export function ModelCard({ m }: { m: Model }) {
     <Link href={`/models/${m.slug}`} className={m.featured ? "model-card model-card-featured" : "model-card"}>
       <div className="model-card-art">
         {render ? (
-          <Image className="model-render" src={render.poster} alt={`3D render of the ${m.name}`} width={960} height={720} sizes="(min-width: 1100px) 300px, (min-width: 600px) 45vw, 90vw" />
+          <MinerViewer variant="card" name={m.name} src={render.model} poster={render.poster} cooling={m.cooling}>
+            <Image className="model-render" src={render.poster} alt={`3D render of the ${m.name}`} width={960} height={720} sizes="(min-width: 1100px) 300px, (min-width: 600px) 45vw, 90vw" />
+          </MinerViewer>
         ) : (
           <MinerArt id={m.slug} cooling={m.cooling} algorithm={m.algorithm} />
         )}

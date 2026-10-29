@@ -468,6 +468,43 @@ body::after { content: ""; position: fixed; inset: -60px; z-index: -1; pointer-e
 .viewer-btn:disabled { opacity: 0.7; cursor: progress; transform: none; }
 .viewer-btn-corner { position: absolute; top: 12px; right: 12px; margin: 0; padding: 7px 13px; font-size: 13px; }
 .viewer-note { color: var(--dim); font-size: 12.5px; text-align: center; margin: 10px 0 0; }
+/* Acrylic glowing stage under every 3D miner: a lit acrylic disc with a slowly turning
+   blue-and-gold rim, a breathing halo and a light sweep. Hydro models glow cyan. */
+.miner-viewer { --glow-a: 106, 168, 255; --glow-b: 247, 190, 39; isolation: isolate; }
+.miner-viewer[data-cooling="hydro"] { --glow-a: 64, 214, 230; --glow-b: 106, 168, 255; }
+.miner-viewer-stage, .miner-viewer > figure, .miner-viewer > .site-video, .miner-viewer-still { position: relative; z-index: 1; }
+.acrylic-glow { position: absolute; z-index: 0; left: 50%; bottom: 9%; width: 78%; aspect-ratio: 3.2 / 1; transform: translateX(-50%); border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(var(--glow-a), 0.42), rgba(var(--glow-a), 0.12) 60%, transparent 100%);
+  filter: blur(2px); animation: acrylic-breathe 4.8s ease-in-out infinite; }
+.acrylic-glow::before { content: ""; position: absolute; inset: -6%; border-radius: 50%; padding: 2px;
+  background: conic-gradient(from var(--rim-angle, 0deg), rgba(var(--glow-a), 0) 0deg, rgba(var(--glow-a), 0.95) 70deg, rgba(255, 255, 255, 0.9) 95deg, rgba(var(--glow-b), 0.85) 120deg, rgba(var(--glow-a), 0) 200deg, rgba(var(--glow-a), 0.5) 290deg, rgba(var(--glow-a), 0) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter: drop-shadow(0 0 6px rgba(var(--glow-a), 0.9)); animation: acrylic-rim 7s linear infinite; }
+.acrylic-glow::after { content: ""; position: absolute; left: 50%; bottom: 40%; width: 64%; height: 260%; transform: translateX(-50%); border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  background: linear-gradient(to top, rgba(var(--glow-a), 0.20), rgba(var(--glow-a), 0.05) 55%, transparent); animation: acrylic-beam 4.8s ease-in-out infinite; }
+.miner-viewer::after { content: ""; position: absolute; z-index: 2; inset: 0; border-radius: inherit; pointer-events: none; overflow: hidden;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.07) 47%, rgba(var(--glow-a), 0.10) 50%, transparent 60%) no-repeat;
+  background-size: 260% 100%; animation: acrylic-sweep 6.5s ease-in-out infinite; }
+.miner-viewer.is-paused .acrylic-glow, .miner-viewer.is-paused .acrylic-glow::before, .miner-viewer.is-paused .acrylic-glow::after, .miner-viewer.is-paused::after { animation-play-state: paused; }
+@property --rim-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes acrylic-rim { to { --rim-angle: 360deg; } }
+@keyframes acrylic-breathe { 0%, 100% { opacity: 0.75; transform: translateX(-50%) scale(0.96); } 50% { opacity: 1; transform: translateX(-50%) scale(1.04); } }
+@keyframes acrylic-beam { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+@keyframes acrylic-sweep { 0% { background-position: 130% 0; } 60%, 100% { background-position: -130% 0; } }
+.miner-viewer-hero .acrylic-glow { bottom: 12%; }
+.model-hero-video .miner-viewer-hero .acrylic-glow { bottom: 16%; }
+/* Grid cards */
+.miner-viewer-card { position: relative; border-radius: 12px; }
+.miner-viewer-card .miner-viewer-stage model-viewer { aspect-ratio: 4 / 3; pointer-events: none; }
+.miner-viewer-card .acrylic-glow { bottom: 7%; width: 84%; }
+.model-card:hover .miner-viewer-card .acrylic-glow { animation-duration: 2.4s; }
+.model-card:hover .miner-viewer-card .acrylic-glow::before { animation-duration: 3s; }
+.render-tag { position: absolute; z-index: 3; top: 8px; left: 8px; padding: 3px 8px; border-radius: 999px; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); background: rgba(8, 14, 30, 0.6); border: 1px solid rgba(160, 190, 240, 0.18); }
+@media (prefers-reduced-motion: reduce) {
+  .acrylic-glow, .acrylic-glow::after { animation-duration: 9.6s; }
+  .acrylic-glow::before { animation-duration: 14s; }
+  .miner-viewer::after { animation-duration: 13s; }
+}
 .model-hero-video .viewer-note { margin: 0 0 14px; }
 
 
