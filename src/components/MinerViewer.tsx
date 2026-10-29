@@ -1,18 +1,17 @@
 "use client";
 
 import { createElement, useEffect, useRef, useState, type ReactNode } from "react";
-import { Box, Pause, Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 
 type ModelElement = HTMLElement & { pause: () => void; play: () => void };
 type Props = { name: string; src: string; poster: string; cooling: "Air" | "Hydro"; children: ReactNode };
 
 /**
- * Interactive 3D model (Miner Studio GLB) behind an "Explore in 3D" button.
- * Shows the poster or video (children) first; the model-viewer runtime and GLB load only on click.
+ * Interactive 3D model (Miner Studio GLB), opened straight away on the model page (Ganushi, 29 Oct 2026).
+ * The poster or video (children) shows while the model-viewer runtime and GLB load, and stays if 3D fails.
  * Motion runs for every visitor (CLAUDE.md › Design) and pauses off-screen or on a hidden tab.
  */
 export function MinerViewer({ name, src, poster, cooling, children }: Props) {
-  const [activated, setActivated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
   const [moving, setMoving] = useState(true);
@@ -32,13 +31,12 @@ export function MinerViewer({ name, src, poster, cooling, children }: Props) {
   }, []);
 
   useEffect(() => {
-    if (!activated) return;
     let cancelled = false;
     import("@google/model-viewer")
       .then(() => { if (!cancelled) setLoaded(true); })
       .catch(() => { if (!cancelled) setFailed(true); });
     return () => { cancelled = true; };
-  }, [activated]);
+  }, []);
 
   useEffect(() => {
     const el = model.current;
@@ -69,7 +67,7 @@ export function MinerViewer({ name, src, poster, cooling, children }: Props) {
             "interaction-prompt": "none",
             ...(fans ? { "animation-name": "Fans" } : {}),
             ...(animate ? { "auto-rotate": "", "rotation-per-second": "18deg", ...(fans ? { autoplay: "" } : {}) } : {}),
-            style: { width: "100%", height: "100%", background: "transparent" },
+            style: { width: "100%", background: "transparent" },
           }, createElement("div", { slot: "progress-bar", className: "viewer-progress" }))}
           <figcaption>3D render for illustration, not a product photo · drag to turn</figcaption>
           <button type="button" className="viewer-btn viewer-btn-corner" onClick={() => setMoving((v) => !v)} aria-pressed={!moving}>
@@ -80,13 +78,7 @@ export function MinerViewer({ name, src, poster, cooling, children }: Props) {
       ) : (
         <>
           {children}
-          {failed ? (
-            <p role="status" className="viewer-note">3D view unavailable on this device. Render shown instead.</p>
-          ) : (
-            <button type="button" className="viewer-btn" onClick={() => setActivated(true)} disabled={activated}>
-              <Box size={17} aria-hidden="true" /> {activated ? "Loading 3D…" : "Explore in 3D"}
-            </button>
-          )}
+          <p role="status" className="viewer-note">{failed ? "3D view unavailable on this device. Render shown instead." : "Loading 3D view…"}</p>
         </>
       )}
     </div>
