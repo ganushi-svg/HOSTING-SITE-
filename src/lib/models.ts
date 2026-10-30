@@ -17,24 +17,13 @@ export type Model = {
   todo?: string;
 };
 
-// 3D renders from the Miner Studio pack (content/models.md › Renders): locally authored, photo-guided
-// presentation models, not product photos or manufacturer CAD. The KS5 render and model were built from the
-// pack's own geometry (classic chassis).
-const rendered = new Set([
-  "antminer-z15-pro", "antminer-s21-xp", "antminer-s21-plus", "antminer-s21", "antminer-s19-xp", "whatsminer-m30s-plus-plus",
-  "antminer-l9", "antminer-l7", "antminer-d9", "antminer-s21-xp-hydro", "antminer-s21-plus-hydro", "antminer-s21-hydro",
-  "antminer-s19-xp-hydro", "antminer-s19-pro-plus-hydro", "antminer-s19-pro-hydro", "antminer-ks5",
-]);
-const looped = new Set(["antminer-z15-pro", "antminer-s21-xp-hydro"]);
-
-export function renderFor(slug: string) {
-  if (!rendered.has(slug)) return null;
-  return {
-    poster: `/miners/posters/${slug}.webp`,
-    model: `/miners/models/${slug}.glb`,
-    video: looped.has(slug) ? `/miners/video/${slug}-loop.mp4` : undefined,
-    videoPoster: looped.has(slug) ? `/miners/video/${slug}-poster.webp` : undefined,
-  };
+// Turntable renders supplied by Ganushi KC, 30 Oct 2026 (content/models.md › Renders): one hydro unit and one
+// air-cooled Antminer, used as a representative render for every model of that cooling type.
+// Not the exact model and not a product photo. The white studio background is cut out to transparency
+// (animated WebP, 15 fps) so the miner sits on the dark glass panels.
+export function turntableFor(cooling: Model["cooling"]) {
+  const key = cooling === "Hydro" ? "hydro" : "air";
+  return { animated: `/miners/turntable/${key}.webp`, still: `/miners/turntable/${key}-still.webp` };
 }
 
 const tab = "Fleet nameplate table";

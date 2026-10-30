@@ -3,12 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
-import Image from "next/image";
-import { MinerArt } from "@/components/MinerArt";
-import { MinerViewer } from "@/components/MinerViewer";
-import { SiteVideo } from "@/components/SiteVideo";
+import { MinerTurntable } from "@/components/MinerTurntable";
 import { TODO } from "@/components/TODO";
-import { getModel, models, monthlyEstimate, renderFor, usd } from "@/lib/models";
+import { getModel, models, monthlyEstimate, usd } from "@/lib/models";
 import { contact, pricing, services, site } from "@/lib/site";
 import { QuoteIcon } from "@/components/QuoteIcon";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
@@ -34,7 +31,6 @@ export default async function ModelPage({ params }: Props) {
   const m = getModel((await params).slug);
   if (!m) notFound();
   const est = monthlyEstimate(m.watts);
-  const render = renderFor(m.slug);
   const hall = m.cooling === "Hydro" ? "our hydro-cooled zone" : "our air-cooled halls";
   const included = [
     `Space in ${hall}`,
@@ -54,25 +50,9 @@ export default async function ModelPage({ params }: Props) {
             <h1>{m.name} <span>hosting in the {site.serviceArea}.</span></h1>
             <p className="section-lede">We host the {m.name} in {hall}, with on-site technicians, in-house repair and a monthly power report for every machine.</p>
           </div>
-          {render ? (
-            <div className={`model-hero-art${render.video ? " model-hero-video" : ""}`}>
-              <MinerViewer name={m.name} src={render.model} poster={render.poster} cooling={m.cooling}>
-                {render.video ? (
-                  <SiteVideo src={render.video} poster={render.videoPoster ?? render.poster} label={`Rotating 3D render of the ${m.name}`} caption="3D render for illustration, not a product photo" />
-                ) : (
-                  <figure className="miner-viewer-still">
-                    <Image className="model-render" src={render.poster} alt={`3D render of the ${m.name}`} width={960} height={720} priority sizes="(min-width: 880px) 40vw, 90vw" />
-                    <figcaption>3D render for illustration, not a product photo</figcaption>
-                  </figure>
-                )}
-              </MinerViewer>
-            </div>
-          ) : (
-            <figure className="model-hero-art">
-              <MinerArt id={`${m.slug}-hero`} cooling={m.cooling} algorithm={m.algorithm} />
-              <figcaption>Illustration, not a product photo</figcaption>
-            </figure>
-          )}
+          <div className="model-hero-art">
+            <MinerTurntable name={m.name} cooling={m.cooling} />
+          </div>
         </section>
 
         <section className="subpage-block split" aria-label="Specification and cost">

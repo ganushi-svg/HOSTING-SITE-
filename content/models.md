@@ -30,10 +30,11 @@ Not given a page yet: IceRiver AL3 / AL-BOX (1,500 W in the Models tab). TODO: c
 Monthly power estimates on the model pages = nameplate W × 24 h × 30 days ÷ 1,000 × rate,
 at the plug and play range in content/pricing.md. Power only, at 100% running days.
 
-## Renders (added 29 Oct 2026)
-Source: Miner-Studio-Assets.zip uploaded by Ganushi KC (Miner Studio pack, 29 Oct 2026).
-- public/miners/posters/*.webp: 16 posters (1920 x 1440) re-rendered at high quality from the pack's locally authored, photo-guided 3D models. Not manufacturer CAD and not product photos; captioned "3D render for illustration".
-- public/miners/video/: 8-second 1440 x 840 turntable loops for the Z15 Pro and S21 XP Hydro, re-rendered with no text in the frame.
-- public/miners/models/*.glb: 16 interactive 3D models, shown on each model page as an interactive 3D view that opens straight away (@google/model-viewer, approved by Ganushi KC 29 Oct 2026). The render or video shows while it loads and stays if 3D cannot run. Grid cards on /models and the home page also show the live 3D model, loaded as each card scrolls into view and labelled "3D render".
-- The pack's 15 product photos are NOT used: the pack itself says reuse permission has not been obtained. TODO: get written permission from the manufacturer or reseller, or supply our own product photos.
-- Antminer KS5: not in the pack. Its render and 3D model were built from the pack's own geometry code (classic air-cooled chassis), so it is a generic likeness, not the exact KS5 casing.
+## Renders (updated 30 Oct 2026)
+Source: two turntable videos uploaded by Ganushi KC on 30 Oct 2026 (antminer1.mp4 and main1.mp4). They replace the Miner Studio renders and 3D models, which Ganushi judged not good enough.
+- public/miners/turntable/hydro.webp: from antminer1.mp4, a hydro-cooled unit. Used for every hydro model.
+- public/miners/turntable/air.webp: from main1.mp4, an air-cooled Antminer on a lit plinth. Used for every other model (air-cooled).
+- Processing: cropped to 4:3, white studio background cut out to transparency, 720 x 540 animated WebP at 15 fps (1.9 MB air, 0.9 MB hydro), plus a still first frame shown when paused or off screen.
+- Shown on model pages (with a pause button) and on the model cards, captioned as a representative render, not the exact model and not a product photo.
+- TODO: confirm where these two renders come from and that we may publish them (if they are manufacturer marketing material, get permission).
+- The Miner Studio pack's product photos are not used (no reuse permission).
