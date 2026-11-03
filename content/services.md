@@ -9,7 +9,7 @@ We have mined Bitcoin for our own account since 2017, so we know what it takes t
 
 Background facts, from Drive › "Segments Proposal" deck (About Segments slide):
 - Segments has mined bitcoin for itself since 2017. Confirmed by Ganushi KC, 3 Nov 2026.
-- The repair and maintenance center is run by technicians trained by Bitmain.
+- The repair and maintenance center is run by technicians trained by Bitmain. Confirmed by Ganushi KC, 3 Nov 2026.
 - Segments offers post-sale support for machines it sells.
 Not used from that deck: "Buy, Host & Earn" and its ROI/profit table (no profit or returns language on the site), and the Abu Dhabi addresses (sites are published at UAE level only).
 
