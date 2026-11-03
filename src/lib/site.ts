@@ -88,16 +88,20 @@ export const quality = {
   ],
 };
 
-export const nav = [
-  { href: "/services", label: "Services" },
-  { href: "/models", label: "Models" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/turnkey", label: "Turnkey" },
-  { href: "/sites", label: "Sites" },
-  { href: "/quality", label: "Quality" },
-  { href: "/monitoring", label: "Monitoring" },
-  { href: "/how-it-works", label: "How it works" },
-];
+// Sections of the single page, in order. The header tab bar jumps to each one.
+export const sections = [
+  { id: "overview", label: "Overview" },
+  { id: "services", label: "Services" },
+  { id: "pricing", label: "Pricing" },
+  { id: "calculator", label: "Power cost" },
+  { id: "machines", label: "Machines" },
+  { id: "sites", label: "Sites" },
+  { id: "quality", label: "Quality" },
+  { id: "reporting", label: "Reporting" },
+  { id: "how-it-works", label: "How it works" },
+  { id: "faq", label: "FAQ" },
+  { id: "contact", label: "Contact" },
+] as const;
 
 export const sites = {
   // content/sites.md
@@ -176,12 +180,12 @@ export const faqs = [
   {
     question: "Which machines can you host?",
     answer:
-      "We run air-cooled models such as the Antminer Z15 Pro, S21 series, S19 XP, L9, L7, D9 and KS5, and hydro models such as the S21 XP Hydro and S21+ Hydro. Each has its own page under Models. Ask us about any model not listed.",
+      "We run air-cooled models such as the Antminer Z15 Pro, S21 series, S19 XP, L9, L7, D9 and KS5, and hydro models such as the S21 XP Hydro and S21+ Hydro. See the Machines section for each model's power draw and power cost. Ask us about any model not listed.",
   },
   {
     question: "What is the turnkey solution?",
     answer:
-      "A dedicated build for larger fleets, with power from $0.039 per kWh and capex of USD 300,000 per MW. See the Turnkey page for details and ask us for a proposal.",
+      "A dedicated build for larger fleets, with power from $0.039 per kWh and capex of USD 300,000 per MW. See the Turnkey tab under Pricing and ask us for a proposal.",
   },
   {
     question: "What happens when a machine breaks?",

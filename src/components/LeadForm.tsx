@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import Link from "next/link";
 import { LoaderCircle } from "lucide-react";
 import { QuoteIcon } from "./QuoteIcon";
 
@@ -59,7 +58,7 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
       <div className="hp-field" aria-hidden="true"><label>Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
       <label className="consent">
         <input id="lf-consent" type="checkbox" name="consent" value="yes" required />
-        <span>I agree that Segments Cloud may use these details to reply to this enquiry. <Link href="/privacy">Privacy notice</Link>.</span>
+        <span>I agree that Segments Cloud may use these details to reply to this enquiry. <a href="#privacy" onClick={() => { const d = document.getElementById("privacy"); if (d instanceof HTMLDetailsElement) d.open = true; }}>Privacy notice</a>.</span>
       </label>
       <button type="submit" className="button form-submit" disabled={status === "sending"}>
         {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending…</> : <>Send request <QuoteIcon /></>}

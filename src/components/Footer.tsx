@@ -1,38 +1,26 @@
 import Image from "next/image";
-import Link from "next/link";
-import { contact, nav, site } from "@/lib/site";
+import { contact, sections, site } from "@/lib/site";
 import { TODO } from "@/components/TODO";
 
 export function Footer() {
   return (
     <footer className="footer">
-      <div className="container footer-grid">
-        <div>
-          <Link href="/" className="brand">
-            <Image src="/logo-mark.webp" width={26} height={30} alt="" />
-            <span className="brand-text">{site.name}</span>
-          </Link>
-          <p>Mining hosting and turnkey capacity in the {site.serviceArea}.</p>
-          <address className="footer-small">{contact.office}</address>
+      <div className="container footer-top">
+        <div className="footer-brand">
+          <a href="#overview" className="brand">
+            <Image src="/logo-mark.webp" width={24} height={28} alt="" />
+            <span className="brand-text">{site.name}<small>Mining hosting · {site.serviceArea}</small></span>
+          </a>
+          <address>{contact.office}</address>
+          <p><span className="selectable">{contact.email}</span> · <span className="selectable">{contact.phone}</span></p>
         </div>
-        <div>
-          <strong>Explore</strong>
-          {nav.map((l) => (
-            <Link key={l.href} href={l.href}>{l.label}</Link>
-          ))}
-          <Link href="/contact">Request a quote</Link>
-        </div>
-        <div>
-          <strong>Contact</strong>
-          <span className="selectable">{contact.email}</span>
-          <span className="selectable">{contact.phone}</span>
-          {contact.whatsapp && <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>}
-          <Link href="/privacy">Privacy notice (draft)</Link>
-          <span>Terms of use <TODO source="legal" inline>Terms of use</TODO></span>
-        </div>
+        <nav aria-label="Footer" className="footer-links">
+          {sections.map((s) => <a key={s.id} href={`#${s.id}`}>{s.label}</a>)}
+        </nav>
       </div>
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} {site.legalNames.join(" · ")}</span>
+        <span>© {new Date().getFullYear()} {site.legalNames.join(" · ")} · Dubai, UAE</span>
+        <span><a href="#privacy">Privacy notice (draft)</a> · Terms of use <TODO source="legal" inline>Terms of use</TODO></span>
         <span>A hosting service. Mining returns are never guaranteed.</span>
       </div>
     </footer>

@@ -34,28 +34,29 @@ Read these before writing or changing any page. If a fact is not in these files,
 Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and licences, testimonials, about-us story, privacy policy and terms of use, Arabic version, analytics.
 
 ## Pages
-1. Home: hero, proof strip (numbers from `content/performance.md`), services summary, sites teaser, enquiry call to action
-2. Services
-3. Pricing: present the model from `content/pricing.md`, with a "Request a quote" call to action
-4. Sites and infrastructure: sites, capacity, cooling, real photos and video
-5. Monitoring and reporting: the redacted sample client report
-6. How it works: onboarding steps and contract terms
-7. Contact: enquiry form and contact details
-8. Models: one page per machine model (featured: Antminer Z15 Pro), from `content/models.md`
-9. Turnkey: turnkey solution pricing and enquiry, from `content/pricing.md`
-10. Quality: the dedicated quality team for sites and machines, from `content/quality.md`
+The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Design System reference she shared. A sticky header has a tab bar that jumps to each section; some sections have their own sub-tabs. Old page addresses (/pricing, /turnkey, /models/... and so on) redirect to the matching section in `next.config.ts`.
+1. Overview: navy hero with the plug and play rate card, then key figures (numbers from `content/performance.md`)
+2. Services: what hosting includes
+3. Pricing: plug and play and turnkey plan cards from `content/pricing.md`; sub-tabs How billing works / Turnkey / Compare
+4. Power cost: calculator for the hosting power bill only (never mining revenue or profit)
+5. Machines: sub-tabs Air-cooled / Hydro-cooled, a table of every model from `content/models.md` (featured: Antminer Z15 Pro) beside the representative turntable render
+6. Sites: sub-tabs Finished halls / Hydro cooling / Air cooling, with real photos and video
+7. Quality: the dedicated quality team, from `content/quality.md`; sub-tabs Air-cooled halls / Hydro containers / Coolant / Calendar
+8. Reporting: monitoring and the redacted sample client report
+9. How it works: onboarding steps and contract terms
+10. FAQ
+11. Contact: contact details, enquiry form and the draft privacy notice
 
 ## Stack
 - Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.
-- All facts in `src/lib/site.ts`, each naming its `content/` source. Pages in `src/app/*/page.tsx`. Favour Server Components; `"use client"` only for Nav, LeadForm, Reveal, SiteVideo and MinerTurntable. Model cards and pages show a turntable render on an acrylic glowing stage: one hydro render for all hydro models, one air-cooled render for all others (public/miners/turntable, supplied by Ganushi 30 Oct 2026), captioned as representative renders. The hydro loop uses an SVG illustration. Never present a render or illustration as a product photo.
+- All facts in `src/lib/site.ts` and `src/lib/models.ts`, each naming its `content/` source. The single page is `src/app/page.tsx`. Favour Server Components; `"use client"` only for Nav (section tabs), Tabs (sub-tabs), PowerCalculator, LeadForm, Reveal, SiteVideo and MinerTurntable. Model cards and pages show a turntable render on an acrylic glowing stage: one hydro render for all hydro models, one air-cooled render for all others (public/miners/turntable, supplied by Ganushi 30 Oct 2026), captioned as representative renders. The hydro loop uses an SVG illustration. Never present a render or illustration as a product photo.
 - Deploy on Vercel. Preview builds are `noindex` until `NEXT_PUBLIC_ALLOW_INDEXING=true` is set at launch.
 - Enquiry form: `src/app/api/enquiry/route.ts` sends to ganushi@segments.ae through Resend. Keys in environment variables only (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`), never in the repo and never prefixed `NEXT_PUBLIC_`.
 - Before public launch: shared rate limiting (e.g. Upstash), a bot check (e.g. Cloudflare Turnstile), verified sender domain with DMARC, legally approved privacy notice and terms.
 
 ## Design
 - Professional, calm and infrastructure-grade. Trust matters more than flash.
-- Dark premium look in Segments navy, blue and gold (Segments Cloud Design System, console theme). Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page). Motion stays on for everyone (Ganushi, 29 Oct 2026); visitors with reduced motion set get a slower, softer version, never none. The site video keeps its controls so it can be paused.
-- The hero rack graphic is concept art and is labelled as such; never present it as a real site.
+- Segments Cloud Design System look (3 Nov 2026): white and pale-wash sections, a navy hero band with a fine grid, panels in a blue hairline; dark mode follows the visitor's device. Space Grotesk headings, Inter body, JetBrains Mono for numbers. Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page). Motion stays on for everyone (Ganushi, 29 Oct 2026); visitors with reduced motion set get a slower, softer version, never none. The site video keeps its controls so it can be paused.
 - Real photos over stock images. Take layout and tone cues from `content/references.md`, never copy their text or assets.
 - Fast: compress images, no heavy libraries without asking.
 

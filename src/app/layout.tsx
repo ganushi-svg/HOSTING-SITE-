@@ -11,7 +11,12 @@ const display = Space_Grotesk({ subsets: ["latin"], weight: ["500", "700"], vari
 const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-mono", display: "swap" });
 
-export const viewport: Viewport = { themeColor: "#050a17", width: "device-width", initialScale: 1, colorScheme: "dark" };
+export const viewport: Viewport = {
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }, { media: "(prefers-color-scheme: dark)", color: "#0a1430" }],
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "light dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
