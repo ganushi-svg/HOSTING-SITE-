@@ -133,7 +133,7 @@ export default function Home() {
       <section id="services" className="section alt" aria-labelledby="services-title">
         <div className="container">
           <SectionHead eyebrow="Services" title="What hosting includes">Power, cooling, repair and reporting from one team, with every charge traceable to a machine and a day.</SectionHead>
-          <TODO source="content/services.md">One-paragraph overview of the hosting service</TODO>
+          <Reveal className="overview"><p>{services.overview}</p></Reveal>
           <div className="feat">
             {serviceGroups.map((g, i) => (
               <Reveal key={g.title} delay={i * 0.05} className="panel feat-card">

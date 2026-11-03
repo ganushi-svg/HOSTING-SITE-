@@ -2,6 +2,17 @@
 
 Source: Drive › Kim_September_2026_Power_Hosting_Report, 2Bminer reconciliation README, Segments_Warehouse_Inventory, Site Balance Power (Sep–Oct 2026).
 
+## Overview
+Approved wording for the Services section (drafted 3 Nov 2026 from the facts below and in content/performance.md, content/sites.md):
+
+We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW across 8 sites, with air-cooled halls, a hydro-cooled zone, and a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.
+
+Background facts, from Drive › "Segments Proposal" deck (About Segments slide):
+- Segments has mined bitcoin for itself since 2017.
+- The repair and maintenance center is run by technicians trained by Bitmain.
+- Segments offers post-sale support for machines it sells.
+Not used from that deck: "Buy, Host & Earn" and its ROI/profit table (no profit or returns language on the site), and the Abu Dhabi addresses (sites are published at UAE level only).
+
 ## Power
 - Power capacity is tracked per site and zone, and load is read from the fleet platform before machines are placed.
 
@@ -27,5 +38,4 @@ Source: Site Balance Power › Models tab (fleet nameplate table).
 - Hydro-cooled: Antminer S21 XP Hydro, S21+ Hydro, S21 Hydro, S19 XP Hydro, S19 Pro+ Hydro, S19 Pro Hydro.
 
 ## Still needed
-- TODO: one-paragraph overview in Ganushi's words
 - TODO: confirm whether on-site technicians are 24/7

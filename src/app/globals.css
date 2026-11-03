@@ -157,6 +157,8 @@ address { font-style: normal; }
 .stat b { font: 700 1.9rem/1.1 var(--ff-display); color: var(--navy); letter-spacing: -0.02em; }
 .stat span { font-size: 0.875rem; color: var(--lo); }
 
+.overview { max-width: 78ch; margin: -8px 0 8px; padding: 22px 26px; border-left: 3px solid var(--gold); border-radius: 0 var(--r-lg) var(--r-lg) 0; background: var(--elev); box-shadow: var(--shadow); }
+.overview p { font-size: 1.0625rem; line-height: 1.75; color: var(--hi); }
 .feat { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 20px; }
 .feat-card { padding: 22px; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; }
 .feat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--accent); }
