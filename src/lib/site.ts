@@ -138,7 +138,7 @@ export const siteVideo = {
 export const services = {
   // content/services.md
   overview:
-    "We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW across 8 sites, with air-cooled halls, a hydro-cooled zone, and a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.",
+    "We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW of power and hosts both hydro and air-cooled machines, with a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.",
   power: ["Power capacity is tracked for every site and zone.", "Load is read from the fleet platform before new machines are placed."],
   cooling: ["Air-cooled halls for air-cooled ASICs.", "A hydro-cooled zone for hydro models."],
   operations: [

@@ -3,9 +3,9 @@
 Source: Drive › Kim_September_2026_Power_Hosting_Report, 2Bminer reconciliation README, Segments_Warehouse_Inventory, Site Balance Power (Sep–Oct 2026).
 
 ## Overview
-Approved wording for the Services section (drafted 3 Nov 2026 from the facts below and in content/performance.md, content/sites.md):
+Approved wording for the Services section (45 MW and hydro + air cooled wording from Ganushi KC, 3 Nov 2026; drafted 3 Nov 2026 from the facts below and in content/performance.md, content/sites.md):
 
-We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW across 8 sites, with air-cooled halls, a hydro-cooled zone, and a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.
+We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW of power and hosts both hydro and air-cooled machines, with a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.
 
 Background facts, from Drive › "Segments Proposal" deck (About Segments slide):
 - Segments has mined bitcoin for itself since 2017. Confirmed by Ganushi KC, 3 Nov 2026.
