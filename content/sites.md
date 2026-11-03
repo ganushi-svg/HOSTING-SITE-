@@ -1,9 +1,9 @@
 # Sites
 
 Source: Drive › "Segments – Site Balance Power" (Sites tab), 22 Oct 2026.
-Publish at "UAE" level only (Ganushi, 27 Oct 2026). Do not publish site names, codes or exact locations.
+Publish at "Abu Dhabi" level: "sites all around Abu Dhabi" (Ganushi, 3 Nov 2026; replaces the UAE-only rule of 27 Oct). Do not publish site names, codes, exact locations or the number of sites.
 
-- Active hosting sites: 8 (one more listed as inactive). TODO: Ganushi to confirm the count before publishing.
+- Active hosting sites: 8 in the source sheet (one more listed as inactive). Not published: Ganushi asked on 3 Nov 2026 to remove the site count everywhere.
 - Cooling: all sites have air-cooled zones; one site also has a hydro-cooled zone.
 - Each site has a named site in-charge.
 - Total operating power capacity: 45 MW (content/performance.md).

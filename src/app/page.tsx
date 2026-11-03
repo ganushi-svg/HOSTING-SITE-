@@ -12,7 +12,7 @@ import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, quality, services, site, sites, siteVideo } from "@/lib/site";
+import { billing, capacity, contact, faqs, photos, pricing, quality, services, site, siteVideo } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -98,7 +98,7 @@ export default function Home() {
         <div className="hero-orb hero-orb-b" aria-hidden="true" />
         <div className="container hero-inner">
           <div className="hero-copy">
-            <p className="eyebrow"><span className="pulse-dot" aria-hidden="true" /> ASIC mining hosting · Dubai, {site.serviceArea}</p>
+            <p className="eyebrow"><span className="pulse-dot" aria-hidden="true" /> ASIC mining hosting · Abu Dhabi, {site.serviceArea}</p>
             <h1 id="hero-title">Host your mining machines with a team that runs <em>{capacity.totalMw} MW</em>.</h1>
             <p className="lead">{site.name} hosts ASIC miners for owners, funds and fleet operators: air and hydro-cooled halls, on-site technicians, in-house repair and a monthly power report for every machine.</p>
             <div className="cta-row">
@@ -112,7 +112,7 @@ export default function Home() {
             <p className="rate-sub">{pricing.plugRangeLabel} per kWh depending on quantity, billed only on days your machines run.</p>
             <dl>
               <div><dt>Operating capacity</dt><dd className="num">{capacity.totalMw} MW</dd></div>
-              <div><dt>Active sites</dt><dd className="num">{sites.activeCount}</dd></div>
+              <div><dt>Hosting sites</dt><dd>All around Abu Dhabi</dd></div>
               <div><dt>Cooling</dt><dd>Air + hydro</dd></div>
               <div><dt>Turnkey power</dt><dd className="num">from {pricing.turnkeyPowerFromLabel}</dd></div>
             </dl>
@@ -123,7 +123,7 @@ export default function Home() {
       <section className="section stats-band" aria-label="Key figures">
         <div className="container stats">
           <Reveal className="panel stat"><b className="num">{capacity.totalMw} MW</b><span>Operating power capacity</span></Reveal>
-          <Reveal delay={0.05} className="panel stat"><b className="num">{sites.activeCount}</b><span>Active hosting sites in the {site.serviceArea}</span></Reveal>
+          <Reveal delay={0.05} className="panel stat"><b>Abu Dhabi</b><span>Hosting sites all around Abu Dhabi</span></Reveal>
           <Reveal delay={0.1} className="panel stat"><span>Uptime</span><TODO source="content/performance.md" inline>value</TODO></Reveal>
           <Reveal delay={0.15} className="panel stat"><span>Machines hosted</span><TODO source="content/performance.md" inline>value</TODO></Reveal>
         </div>
@@ -239,7 +239,7 @@ export default function Home() {
       {/* SITES */}
       <section id="sites" className="section alt" aria-labelledby="sites-title">
         <div className="container">
-          <SectionHead eyebrow="Sites and infrastructure" title={`Our hosting sites in the ${site.serviceArea}`}>{capacity.totalMw} MW across {sites.activeCount} active sites, each with a site in-charge and on-site hosting technicians.</SectionHead>
+          <SectionHead eyebrow="Sites and infrastructure" title="Our hosting sites around Abu Dhabi">{capacity.totalMw} MW across our sites all around Abu Dhabi, each with a site in-charge and on-site hosting technicians.</SectionHead>
           <Tabs
             label="Sites"
             tabs={[

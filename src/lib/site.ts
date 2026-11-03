@@ -9,7 +9,7 @@ export const site = {
   legalNames: ["Segments Cloud Computing LLC", "Segments Cloud Electronics LLC"], // TODO: confirm which entity contracts with hosting clients (CLAUDE.md)
   serviceArea: "UAE", // content/contact.md
   description:
-    "ASIC mining hosting in the UAE: 45 MW of operating capacity, plug and play hosting from $0.058 per kWh, turnkey builds, air and hydro-cooled halls, in-house repair and monthly power reports.",
+    "ASIC mining hosting in the UAE: 45 MW of operating capacity at sites around Abu Dhabi, plug and play hosting from $0.058 per kWh, turnkey builds, air and hydro-cooled halls, in-house repair and monthly power reports.",
   // TODO: set NEXT_PUBLIC_SITE_URL to the real domain once approved (CLAUDE.md › Domain)
   url: (process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || "http://localhost:3000").replace(/\/$/, ""),
   // Keep the preview out of search engines until management approves the launch.
@@ -105,7 +105,7 @@ export const sections = [
 
 export const sites = {
   // content/sites.md
-  activeCount: 8, // TODO: Ganushi to confirm (content/sites.md)
+  area: "around Abu Dhabi", // Ganushi, 3 Nov 2026: sites are described at Abu Dhabi level; no site count is published
   cooling: ["Air-cooled halls at every site", "A hydro-cooled zone for hydro models"],
 };
 
@@ -113,12 +113,12 @@ export type Photo = { src: string; w: number; h: number; alt: string; caption: s
 
 export const photos = {
   // content/sites.md › Photos. Originals in assets/photos. Captions name no site, per content/sites.md.
-  finishedHallAisle: { src: "/photos/finished-hall-aisle-1600.webp", w: 596, h: 1280, alt: "Long air-cooled hall with lit racks on both sides and a clean tiled floor", caption: "Finished air-cooled hall, ready for machines. UAE site, September 2025" },
+  finishedHallAisle: { src: "/photos/finished-hall-aisle-1600.webp", w: 596, h: 1280, alt: "Long air-cooled hall with lit racks on both sides and a clean tiled floor", caption: "Finished air-cooled hall, ready for machines. Abu Dhabi site, September 2025" },
   rackRows: { src: "/photos/rack-rows-pdu-1600.webp", w: 1280, h: 720, alt: "Steel racks fitted with vertical power distribution strips and network cabling", caption: "Racks wired with power strips and network cabling, September 2025" },
   rackAisle: { src: "/photos/rack-aisle-1600.webp", w: 596, h: 1280, alt: "Rows of mining racks along a finished hall", caption: "Rack rows in a finished hall, September 2025" },
   powerDistribution: { src: "/photos/power-distribution-1600.webp", w: 1280, h: 720, alt: "Wall-mounted electrical distribution boards with breakers and indicator lights", caption: "Power distribution boards for a hall, September 2025" },
   hallFanWall: { src: "/photos/hall-fan-wall-1600.webp", w: 1600, h: 1200, alt: "Row of large exhaust fans along the wall of an air-cooled mining hall", caption: "Exhaust fan wall in an air-cooled hall, August 2025" },
-  siteExterior: { src: "/photos/site-exterior-1600.webp", w: 960, h: 1280, alt: "Arched mining halls on open desert ground at a Segments Cloud site", caption: "Mining halls at a UAE site, September 2025" },
+  siteExterior: { src: "/photos/site-exterior-1600.webp", w: 960, h: 1280, alt: "Arched mining halls on open desert ground at a Segments Cloud site", caption: "Mining halls at an Abu Dhabi site, September 2025" },
   qcNewFiltersWall: { src: "/photos/qc-new-filters-wall-1600.webp", w: 1200, h: 1600, alt: "Wall of new blue disposable air filters in a diamond frame along a hall's air intake", caption: "New intake filters fitted along a hall wall, October 2026" },
   qcNewFiltersAisle: { src: "/photos/qc-new-filters-aisle-1600.webp", w: 1600, h: 1200, alt: "Long corridor lined with fresh blue intake filters", caption: "Fresh filters along an intake corridor, October 2026" },
   qcMeshPrefilters: { src: "/photos/qc-mesh-prefilters-1600.webp", w: 1200, h: 1600, alt: "Steel frame holding mesh pre-filters in front of a hall's intake wall", caption: "Mesh pre-filters in front of the intake wall, October 2026" },
@@ -132,13 +132,13 @@ export const siteVideo = {
   // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.
   src: "/video/installed-miners.mp4",
   poster: "/video/installed-miners-poster.webp",
-  caption: "Installed miners and power strips in an air-cooled hall at a UAE site",
+  caption: "Installed miners and power strips in an air-cooled hall at an Abu Dhabi site",
 };
 
 export const services = {
   // content/services.md
   overview:
-    "We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW of power and hosts both hydro and air-cooled machines, with a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.",
+    "We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW of power at sites all around Abu Dhabi and hosts both hydro and air-cooled machines, with a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.",
   power: ["Power capacity is tracked for every site and zone.", "Load is read from the fleet platform before new machines are placed."],
   cooling: ["Air-cooled halls for air-cooled ASICs.", "A hydro-cooled zone for hydro models."],
   operations: [
