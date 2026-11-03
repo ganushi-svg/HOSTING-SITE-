@@ -35,7 +35,7 @@ Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and
 
 ## Pages
 The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Design System reference she shared. A sticky header has a tab bar that jumps to each section; some sections have their own sub-tabs. Old page addresses (/pricing, /turnkey, /models/... and so on) redirect to the matching section in `next.config.ts`.
-1. Overview: navy hero with the plug and play rate card, then key figures (numbers from `content/performance.md`)
+1. Overview: glowing navy hero with the plug and play rate card, then key figures (numbers from `content/performance.md`)
 2. Services: what hosting includes
 3. Pricing: plug and play and turnkey plan cards from `content/pricing.md`; sub-tabs How billing works / Turnkey / Compare
 4. Power cost: calculator for the hosting power bill only (never mining revenue or profit)
@@ -49,14 +49,14 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 
 ## Stack
 - Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.
-- All facts in `src/lib/site.ts` and `src/lib/models.ts`, each naming its `content/` source. The single page is `src/app/page.tsx`. Favour Server Components; `"use client"` only for Nav (section tabs), Tabs (sub-tabs), PowerCalculator, LeadForm, Reveal, SiteVideo and MinerTurntable. Model cards and pages show a turntable render on an acrylic glowing stage: one hydro render for all hydro models, one air-cooled render for all others (public/miners/turntable, supplied by Ganushi 30 Oct 2026), captioned as representative renders. The hydro loop uses an SVG illustration. Never present a render or illustration as a product photo.
+- All facts in `src/lib/site.ts` and `src/lib/models.ts`, each naming its `content/` source. The single page is `src/app/page.tsx`. Favour Server Components; `"use client"` only for Nav (section tabs), Tabs (sub-tabs), PowerCalculator, LeadForm, Reveal, SiteVideo, MinerTurntable, Spotlight (cursor glow) and CountUp. Model cards and pages show a turntable render on an acrylic glowing stage: one hydro render for all hydro models, one air-cooled render for all others (public/miners/turntable, supplied by Ganushi 30 Oct 2026), captioned as representative renders. The hydro loop uses an SVG illustration. Never present a render or illustration as a product photo.
 - Deploy on Vercel. Preview builds are `noindex` until `NEXT_PUBLIC_ALLOW_INDEXING=true` is set at launch.
 - Enquiry form: `src/app/api/enquiry/route.ts` sends to ganushi@segments.ae through Resend. Keys in environment variables only (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`), never in the repo and never prefixed `NEXT_PUBLIC_`.
 - Before public launch: shared rate limiting (e.g. Upstash), a bot check (e.g. Cloudflare Turnstile), verified sender domain with DMARC, legally approved privacy notice and terms.
 
 ## Design
 - Professional, calm and infrastructure-grade. Trust matters more than flash.
-- Segments Cloud Design System look (3 Nov 2026): white and pale-wash sections, a navy hero band with a fine grid, panels in a blue hairline; dark mode follows the visitor's device. Space Grotesk headings, Inter body, JetBrains Mono for numbers. Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page). Motion stays on for everyone (Ganushi, 29 Oct 2026); visitors with reduced motion set get a slower, softer version, never none. The site video keeps its controls so it can be paused.
+- "Midnight Glow" theme (Ganushi, 3 Nov 2026), on the Segments Cloud Design System layout: always dark, a deep navy-to-black ground with fixed blue glows and a faint grid, glass panels edged in glowing blue hairlines with a cursor spotlight, a live grid and scanning light in the hero, glowing tabs, and key numbers that count up into view. Space Grotesk headings, Inter body, JetBrains Mono for numbers. Rich motion. Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page). Motion stays on for everyone (Ganushi, 29 Oct 2026); visitors with reduced motion set get a slower, softer version, never none. The site video keeps its controls so it can be paused.
 - Real photos over stock images. Take layout and tone cues from `content/references.md`, never copy their text or assets.
 - Fast: compress images, no heavy libraries without asking.
 

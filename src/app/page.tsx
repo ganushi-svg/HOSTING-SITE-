@@ -2,6 +2,7 @@ import { Check, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, Mail, MapPin
 import { HydroLoop } from "@/components/HydroLoop";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerTurntable } from "@/components/MinerTurntable";
+import { CountUp } from "@/components/CountUp";
 import { EstimateButton, PowerCalculator } from "@/components/PowerCalculator";
 import { QuoteIcon } from "@/components/QuoteIcon";
 import { Reveal } from "@/components/Reveal";
@@ -122,7 +123,7 @@ export default function Home() {
 
       <section className="section stats-band" aria-label="Key figures">
         <div className="container stats">
-          <Reveal className="panel stat"><b className="num">{capacity.totalMw} MW</b><span>Operating power capacity</span></Reveal>
+          <Reveal className="panel stat"><b className="num"><CountUp value={capacity.totalMw} suffix=" MW" /></b><span>Operating power capacity</span></Reveal>
           <Reveal delay={0.05} className="panel stat"><b>Abu Dhabi</b><span>Hosting sites all around Abu Dhabi</span></Reveal>
           <Reveal delay={0.1} className="panel stat"><span>Uptime</span><TODO source="content/performance.md" inline>value</TODO></Reveal>
           <Reveal delay={0.15} className="panel stat"><span>Machines hosted</span><TODO source="content/performance.md" inline>value</TODO></Reveal>
@@ -295,10 +296,10 @@ export default function Home() {
                   <div className="stack">
                     <p className="muted">Desert dust is the enemy of an air-cooled hall. Here is one site&apos;s maintenance log for {r.month}.</p>
                     <div className="stats">
-                      <div className="panel stat"><b className="num">{r.visits}</b><span>Maintenance visits in the month</span></div>
-                      <div className="panel stat"><b className="num">{r.manDays}</b><span>Man-days of work</span></div>
-                      <div className="panel stat"><b className="num">{r.giFilters}</b><span>Mesh (GI) filters cleaned and replaced</span></div>
-                      <div className="panel stat"><b className="num">{r.disposableFilters}</b><span>Disposable filters cleaned and replaced</span></div>
+                      <div className="panel stat"><b className="num"><CountUp value={r.visits} /></b><span>Maintenance visits in the month</span></div>
+                      <div className="panel stat"><b className="num"><CountUp value={r.manDays} /></b><span>Man-days of work</span></div>
+                      <div className="panel stat"><b className="num"><CountUp value={r.giFilters} /></b><span>Mesh (GI) filters cleaned and replaced</span></div>
+                      <div className="panel stat"><b className="num"><CountUp value={r.disposableFilters} /></b><span>Disposable filters cleaned and replaced</span></div>
                     </div>
                     <ul className="check-list">{quality.airWork.map((w) => <li key={w}><ClipboardCheck size={17} aria-hidden="true" /> {w}</li>)}</ul>
                     <div className="gallery">
