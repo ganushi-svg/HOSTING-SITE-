@@ -19,8 +19,18 @@ Site names stay off the website; captions say "UAE site".
 
 ## Video
 - installed-miners.mp4: first 5 seconds of the "installed" walkthrough clip (Drive › site folder › installed), muted, cropped. Shows racked miners and power strips, no people.
-- The Drive folder named after the requested site is empty. TODO: upload photos of that site if they should be used.
+- Photos of the requested site arrived on 3 Nov 2026 (see below).
 - Larger site videos in Drive (including a hydro-site clip) are over the 10 MB connector limit. TODO: export shorter clips under 10 MB.
+
+## Photos (finished hall, professional shoot, added 3 Nov 2026)
+Source: site photo zip uploaded by Ganushi KC, 3 Nov 2026 (10 photos of the requested site). No people, no number plates.
+Air-cooled hall with evaporative cooling pads and exhaust fans; no hydro miners are shown, so these sit under Finished halls and Air cooling, not Hydro cooling.
+Renamed without the site name; captions say "Abu Dhabi site". Readable PSU serial-number labels in hall-miner-fans are blurred.
+- hall-long-racks, hall-pads-and-racks, hall-aisle-pads, hall-rack-row: finished hall with racks of running miners
+- hall-rack-closeup, hall-miners-wired: miners, tagged power cables and power strips
+- hall-cooling-pad-wall, hall-pad-corridor: evaporative cooling-pad walls
+- hall-fan-wall-racks: exhaust fans opposite the racks
+- hall-miner-fans: close-up of miner fans in a rack
 
 ## Photos (installation phase)
 Source: Drive › installed (WhatsApp photos, Aug–Sep 2025). Installation phase, no identifiable people.

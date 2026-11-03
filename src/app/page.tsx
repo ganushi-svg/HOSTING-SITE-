@@ -249,15 +249,20 @@ export default function Home() {
                 label: "Finished halls",
                 content: (
                   <div className="stack">
-                  <div className="showcase">
-                    <SiteVideo src={siteVideo.src} poster={siteVideo.poster} label={siteVideo.caption} caption={siteVideo.caption} />
-                    <SitePhoto photo={photos.finishedHallAisle} sizes="(min-width: 900px) 30vw, 100vw" />
-                    <SitePhoto photo={photos.rackAisle} sizes="(min-width: 900px) 30vw, 100vw" />
-                  </div>
-                  <div className="split">
-                    <SitePhoto photo={photos.rackRows} crop sizes="(min-width: 900px) 45vw, 100vw" />
-                    <SitePhoto photo={photos.powerDistribution} crop sizes="(min-width: 900px) 45vw, 100vw" />
-                  </div>
+                    <div className="photo-feature"><SitePhoto photo={photos.hallLongRacks} priority sizes="(min-width: 1200px) 1168px, 100vw" /></div>
+                    <div className="showcase">
+                      <SitePhoto photo={photos.hallRackRow} sizes="(min-width: 900px) 30vw, 50vw" />
+                      <SiteVideo src={siteVideo.src} poster={siteVideo.poster} label={siteVideo.caption} caption={siteVideo.caption} />
+                      <SitePhoto photo={photos.hallAislePads} sizes="(min-width: 900px) 30vw, 50vw" />
+                    </div>
+                    <div className="split">
+                      <SitePhoto photo={photos.hallRackCloseup} crop sizes="(min-width: 900px) 45vw, 100vw" />
+                      <SitePhoto photo={photos.hallMinersWired} crop sizes="(min-width: 900px) 45vw, 100vw" />
+                    </div>
+                    <div className="split">
+                      <SitePhoto photo={photos.hallPadsAndRacks} crop sizes="(min-width: 900px) 45vw, 100vw" />
+                      <SitePhoto photo={photos.powerDistribution} crop sizes="(min-width: 900px) 45vw, 100vw" />
+                    </div>
                   </div>
                 ),
               },
@@ -271,8 +276,15 @@ export default function Home() {
                 label: "Air cooling",
                 content: (
                   <div className="stack">
-                    <div className="split"><SitePhoto photo={photos.hallFanWall} crop /><SitePhoto photo={photos.siteExterior} crop /></div>
-                    <TODO source="assets/photos">Photos of the requested site and of hydro halls with machines running</TODO>
+                    <p className="muted">Fresh air is drawn through wet evaporative cooling pads, across the miners and out through exhaust fans.</p>
+                    <div className="photo-feature"><SitePhoto photo={photos.hallCoolingPadWall} sizes="(min-width: 1200px) 1168px, 100vw" /></div>
+                    <div className="showcase">
+                      <SitePhoto photo={photos.hallPadCorridor} sizes="(min-width: 900px) 30vw, 50vw" />
+                      <SitePhoto photo={photos.hallMinerFans} sizes="(min-width: 900px) 30vw, 50vw" />
+                      <SitePhoto photo={photos.siteExterior} sizes="(min-width: 900px) 30vw, 50vw" />
+                    </div>
+                    <div className="split"><SitePhoto photo={photos.hallFanWallRacks} crop /><SitePhoto photo={photos.hallFanWall} crop /></div>
+                    <TODO source="assets/photos">Photos of hydro halls with machines running</TODO>
                   </div>
                 ),
               },

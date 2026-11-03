@@ -125,6 +125,17 @@ export const photos = {
   qcMeshOutdoor: { src: "/photos/qc-mesh-outdoor-1600.webp", w: 1600, h: 1200, alt: "Outdoor intake wall covered with mesh filter panels beside palm trees", caption: "Outdoor mesh pre-filter wall, October 2026" },
   qcFiltersReplaced: { src: "/photos/qc-filters-replaced-1600.webp", w: 1200, h: 1600, alt: "Used filter frames leaning against a wall after removal", caption: "Used filter frames taken out for replacement, October 2026" },
   qcCleanHall: { src: "/photos/qc-clean-hall-1600.webp", w: 860, h: 1600, alt: "Clean, empty hall floor in front of mesh filter walls", caption: "Hall floor after cleaning, October 2026" },
+  // content/sites.md › Photos (finished hall, professional shoot, added 3 Nov 2026). Air-cooled hall with evaporative cooling pads.
+  hallLongRacks: { src: "/photos/hall-long-racks-1600.webp", w: 1600, h: 1068, alt: "Long, bright mining hall with a row of racks full of running miners on a white tiled floor", caption: "Finished hall with racks of running miners, Abu Dhabi site" },
+  hallPadsAndRacks: { src: "/photos/hall-pads-and-racks-1600.webp", w: 1600, h: 1068, alt: "Hall with an evaporative cooling-pad wall on one side and racks of miners on the other", caption: "Cooling-pad wall facing the miner racks, Abu Dhabi site" },
+  hallAislePads: { src: "/photos/hall-aisle-pads-1600.webp", w: 1068, h: 1600, alt: "Clean aisle between miner racks and a cooling-pad wall", caption: "Clean aisle between racks and cooling pads" },
+  hallRackRow: { src: "/photos/hall-rack-row-1600.webp", w: 1068, h: 1600, alt: "Row of steel racks loaded with miners along a hall wall", caption: "A full row of hosted miners" },
+  hallRackCloseup: { src: "/photos/hall-rack-closeup-1600.webp", w: 1600, h: 1068, alt: "Close-up of miners on racks with labelled power cables and green status lights on the power strips", caption: "Miners on labelled power strips, every cable tagged" },
+  hallMinersWired: { src: "/photos/hall-miners-wired-1600.webp", w: 1600, h: 1068, alt: "Miners stacked on shelves with network and power cables neatly routed to a power distribution unit", caption: "Power and network cabling to each machine" },
+  hallCoolingPadWall: { src: "/photos/hall-cooling-pad-wall-1600.webp", w: 1600, h: 1068, alt: "Long wall of honeycomb evaporative cooling pads along a clean hall", caption: "Evaporative cooling-pad wall in an air-cooled hall" },
+  hallPadCorridor: { src: "/photos/hall-pad-corridor-1600.webp", w: 1068, h: 1600, alt: "Narrow corridor lined on both sides with tall evaporative cooling pads", caption: "Cooling-pad corridor that feeds fresh air to the hall" },
+  hallFanWallRacks: { src: "/photos/hall-fan-wall-racks-1600.webp", w: 1600, h: 1068, alt: "Aisle with large exhaust fans on one side and racks of miners on the other", caption: "Exhaust fans opposite the miner racks" },
+  hallMinerFans: { src: "/photos/hall-miner-fans-1600.webp", w: 1068, h: 1600, alt: "Close-up of miner cooling fans mounted in a steel rack", caption: "Miner fans pulling air through the rack" },
   hydroPumps: { src: "/photos/hydro-pumps-1600.webp", w: 1280, h: 961, alt: "Water tank with two pumps and pipework beside a hall wall at night", caption: "Pumps and tank for a hydro-cooled hall, September 2025" }, // TODO: confirm caption (content/sites.md)
 } satisfies Record<string, Photo>;
 

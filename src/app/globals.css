@@ -539,3 +539,7 @@ body::after {
 }
 @media (hover: none) { .panel::after, .overview::after { display: none; } }
 .stat b .count { font: inherit; color: inherit; }
+
+/* Wide feature photo at the top of a sites tab */
+.photo-feature .site-photo img { aspect-ratio: 21 / 9; object-fit: cover; }
+@media (max-width: 560px) { .photo-feature .site-photo img { aspect-ratio: 4 / 3; } }
