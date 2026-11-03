@@ -8,7 +8,7 @@ Approved wording for the Services section (drafted 3 Nov 2026 from the facts bel
 We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW across 8 sites, with air-cooled halls, a hydro-cooled zone, and a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.
 
 Background facts, from Drive › "Segments Proposal" deck (About Segments slide):
-- Segments has mined bitcoin for itself since 2017.
+- Segments has mined bitcoin for itself since 2017. Confirmed by Ganushi KC, 3 Nov 2026.
 - The repair and maintenance center is run by technicians trained by Bitmain.
 - Segments offers post-sale support for machines it sells.
 Not used from that deck: "Buy, Host & Earn" and its ROI/profit table (no profit or returns language on the site), and the Abu Dhabi addresses (sites are published at UAE level only).
