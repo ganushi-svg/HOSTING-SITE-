@@ -270,7 +270,7 @@ export const repair = {
     { title: "Intake & Diagnosis", text: "It is logged on arrival and tested down to the board to find the faulty part." },
     { title: "Quote Approval", text: "You receive a repair quote and approve it before any work begins." },
     { title: "Repair by Bitmain-trained technicians", text: "The part is repaired or replaced on microscope rework and soldering stations, then the machine is tested." },
-    { title: "Return to Rack & Verification", text: "It goes back to your rack, its hashrate is verified on the platform, and the repair log and invoice are updated." },
+    { title: "Return to Rack & Verification", text: "It goes back to your rack and is checked on the fleet platform; the repair log and invoice are updated." },
   ],
   video: { src: "/video/segments-repair-30fps.mp4", poster: "/video/segments-repair-poster.webp", caption: "Inside the Segments Repair center" },
 };
@@ -320,7 +320,7 @@ export const whyHost = {
   title: "Mine today. Keep every coin. Pay hosting from cash.",
   lead: "Our invoices are in USD or AED, settled from your own funds. Nothing obliges you to sell the coins your machines mine to cover hosting, so what you mine stays yours to hold or sell when you choose.",
   points: [
-    { title: "Your coins stay in your wallet", text: "We never take payment in the coins you mine. Hold them, stake your own strategy, sell when you decide." },
+    { title: "Your coins stay in your wallet", text: "You are never asked to pay hosting in the coins you mine. They stay in your wallet, and you decide when to sell." },
     { title: "Pay only for running days", text: "A machine that is offline is not billed for those days. Your hosting cost tracks what actually ran." },
     { title: "From $0.058 per kWh, no minimum fleet", text: "Three rate tiers by fleet size, and one machine is welcome. The rate is set by the invoice, not by the market." },
     { title: "Every kilowatt-hour accounted for", text: "A monthly report shows running days, energy and charge per machine, so you always know what you paid for." },
@@ -353,12 +353,12 @@ export const faqs = [
   {
     question: "Which machines can you host?",
     answer:
-      "We run air-cooled models such as the Antminer Z15 Pro, S21 series, S19 XP, L9, L7, D9 and KS5, and hydro models such as the S21 XP Hydro and S21+ Hydro. See the Machines section for each model's power draw and power cost. Ask us about any model not listed.",
+      "We run air-cooled models such as the Antminer Z15 Pro, S21 series, S19 XP, L9, L7, D9 and KS5, and hydro models such as the S21 XP Hydro and S21+ Hydro. See Supported hardware under the calculator for each model's power draw and power cost. Ask us about any model not listed.",
   },
   {
     question: "What is the turnkey solution?",
     answer:
-      "A dedicated build for larger fleets, with power from $0.039 per kWh and capex of USD 300,000 per MW. See the Turnkey tab under Pricing and ask us for a proposal.",
+      "A dedicated build for larger fleets, with power from $0.039 per kWh and capex of USD 300,000 per MW. See the Turnkey card under Pricing and ask us for a proposal.",
   },
   {
     question: "What happens when a machine breaks?",

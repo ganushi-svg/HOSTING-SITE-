@@ -23,6 +23,7 @@ Not used from that deck: "Buy, Host & Earn" and its ROI/profit table (no profit 
 ## Operations and repair
 - On-site hosting technicians and a site in-charge for each site.
 - In-house repair: pickup at the site, intake at the Segments repair center, diagnosis, quote, repair and return to the rack.
+- Repair steps as shown on the site (Ganushi KC, 4 Nov 2026): Site Pickup → Intake & Diagnosis → Quote Approval → Repair by Bitmain-trained technicians → Return to Rack & Verification (the machine is checked on the fleet platform after it returns). Technicians are trained by Bitmain; do not describe them as certified.
 - Clients approve repair quotes before work starts.
 - Spare parts stock (fans, PSU fans, cables) is held in the Segments warehouse.
 

@@ -1,5 +1,5 @@
 import type React from "react";
-import { Check, Clock, Droplets, Fan, FileBarChart, Mail, MapPin, Phone, Wrench, Zap } from "lucide-react";
+import { Clock, Droplets, FileBarChart, Mail, MapPin, Phone, Wrench, Zap } from "lucide-react";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
 import { MachinesTable } from "@/components/MachinesTable";
@@ -34,7 +34,7 @@ const infra = [
   },
   {
     icon: Droplets, kicker: "Air & hydro", title: "Cooling built for the UAE heat",
-    points: ["Air-cooled halls: filtered fresh air, evaporative pads and exhaust fan walls", "Hydro zone: sealed coolant loops with a weekly nine-step inspection per container", "Filters cleaned weekly and replaced monthly by Segments Quality Control"],
+    points: ["Air-cooled halls: filtered fresh air, evaporative pads and exhaust fan walls", "Hydro zone: sealed coolant loops with a weekly nine-step inspection per container", "Intake filters cleaned weekly, disposable filters replaced monthly, by Segments Quality Control"],
   },
   {
     icon: Wrench, kicker: "In-house", title: "Bitmain-trained repair",
@@ -46,12 +46,13 @@ const infra = [
   },
 ];
 
-const keyTerms = [
+// Four key terms (content/pricing.md, content/contract-and-onboarding.md). The coins line is the billing-structure
+// argument: hosting is settled from the client's own funds, so mined coins stay in the client's wallet.
+const keyTerms: { label: string; value: string; note?: string }[] = [
   { label: "Setup fee", value: pricing.setupFeeLabel },
   { label: "Deposit", value: pricing.depositLabel },
   { label: "Minimum term", value: pricing.minimumTermLabel },
-  { label: "Settlement", value: `${pricing.currenciesLabel}, by ${pricing.paymentMethodsLabel}` },
-  { label: "Your coins", value: "Stay in your wallet, 100%" },
+  { label: "Settlement", value: `${pricing.currenciesLabel}, by ${pricing.paymentMethodsLabel}`, note: "From your own funds. You keep 100% of the coins you mine." },
 ];
 
 function SectionHead({ eyebrow, title, children }: { eyebrow: string; title: string; children?: React.ReactNode }) {
@@ -94,7 +95,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow"><span className="pulse-dot" aria-hidden="true" /> ASIC mining hosting · Abu Dhabi, {site.serviceArea}</p>
             <h1 id="hero-title">Host your mining machines with a team that runs <em>{capacity.totalMw} MW</em>.</h1>
-            <p className="lead">{site.name} hosts ASIC miners for owners, funds and fleet operators: air and hydro-cooled halls, on-site technicians, in-house repair and a monthly power report for every machine.</p>
+            <p className="lead">{site.name} hosts ASIC miners for owners, funds and fleet operators: air and hydro-cooled halls, on-site technicians, in-house repair and per-machine billing.</p>
             <div className="cta-row">
               <a className="button" href="#contact">Request a quote <QuoteIcon size={26} /></a>
               <a className="button button-ghost" href="#calculator">Estimate power cost</a>
@@ -148,7 +149,7 @@ export default function Home() {
               <span className="plan-kicker">Your machines, our halls</span>
               <h3>Plug and play</h3>
               <p className="price num">{pricing.plugFromLabel}<small>/ kWh, from</small></p>
-              <ul>{pricing.tiers.map((t) => <li key={t.min}><b>{t.rateLabel}</b> per kWh for {t.label.toLowerCase()}</li>)}<li>Billed only on running days</li><li>Air-cooled halls or the hydro zone</li></ul>
+              <ul>{pricing.tiers.map((t) => <li key={t.min}><b>{t.rateLabel}</b> per kWh for {t.label.toLowerCase()}</li>)}<li>Minimum fleet: {pricing.minimumFleetLabel.toLowerCase()}</li><li>Air-cooled halls or the hydro zone</li></ul>
               <a className="button plan-cta" href="#contact">Get a quote <QuoteIcon /></a>
             </Reveal>
             <Reveal delay={0.06} className="panel plan">
@@ -161,7 +162,7 @@ export default function Home() {
           </div>
           <Reveal className="key-terms" aria-label="Key terms and settlement">
             <p className="eyebrow">Key terms & settlement</p>
-            <ul>{keyTerms.map((t) => <li key={t.label}><span>{t.label}</span><b>{t.value}</b></li>)}</ul>
+            <ul>{keyTerms.map((t) => <li key={t.label}><span>{t.label}</span><b>{t.value}</b>{t.note && <small>{t.note}</small>}</li>)}</ul>
           </Reveal>
           <Reveal className="why">
             <div className="why-head">
@@ -169,9 +170,6 @@ export default function Home() {
               <h3>{whyHost.title}</h3>
               <p className="muted">{whyHost.lead}</p>
             </div>
-            <ul className="why-points why-points-wide">
-              {whyHost.points.map((pt) => <li key={pt.title}><b>{pt.title}</b><span>{pt.text}</span></li>)}
-            </ul>
             <p className="fine-print why-note">{whyHost.note}</p>
           </Reveal>
         </div>
@@ -242,10 +240,6 @@ export default function Home() {
                 <div><Clock size={18} aria-hidden="true" /><span><small>Office hours</small><b>{contact.hours}</b></span></div>
                 <div><Mail size={18} aria-hidden="true" /><span><small>Email</small><b className="selectable">{contact.email}</b></span></div>
                 <div><MapPin size={18} aria-hidden="true" /><span><small>Office</small><address>{contact.office}</address></span></div>
-                <ul className="contact-points">
-                  <li><Check size={16} aria-hidden="true" /> From {pricing.plugFromLabel} per kWh, billed on running days</li>
-                  <li><Fan size={16} aria-hidden="true" /> Air and hydro-cooled halls</li>
-                </ul>
               </div>
             </div>
             <div className="panel form-panel">

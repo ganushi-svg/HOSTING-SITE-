@@ -116,7 +116,7 @@ export function pipAnswer(input: string): PipReply {
     return { text: `Payment is in ${pricing.currenciesLabel}, by ${pricing.paymentMethodsLabel}. Invoices are ${pricing.invoicingLabel.toLowerCase()}, and you pay only for the days each machine actually ran.`, chips: ["How is the charge calculated?", "What does hosting cost?"], go: { id: "pricing", label: "Pricing" } };
   }
   if (has(t, "calculated", "formula", "running days", "offline", "downtime", "how is the charge")) {
-    return { text: "Each machine is billed as watts × 24 hours × running days ÷ 1,000 × your rate. Running days come from your pool data: an offline machine counts up to its last share, and offline days are not charged.", chips: ["What does hosting cost?", "Show me a sample report"], go: { id: "infrastructure", label: "Billing" } };
+    return { text: "Each machine is billed as watts × 24 hours × running days ÷ 1,000 × your rate. Running days come from your pool data: an offline machine counts up to its last share, and offline days are not charged.", chips: ["What does hosting cost?", "What's in the monthly report?"], go: { id: "infrastructure", label: "Billing" } };
   }
   if (has(t, "turnkey", "turn key", "build", "own site", "mw", "megawatt", "capex")) {
     return { text: `Turnkey is a dedicated build for larger fleets: power from ${pricing.turnkeyPowerFromLabel} per kWh and capex of ${pricing.turnkeyCapexPerMwLabel} per MW. The detailed terms are set in your proposal, so this one is best discussed with Ganushi directly.`, whatsapp: true, go: { id: "pricing", label: "Turnkey tab" } };

@@ -50,7 +50,7 @@ export function MachinesTable({ models, flagships }: { models: Model[]; flagship
         </table>
       </div>
       <div className="hardware-foot">
-        <p className="muted">{all ? `All ${models.length} models we host. Ask us about any model not listed.` : `${list.length} flagship models shown. Ask us about any model not listed.`}</p>
+        <p className="muted">{all ? `All ${models.length} models in our table. Ask us about any model not listed.` : `${list.length} flagship models shown. Ask us about any model not listed.`}</p>
         <button type="button" className="button button-outline hardware-toggle" aria-expanded={all} onClick={() => setAll((v) => !v)}>
           {all ? "Show flagship models only" : `Show all ${models.length} models`} <ChevronDown size={18} aria-hidden="true" className={all ? "is-up" : ""} />
         </button>
