@@ -10,3 +10,5 @@ Source: CLAUDE.md, provided by Ganushi KC.
 
 - Contact person: Ganushi KC, Operations Manager (Ganushi KC, 4 Nov 2026). Portrait supplied by Ganushi for the digital visiting card (public/brand/ganushi.webp); vCard at public/ganushi-kc.vcf.
 - Office hours: 10:00 AM to 6:00 PM. Call +971 54 211 9496 during office hours; outside them, message on WhatsApp on the same number (Ganushi KC, 4 Nov 2026).
+
+- Pip, the site assistant (Ganushi KC, 4 Nov 2026): greets after 5 minutes with "Hi there! I'm Pip, the Segments hosting assistant. I'm here to help with any enquiries about hosting your miners with us. How can I help you?" and hands enquiries to WhatsApp +971 54 211 9496.

@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { contact, site } from "@/lib/site";
 import { Nav } from "@/components/Nav";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { Pip } from "@/components/Pip";
 import { Footer } from "@/components/Footer";
 import { Spotlight } from "@/components/Spotlight";
 import "./globals.css";
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         {children}
         <Footer />
         <WhatsAppButton />
+        <Pip />
         <Spotlight />
       </body>
     </html>
