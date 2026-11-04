@@ -36,5 +36,5 @@ Source: two turntable videos uploaded by Ganushi KC on 30 Oct 2026 (antminer1.mp
 - public/miners/turntable/air.webp: from main1.mp4, an air-cooled Antminer on a lit plinth. Used for every other model (air-cooled).
 - Processing: cropped to 4:3, white studio background cut out to transparency, 720 x 540 animated WebP at 15 fps (1.9 MB air, 0.9 MB hydro), plus a still first frame shown when paused or off screen.
 - Shown in the Machines section beside each cooling tab (with a pause button), captioned as a representative render, not the exact model and not a product photo.
-- TODO: confirm where these two renders come from and that we may publish them (if they are manufacturer marketing material, get permission).
+- The two turntable renders come from Bitmain (the manufacturer) and Segments has permission to publish them (Ganushi KC, 4 Nov 2026).
 - The Miner Studio pack's product photos are not used (no reuse permission).
