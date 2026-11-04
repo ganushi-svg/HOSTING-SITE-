@@ -851,66 +851,52 @@ body::after {
 .duty h3 { font-size: 1.08rem; color: #fff; margin-top: 4px; }
 .duty p { font-size: 0.9rem; line-height: 1.65; }
 
-/* ---------- Calculator miner: blueprint power-up (Ganushi, 4 Nov 2026) ---------- */
+/* ---------- Calculator miner: render to blueprint power-up (Ganushi, 4 Nov 2026) ---------- */
 .calc-form { align-content: stretch; grid-template-rows: auto auto auto 1fr; }
 .calc-miner-wrap { display: flex; }
-.calc-miner { margin: 4px 0 0; flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: var(--r-lg); border: 1px solid rgba(var(--glow), 0.22); background: radial-gradient(120% 90% at 50% 100%, rgba(var(--glow), 0.12), transparent 60%), rgba(4, 8, 20, 0.55); position: relative; overflow: hidden; }
-.cm-stage { flex: 1; display: grid; place-items: center; min-height: 170px; }
-.cm-stage svg { width: 100%; max-width: 440px; height: auto; overflow: visible; }
+.calc-miner { margin: 4px 0 0; flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 12px 14px 14px; border-radius: var(--r-lg); border: 1px solid rgba(var(--glow), 0.22); background: radial-gradient(90% 70% at 50% 85%, rgba(var(--glow), 0.16), transparent 65%), rgba(4, 8, 20, 0.55); position: relative; overflow: hidden; }
+.cm-stage { flex: 1; position: relative; width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: 4 / 3; }
+.cm-stage > img, .cm-fx, .cm-grid { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cm-grid { border-radius: 12px; opacity: 0; background-image: linear-gradient(rgba(124, 196, 255, 0.13) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 196, 255, 0.13) 1px, transparent 1px); background-size: 22px 22px; -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent); mask-image: radial-gradient(closest-side, #000 55%, transparent); }
+.cm-print, .cm-fans, .cm-lead, .cm-flow { opacity: 0; }
+.cm-fx { overflow: visible; }
 .calc-miner figcaption { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.8125rem; color: var(--lo); }
 .calc-miner figcaption b { color: var(--hi); font-size: 0.95rem; }
 .cm-note { margin-left: auto; font-size: 0.72rem; opacity: 0.8; }
 .cm-status { display: inline-flex; align-items: center; gap: 8px; opacity: 0.55; }
 .cm-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--good); opacity: 0.5; }
-.is-run .cm-status { animation: cm-status 3.2s ease both; }
-.is-run .cm-status i { animation: cm-led 0.5s ease-in-out 6 alternate; }
+
+.cm-lead { fill: none; stroke: #7cc4ff; stroke-width: 2; stroke-dasharray: 6 5; }
+.cm-flow { fill: none; stroke: #d6efff; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 14 30; }
+.cm-water { stroke: #5fd4ff; stroke-width: 6; stroke-dasharray: 10 18; }
+.cm-fan-disc { fill: rgba(6, 14, 32, 0.92); }
+.cm-fan-ring { fill: none; stroke: #8fd0ff; stroke-width: 2.5; }
+.cm-blade { fill: rgba(143, 208, 255, 0.22); stroke: #9fd8ff; stroke-width: 1.6; }
+.cm-hub { fill: rgba(143, 208, 255, 0.35); stroke: #bfe6ff; stroke-width: 1.5; }
+.cm-fan { transform-box: view-box; transform-origin: 0 0; }
+
+.is-run .cm-real { animation: cm-real 3.6s ease both; }
+.is-run .cm-print, .is-run .cm-grid { animation: cm-print 3.6s ease both; }
+.is-run .cm-lead { animation: cm-print 3.6s ease both; }
+.is-run .cm-flow { animation: cm-flow-in 3.6s ease both, cm-dash 0.55s linear infinite; }
+.is-run .cm-flow-late { animation: cm-flow-late 3.6s ease both, cm-dash 0.55s linear infinite; }
+.is-run .cm-water { animation: cm-flow-late 3.6s ease both, cm-dash 0.9s linear infinite; }
+.is-run .cm-fans { animation: cm-fans 3.6s ease both; }
+.is-run .cm-fan { animation: cm-spinup 3.6s cubic-bezier(.55, 0, .35, 1) both; }
+.is-run .cm-status { animation: cm-status 3.6s ease both; }
+.is-run .cm-status i { animation: cm-led 0.5s ease-in-out 7 alternate; }
+
+@keyframes cm-real { 0% { opacity: 1; } 14%, 80% { opacity: 0.06; } 100% { opacity: 1; } }
+@keyframes cm-print { 0% { opacity: 0; } 14%, 80% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes cm-flow-in { 0%, 12% { opacity: 0; } 20%, 74% { opacity: 1; } 88%, 100% { opacity: 0; } }
+@keyframes cm-flow-late { 0%, 30% { opacity: 0; } 38%, 74% { opacity: 1; } 88%, 100% { opacity: 0; } }
+@keyframes cm-fans { 0%, 14% { opacity: 0; } 22%, 78% { opacity: 1; } 92%, 100% { opacity: 0; } }
+@keyframes cm-spinup { 0%, 32% { transform: rotate(0deg); } 100% { transform: rotate(2520deg); } }
+@keyframes cm-dash { to { stroke-dashoffset: -44; } }
 @keyframes cm-status { 0%, 85% { opacity: 1; } 100% { opacity: 0.55; } }
 @keyframes cm-led { to { opacity: 1; transform: scale(1.35); } }
-
-/* solid view */
-.cm-real .cm-chassis { fill: url(#cm-metal); stroke: rgba(var(--glow), 0.45); stroke-width: 1.5; }
-.cm-real .cm-psu { fill: #1b2945; stroke: rgba(var(--glow), 0.4); stroke-width: 1.2; }
-.cm-real .cm-frame { fill: #0a1222; stroke: rgba(var(--glow), 0.3); }
-.cm-real .cm-ring { fill: #050a16; stroke: #2c3f66; stroke-width: 2; }
-.cm-real .cm-blade { fill: #2a3b5e; stroke: #3d5486; stroke-width: 0.8; }
-.cm-real .cm-hub { fill: #3a4f7d; }
-.cm-real .cm-board { fill: #12203b; stroke: #2c4170; }
-.cm-real .cm-cable, .cm-real .cm-pipe, .cm-real .cm-loop { fill: none; stroke: #2c3f66; stroke-width: 5; stroke-linecap: round; }
-.cm-real .cm-pipe { stroke: #1f4c80; stroke-width: 9; }
-.cm-real .cm-loop { stroke: #1f4c80; stroke-width: 4; }
-.cm-real .cm-plug { fill: #3a4f7d; }
-.cm-real .cm-trace, .cm-real .cm-vent { fill: none; stroke: #33497a; stroke-width: 2; }
-/* blueprint view */
-.cm-print { opacity: 0; }
-.cm-print * { vector-effect: non-scaling-stroke; }
-.cm-print .cm-chassis, .cm-print .cm-psu, .cm-print .cm-frame, .cm-print .cm-ring, .cm-print .cm-blade, .cm-print .cm-hub, .cm-print .cm-board, .cm-print .cm-plug { fill: rgba(124, 196, 255, 0.05); stroke: #7cc4ff; stroke-width: 1.2; }
-.cm-print .cm-cable, .cm-print .cm-trace, .cm-print .cm-vent, .cm-print .cm-pipe, .cm-print .cm-loop { fill: none; stroke: #7cc4ff; stroke-width: 1.2; stroke-dasharray: 4 3; }
-.cm-print .cm-dim { fill: none; stroke: rgba(124, 196, 255, 0.6); stroke-width: 1; }
-/* current and coolant */
-.cm-flow { fill: none; stroke: #bfe3ff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 10 22; opacity: 0; }
-.cm-flow-water { stroke: #6fd3ff; stroke-width: 4; }
-.cm-fan { transform-box: view-box; }
-.cm-real .cm-fan { animation: cm-spin 6s linear infinite; }
-
-.is-run .cm-real { animation: cm-real 3.2s ease both; }
-.is-run .cm-print { animation: cm-print 3.2s ease both; }
-.is-run .cm-flow { animation: cm-flow-in 3.2s ease both, cm-dash 0.6s linear infinite; }
-.is-run .cm-flow-late { animation: cm-flow-late 3.2s ease both, cm-dash 0.6s linear infinite; }
-.is-run .cm-print .cm-fan { animation: cm-spinup 3.2s cubic-bezier(.5, 0, .3, 1) both; }
-.is-run .cm-print .cm-psu { animation: cm-psu 3.2s ease both; }
-
-@keyframes cm-real { 0% { opacity: 1; } 12%, 80% { opacity: 0.08; } 100% { opacity: 1; } }
-@keyframes cm-print { 0% { opacity: 0; } 12%, 80% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes cm-flow-in { 0%, 10% { opacity: 0; } 18%, 74% { opacity: 1; } 90%, 100% { opacity: 0; } }
-@keyframes cm-flow-late { 0%, 28% { opacity: 0; } 36%, 74% { opacity: 1; } 90%, 100% { opacity: 0; } }
-@keyframes cm-dash { to { stroke-dashoffset: -32; } }
-@keyframes cm-psu { 0%, 24% { opacity: 0.5; } 30%, 78% { opacity: 1; } 100% { opacity: 0.5; } }
-@keyframes cm-spin { to { transform: rotate(360deg); } }
-@keyframes cm-spinup { 0%, 30% { transform: rotate(0deg); } 100% { transform: rotate(2160deg); } }
-
 @media (prefers-reduced-motion: reduce) {
-  .is-run .cm-real, .is-run .cm-print, .is-run .cm-flow, .is-run .cm-flow-late, .is-run .cm-print .cm-fan, .is-run .cm-print .cm-psu, .is-run .cm-status { animation-duration: 5s; }
-  .cm-real .cm-fan { animation-duration: 12s; }
+  .is-run .cm-real, .is-run .cm-print, .is-run .cm-grid, .is-run .cm-lead, .is-run .cm-flow, .is-run .cm-flow-late, .is-run .cm-water, .is-run .cm-fans, .is-run .cm-fan, .is-run .cm-status { animation-duration: 6s; }
 }
 @media (max-width: 720px) { .cm-note { margin-left: 0; width: 100%; } }
 

@@ -38,7 +38,7 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 1. Overview: glowing navy hero with a globe (realistic shaded Earth with arcs from client regions in Europe and the USA into Segments, Abu Dhabi; no client count shown) and the plug and play rate card, then key figures (numbers from `content/performance.md`)
 2. Services: what hosting includes
 3. Pricing: plug and play and turnkey plan cards from `content/pricing.md`; sub-tabs How billing works / Turnkey / Compare
-4. Power cost: calculator for the hosting power bill only (never mining revenue or profit), with a miner line illustration (CalcMiner) that turns into a blueprint, powers up (current in, fans or coolant running) and settles back each time a value changes (Ganushi, 4 Nov 2026)
+4. Power cost: calculator for the hosting power bill only (never mining revenue or profit), with the representative miner render (CalcMiner) that dissolves into a pre-traced blueprint (public/miners/turntable/*-blueprint.webp), powers up (current in, fans or coolant running) and settles back each time a value changes (Ganushi, 4 Nov 2026)
 5. Machines: sub-tabs Air-cooled / Hydro-cooled, a table of every model from `content/models.md` (featured: Antminer Z15 Pro) beside the representative turntable render
 6. Sites: sub-tabs Finished halls / Hydro cooling / Air cooling, with real photos and video (hydro containers, hydro racks and two hydro videos in the Hydro tab)
 7. Quality: the dedicated team "Segments Quality Control" with its logo, from `content/quality.md`; sub-tabs Air-cooled halls / Hydro containers / Coolant / Calendar
