@@ -6,13 +6,14 @@ import { PIP, pipAnswer, type PipReply } from "@/lib/pip-brain";
 import { contact } from "@/lib/site";
 import { WhatsAppIcon } from "./WhatsAppButton";
 
-type Mood = "idle" | "wave" | "think" | "talk" | "happy";
+type Mood = "idle" | "wave" | "think" | "talk" | "happy" | "listen";
 type Msg = { id: number; from: "pip" | "you"; text: string; chips?: string[]; go?: PipReply["go"]; whatsapp?: string | boolean; sent?: boolean };
 type Action = { type: "show"; id: string; label: string } | { type: "whatsapp"; url: string } | { type: "enquiry_sent" };
 type Turn = { role: "user" | "assistant"; content: unknown };
 
 const AUTO_OPEN_MS = 5 * 60 * 1000; // Pip introduces itself after five minutes on the page (Ganushi, 4 Nov 2026)
 const SEEN = "pip-seen";
+const POS = "pip-pos"; // where the visitor dragged Pip, as right/bottom offsets in px (this browser only)
 
 /**
  * Pip, the animated hosting assistant (Ganushi, 4 Nov 2026). A launcher in the bottom-right corner, a chat panel,
@@ -62,6 +63,51 @@ export function Pip() {
     const t = window.setTimeout(() => { setNudge(true); openPanel(); }, AUTO_OPEN_MS);
     return () => window.clearTimeout(t);
   }, [openPanel]);
+
+  // Visitors can drag Pip anywhere on the screen (Ganushi, 4 Nov 2026). The spot is kept in localStorage.
+  const [pos, setPos] = useState<{ r: number; b: number } | null>(null);
+  const [vp, setVp] = useState({ w: 1280, h: 800 });
+  const drag = useRef<{ dr: number; db: number; x0: number; y0: number; moved: boolean } | null>(null);
+  const justDragged = useRef(false);
+  useEffect(() => {
+    const size = () => setVp({ w: window.innerWidth, h: window.innerHeight });
+    const t = window.setTimeout(() => {
+      size();
+      try { const saved = localStorage.getItem(POS); if (saved) setPos(JSON.parse(saved)); } catch {}
+    }, 0);
+    window.addEventListener("resize", size);
+    return () => { window.clearTimeout(t); window.removeEventListener("resize", size); };
+  }, []);
+  const onPointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    drag.current = { dr: rect.right - e.clientX, db: rect.bottom - e.clientY, x0: e.clientX, y0: e.clientY, moved: false };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const d = drag.current; if (!d) return;
+    if (!d.moved && Math.hypot(e.clientX - d.x0, e.clientY - d.y0) < 6) return;
+    d.moved = true;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const r = Math.min(Math.max(window.innerWidth - e.clientX - d.dr, 4), window.innerWidth - rect.width - 4);
+    const b = Math.min(Math.max(window.innerHeight - e.clientY - d.db, 4), window.innerHeight - rect.height - 4);
+    setPos({ r, b });
+  };
+  const onPointerUp = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const d = drag.current; drag.current = null;
+    e.currentTarget.releasePointerCapture(e.pointerId);
+    if (d?.moved) { justDragged.current = true; try { localStorage.setItem(POS, JSON.stringify(pos)); } catch {} }
+  };
+  const posStyle = pos ? ({ "--pr": `${pos.r}px`, "--pb": `${pos.b}px` } as React.CSSProperties) : undefined;
+  const onLeft = pos ? pos.r > vp.w / 2 : false; // dragged to the left half: bubble and hint flip to the right side
+  // Desktop panel placement: above Pip when there is room, otherwise below; aligned to Pip's side; never over Pip.
+  const LW = 96, LH = 124, PW = 390;
+  const r = pos?.r ?? 14, bt = pos?.b ?? 78;
+  const spaceAbove = vp.h - (bt + LH) - 16, spaceBelow = bt - 16;
+  const panelBelow = spaceAbove < 320 && spaceBelow > spaceAbove;
+  const panelStyle: React.CSSProperties | undefined = vp.w > 720 ? {
+    ...(onLeft ? { left: Math.min(vp.w - r - LW, vp.w - PW - 8), right: "auto" } : { right: Math.min(r, vp.w - PW - 8), left: "auto" }),
+    ...(panelBelow ? { top: vp.h - bt + 8, bottom: "auto", maxHeight: Math.max(240, spaceBelow - 8) } : { bottom: bt + LH + 8, top: "auto", maxHeight: Math.max(240, spaceAbove - 8) }),
+  } : undefined;
 
   // On arrival Pip waves from the corner and says hi for a few seconds (Ganushi, 4 Nov 2026).
   const [hello, setHello] = useState(false);
@@ -152,18 +198,24 @@ export function Pip() {
       <button
         ref={launcherRef}
         type="button"
-        className={`pip-launcher${open ? " is-open" : ""}${nudge ? " is-nudge" : ""}${hello && !open ? " is-hello" : ""}`}
-        onClick={() => (open ? setOpen(false) : openPanel())}
+        className={`pip-launcher${open ? " is-open" : ""}${nudge ? " is-nudge" : ""}${hello && !open ? " is-hello" : ""}${onLeft ? " is-left" : ""}`}
+        onClick={() => { if (justDragged.current) { justDragged.current = false; return; } if (open) setOpen(false); else openPanel(); }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => { drag.current = null; }}
+        style={posStyle}
+        title="Ask Pip · drag me anywhere"
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? "Close Pip, the hosting assistant" : "Ask Pip, the hosting assistant"}
       >
         <span className="pip-disc" aria-hidden="true" />
         <PipAvatar mood={open ? mood : hello ? "wave" : "idle"} />
-        {!open && <span className={`pip-hint${hello ? " is-on" : ""}`} aria-hidden="true">{hello ? "Hi there! I'm Pip 👋" : "Ask Pip"}</span>}
+        {!open && <span className={`pip-hint${hello ? " is-on" : ""}`} aria-hidden="true">{hello ? "Hi there! I'm Pip 👋" : "Ask Pip · drag me"}</span>}
       </button>
 
-      <section id={panelId} className={`pip-panel${open ? " is-open" : ""}`} role="dialog" aria-modal="false" aria-label={`${PIP.name}, ${PIP.role}`} aria-hidden={!open}>
+      <section id={panelId} style={panelStyle} className={`pip-panel${open ? " is-open" : ""}${onLeft ? " is-left" : ""}${panelBelow ? " is-below" : ""}`} role="dialog" aria-modal="false" aria-label={`${PIP.name}, ${PIP.role}`} aria-hidden={!open}>
         <header className="pip-head">
           <span className="pip-head-avatar"><PipAvatar mood={mood} /></span>
           <div className="pip-head-text">
@@ -193,11 +245,11 @@ export function Pip() {
               )}
             </div>
           ))}
-          {typing && <div className="pip-msg from-pip is-typing" aria-label="Pip is thinking"><span /><span /><span /></div>}
+          {typing && <div className="pip-msg from-pip is-typing" aria-label="Pip is thinking"><span /><span /><span /><em>Pip is thinking…</em></div>}
         </div>
 
         <form className="pip-input" onSubmit={(e) => { e.preventDefault(); ask(text); }}>
-          <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder="Ask about pricing, machines, repair…" aria-label="Your question for Pip" autoComplete="off" maxLength={240} disabled={typing} />
+          <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} onFocus={() => { if (!typing) setMood("listen"); }} onBlur={() => { if (!typing) setMood("idle"); }} placeholder="Ask about pricing, machines, repair…" aria-label="Your question for Pip" autoComplete="off" maxLength={240} disabled={typing} />
           <button type="submit" aria-label="Send" disabled={!text.trim() || typing}><Send size={18} /></button>
         </form>
         <p className="pip-foot">Pip is an automated assistant that answers from the facts on this site and never estimates mining profit. For anything else, <a href={PIP.whatsappUrl(topic)} target="_blank" rel="noopener noreferrer">WhatsApp us</a>.</p>

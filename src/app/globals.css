@@ -1041,8 +1041,8 @@ body::after {
 /* ---------- Pip, the hosting assistant (Ganushi, 4 Nov 2026) ---------- */
 /* Launcher bottom-right above the dock, WhatsApp pill stacked above it. Panel is a glass card on desktop and a
    bottom sheet on phones. Character moods are classes on the SVG; everything moves by transform and opacity. */
-.whatsapp-float { bottom: 160px; }
-.pip-launcher { position: fixed; right: 14px; bottom: 78px; z-index: 46; width: 96px; height: 124px; padding: 0; border: 0; background: none; cursor: pointer; transition: transform 0.25s cubic-bezier(.3, .7, .2, 1.2); }
+.whatsapp-float { bottom: 216px; }
+.pip-launcher { position: fixed; right: var(--pr, 14px); bottom: var(--pb, 78px); z-index: 48; width: 96px; height: 124px; touch-action: none; user-select: none; padding: 0; border: 0; background: none; cursor: pointer; transition: transform 0.25s cubic-bezier(.3, .7, .2, 1.2); }
 .pip-disc { position: absolute; left: 4px; right: 4px; bottom: 0; height: 84px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, rgba(var(--glow), 0.35), rgba(9, 16, 34, 0.9) 70%); box-shadow: 0 0 0 1px rgba(var(--glow), 0.5), 0 14px 34px -12px rgba(0, 0, 0, 0.9), 0 0 24px -6px rgba(var(--glow), 0.7); }
 .pip-launcher:hover { transform: scale(1.06); }
 .pip-launcher:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
@@ -1057,7 +1057,7 @@ body::after {
 @keyframes pip-hello-pop { from { opacity: 0; transform: translate(10px, -50%) scale(0.8); } }
 .pip-launcher.is-open { transform: scale(0.92); }
 
-.pip-panel { position: fixed; right: 16px; bottom: 160px; z-index: 47; width: min(390px, calc(100vw - 32px)); max-height: min(620px, calc(100vh - 190px)); display: flex; flex-direction: column; border-radius: 20px; background: linear-gradient(180deg, #0c1730, #080f22); border: 1px solid rgba(var(--glow), 0.4); box-shadow: 0 0 0 1px rgba(var(--glow), 0.15), 0 30px 60px -24px rgba(0, 0, 0, 0.95), 0 0 40px -10px rgba(var(--glow), 0.5); opacity: 0; visibility: hidden; transform: translateY(14px) scale(0.96); transform-origin: bottom right; transition: opacity 0.25s, transform 0.3s cubic-bezier(.3, .7, .2, 1.1), visibility 0s 0.3s; }
+.pip-panel { position: fixed; right: var(--pr, 16px); bottom: calc(var(--pb, 78px) + 132px); z-index: 47; width: min(390px, calc(100vw - 32px)); max-height: min(620px, calc(100vh - 190px)); display: flex; flex-direction: column; border-radius: 20px; background: linear-gradient(180deg, #0c1730, #080f22); border: 1px solid rgba(var(--glow), 0.4); box-shadow: 0 0 0 1px rgba(var(--glow), 0.15), 0 30px 60px -24px rgba(0, 0, 0, 0.95), 0 0 40px -10px rgba(var(--glow), 0.5); opacity: 0; visibility: hidden; transform: translateY(14px) scale(0.96); transform-origin: bottom right; transition: opacity 0.25s, transform 0.3s cubic-bezier(.3, .7, .2, 1.1), visibility 0s 0.3s; }
 .pip-panel.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity 0.25s, transform 0.3s cubic-bezier(.3, .7, .2, 1.1), visibility 0s; }
 .pip-head { display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px 14px; border-bottom: 1px solid rgba(var(--glow), 0.25); background: linear-gradient(120deg, rgba(var(--glow), 0.22), rgba(var(--glow), 0.04)); border-radius: 20px 20px 0 0; }
 .pip-head-avatar { width: 46px; height: 46px; flex: none; border-radius: 50%; background: rgba(4, 8, 20, 0.5); display: grid; place-items: center; }
@@ -1096,11 +1096,11 @@ body::after {
 .pip-foot { margin: 0; padding: 0 14px 12px; font-size: 0.7rem; color: var(--lo); }
 .pip-foot a { color: var(--accent-strong); }
 @media (max-width: 720px) {
-  .pip-launcher { right: 10px; bottom: 72px; width: 80px; height: 104px; }
+  .pip-launcher { right: var(--pr, 10px); bottom: var(--pb, 72px); width: 80px; height: 104px; }
   .pip-disc { height: 70px; }
   .pip-launcher .pip { width: 76px; height: 95px; bottom: 3px; }
   .pip-hint { right: 84px; }
-  .whatsapp-float { bottom: 148px; }
+  .whatsapp-float { bottom: 188px; }
   .pip-panel { right: 8px; left: 8px; bottom: 8px; width: auto; max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); border-radius: 18px; }
 }
 
@@ -1466,3 +1466,41 @@ body::after {
 .why-flow .wf-pill-text { fill: var(--gold); font: 700 8px var(--ff-body); letter-spacing: 0.12em; text-anchor: middle; }
 .why-visual { display: none; }
 @media (max-width: 860px) { .why-flow { grid-row: auto; grid-column: 1; } }
+
+/* Pip can be dragged: bubble flips when it sits on the left, the panel opens below when it sits high (Ganushi, 4 Nov 2026) */
+.pip-launcher.is-left .pip-hint { right: auto; left: 100px; }
+.pip-launcher.is-left .pip-hint.is-on::after { right: auto; left: -6px; transform: translateY(-50%) rotate(-135deg); }
+.pip-launcher.is-left:hover .pip-hint, .pip-launcher.is-left .pip-hint.is-on { transform: translate(0, -50%); }
+@media (min-width: 721px) {
+  .pip-panel.is-below { transform-origin: top right; }
+  .pip-panel.is-left { transform-origin: bottom left; }
+  .pip-panel.is-left.is-below { transform-origin: top left; }
+}
+/* On phones the chat is a bottom sheet, so the launcher hides while it is open and the header character is bigger. */
+@media (max-width: 720px) {
+  .pip-launcher.is-open { opacity: 0; pointer-events: none; }
+  .pip-head-avatar { width: 60px; height: 60px; }
+  .pip-head-avatar .pip { width: 52px; height: 62px; }
+}
+.pip-msg.is-typing em { font: 500 0.74rem var(--ff-body); font-style: normal; color: var(--lo); margin-left: 6px; align-self: center; }
+/* listen: eyes drop to the input, small smile, left hand lifts */
+.pip-listen .pip-pupil { transform: translate(0, 4px); }
+.pip-listen .pip-arm-l { animation: none; transform: rotate(30deg); }
+.pip-listen .pip-tip-glow { animation-duration: 1.2s; }
+
+/* ---------- Visiting card: 3D icon tiles (Ganushi, 4 Nov 2026) ---------- */
+/* Bevelled tiles tilted in perspective with a gloss, a gold corner and a drop shadow; they straighten on hover. Static shadows, transform-only motion. */
+.vcard-lines dt.vcard-ico { width: 40px; height: 40px; border-radius: 12px; transform: perspective(260px) rotateX(10deg) rotateY(-14deg); transform-style: preserve-3d; transition: transform 0.35s cubic-bezier(.3, .7, .2, 1.2);
+  background: linear-gradient(145deg, #5f9bff 0%, #2a63e6 45%, #0f2f8a 100%);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.45), inset 0 -3px 0 rgba(0, 0, 0, 0.35), inset 3px 0 0 rgba(255, 255, 255, 0.12), inset -3px 0 0 rgba(0, 0, 0, 0.2), 6px 10px 18px -8px rgba(0, 0, 0, 0.9), 0 0 16px -6px rgba(59, 123, 255, 0.8); }
+.vcard-lines div:hover dt.vcard-ico { transform: perspective(260px) rotateX(0) rotateY(0) translateZ(6px); }
+.vcard-lines dt.vcard-ico::before { width: 18px; height: 18px; right: -8px; bottom: -8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+.vcard-lines dt.vcard-ico::after { inset: 0 0 50% 0; border-radius: 12px 12px 40% 40%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.02)); }
+.vcard-lines dt.vcard-ico svg { filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)); transform: translateZ(8px); }
+.vcard-badge { width: 44px; height: 44px; border-radius: 13px; transform: perspective(260px) rotateX(8deg) rotateY(-12deg); transform-style: preserve-3d; position: relative; overflow: hidden;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.1) 55%, rgba(0, 0, 0, 0.2));
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -3px 0 rgba(0, 0, 0, 0.3), 6px 10px 18px -8px rgba(0, 0, 0, 0.8); }
+.vcard-badge::after { content: ""; position: absolute; inset: 0 0 50% 0; background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent); }
+.vcard-badge svg { position: relative; z-index: 1; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.45)); }
+.vcard-btn:hover .vcard-badge { transform: perspective(260px) rotateX(0) rotateY(0) scale(1.06); }
+.vcard-btn { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 12px 28px -14px rgba(0, 0, 0, 0.9); }
