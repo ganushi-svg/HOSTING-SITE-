@@ -13,7 +13,7 @@ type Props = {
 /**
  * Turntable render of a representative hydro or air-cooled miner on the acrylic glowing stage.
  * A transparent animated WebP, so it sits cleanly on the glass panels in every browser.
- * Plays for every visitor (CLAUDE.md › Design); paused or off screen it shows a still frame,
+ * No visible caption or tag (removed at Ganushi's request, 4 Nov 2026); the alt text keeps the wording. Plays for every visitor (CLAUDE.md › Design); paused or off screen it shows a still frame,
  * and cards only fetch the animation once they come near the screen.
  */
 export function MinerTurntable({ name, cooling, variant = "hero" }: Props) {
@@ -47,9 +47,7 @@ export function MinerTurntable({ name, cooling, variant = "hero" }: Props) {
           alt={`Rotating render of a representative ${label} Antminer, shown for the ${name}`}
           decoding="async"
         />
-        {!card && <figcaption>Representative {label} render, not the exact model and not a product photo</figcaption>}
       </figure>
-      {card && <span className="render-tag">Representative render</span>}
     </div>
   );
 }
