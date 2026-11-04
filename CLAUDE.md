@@ -43,7 +43,7 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 6. Sites: sub-tabs Finished halls / Hydro cooling / Air cooling, with real photos and video (hydro containers, hydro racks and two hydro videos in the Hydro tab)
 7. Quality: the dedicated team "Segments Quality Control" with its logo, from `content/quality.md`; sub-tabs Air-cooled halls / Hydro containers / Coolant / Calendar
 8. Repair: "Segments Repair", the in-house repair center, with its logo, video and the six-step repair process (Ganushi, 4 Nov 2026)
-9. Reporting: monitoring and the redacted sample client report
+9. Reporting: monitoring and a sample client report with illustrative figures (not client data, Ganushi 4 Nov 2026)
 10. How it works: a six-step zig-zag onboarding journey (from content/contract-and-onboarding.md) and the contract terms
 11. FAQ
 12. Contact: a digital visiting card for Ganushi KC (Operations Manager, with photo and a downloadable vCard) with Call (office hours 10 AM–6 PM) and WhatsApp (after hours) buttons on +971 54 211 9496, enquiry form and the draft privacy notice

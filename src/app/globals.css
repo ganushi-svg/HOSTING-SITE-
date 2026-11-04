@@ -1009,3 +1009,27 @@ body::after {
 .water-wall { border-left: 2px dashed rgba(255, 255, 255, 0.22); justify-self: center; }
 @media (max-width: 520px) { .gauge-row { grid-template-columns: 1fr; } .two-water-grid { grid-template-columns: 1fr; } .water-wall { border-left: 0; border-top: 2px dashed rgba(255, 255, 255, 0.22); width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .hroute::after { animation-duration: 10s; } }
+
+/* ---------- Sample report, document style (Ganushi, 4 Nov 2026) ---------- */
+.report { border-color: rgba(var(--glow), 0.3); }
+.report-head { align-items: center; background: linear-gradient(120deg, rgba(var(--glow), 0.22), rgba(var(--glow), 0.04) 60%), var(--elev); border-bottom: 1px solid rgba(var(--glow), 0.25); }
+.report-period { font-size: 0.82rem; }
+.report-stamp { flex: none; padding: 6px 14px; border: 2px solid var(--gold); border-radius: 8px; color: var(--gold); font: 800 0.8rem var(--ff-display); letter-spacing: 0.22em; text-transform: uppercase; transform: rotate(-6deg); box-shadow: 0 0 18px -6px rgba(247, 190, 39, 0.8); }
+.report-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(var(--glow), 0.18); border-bottom: 1px solid rgba(var(--glow), 0.25); }
+.report-tiles > div { display: grid; gap: 4px; padding: 14px 20px; background: var(--elev); }
+.report-tiles span { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lo); }
+.report-tiles b { font-size: 1.15rem; color: var(--hi); }
+.report-tiles .is-total { background: linear-gradient(135deg, rgba(247, 190, 39, 0.16), rgba(247, 190, 39, 0.04)); }
+.report-tiles .is-total b { color: var(--gold-light); font-size: 1.35rem; }
+.report td b { display: block; color: var(--hi); }
+.report td small { display: block; color: var(--lo); font-size: 0.78rem; margin-top: 2px; }
+.rep-pill { display: inline-block; white-space: nowrap; padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; border: 1px solid transparent; }
+.rep-running { color: var(--good); background: rgba(60, 207, 116, 0.12); border-color: rgba(60, 207, 116, 0.35); }
+.rep-partial { color: var(--gold-light); background: rgba(247, 190, 39, 0.12); border-color: rgba(247, 190, 39, 0.35); }
+.rep-offline { color: var(--bad); background: rgba(255, 107, 132, 0.12); border-color: rgba(255, 107, 132, 0.35); }
+.rep-new { color: var(--accent-strong); background: rgba(var(--glow), 0.14); border-color: rgba(var(--glow), 0.4); }
+.report td.num { white-space: nowrap; }
+.rep-bar { display: inline-block; vertical-align: middle; width: 54px; height: 6px; margin-right: 10px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); position: relative; overflow: hidden; }
+.rep-bar::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, #4c8dff, #7cc4ff); transform-origin: left; transform: scaleX(var(--p)); }
+.report tr.is-offline td.num { color: var(--lo); }
+@media (max-width: 720px) { .report-tiles { grid-template-columns: 1fr 1fr; } .report-stamp { transform: rotate(-4deg); } }

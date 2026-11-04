@@ -576,9 +576,8 @@ export default function Home() {
           </div>
           <Reveal className="report-block">
             <h3>Sample client report</h3>
-            <p className="muted">An extract from a real September 2026 report. Client name, worker IDs, serial numbers, asset tags, IP addresses, pool addresses and site codes are removed, and charges are shown at an example rate inside our published range.</p>
+            <p className="muted">This is what your monthly report looks like. The figures are illustrative, not client data: four example machines at an example rate inside our published range, showing a full month, a repair, an offline machine and one racked mid-month.</p>
             <SampleReport />
-            <TODO source="assets/report-sample">Ganushi to approve this redacted extract before the site goes live</TODO>
           </Reveal>
           <Reveal className="promise">
             <div className="promise-head">

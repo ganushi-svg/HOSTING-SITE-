@@ -39,3 +39,5 @@ Source: Site Balance Power › Models tab (fleet nameplate table).
 
 ## Still needed
 - TODO: confirm whether on-site technicians are 24/7
+
+- Sample client report on the site: illustrative figures only, built from the published models and an example rate; not a real client extract (Ganushi KC, 4 Nov 2026).
