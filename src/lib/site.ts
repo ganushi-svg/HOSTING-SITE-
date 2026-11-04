@@ -33,10 +33,12 @@ export const pricing = {
   plugToUsd: 0.068,
   plugFromLabel: "$0.058",
   plugRangeLabel: "$0.058 – $0.068",
-  // content/pricing.md › tiers (Ganushi KC, 4 Nov 2026). Only the 100+ tier is confirmed so far.
-  bulkMinMachines: 100,
-  bulkRateUsd: 0.058,
-  bulkRateLabel: "$0.058",
+  // content/pricing.md › tiers (Ganushi KC, 4 Nov 2026), largest fleet first.
+  tiers: [
+    { min: 100, label: "100+ machines", rateUsd: 0.058, rateLabel: "$0.058" },
+    { min: 50, label: "50 – 99 machines", rateUsd: 0.062, rateLabel: "$0.062" },
+    { min: 1, label: "Under 50 machines", rateUsd: 0.068, rateLabel: "$0.068" },
+  ],
   // content/pricing.md › Turnkey solution
   turnkeyPowerFromUsd: 0.039,
   turnkeyPowerFromLabel: "$0.039",
@@ -45,6 +47,9 @@ export const pricing = {
   // Rate used to recalculate the sample report: an example inside the plug and play range.
   sampleRateUsd: 0.06,
 };
+
+/** Plug and play rate tier for a fleet size (content/pricing.md › tiers). */
+export const tierFor = (machines: number) => pricing.tiers.find((t) => machines >= t.min) ?? pricing.tiers[pricing.tiers.length - 1];
 
 export const capacity = {
   // content/performance.md
@@ -203,7 +208,7 @@ export const services = {
 
 export const billing = [
   // content/pricing.md › How the charge is calculated
-  "Plug and play rate from $0.058 to $0.068 per kWh, set by the number of machines you host: $0.058 for 100 or more machines.",
+  "Plug and play rate set by the number of machines you host: $0.058 per kWh for 100 or more, $0.062 for 50 to 99, and $0.068 for fewer than 50.",
   "Charge per machine = watts × 24 hours × running days ÷ 1,000 × rate.",
   "Running days come from your pool data: an offline machine counts up to its last share.",
   "Days a machine is offline are not charged.",
@@ -221,7 +226,7 @@ export const faqs = [
   {
     question: "How is my hosting charge calculated?",
     answer:
-      "Plug and play hosting costs $0.058 to $0.068 per kWh depending on how many machines you host. Each machine is billed as watts × 24 hours × running days ÷ 1,000 × rate. Running days come from your pool data, and days a machine is offline are not charged.",
+      "Plug and play hosting costs $0.058 per kWh for 100 or more machines, $0.062 for 50 to 99, and $0.068 for fewer than 50. Each machine is billed as watts × 24 hours × running days ÷ 1,000 × rate. Running days come from your pool data, and days a machine is offline are not charged.",
   },
   {
     question: "Which machines can you host?",

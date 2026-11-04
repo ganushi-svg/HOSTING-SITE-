@@ -28,11 +28,11 @@ const turnkeySizes = [1, 5, 10, 20].map((mw) => ({ mw, capex: mw * pricing.turnk
 const whole = (n: number) => usd(n).replace(".00", "");
 
 const compare = [
-  { label: "Power rate", plug: `${pricing.plugRangeLabel} per kWh, by quantity`, turnkey: `From ${pricing.turnkeyPowerFromLabel} per kWh` },
+  { label: "Power rate", plug: `${pricing.plugRangeLabel} per kWh by fleet size ($0.058 for 100+)`, turnkey: `From ${pricing.turnkeyPowerFromLabel} per kWh` },
   { label: "Upfront capex", plug: "None", turnkey: `${pricing.turnkeyCapexPerMwLabel} per MW` },
   { label: "How you start", plug: "Ship your machines to our halls", turnkey: "Capacity built for your fleet" },
 ];
-const plugTerms = ["Rate for fleets under 100 machines", "What the rate includes besides power", "Setup fee and deposit", "Minimum term and minimum fleet size", "Payment currencies and methods"];
+const plugTerms = ["What the rate includes besides power", "Setup fee and deposit", "Minimum term and minimum fleet size", "Payment currencies and methods"];
 const turnkeyTerms = ["What the capex covers", "Who owns the infrastructure", "Minimum capacity (MW)", "Build timeline", "Contract term"];
 const contractTerms = ["Contract length", "Notice period", "Who contracts with you", "Payment terms", "Machine delivery and return"];
 
@@ -109,7 +109,7 @@ export default function Home() {
           <aside className="rate-card" aria-label="Hosting rate summary">
             <p className="eyebrow">Plug and play hosting</p>
             <p className="rate-big num">{pricing.plugFromLabel}<span>/ kWh, from</span></p>
-            <p className="rate-sub">{pricing.plugRangeLabel} per kWh depending on quantity, billed only on days your machines run.</p>
+            <p className="rate-sub">For 100+ machines. $0.062 for 50–99 and $0.068 under 50, billed only on days your machines run.</p>
             <dl>
               <div><dt>Operating capacity</dt><dd className="num">{capacity.totalMw} MW</dd></div>
               <div><dt>Hosting sites</dt><dd>All around Abu Dhabi</dd></div>
@@ -155,7 +155,7 @@ export default function Home() {
               <span className="tag">Your machines, our halls</span>
               <h3>Plug and play</h3>
               <p className="price num">{pricing.plugFromLabel}<small>/ kWh, from</small></p>
-              <ul><li><b>{pricing.bulkRateLabel}</b> per kWh for {pricing.bulkMinMachines}+ machines</li><li>{pricing.plugRangeLabel} per kWh, set by quantity</li><li>Billed only on running days</li><li>Air-cooled halls or the hydro zone</li><li>Monthly power report per machine</li></ul>
+              <ul>{pricing.tiers.map((t) => <li key={t.min}><b>{t.rateLabel}</b> per kWh for {t.label.toLowerCase()}</li>)}<li>Billed only on running days</li><li>Air-cooled halls or the hydro zone</li><li>Monthly power report per machine</li></ul>
               <a className="button" href="#contact">Get a quote <QuoteIcon /></a>
             </Reveal>
             <Reveal delay={0.06} className="panel plan">
@@ -180,8 +180,7 @@ export default function Home() {
                         <caption className="sr-only">Plug and play rate by fleet size</caption>
                         <thead><tr><th scope="col">Fleet size</th><th scope="col" className="num">Rate per kWh</th></tr></thead>
                         <tbody>
-                          <tr><th scope="row">{pricing.bulkMinMachines}+ machines</th><td className="num">{pricing.bulkRateLabel}</td></tr>
-                          <tr><th scope="row">Under {pricing.bulkMinMachines} machines</th><td className="num">up to $0.068 <TODO source="content/pricing.md" inline>tier breakpoints</TODO></td></tr>
+                          {pricing.tiers.map((t) => <tr key={t.min}><th scope="row">{t.label}</th><td className="num">{t.rateLabel}</td></tr>)}
                         </tbody>
                       </table>
                     </div><div className="panel pad"><h3>How plug and play is billed</h3><ul className="dot-list">{billing.map((b) => <li key={b}>{b}</li>)}</ul></div></div>
