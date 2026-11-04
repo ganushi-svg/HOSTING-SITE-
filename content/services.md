@@ -41,3 +41,5 @@ Source: Site Balance Power › Models tab (fleet nameplate table).
 - TODO: confirm whether on-site technicians are 24/7
 
 - Sample client report on the site: illustrative figures only, built from the published models and an example rate; not a real client extract (Ganushi KC, 4 Nov 2026).
+
+- Repair video (4 Nov 2026): the supplied clip carries only about 4 real frames a second, so it is re-encoded with motion-compensated interpolation (ffmpeg minterpolate) to a true 30 fps, the out-of-focus funnel shot cut, keyframe every second, no audio, metadata stripped.
