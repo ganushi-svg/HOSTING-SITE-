@@ -151,11 +151,7 @@ export default function Home() {
       <section id="services" className="section alt" aria-labelledby="services-title">
         <div className="container">
           <SectionHead eyebrow="Services" title="What hosting includes">Power, cooling, repair and reporting from one team, with every charge traceable to a machine and a day.</SectionHead>
-          <figure className="banner">
-            {/* eslint-disable-next-line @next/next/no-img-element -- brand banner, served as-is */}
-            <img src="/brand/banner-cloud.webp" width={1600} height={679} alt="Segments Cloud brand banner with the blue and gold logo mark" loading="lazy" />
-          </figure>
-          <Reveal className="overview"><p>{services.overview}</p></Reveal>
+          <Reveal className="overview"><span className="overview-art" aria-hidden="true" /><p>{services.overview}</p></Reveal>
           <div className="feat">
             {serviceGroups.map((g, i) => (
               <Reveal key={g.title} delay={i * 0.05} className="panel feat-card">
@@ -195,11 +191,49 @@ export default function Home() {
               <h3>{whyHost.title}</h3>
               <p className="muted">{whyHost.lead}</p>
             </div>
-            <div className="why-visual" aria-hidden="true">
-              <span className="coin c1" /><span className="coin c2" /><span className="coin c3" /><span className="coin c4" />
-              <span className="wallet"><Wallet size={26} /></span>
-              <span className="why-tag">Yours to keep</span>
-            </div>
+            <svg className="why-flow" viewBox="0 0 340 230" role="img" aria-label="Mined coins flow into your wallet; the hosting invoice is paid from your own USD or AED funds. The two never mix.">
+              <defs><linearGradient id="wf-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffe27a" /><stop offset="1" stopColor="#d99a0c" /></linearGradient></defs>
+              {/* lane 1: coins to wallet */}
+              <g className="wf-lane">
+                <g transform="translate(46 62)">
+                  <circle r="30" className="wf-node wf-node-gold" />
+                  {[8, 3, -2, -7].map((y) => <ellipse key={y} cx="0" cy={y} rx="13" ry="5" fill="url(#wf-gold)" stroke="#8a5a00" strokeWidth="0.8" />)}
+                </g>
+                <text x="46" y="110" className="wf-label">Mined coins</text>
+                <path id="wf-p1" d="M80 62 H256" className="wf-path wf-path-gold" />
+                <path d="M248 55 l10 7 -10 7" className="wf-arrow wf-arrow-gold" />
+                {[0, 1, 2].map((i) => <circle key={i} r="4.5" className="wf-dot wf-dot-gold"><animateMotion dur="2.4s" begin={`-${i * 0.8}s`} repeatCount="indefinite" path="M80 62 H256" /></circle>)}
+                <g transform="translate(294 62)">
+                  <circle r="30" className="wf-node wf-node-gold" />
+                  <rect x="-16" y="-10" width="32" height="24" rx="5" fill="#1a3f8f" stroke="#f7be27" strokeWidth="1.5" />
+                  <rect x="4" y="-2" width="12" height="9" rx="2" fill="#f7be27" />
+                  <g transform="translate(14 -20)"><circle r="9" fill="#f7be27" /><path d="M-3 0 h6 v5 h-6z M-2 0 v-2.5 a2 2 0 0 1 4 0 V0" fill="none" stroke="#2a1a02" strokeWidth="1.4" /></g>
+                </g>
+                <text x="294" y="110" className="wf-label">Your wallet</text>
+              </g>
+              {/* the two never mix */}
+              <line x1="20" y1="128" x2="320" y2="128" className="wf-divider" />
+              <rect x="110" y="118" width="120" height="20" rx="10" className="wf-pill" /><text x="170" y="132" className="wf-pill-text">THE TWO NEVER MIX</text>
+              {/* lane 2: invoice paid from your funds */}
+              <g className="wf-lane">
+                <g transform="translate(46 180)">
+                  <circle r="30" className="wf-node wf-node-blue" />
+                  <path d="M-11 -14 h22 v26 l-4 -3 -4 3 -3 -3 -4 3 -3 -3 -4 3z" fill="#0b1530" stroke="#7cc4ff" strokeWidth="1.5" />
+                  <path d="M-6 -7 h12 M-6 -2 h12 M-6 3 h7" stroke="#7cc4ff" strokeWidth="1.4" strokeLinecap="round" />
+                </g>
+                <text x="46" y="226" className="wf-label">Hosting invoice</text>
+                <path d="M256 180 H84" className="wf-path wf-path-blue" />
+                <path d="M92 173 l-10 7 10 7" className="wf-arrow wf-arrow-blue" />
+                {[0, 1, 2].map((i) => <circle key={i} r="4" className="wf-dot wf-dot-blue"><animateMotion dur="2.4s" begin={`-${i * 0.8}s`} repeatCount="indefinite" path="M256 180 H84" /></circle>)}
+                <g transform="translate(294 180)">
+                  <circle r="30" className="wf-node wf-node-blue" />
+                  <rect x="-17" y="-11" width="34" height="22" rx="4" fill="#0b1530" stroke="#7cc4ff" strokeWidth="1.5" />
+                  <rect x="-17" y="-5" width="34" height="5" fill="#4c8dff" />
+                  <text x="0" y="8" className="wf-card">USD · AED</text>
+                </g>
+                <text x="294" y="226" className="wf-label">Your own funds</text>
+              </g>
+            </svg>
             <ul className="why-points">
               {whyHost.points.map((pt) => <li key={pt.title}><b>{pt.title}</b><span>{pt.text}</span></li>)}
             </ul>

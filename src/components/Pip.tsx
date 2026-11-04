@@ -6,7 +6,7 @@ import { PIP, pipAnswer, type PipReply } from "@/lib/pip-brain";
 import { contact } from "@/lib/site";
 import { WhatsAppIcon } from "./WhatsAppButton";
 
-type Mood = "idle" | "wave" | "think" | "talk";
+type Mood = "idle" | "wave" | "think" | "talk" | "happy";
 type Msg = { id: number; from: "pip" | "you"; text: string; chips?: string[]; go?: PipReply["go"]; whatsapp?: string | boolean; sent?: boolean };
 type Action = { type: "show"; id: string; label: string } | { type: "whatsapp"; url: string } | { type: "enquiry_sent" };
 type Turn = { role: "user" | "assistant"; content: unknown };
@@ -63,6 +63,31 @@ export function Pip() {
     return () => window.clearTimeout(t);
   }, [openPanel]);
 
+  // On arrival Pip waves from the corner and says hi for a few seconds (Ganushi, 4 Nov 2026).
+  const [hello, setHello] = useState(false);
+  useEffect(() => {
+    const t1 = window.setTimeout(() => setHello(true), 1400);
+    const t2 = window.setTimeout(() => setHello(false), 7000);
+    return () => { window.clearTimeout(t1); window.clearTimeout(t2); };
+  }, []);
+
+  // Pip's eyes follow the pointer: two CSS variables on the launcher, updated at most once a frame.
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    let frame = 0, mx = 0, my = 0;
+    const apply = () => {
+      frame = 0;
+      const el = launcherRef.current; if (!el) return;
+      const r = el.getBoundingClientRect();
+      const dx = (mx - (r.left + r.width / 2)) / window.innerWidth, dy = (my - (r.top + r.height / 2)) / window.innerHeight;
+      document.documentElement.style.setProperty("--pip-ex", String(Math.max(-1, Math.min(1, dx * 3))));
+      document.documentElement.style.setProperty("--pip-ey", String(Math.max(-1, Math.min(1, dy * 3))));
+    };
+    const move = (e: MouseEvent) => { mx = e.clientX; my = e.clientY; if (!frame) frame = requestAnimationFrame(apply); };
+    window.addEventListener("mousemove", move, { passive: true });
+    return () => { window.removeEventListener("mousemove", move); if (frame) cancelAnimationFrame(frame); };
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
@@ -115,24 +140,27 @@ export function Pip() {
       const wa = data.actions.find((a): a is Extract<Action, { type: "whatsapp" }> => a.type === "whatsapp");
       const sent = data.actions.some((a) => a.type === "enquiry_sent");
       addPip({ text: data.text, go: show ? { id: show.id, label: show.label } : undefined, whatsapp: wa ? wa.url : undefined, sent });
+      if (show || sent) setMoodFor("happy", 2200);
       if (show) goTo(show.id);
     } catch {
       scripted(query);
     }
-  }, [addPip, goTo, scripted]);
+  }, [addPip, goTo, scripted, setMoodFor]);
 
   return (
     <>
       <button
+        ref={launcherRef}
         type="button"
-        className={`pip-launcher${open ? " is-open" : ""}${nudge ? " is-nudge" : ""}`}
+        className={`pip-launcher${open ? " is-open" : ""}${nudge ? " is-nudge" : ""}${hello && !open ? " is-hello" : ""}`}
         onClick={() => (open ? setOpen(false) : openPanel())}
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? "Close Pip, the hosting assistant" : "Ask Pip, the hosting assistant"}
       >
-        <PipAvatar mood={open ? mood : "idle"} />
-        {!open && <span className="pip-hint" aria-hidden="true">Ask Pip</span>}
+        <span className="pip-disc" aria-hidden="true" />
+        <PipAvatar mood={open ? mood : hello ? "wave" : "idle"} />
+        {!open && <span className={`pip-hint${hello ? " is-on" : ""}`} aria-hidden="true">{hello ? "Hi there! I'm Pip 👋" : "Ask Pip"}</span>}
       </button>
 
       <section id={panelId} className={`pip-panel${open ? " is-open" : ""}`} role="dialog" aria-modal="false" aria-label={`${PIP.name}, ${PIP.role}`} aria-hidden={!open}>
@@ -178,12 +206,15 @@ export function Pip() {
   );
 }
 
-/** The character. Blue body with the gold rim and antenna of the Segments cast, drawn so every part can move. */
+/**
+ * The character: a round blue body on two little legs, two arms with gold hands, the gold antenna and the Segments
+ * mark. Every limb is its own group with a transform origin at its joint, so moods can wave, gesture, hop and tuck.
+ */
 function PipAvatar({ mood }: { mood: Mood }) {
   return (
-    <svg className={`pip pip-${mood}`} viewBox="0 0 120 124" aria-hidden="true" focusable="false">
+    <svg className={`pip pip-${mood}`} viewBox="0 0 120 150" aria-hidden="true" focusable="false">
       <defs>
-        <radialGradient id="pip-body" cx="38%" cy="32%" r="75%">
+        <radialGradient id="pip-body" cx="38%" cy="30%" r="75%">
           <stop offset="0" stopColor="#4f8dff" />
           <stop offset="0.55" stopColor="#1f53d6" />
           <stop offset="1" stopColor="#0b2a7a" />
@@ -195,46 +226,64 @@ function PipAvatar({ mood }: { mood: Mood }) {
       </defs>
       <g className="pip-float">
         <g className="pip-sparkles">
-          <path className="pip-spark s1" d="M14 30 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" />
-          <path className="pip-spark s2" d="M104 24 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6z" />
-          <path className="pip-spark s3" d="M106 92 l1.4 3.5 3.5 1.4 -3.5 1.4 -1.4 3.5 -1.4 -3.5 -3.5 -1.4 3.5 -1.4z" />
+          <path className="pip-spark s1" d="M10 44 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" />
+          <path className="pip-spark s2" d="M108 26 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6z" />
+          <path className="pip-spark s3" d="M110 104 l1.4 3.5 3.5 1.4 -3.5 1.4 -1.4 3.5 -1.4 -3.5 -3.5 -1.4 3.5 -1.4z" />
         </g>
         <g className="pip-thought">
-          <circle cx="92" cy="40" r="3" />
-          <circle cx="100" cy="30" r="4.5" />
-          <circle cx="110" cy="17" r="6.5" />
+          <circle cx="96" cy="36" r="3" />
+          <circle cx="104" cy="26" r="4.5" />
+          <circle cx="114" cy="13" r="6.5" />
         </g>
         <g className="pip-antenna">
-          <line x1="60" y1="30" x2="60" y2="12" stroke="#f7be27" strokeWidth="3" strokeLinecap="round" />
-          <circle className="pip-tip-glow" cx="60" cy="10" r="11" fill="url(#pip-glow)" />
-          <circle className="pip-tip" cx="60" cy="10" r="4.5" fill="#fbd24e" />
+          <line x1="60" y1="30" x2="60" y2="14" stroke="#f7be27" strokeWidth="3" strokeLinecap="round" />
+          <circle className="pip-tip-glow" cx="60" cy="12" r="11" fill="url(#pip-glow)" />
+          <circle className="pip-tip" cx="60" cy="12" r="4.5" fill="#fbd24e" />
         </g>
-        <g className="pip-arm pip-arm-l"><ellipse cx="22" cy="80" rx="7" ry="6" fill="#f7be27" /></g>
-        <g className="pip-arm pip-arm-r"><ellipse cx="98" cy="80" rx="7" ry="6" fill="#f7be27" /></g>
-        <ellipse cx="47" cy="110" rx="9" ry="5" fill="#f7be27" />
-        <ellipse cx="73" cy="110" rx="9" ry="5" fill="#f7be27" />
-        <circle cx="60" cy="70" r="40" fill="url(#pip-body)" stroke="#f7be27" strokeWidth="4" />
-        <path d="M30 58 a36 36 0 0 1 60 0" fill="none" stroke="#9cc5ff" strokeOpacity="0.35" strokeWidth="3" strokeLinecap="round" />
-        {/* The Segments mark on the forehead. */}
-        <g transform="translate(52 36) scale(0.75)">
+        {/* legs and feet (tops tucked under the body) */}
+        <g className="pip-leg pip-leg-l" style={{ transformOrigin: "46px 100px" }}>
+          <path d="M46 98 v24" stroke="#1a3f8f" strokeWidth="8" strokeLinecap="round" />
+          <ellipse cx="43" cy="128" rx="11" ry="5.5" fill="#f7be27" />
+        </g>
+        <g className="pip-leg pip-leg-r" style={{ transformOrigin: "74px 100px" }}>
+          <path d="M74 98 v24" stroke="#1a3f8f" strokeWidth="8" strokeLinecap="round" />
+          <ellipse cx="77" cy="128" rx="11" ry="5.5" fill="#f7be27" />
+        </g>
+        {/* body and face */}
+        <circle cx="60" cy="66" r="36" fill="url(#pip-body)" stroke="#f7be27" strokeWidth="4" />
+        <path d="M34 54 a32 32 0 0 1 52 0" fill="none" stroke="#9cc5ff" strokeOpacity="0.35" strokeWidth="3" strokeLinecap="round" />
+        <g transform="translate(54 34) scale(0.55)">
           <path d="M8 0 l12 6 v10 l-12 6 -12 -6 v-10z" fill="#3b7bff" stroke="#9fd0ff" strokeWidth="1.2" />
           <path d="M8 0 v22 M-4 6 l12 6 12 -6" fill="none" stroke="#f7be27" strokeWidth="2" />
         </g>
         <g className="pip-eyes">
-          <g className="pip-eye" style={{ transformOrigin: "47px 72px" }}>
-            <ellipse cx="47" cy="72" rx="8" ry="9.5" fill="#fff" />
-            <g className="pip-pupil"><circle cx="48.5" cy="73.5" r="4.2" fill="#0b1530" /><circle cx="50" cy="71.5" r="1.4" fill="#fff" /></g>
+          <g className="pip-eye" style={{ transformOrigin: "47px 66px" }}>
+            <ellipse cx="47" cy="66" rx="8" ry="9.5" fill="#fff" />
+            <g className="pip-pupil"><circle cx="48" cy="67" r="4.2" fill="#0b1530" /><circle cx="49.5" cy="65" r="1.4" fill="#fff" /></g>
+            <path className="pip-happy-eye" d="M40 67 q7 -8 14 0" fill="none" stroke="#0b1530" strokeWidth="3" strokeLinecap="round" />
           </g>
-          <g className="pip-eye" style={{ transformOrigin: "73px 72px" }}>
-            <ellipse cx="73" cy="72" rx="8" ry="9.5" fill="#fff" />
-            <g className="pip-pupil"><circle cx="74.5" cy="73.5" r="4.2" fill="#0b1530" /><circle cx="76" cy="71.5" r="1.4" fill="#fff" /></g>
+          <g className="pip-eye" style={{ transformOrigin: "73px 66px" }}>
+            <ellipse cx="73" cy="66" rx="8" ry="9.5" fill="#fff" />
+            <g className="pip-pupil"><circle cx="74" cy="67" r="4.2" fill="#0b1530" /><circle cx="75.5" cy="65" r="1.4" fill="#fff" /></g>
+            <path className="pip-happy-eye" d="M66 67 q7 -8 14 0" fill="none" stroke="#0b1530" strokeWidth="3" strokeLinecap="round" />
           </g>
         </g>
-        <path className="pip-mouth pip-mouth-smile" d="M50 90 q10 8 20 0" fill="none" stroke="#0b1530" strokeWidth="3" strokeLinecap="round" />
-        <path className="pip-mouth pip-mouth-open" d="M51 89 q9 11 18 0 q-9 4 -18 0z" fill="#0b1530" />
-        <path className="pip-mouth pip-mouth-hmm" d="M52 91 q8 -4 16 0" fill="none" stroke="#0b1530" strokeWidth="3" strokeLinecap="round" />
-        <ellipse className="pip-cheek" cx="36" cy="84" rx="5" ry="3" fill="#ff8aa8" opacity="0.45" />
-        <ellipse className="pip-cheek" cx="84" cy="84" rx="5" ry="3" fill="#ff8aa8" opacity="0.45" />
+        <path className="pip-mouth pip-mouth-smile" d="M50 84 q10 8 20 0" fill="none" stroke="#0b1530" strokeWidth="3" strokeLinecap="round" />
+        <path className="pip-mouth pip-mouth-open" d="M51 83 q9 11 18 0 q-9 4 -18 0z" fill="#0b1530" />
+        <path className="pip-mouth pip-mouth-hmm" d="M52 85 q8 -4 16 0" fill="none" stroke="#0b1530" strokeWidth="3" strokeLinecap="round" />
+        <path className="pip-mouth pip-mouth-grin" d="M46 82 q14 14 28 0 q-14 5 -28 0z" fill="#0b1530" />
+        <ellipse className="pip-cheek" cx="36" cy="78" rx="5" ry="3" fill="#ff8aa8" opacity="0.45" />
+        <ellipse className="pip-cheek" cx="84" cy="78" rx="5" ry="3" fill="#ff8aa8" opacity="0.45" />
+        {/* arms and hands, drawn over the body and pivoting at the shoulder */}
+        <g className="pip-arm pip-arm-l" style={{ transformOrigin: "26px 74px" }}>
+          <path d="M26 74 q-14 10 -14 26" fill="none" stroke="#1a3f8f" strokeWidth="7" strokeLinecap="round" />
+          <circle cx="12" cy="104" r="7.5" fill="#f7be27" />
+        </g>
+        <g className="pip-arm pip-arm-r" style={{ transformOrigin: "94px 74px" }}>
+          <path d="M94 74 q14 10 14 26" fill="none" stroke="#1a3f8f" strokeWidth="7" strokeLinecap="round" />
+          <circle cx="108" cy="104" r="7.5" fill="#f7be27" />
+          <path className="pip-fingers" d="M103 99 l-2 -5 M108 97 l0 -5 M113 99 l2 -5" stroke="#f7be27" strokeWidth="3" strokeLinecap="round" />
+        </g>
       </g>
     </svg>
   );

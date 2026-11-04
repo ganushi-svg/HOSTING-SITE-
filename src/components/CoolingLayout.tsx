@@ -93,9 +93,23 @@ function AirSection(p: SectionProps) {
   const floorY = 252, ceilY = 34;
   return (
     <svg viewBox="0 0 760 290" className="section" role="img" aria-label="Section through an air-cooled hall, from the intake hood on the left to the exhaust fans on the right">
+      <defs>
+        <pattern id="sec-grid-p" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H0 V20" fill="none" stroke="rgba(124,196,255,.12)" strokeWidth="1" /></pattern>
+        <pattern id="sec-honey" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.6" fill="none" stroke="rgba(255,255,255,.45)" strokeWidth="0.6" /></pattern>
+        <linearGradient id="sec-temp" x1="0" x2="1"><stop offset="0" stopColor="#22d3ee" stopOpacity="0.16" /><stop offset="0.55" stopColor="#22d3ee" stopOpacity="0.03" /><stop offset="0.75" stopColor="#ff8a65" stopOpacity="0.06" /><stop offset="1" stopColor="#ff8a65" stopOpacity="0.2" /></linearGradient>
+      </defs>
+      <rect x="0" y="0" width="760" height="290" className="sec-grid" />
+      <rect x="62" y={ceilY} width="496" height={floorY - ceilY} fill="url(#sec-temp)" />
       {/* slab and roof */}
       <rect x="0" y={floorY} width="760" height="10" className="slab" />
       <rect x="62" y={ceilY - 8} width="560" height="8" className="slab" />
+      <path d={`M62 ${ceilY - 8} l16 -10 h560 l-16 10z`} className="lid" /><path d={`M622 ${ceilY - 8} l16 -10 v${floorY - ceilY + 8} l-16 -10z`} className="lid lid-side" />
+      {/* measured dimensions from drawing SC-CH-01, in mm */}
+      <g className="dims">
+        {([[62, 152, "940"], [152, 242, "880"], [242, 378, "1,500 clear"], [378, 432, "500"], [432, 558, "1,500"]] as [number, number, string][]).map(([a, b, t]) => (
+          <g key={`${t}-${a}`}><line x1={a} y1={floorY + 18} x2={b} y2={floorY + 18} /><line x1={a} y1={floorY + 13} x2={a} y2={floorY + 23} /><line x1={b} y1={floorY + 13} x2={b} y2={floorY + 23} /><text x={(a + b) / 2} y={floorY + 15}>{t} mm</text></g>
+        ))}
+      </g>
       {/* outside labels */}
       <text x="6" y="246" className="zone-label">Outside</text>
       <text x="650" y="22" className="zone-label">Outside</text>
@@ -120,7 +134,7 @@ function AirSection(p: SectionProps) {
       </g>
       {/* 4 wet pad */}
       <g {...g("wet", p)}>
-        <rect x="152" y="58" width="14" height={floorY - 58 - 40} className="pad pad-wet" />
+        <rect x="152" y="58" width="14" height={floorY - 58 - 40} className="pad pad-wet" /><rect x="152" y="58" width="14" height={floorY - 58 - 40} fill="url(#sec-honey)" />
         <rect x="150" y={floorY - 40} width="18" height="40" className="curb" />
         <rect x="146" y="44" width="26" height="12" rx="3" className="header" />
         <text x="159" y="53" className="tiny">water</text>
@@ -137,7 +151,7 @@ function AirSection(p: SectionProps) {
       </g>
       {/* 6 dry pad */}
       <g {...g("dry", p)}>
-        <rect x="242" y="58" width="14" height={floorY - 58 - 40} className="pad pad-dry" />
+        <rect x="242" y="58" width="14" height={floorY - 58 - 40} className="pad pad-dry" /><rect x="242" y="58" width="14" height={floorY - 58 - 40} fill="url(#sec-honey)" />
         <rect x="240" y={floorY - 40} width="18" height="40" className="curb" />
         <Num n={6} x={249} y={22} />
       </g>
@@ -156,6 +170,7 @@ function AirSection(p: SectionProps) {
             <rect width="46" height="38" rx="3" className="miner" />
             <Fan x={36} y={19} r={11} />
             <rect x="4" y="6" width="22" height="26" rx="2" className="miner-body" />
+            <circle cx="8" cy="10" r="1.6" className="led-mini" style={{ animationDelay: `${i * 0.4}s` }} />
           </g>
         ))}
         <text x="405" y={floorY - 6} className="tiny">rack board</text>
@@ -179,7 +194,7 @@ function AirSection(p: SectionProps) {
       {/* airflow */}
       {[92, 142, 192].map((y, i) => <Flow key={y} d={`M-6 ${y} L384 ${y}`} n={5} dur={7} className="flow-cool" begin={i * 0.7} />)}
       {[92, 142, 192].map((y, i) => <Flow key={y} d={`M428 ${y} L652 ${y}`} n={3} dur={4} className="flow-hot" begin={i * 0.5} />)}
-      <text x="12" y={floorY + 24} className="legend"><tspan className="lg-cool">●</tspan> cool air <tspan className="lg-hot" dx="14">●</tspan> hot air <tspan className="lg-water" dx="14">●</tspan> water</text>
+      <text x="12" y={floorY + 36} className="legend"><tspan className="lg-cool">●</tspan> cool air <tspan className="lg-hot" dx="14">●</tspan> hot air <tspan className="lg-water" dx="14">●</tspan> water</text>
     </svg>
   );
 }
@@ -187,7 +202,17 @@ function AirSection(p: SectionProps) {
 function HydroSection(p: SectionProps) {
   return (
     <svg viewBox="0 0 760 290" className="section" role="img" aria-label="Section through a hydro container and its cooling tower, following the coolant from the miners to the tower and back">
+      <defs>
+        <pattern id="sec-grid-p" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H0 V20" fill="none" stroke="rgba(124,196,255,.12)" strokeWidth="1" /></pattern>
+        <pattern id="sec-honey" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.6" fill="none" stroke="rgba(255,255,255,.45)" strokeWidth="0.6" /></pattern>
+        <linearGradient id="sec-temp" x1="0" x2="1"><stop offset="0" stopColor="#22d3ee" stopOpacity="0.16" /><stop offset="0.55" stopColor="#22d3ee" stopOpacity="0.03" /><stop offset="0.75" stopColor="#ff8a65" stopOpacity="0.06" /><stop offset="1" stopColor="#ff8a65" stopOpacity="0.2" /></linearGradient>
+      </defs>
+      <rect x="0" y="0" width="760" height="290" className="sec-grid" />
       <rect x="0" y="252" width="760" height="10" className="slab" />
+      {/* isometric lids give the container and tower some depth */}
+      <path d="M40 34 l18 -12 h400 l-18 12z" className="lid" /><path d="M440 34 l18 -12 v218 l-18 -12z" className="lid lid-side" />
+      <path d="M520 46 l14 -10 h160 l-14 10z" className="lid" /><path d="M680 46 l14 -10 v206 l-14 -10z" className="lid lid-side" />
+      <g className="plume"><circle r="4"><animateMotion dur="2.4s" begin="-0.0s" repeatCount="indefinite" path="M592 44 q-6 -14 -2 -30" /></circle><circle r="3"><animateMotion dur="2.4s" begin="-0.8s" repeatCount="indefinite" path="M600 44 q4 -14 2 -32" /></circle><circle r="3.5"><animateMotion dur="2.4s" begin="-1.6s" repeatCount="indefinite" path="M608 44 q6 -14 0 -30" /></circle></g>
       <text x="48" y="24" className="zone-label">Container</text>
       <text x="548" y="24" className="zone-label">Outside · cooling tower</text>
       {/* container shell */}
@@ -211,7 +236,7 @@ function HydroSection(p: SectionProps) {
               {r === 2 && <Num n={2} x={x + 52} y={48} />}
             </g>
             <g {...g("miners", p)}>
-              {[0, 1, 2, 3].map((i) => <rect key={i} x={x + 5} y={68 + i * 40} width="37" height="26" rx="3" className="miner hmine" />)}
+              {[0, 1, 2, 3].map((i) => <g key={i}><rect x={x + 5} y={68 + i * 40} width="37" height="26" rx="3" className="miner hmine" /><circle cx={x + 37} cy={73 + i * 40} r="1.8" className="led-mini" style={{ animationDelay: `${((r * 4 + i) % 7) * 0.35}s` }} /></g>)}
               {r === 0 && <Num n={1} x={x + 24} y={48} />}
             </g>
           </g>
@@ -223,13 +248,14 @@ function HydroSection(p: SectionProps) {
         <path d="M60 52 H330" className="pipe-supply-h" />
         <g transform="translate(300 200)"><circle r="12" className="pump" /><path d="M-6 -4 L6 0 L-6 4 Z" className="pump-vane" /></g>
         <text x="300" y="225" className="tiny">pump</text>
+        <text x="300" y="186" className="readout readout-cold">≥ 85 m³/h</text>
         <Num n={3} x={196} y={240} />
       </g>
       <g {...g("tank", p)}>
         <rect x="334" y="44" width="40" height="34" rx="4" className="tank" />
         <rect x="337" y="59" width="34" height="16" className="tank-water" />
         <line x1="366" y1="47" x2="366" y2="75" className="sight" />
-        <text x="354" y="90" className="tiny">make-up</text>
+        <text x="354" y="90" className="tiny">make-up ≥ 2/3</text>
         <Num n={4} x={354} y={34} />
       </g>
       <g {...g("hx", p)}>
@@ -255,6 +281,8 @@ function HydroSection(p: SectionProps) {
         <path d="M388 170 H520" className="pipe-tower-cold" />
         <g className="bvalve" transform="translate(454 130)"><circle r="6" /><line x1="-4" y1="-4" x2="4" y2="4" /></g>
         <g className="bvalve" transform="translate(454 170)"><circle r="6" /><line x1="-4" y1="-4" x2="4" y2="4" /></g>
+        <text x="500" y="124" className="readout readout-hot">45 °C return</text>
+        <text x="500" y="186" className="readout readout-cold">35 °C supply</text>
         <Num n={7} x={454} y={108} />
       </g>
       {/* 8 tower */}
