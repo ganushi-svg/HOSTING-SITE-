@@ -39,7 +39,7 @@ function findModel(t: string) {
 }
 
 function quantityIn(t: string) {
-  const m = t.match(/(\d{1,4})\s*(?:x|×|units?|machines?|miners?|pcs|pieces)?\b/);
+  const m = t.match(/(?<![a-z])(\d{1,4})\s*(?:x|×|units?|machines?|miners?|pcs|pieces)?\b/);
   const q = m ? parseInt(m[1], 10) : 0;
   return q > 0 && q < 10000 ? q : 0;
 }
@@ -132,6 +132,12 @@ export function pipAnswer(input: string): PipReply {
     return { text: `The minimum term is ${pricing.minimumTermLabel}. Notice period: ${pricing.noticePeriodLabel.toLowerCase()}. Everything is set out in the hosting contract you sign before racking.`, chips: ["How do I get started?", "Talk to a person"], go: { id: "how-it-works", label: "Contract terms" } };
   }
 
+  if (has(t, "repair", "broken", "fail", "fault", "fix", "spare", "warranty", "hashboard", "psu")) {
+    return { text: `${repair.summary}`, chips: ["Who pays for repairs?", "Show me the repair steps"], go: { id: "repair", label: "Segments Repair" } };
+  }
+  if (has(t, "who pays", "repair cost", "repair charge")) {
+    return { text: "You approve every repair quote before work starts, and repair costs, if any, appear on the same monthly invoice as your hosting charge.", chips: ["How does repair work?", "How do I pay?"], go: { id: "repair", label: "Segments Repair" } };
+  }
   if (has(t, "model", "machine", "miner", "asic", "which", "support", "antminer", "whatsminer", "s21", "s19", "l9", "l7", "ks5", "z15", "d9", "al3", "host ")) {
     const air = models.filter((m) => m.cooling === "Air").map((m) => m.name).join(", ");
     const hydro = models.filter((m) => m.cooling === "Hydro").map((m) => m.name).join(", ");
@@ -152,12 +158,6 @@ export function pipAnswer(input: string): PipReply {
   }
   if (has(t, "quality", "maintenance", "inspection", "clean", "check")) {
     return { text: "A dedicated team, Segments Quality Control, runs the maintenance routine: filter cleaning and replacement in the air-cooled halls, a weekly nine-step inspection of every hydro container, and coolant checks with logged values.", chips: ["Hydro cooling?", "How does repair work?"], go: { id: "quality", label: "Quality" } };
-  }
-  if (has(t, "repair", "broken", "fail", "fault", "fix", "spare", "warranty", "hashboard", "psu")) {
-    return { text: `${repair.summary}`, chips: ["Who pays for repairs?", "Show me the repair steps"], go: { id: "repair", label: "Segments Repair" } };
-  }
-  if (has(t, "who pays", "repair cost", "repair charge")) {
-    return { text: "You approve every repair quote before work starts, and repair costs, if any, appear on the same monthly invoice as your hosting charge.", chips: ["How does repair work?", "How do I pay?"], go: { id: "repair", label: "Segments Repair" } };
   }
   if (has(t, "report", "monitor", "dashboard", "track", "hash", "status", "see my machines", "platform", "sample")) {
     return { text: "Every machine is tracked on our fleet platform: status, hash rate, last share and repair state, synced daily. Each month you get a power and hosting report with running days, energy and charge for every machine, plus a repair log. There's a sample report on the page.", chips: ["How is the charge calculated?", "How does repair work?"], go: { id: "reporting", label: "Sample report" } };
