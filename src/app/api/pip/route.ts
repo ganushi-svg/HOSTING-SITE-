@@ -30,6 +30,9 @@ function rateLimited(ip: string) {
   return recent.length > MAX_PER_WINDOW;
 }
 
+/** The chat renders plain text, so markdown emphasis and headings are stripped; list dashes become bullets. */
+const plain = (t: string) => t.replace(/\*\*(.+?)\*\*/g, "$1").replace(/(^|\n)#{1,6}\s+/g, "$1").replace(/(^|\n)[-*]\s+/g, "$1• ").trim();
+
 type ClientAction = { type: "show"; id: string; label: string } | { type: "whatsapp"; url: string } | { type: "enquiry_sent" };
 
 const sectionIds = sections.map((s) => s.id);
@@ -197,7 +200,7 @@ export async function POST(req: NextRequest) {
       });
       const assistantTurn: Anthropic.Beta.BetaMessageParam = { role: "assistant", content: response.content };
       messages.push(assistantTurn); newTurns.push(assistantTurn);
-      text = response.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("\n").trim() || text;
+      text = plain(response.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("\n")) || text;
       if (response.stop_reason === "refusal") { text = text || "I can't help with that one. For anything about hosting your miners, ask away."; break; }
       if (response.stop_reason === "pause_turn") continue;
       const uses = response.content.filter((b): b is Anthropic.Beta.BetaToolUseBlock => b.type === "tool_use");
