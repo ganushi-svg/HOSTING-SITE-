@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { contact, sections, site } from "@/lib/site";
-import { TODO } from "@/components/TODO";
 
 export function Footer() {
   return (
@@ -20,7 +19,7 @@ export function Footer() {
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} {site.legalNames.join(" · ")} · Dubai, UAE</span>
-        <span><a href="#privacy">Privacy notice (draft)</a> · Terms of use <TODO source="legal" inline>Terms of use</TODO></span>
+        <span><a href="#privacy">Privacy notice (draft)</a> · Terms of use on request{/* TODO legal: terms of use */}</span>
         <span>A hosting service. Mining returns are never guaranteed.</span>
       </div>
     </footer>

@@ -1,5 +1,5 @@
 import type React from "react";
-import { AlertTriangle, Boxes, CalendarClock, Check, CheckCircle2, ClipboardCheck, Clock, Coins, Container, Cylinder, Droplets, Eye, Fan, FileBarChart, Filter, Lock, LockOpen, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, Receipt, ScanSearch, ScrollText, Server, ShieldCheck, Sparkles, SprayCan, Truck, Users, Wallet, Wind, Wrench, Zap } from "lucide-react";
+import { Boxes, CalendarClock, Check, CheckCircle2, ClipboardCheck, Clock, Coins, Container, Cylinder, Droplets, Eye, Fan, FileBarChart, Filter, Lock, LockOpen, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, Receipt, ScanSearch, ScrollText, Server, ShieldCheck, Sparkles, SprayCan, Truck, Users, Wallet, Wind, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { CoolingLayout } from "@/components/CoolingLayout";
 import { Faq } from "@/components/Faq";
@@ -37,7 +37,6 @@ const compare = [
   { label: "Upfront cost", plug: `Setup fee (${pricing.setupFeeLabel}) + deposit of one month of hosting`, turnkey: `Capex ${pricing.turnkeyCapexPerMwLabel} per MW` },
   { label: "How you start", plug: "Ship your machines to our halls", turnkey: "Capacity built for your fleet" },
 ];
-const turnkeyTerms = ["What the capex covers", "Who owns the infrastructure", "Minimum capacity (MW)", "Build timeline", "Contract term"];
 const contractTerms: { label: string; value?: string }[] = [
   { label: "Contract length", value: `${pricing.minimumTermLabel} minimum` },
   { label: "Who can host with us", value: pricing.whoCanHostLabel },
@@ -311,7 +310,7 @@ export default function Home() {
                       </table>
                     </div>
                     <p className="fine-print">Capex = MW × {pricing.turnkeyCapexPerMwLabel}. Power = MW × 1,000 kW × 24 h × 30 days × {pricing.turnkeyPowerFromLabel}. Power only; your proposal sets the final figures.</p>
-                    <div className="panel pad"><h3>Agreed in your proposal</h3><ul className="term-list">{turnkeyTerms.map((t) => <li key={t}><span>{t}</span><TODO source="content/pricing.md" inline>to be provided</TODO></li>)}</ul></div>
+                    <div className="panel pad"><h3>Agreed in your proposal</h3><ul className="term-list">{pricing.turnkeyTerms.map((t) => <li key={t.label}><strong>{t.label}</strong><b>{t.value}</b></li>)}</ul></div>
                   </div>
                 ),
               },
@@ -619,11 +618,11 @@ export default function Home() {
             <span className="rail-art" aria-hidden="true" />
             <div className="rail-head">
               <p className="eyebrow">Repair process</p>
-              <h3>From fault to rack in six steps</h3>
+              <h3>From pickup to rack in five steps</h3>
             </div>
             <ol className="rail">
               {repair.steps.map((s, i) => {
-                const Icon = [AlertTriangle, Truck, ScanSearch, FileCheck2, Wrench, Server][i];
+                const Icon = [Truck, ScanSearch, FileCheck2, Wrench, Server][i];
                 return (
                   <li key={s.title} className="rail-step" style={{ ["--i" as string]: i }}>
                     <div className="rail-node"><Icon size={22} strokeWidth={1.8} aria-hidden="true" /><span className="rail-no num">{i + 1}</span></div>

@@ -41,3 +41,6 @@ Source: two turntable videos uploaded by Ganushi KC on 30 Oct 2026 (antminer1.mp
 
 ## Antminer logo on the renders (4 Nov 2026)
 Ganushi KC asked for the original Antminer mark on the miners. The logo (ANTMINER antenna mark, public/brand/antminer-logo.png, 159 px) was taken from Bitmain's own website (www-static.bitmain.com) and composited, in perspective, onto the large flat side panel of both turntable renders for the frames where that panel faces the camera (air: frames 20-44 and 86-120; hydro: frames 14-50 and 76-112). The logo is Bitmain's trademark, shown on Bitmain machines under the permission recorded above. The paused still of each render is a frame that shows the logo. The calculator picture (air-calc / hydro-calc) is unchanged and does not show it.
+
+## Hash rates added 4 Nov 2026
+At Ganushi KC's request every model now shows a hash rate. S21 XP 270 TH/s (Ganushi). Published specifications, web-checked the same day: S21 200 TH/s, S19 XP 140 TH/s, S21 Hydro 335 TH/s, KS5 20 TH/s, Whatsminer M30S++ 112 TH/s, D9 1,770 GH/s. The D9 is published at 2,839 W; the site keeps the fleet nameplate figure of 3,060 W.

@@ -62,6 +62,14 @@ export const pricing = {
   turnkeyPowerFromLabel: "$0.039",
   turnkeyCapexPerMwUsd: 300_000,
   turnkeyCapexPerMwLabel: "USD 300,000",
+  // Turnkey terms (Ganushi KC, 4 Nov 2026; content/pricing.md)
+  turnkeyTerms: [
+    { label: "What the capex covers", value: "Transformers, switchgear, cooling & racks" },
+    { label: "Who owns the infrastructure", value: "Client-owned (per agreement)" },
+    { label: "Minimum capacity", value: "1 MW" },
+    { label: "Build timeline", value: "60 – 90 days" },
+    { label: "Contract term", value: "24 – 36 months" },
+  ],
   // Rate used to recalculate the sample report: an example inside the plug and play range.
   sampleRateUsd: 0.06,
 };
@@ -263,12 +271,11 @@ export const repair = {
     { title: "Logged end to end", text: "Every stage appears in your repair log; the cost on your invoice." },
   ],
   steps: [
-    { title: "Fault flagged", text: "The fleet platform shows a machine offline or under-hashing, and the site team raises it." },
-    { title: "Pickup", text: "The machine is collected from its rack and taken to the repair center." },
-    { title: "Intake and diagnosis", text: "It is logged on arrival and tested to find the faulty part." },
-    { title: "Quote and approval", text: "You receive a repair quote and approve it before any work begins." },
-    { title: "Repair and test", text: "The part is repaired or replaced, then the machine is tested." },
-    { title: "Back to the rack", text: "It returns to your rack and the repair log and invoice are updated." },
+    { title: "Site Pickup", text: "A machine flagged offline or under-hashing on the fleet platform is collected from its rack and taken to the repair center." },
+    { title: "Intake & Diagnosis", text: "It is logged on arrival and tested down to the board to find the faulty part." },
+    { title: "Quote Approval", text: "You receive a repair quote and approve it before any work begins." },
+    { title: "Repair by Bitmain-trained technicians", text: "The part is repaired or replaced on microscope rework and soldering stations, then the machine is tested." },
+    { title: "Return to Rack & Verification", text: "It goes back to your rack, its hashrate is verified on the platform, and the repair log and invoice are updated." },
   ],
   video: { src: "/video/segments-repair-30fps.mp4", poster: "/video/segments-repair-poster.webp", caption: "Inside the Segments Repair center" },
 };

@@ -62,7 +62,7 @@ Models not listed: say we may still host it and offer a WhatsApp hand-off.
 
 ## Repair
 - ${repair.summary}
-- Steps: ${repair.steps.map((s, i) => `${i + 1}. ${s.title}`).join(" ")}. The client approves every quote before work starts.
+- Steps: ${repair.steps.map((s, i) => `${i + 1}. ${s.title}`).join(" ")}. The client approves every quote before work starts. Technicians are trained by Bitmain (do not say certified).
 
 ## Monitoring and reporting
 ${list(services.monitoring)}

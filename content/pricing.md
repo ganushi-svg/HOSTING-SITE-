@@ -8,7 +8,7 @@
 ## Turnkey solution
 - Power from $0.039 per kWh. Source: Ganushi KC, 28 Oct 2026.
 - Capex USD 300,000 per MW. Source: Ganushi KC, 28 Oct 2026.
-- TODO: what the capex covers, who owns the infrastructure, minimum MW, build timeline, contract term
+- Turnkey terms (Ganushi KC, 4 Nov 2026): capex covers transformers, switchgear, cooling & racks; infrastructure is client-owned (per agreement); minimum capacity 1 MW; build timeline 60 – 90 days; contract term 24 to 36 months.
 
 ## How the charge is calculated
 Source: Drive › Kim_September_2026_Power_Hosting_Report (Sheet 1 header and Summary), Oct 2026.

@@ -87,6 +87,11 @@ export function PowerCalculator() {
         <label htmlFor={`${id}-w`}>Power per machine (W)
           <input id={`${id}-w`} type="number" inputMode="numeric" min={0} step={10} value={watts} onChange={(e) => { setWatts(+e.target.value); setSlug(CUSTOM); }} />
         </label>
+        <div className="full calc-presets" role="group" aria-label="Quick fleet sizes">
+          {[{ n: 10, label: "10 units" }, { n: 50, label: `50 units · ${tierFor(50).rateLabel}` }, { n: 100, label: `100+ units · ${tierFor(100).rateLabel} Best Rate` }].map((p) => (
+            <button key={p.n} type="button" className={`calc-preset${qty === p.n ? " is-active" : ""}`} aria-pressed={qty === p.n} onClick={() => setQty(p.n)}>{p.label}</button>
+          ))}
+        </div>
         <label htmlFor={`${id}-n`}>Number of machines
           <input id={`${id}-n`} type="number" inputMode="numeric" min={1} step={1} value={qty} onChange={(e) => setQty(+e.target.value)} />
         </label>

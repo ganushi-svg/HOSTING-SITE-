@@ -20,11 +20,22 @@ export function Tabs({ tabs, label }: { tabs: Tab[]; label: string }) {
       const id = decodeURIComponent(location.hash.slice(1));
       if (!tabs.some((t) => t.id === id)) return;
       setActive(id);
-      requestAnimationFrame(() => box.current?.scrollIntoView({ block: "start" }));
+      requestAnimationFrame(() => box.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     };
     fromHash();
     window.addEventListener("hashchange", fromHash);
-    return () => window.removeEventListener("hashchange", fromHash);
+    // Links such as "See turnkey details" (#turnkey): open the tab and glide to it, even when the hash is already set.
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+      const id = a ? decodeURIComponent(a.getAttribute("href")!.slice(1)) : "";
+      if (!id || !tabs.some((t) => t.id === id)) return;
+      e.preventDefault();
+      setActive(id);
+      history.replaceState(null, "", `#${id}`);
+      requestAnimationFrame(() => box.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    };
+    document.addEventListener("click", onClick);
+    return () => { window.removeEventListener("hashchange", fromHash); document.removeEventListener("click", onClick); };
   }, [tabs]);
 
   const onKey = (e: KeyboardEvent<HTMLButtonElement>, i: number) => {
