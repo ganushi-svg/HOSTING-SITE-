@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Short muted loop of real site footage. Plays for every visitor, but only while it is on screen:
  * it starts loading just before it scrolls into view and pauses when it leaves, so several videos on the
- * page never decode at once (smooth playback). Controls stay visible so it can be paused.
+ * page never decode at once (smooth playback). No controls (Ganushi, 4 Nov 2026): it plays as a silent loop.
  */
 export function SiteVideo({ src, poster, label, caption }: { src: string; poster: string; label: string; caption: string }) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -38,7 +38,7 @@ export function SiteVideo({ src, poster, label, caption }: { src: string; poster
 
   return (
     <figure className="site-video">
-      <video ref={ref} src={near ? src : undefined} poster={poster} muted loop playsInline preload={near ? "auto" : "none"} controls aria-label={label} />
+      <video ref={ref} src={near ? src : undefined} poster={poster} muted loop playsInline disablePictureInPicture preload={near ? "auto" : "none"} aria-label={label} />
       <figcaption>{caption}</figcaption>
     </figure>
   );
