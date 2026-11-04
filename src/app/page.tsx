@@ -17,7 +17,7 @@ import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, onboarding, quality, repair, services, site, whyHost } from "@/lib/site";
+import { billing, capacity, contact, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, onboarding, quality, repair, services, site, whyHost, faqs, sections } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -113,9 +113,25 @@ export default function Home() {
   const air = models.filter((m) => m.cooling === "Air");
   const hydro = models.filter((m) => m.cooling === "Hydro");
   const r = quality.airReport;
+  // Structured data for search engines (Ganushi, 4 Nov 2026). Every value comes from site.ts / models.ts, so nothing here is invented.
+  const jsonLd = [
+    { "@context": "https://schema.org", "@type": "WebSite", name: site.name, url: site.url, inLanguage: "en" },
+    {
+      "@context": "https://schema.org", "@type": "Service", name: "Bitcoin mining hosting", serviceType: "ASIC miner hosting",
+      description: site.description, provider: { "@type": "Organization", name: site.name, url: site.url },
+      areaServed: { "@type": "Country", name: "United Arab Emirates" }, availableChannel: { "@type": "ServiceChannel", serviceUrl: `${site.url}/#contact` },
+      offers: {
+        "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock",
+        priceSpecification: { "@type": "UnitPriceSpecification", price: pricing.plugFromUsd, priceCurrency: "USD", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "KWH" }, description: "Plug and play hosting from this rate per kWh; the rate is set by fleet size." },
+      },
+    },
+    { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) },
+    { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: sections.map((sec, i) => ({ "@type": "ListItem", position: i + 1, name: sec.label, item: `${site.url}/#${sec.id}` })) },
+  ];
 
   return (
     <main id="main">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       {/* OVERVIEW */}
       <section id="overview" className="hero" aria-labelledby="hero-title">
         <div className="hero-grid" aria-hidden="true" />
