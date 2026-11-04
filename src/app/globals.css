@@ -1640,3 +1640,26 @@ h1, h2, .head h2 { color: #F8FAFC; letter-spacing: -0.015em; }
 .calc-preset:hover { border-color: rgba(192, 132, 252, 0.55); color: #F8FAFC; }
 .calc-preset.is-active { border-color: #C084FC; color: #F8FAFC; background: rgba(192, 132, 252, 0.12); box-shadow: 0 0 18px -8px rgba(192, 132, 252, 0.8); }
 .calc-preset:focus-visible { outline: 2px solid #C084FC; outline-offset: 2px; }
+
+/* Pre-presentation audit (Ganushi, 4 Nov 2026): logo badges, report indicators, FAQ active state, contact form */
+.qc-logo, .repair-brand img { border: 1px solid #2D2342 !important; box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.28), 0 0 32px -8px rgba(192, 132, 252, 0.7) !important; }
+.qc-logo { border-radius: 16px; background: #eaeceb; padding: 8px 12px; }
+.repair-brand img { background: #161022; padding: 4px; }
+.report td.num, .report td b { color: #F8FAFC; }
+.rep-running, .rep-partial, .rep-new { color: #22D3EE; background: rgba(34, 211, 238, 0.1); border-color: rgba(34, 211, 238, 0.4); }
+.rep-bar { background: rgba(34, 211, 238, 0.12); }
+.rep-bar::after { background: linear-gradient(90deg, #22D3EE, #67E8F9); }
+.report tr.is-offline td.num { color: #94A3B8; }
+.report tr.is-offline td.num.strong { color: #F8FAFC; }
+.faqc-rail button { background: #161022; border-color: #2D2342; border-radius: 12px; }
+.faqc-rail button.is-active { border-color: #C084FC; background: linear-gradient(90deg, rgba(192, 132, 252, 0.14), rgba(192, 132, 252, 0.04)); }
+.lead-form input:not([type="checkbox"]), .lead-form select, .lead-form textarea { background: #0B0711 !important; border: 1px solid #2D2342 !important; border-radius: 12px; }
+.lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { border-color: #C084FC !important; box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.22) !important; }
+.form-done { display: grid; justify-items: start; gap: 10px; margin-top: 12px; padding: 26px; border-radius: 16px; background: #0B0711; border: 1px solid #2D2342; box-shadow: inset 0 0 0 1px rgba(192, 132, 252, 0.18), 0 0 40px -14px rgba(192, 132, 252, 0.7); animation: form-done-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.form-done-ico { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; color: #22D3EE; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.45); }
+.form-done h4 { font: 700 1.35rem var(--ff-display); color: #F8FAFC; }
+.form-done p { color: #94A3B8; max-width: 48ch; }
+.form-done p b { color: #F8FAFC; font-weight: 600; }
+.form-done-sub { font-size: 0.9rem; }
+.form-done .button { margin-top: 6px; }
+@keyframes form-done-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: none; } }

@@ -2,7 +2,10 @@
 // Keys come from environment variables only (CLAUDE.md): RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_TO_EMAIL.
 import { contact } from "./site";
 
-export const MINER_RANGES = ["", "1-10", "11-50", "51-200", "200+", "undecided"] as const;
+// Fleet tier options on the contact form and in Pip's send_enquiry (Ganushi, 4 Nov 2026): the plug and play
+// pricing tiers plus the turnkey (MW) route. The value is what the form posts; the label is what people read.
+export const MINER_RANGES = ["", "under-50", "50-99", "100-plus", "turnkey-mw"] as const;
+export const MINER_LABELS: Record<(typeof MINER_RANGES)[number], string> = { "": "—", "under-50": "Under 50 machines", "50-99": "50–99 machines", "100-plus": "100+ machines (Plug & Play)", "turnkey-mw": "Turnkey (MW)" };
 export const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/;
 
 export type Enquiry = { name: string; email: string; company: string; miners: string; models: string; notes: string; via?: string };
@@ -26,7 +29,7 @@ export async function sendEnquiryEmail(e: Enquiry): Promise<SendResult> {
     ["Name", oneLine(e.name)],
     ["Email", oneLine(e.email)],
     ["Company", oneLine(e.company || "—")],
-    ["Number of machines", e.miners || "—"],
+    ["Fleet tier", MINER_LABELS[e.miners as (typeof MINER_RANGES)[number]] || e.miners || "—"],
     ["Machine models", oneLine(e.models || "—")],
     ["Sent via", e.via || "Website form"],
   ];
@@ -44,7 +47,7 @@ export async function sendEnquiryEmail(e: Enquiry): Promise<SendResult> {
         from,
         to: [to],
         reply_to: oneLine(e.email),
-        subject: `Hosting enquiry: ${oneLine(e.company || e.name)}${e.miners ? ` (${e.miners} machines)` : ""}`,
+        subject: `Hosting enquiry: ${oneLine(e.company || e.name)}${e.miners ? ` (${MINER_LABELS[e.miners as (typeof MINER_RANGES)[number]] || e.miners})` : ""}`,
         html,
         text: plain,
       }),

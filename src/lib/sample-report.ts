@@ -20,7 +20,7 @@ type Status = "running" | "partial" | "offline" | "new";
 const raw: { unit: string; model: string; watts: number; runningDays: number; status: Status; basis: string; notes: string }[] = [
   { unit: "Unit 1", model: "Antminer S21+", watts: watts("antminer-s21-plus"), runningDays: 30, status: "running", basis: "Shares every day of the month", notes: "No events" },
   { unit: "Unit 2", model: "Antminer L9", watts: watts("antminer-l9"), runningDays: 26.5, status: "partial", basis: "Last share day 27, back on day 30", notes: "Fan replaced, repair logged" },
-  { unit: "Unit 3", model: "Antminer S19 XP", watts: watts("antminer-s19-xp"), runningDays: 0, status: "offline", basis: "No shares this month", notes: "At Segments Repair, quote sent" },
+  { unit: "Unit 3", model: "Antminer S19 XP", watts: watts("antminer-s19-xp"), runningDays: 0, status: "offline", basis: "No shares this month", notes: "At Segments Repair, quote sent · offline days billed $0" },
   { unit: "Unit 4", model: "Antminer S21 XP Hydro", watts: watts("antminer-s21-xp-hydro"), runningDays: 12, status: "new", basis: "Racked on day 19", notes: "First month, pro-rated" },
 ];
 
@@ -34,4 +34,4 @@ export const reportTotals = reportRows.reduce(
   { machines: 0, runningDays: 0, kwh: 0, charge: 0 },
 );
 
-export const statusLabel: Record<Status, string> = { running: "Ran all month", partial: "Partly offline", offline: "Offline, not charged", new: "Racked mid-month" };
+export const statusLabel: Record<Status, string> = { running: "Ran all month", partial: "Partly offline", offline: "Offline · billed $0", new: "Racked mid-month" };

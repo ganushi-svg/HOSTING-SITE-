@@ -85,7 +85,7 @@ const tools: Anthropic.Beta.BetaTool[] = [
         name: { type: "string" },
         email: { type: "string" },
         company: { type: "string", description: "Empty string if none" },
-        miners: { type: "string", enum: MINER_RANGES.filter(Boolean) as string[], description: "Fleet size range" },
+        miners: { type: "string", enum: MINER_RANGES.filter(Boolean) as string[], description: "Fleet tier: under-50, 50-99 or 100-plus machines on plug and play, or turnkey-mw for a megawatt-scale build" },
         models: { type: "string", description: "Machine models and quantities, e.g. '20 × Antminer S21 XP'" },
         notes: { type: "string", description: "Anything else the visitor said, in their words" },
         confirmed: { type: "boolean", description: "True only after the visitor confirmed the summary" },

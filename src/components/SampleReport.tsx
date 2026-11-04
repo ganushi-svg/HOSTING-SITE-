@@ -35,7 +35,7 @@ export function SampleReport() {
               <th scope="col" className="num">Offline days</th>
               <th scope="col" className="num">Energy kWh</th>
               <th scope="col" className="num">Charge</th>
-              <th scope="col">Basis of running days</th>
+              <th scope="col">Pool-synced running days</th>
               <th scope="col">Notes</th>
             </tr>
           </thead>
@@ -56,7 +56,7 @@ export function SampleReport() {
           </tbody>
         </table>
       </div>
-      <p className="report-formula">Charge = watts × {reportMeta.billingHours} × running days ÷ 1,000 × rate · Illustrative figures, not client data</p>
+      <p className="report-formula">Charge = watts × {reportMeta.billingHours} × running days ÷ 1,000 × rate · Running days synced from your pool data · Offline days billed $0 · Illustrative figures, not client data</p>
     </div>
   );
 }

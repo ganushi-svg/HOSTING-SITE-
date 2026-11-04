@@ -1,14 +1,20 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { LoaderCircle } from "lucide-react";
+import { CheckCircle2, LoaderCircle } from "lucide-react";
 import { QuoteIcon } from "./QuoteIcon";
 
 type State = "idle" | "sending" | "success" | "error";
 
+/**
+ * Enquiry form (Ganushi, 4 Nov 2026): Fleet Tier dropdown mirrors the pricing tiers (Under 50, 50–99, 100+ Plug & Play,
+ * Turnkey MW; values in src/lib/enquiry.ts MINER_RANGES) and a clean confirmation panel replaces the form after a
+ * successful send, so a live demo ends on a clear "sent" state. Posts to /api/enquiry.
+ */
 export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
   const [status, setStatus] = useState<State>("idle");
   const [message, setMessage] = useState("");
+  const [sentTo, setSentTo] = useState("");
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,13 +31,25 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
       });
       const result: { message?: string } = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.message || "We could not send your request. Please email or call us.");
+      setSentTo(String(data.email || ""));
       setStatus("success");
-      setMessage("Request sent. We will reply by email.");
       form.reset();
     } catch (error) {
       setStatus("error");
       setMessage(error instanceof Error ? error.message : "We could not send your request. Please email or call us.");
     }
+  }
+
+  if (status === "success") {
+    return (
+      <div className="form-done" role="status" aria-live="polite">
+        <span className="form-done-ico" aria-hidden="true"><CheckCircle2 size={30} strokeWidth={1.8} /></span>
+        <h4>Request sent</h4>
+        <p>Thank you. Your enquiry is with Ganushi KC, our Operations Manager, and the reply will come by email{sentTo ? <> to <b>{sentTo}</b></> : null}.</p>
+        <p className="form-done-sub">Need an answer sooner? Call in office hours or WhatsApp after hours on +971 54 211 9496.</p>
+        <button type="button" className="button button-outline" onClick={() => { setStatus("idle"); setSentTo(""); }}>Send another request</button>
+      </div>
+    );
   }
 
   return (
@@ -42,14 +60,13 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
       </div>
       <div className="form-row">
         <label>Company<input id="lf-company" name="company" autoComplete="organization" maxLength={150} /></label>
-        <label>Number of machines
+        <label>Fleet tier
           <select id="lf-miners" name="miners" defaultValue="">
-            <option value="">Select a range</option>
-            <option value="1-10">1–10</option>
-            <option value="11-50">11–50</option>
-            <option value="51-200">51–200</option>
-            <option value="200+">200+</option>
-            <option value="undecided">Not sure yet</option>
+            <option value="">Select a tier</option>
+            <option value="under-50">Under 50</option>
+            <option value="50-99">50–99</option>
+            <option value="100-plus">100+ Plug &amp; Play</option>
+            <option value="turnkey-mw">Turnkey MW</option>
           </select>
         </label>
       </div>
@@ -63,7 +80,7 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
       <button type="submit" className="button form-submit" disabled={status === "sending"}>
         {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending…</> : <>Send request <QuoteIcon /></>}
       </button>
-      {message && <p className={`form-feedback ${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
+      {message && <p className={`form-feedback ${status}`} role="alert">{message}</p>}
     </form>
   );
 }
