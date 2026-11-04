@@ -31,7 +31,7 @@ export function pipBriefing(): string {
 
 ## Company and capacity
 - ${services.overview}
-- Operating capacity ${capacity.totalMw} MW. Uptime ${capacity.uptimePct}%. Ongoing clients from ${capacity.clientRegionsLabel} (no client count is published).
+- Operating capacity ${capacity.totalMw} MW. Uptime ${capacity.uptimePct}%. More than ${capacity.machinesHosted.toLocaleString("en-US")} machines hosted. Ongoing clients from ${capacity.clientRegionsLabel} (no client count is published).
 
 ## Pricing (plug and play hosting)
 - Rate by fleet size: ${pricing.tiers.map((t) => `${t.rateLabel} per kWh for ${t.label.toLowerCase()}`).join("; ")}. Power only.

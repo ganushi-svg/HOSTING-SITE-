@@ -143,7 +143,7 @@ export default function Home() {
           <Reveal className="panel stat"><b className="num"><CountUp value={capacity.totalMw} suffix=" MW" /></b><span>Operating power capacity</span></Reveal>
           <Reveal delay={0.05} className="panel stat"><b>Abu Dhabi</b><span>Hosting sites all around Abu Dhabi</span></Reveal>
           <Reveal delay={0.1} className="panel stat"><b className="num"><CountUp value={capacity.uptimePct} suffix="%" /></b><span>Uptime</span></Reveal>
-          <Reveal delay={0.15} className="panel stat"><span>Machines hosted</span><TODO source="content/performance.md" inline>value</TODO></Reveal>
+          <Reveal delay={0.15} className="panel stat"><b className="num"><CountUp value={capacity.machinesHosted} suffix="+" /></b><span>Machines hosted</span></Reveal>
         </div>
       </section>
 

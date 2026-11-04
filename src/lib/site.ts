@@ -73,6 +73,7 @@ export const capacity = {
   // content/performance.md
   totalMw: 45,
   uptimePct: 95, // Ganushi KC, 4 Nov 2026
+  machinesHosted: 3000, // shown as "3,000+" (Ganushi KC, 4 Nov 2026)
   clientRegionsLabel: "Europe, the USA and beyond", // Ganushi KC, 4 Nov 2026: ongoing clients in many countries; no count published
 };
 
