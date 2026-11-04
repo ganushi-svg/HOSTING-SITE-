@@ -32,4 +32,4 @@ Source: Drive › Kim_September_2026_Power_Hosting_Report (Sheet 1 header and Su
 
 ## Keep your coins (Ganushi KC, 4 Nov 2026)
 - Hosting is invoiced in USD or AED and settled from the client's own funds (USDT, AED bank transfer or cash, or BTC). Clients are not asked to pay hosting with the coins they mine; the mined coins stay in the client's own wallet and the client decides when to sell.
-- Site wording must stay a description of the billing structure and the client's choice: no promise of profit or returns, and a note that coin prices can fall as well as rise (CLAUDE.md rule kept).
+- Site wording must stay a description of the billing structure and the client's choice: no promise of profit or returns, and a note that coin prices can fall as well as rise (CLAUDE.md rule kept). Published tone approved by Ganushi KC, 4 Nov 2026.

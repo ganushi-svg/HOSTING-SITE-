@@ -8,7 +8,7 @@ Airflow noted on the drawing: outside > hood > panel filters > wet pad > dry pad
 Measured on site (mm): filter to wet pad 940; wet pad to dry pad 880; dry pad to rack board 2,000 (1,500 clear); rack board 500; hot aisle 1,500. Section width 5,870.
 Marked "assumed, verify on site" and therefore NOT published: hall length 12,000, ceiling 3,000, pad thickness 150, curb 600, fan size 1,380, 4 fans.
 Layers published, in airflow order: intake hood with bird mesh; panel filters (mesh GI pre-filter and disposable filters, schedules from content/quality.md); filter corridor; wet evaporative pad with water header; service corridor; dry pad; cold aisle; miner racks through the rack board; hot aisle; exhaust fans.
-The one-line role of each layer is written from the drawing and standard evaporative-hall practice. Ganushi to confirm the wording of the dry pad's role (droplet catch and airflow straightening).
+The one-line role of each layer is written from the drawing and standard evaporative-hall practice. Dry pad wording (droplet catch and airflow straightening) confirmed by Ganushi KC, 4 Nov 2026.
 
 ## Hydro container
 Sources: Drive › "HFSG1200 AlKhazna Commissioning Summer Readiness Plan.docx" (Rev 0, 19 Aug 2026) and the container user manual it cites; content/quality.md (weekly inspection, coolant standards).
