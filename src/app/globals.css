@@ -40,7 +40,7 @@
   --r-btn: 12px;
   --r-lg: 16px;
   --r-xl: 20px;
-  --header-h: 112px;
+  --header-h: 72px;
   --ff-display: var(--font-display, "Space Grotesk"), system-ui, sans-serif;
   --ff-body: var(--font-body, "Inter"), system-ui, -apple-system, sans-serif;
   --ff-mono: var(--font-mono, "JetBrains Mono"), ui-monospace, Menlo, monospace;
@@ -91,14 +91,6 @@ address { font-style: normal; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--hi); text-decoration: none; font: 700 1.05rem var(--ff-display); letter-spacing: -0.01em; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 .brand-text small { font: 600 0.625rem var(--ff-body); letter-spacing: 0.14em; color: var(--lo); text-transform: uppercase; }
-.section-tabs { border-top: 1px solid var(--stroke); overflow-x: auto; scrollbar-width: none; }
-.section-tabs::-webkit-scrollbar { display: none; }
-.section-tabs-inner { display: flex; gap: 2px; }
-.section-tabs a { flex: none; position: relative; padding: 11px 12px; font-size: 0.875rem; font-weight: 500; color: var(--lo); text-decoration: none; white-space: nowrap; transition: color 0.2s; }
-.section-tabs a::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; border-radius: 2px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
-.section-tabs a:hover { color: var(--hi); }
-.section-tabs a[aria-current="true"] { color: var(--navy); font-weight: 600; }
-.section-tabs a[aria-current="true"]::after { transform: scaleX(1); }
 
 /* Hero */
 .hero { position: relative; overflow: hidden; color: var(--hero-text); background: linear-gradient(135deg, var(--hero-1), var(--hero-2) 55%, var(--hero-3)); }
@@ -405,7 +397,7 @@ address { font-style: normal; }
   .machine-stage { position: relative; top: 0; max-width: 460px; }
 }
 @media (max-width: 900px) {
-  :root { --header-h: 108px; }
+  :root { --header-h: 66px; }
   .hero-inner, .calc, .contact, .split, .plans { grid-template-columns: 1fr; }
   .stats, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .steps-9, .gallery, .showcase { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -447,8 +439,6 @@ body::after {
 
 /* Header */
 .header { background: rgba(4, 7, 15, 0.72); border-bottom-color: rgba(var(--glow), 0.18); }
-.section-tabs a[aria-current="true"] { color: #fff; text-shadow: 0 0 18px rgba(var(--glow), 0.8); }
-.section-tabs a[aria-current="true"]::after { box-shadow: 0 0 12px rgba(247, 190, 39, 0.8); }
 
 /* Headings: a soft light falls across section titles */
 .head h2 { background: linear-gradient(100deg, #ffffff 0%, #dbe7ff 45%, #8fbaff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -543,3 +533,36 @@ body::after {
 /* Wide feature photo at the top of a sites tab */
 .photo-feature .site-photo img { aspect-ratio: 21 / 9; object-fit: cover; }
 @media (max-width: 560px) { .photo-feature .site-photo img { aspect-ratio: 4 / 3; } }
+
+
+/* Floating section dock (Nav.tsx, Ganushi 4 Nov 2026): a glowing glass pill at the bottom of the screen. */
+.section-dock { position: fixed; z-index: 45; left: 50%; bottom: max(14px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: max-content; max-width: calc(100% - 24px);
+  border-radius: 999px; padding: 6px; background: rgba(6, 11, 26, 0.82); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(var(--glow), 0.35); box-shadow: 0 0 0 1px rgba(var(--glow), 0.08), 0 0 40px -10px rgba(var(--glow), 0.7), 0 18px 40px -12px rgba(0, 0, 0, 0.9);
+  animation: dock-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; overflow: hidden; }
+.section-dock::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: conic-gradient(from var(--edge-angle, 0deg), transparent 0deg, rgba(var(--glow), 0.9) 50deg, rgba(247, 190, 39, 0.8) 80deg, transparent 130deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: edge-spin 8s linear infinite; }
+.section-dock-inner { position: relative; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; border-radius: 999px; scroll-behavior: smooth; }
+.section-dock-inner::-webkit-scrollbar { display: none; }
+.dock-indicator { position: absolute; top: 0; bottom: 0; left: 0; width: var(--ind-w, 0); transform: translateX(var(--ind-x, 0)); border-radius: 999px; pointer-events: none;
+  background: linear-gradient(180deg, #3b7bff, #1f53d6); box-shadow: 0 0 0 1px rgba(var(--glow), 0.7), 0 0 24px -2px rgba(var(--glow), 0.9);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.dock-indicator::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 3px; height: 2px; border-radius: 2px; background: var(--gold); box-shadow: 0 0 10px rgba(247, 190, 39, 0.9); }
+.section-dock a { position: relative; z-index: 1; flex: none; padding: 10px 15px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; color: var(--lo); text-decoration: none; white-space: nowrap; transition: color 0.3s; }
+.section-dock a:hover { color: #fff; }
+.section-dock a[aria-current="true"] { color: #fff; text-shadow: 0 0 14px rgba(255, 255, 255, 0.5); }
+.section-dock a:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.dock-progress { position: absolute; left: 18px; right: 18px; top: 0; height: 2px; border-radius: 2px; transform-origin: left; background: linear-gradient(90deg, rgba(var(--glow), 0.2), var(--gold)); pointer-events: none; z-index: 2; transition: transform 0.15s linear; }
+@keyframes dock-in { from { opacity: 0; transform: translate(-50%, 24px); } to { opacity: 1; transform: translate(-50%, 0); } }
+/* Keep the WhatsApp pill and the page end clear of the dock */
+.whatsapp-float { bottom: 82px; }
+.footer { padding-bottom: 72px; }
+@media (max-width: 560px) {
+  .section-dock { left: 8px; right: 8px; width: auto; max-width: none; transform: none; animation-name: dock-in-m; }
+  .section-dock a { padding: 9px 12px; font-size: 0.8125rem; }
+  .whatsapp-float { bottom: 76px; }
+}
+@keyframes dock-in-m { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .section-dock::before { animation-duration: 18s; } .dock-indicator { transition-duration: 0.9s; } }

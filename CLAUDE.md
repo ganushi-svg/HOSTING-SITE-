@@ -34,13 +34,13 @@ Read these before writing or changing any page. If a fact is not in these files,
 Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and licences, testimonials, about-us story, privacy policy and terms of use, Arabic version, analytics.
 
 ## Pages
-The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Design System reference she shared. A sticky header has a tab bar that jumps to each section; some sections have their own sub-tabs. Old page addresses (/pricing, /turnkey, /models/... and so on) redirect to the matching section in `next.config.ts`.
+The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Design System reference she shared. A sticky header holds the logo and the quote button; a floating glass dock at the bottom of the screen (Ganushi, 4 Nov 2026) has one tab per section, a lit pill on the section being read and a scroll-progress line. Some sections have their own sub-tabs. Old page addresses (/pricing, /turnkey, /models/... and so on) redirect to the matching section in `next.config.ts`.
 1. Overview: glowing navy hero with the plug and play rate card, then key figures (numbers from `content/performance.md`)
 2. Services: what hosting includes
 3. Pricing: plug and play and turnkey plan cards from `content/pricing.md`; sub-tabs How billing works / Turnkey / Compare
 4. Power cost: calculator for the hosting power bill only (never mining revenue or profit)
 5. Machines: sub-tabs Air-cooled / Hydro-cooled, a table of every model from `content/models.md` (featured: Antminer Z15 Pro) beside the representative turntable render
-6. Sites: sub-tabs Finished halls / Hydro cooling / Air cooling, with real photos and video
+6. Sites: sub-tabs Finished halls / Hydro cooling / Air cooling, with real photos and video (hydro containers and hydro racks in the Hydro tab)
 7. Quality: the dedicated quality team, from `content/quality.md`; sub-tabs Air-cooled halls / Hydro containers / Coolant / Calendar
 8. Reporting: monitoring and the redacted sample client report
 9. How it works: onboarding steps and contract terms

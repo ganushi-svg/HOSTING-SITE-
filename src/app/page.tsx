@@ -261,7 +261,7 @@ export default function Home() {
                     </div>
                     <div className="split">
                       <SitePhoto photo={photos.hallPadsAndRacks} crop sizes="(min-width: 900px) 45vw, 100vw" />
-                      <SitePhoto photo={photos.powerDistribution} crop sizes="(min-width: 900px) 45vw, 100vw" />
+                      <SitePhoto photo={photos.hallMinerCloseupBlue} crop sizes="(min-width: 900px) 45vw, 100vw" />
                     </div>
                   </div>
                 ),
@@ -269,7 +269,18 @@ export default function Home() {
               {
                 id: "hydro-cooling",
                 label: "Hydro cooling",
-                content: <div className="split"><div className="console"><HydroLoop /></div><SitePhoto photo={photos.hydroPumps} crop /></div>,
+                content: (
+                  <div className="stack">
+                    <p className="muted">Hydro miners sit in purpose-built containers. Each machine has its own coolant supply and return, and the heat is carried out to a closed-circuit cooling tower.</p>
+                    <div className="photo-feature"><SitePhoto photo={photos.hydroContainerDusk} sizes="(min-width: 1200px) 1168px, 100vw" /></div>
+                    <div className="showcase">
+                      <SitePhoto photo={photos.hydroContainerAisle} sizes="(min-width: 900px) 30vw, 50vw" />
+                      <SitePhoto photo={photos.hydroRackHoses} sizes="(min-width: 900px) 30vw, 50vw" />
+                      <SitePhoto photo={photos.hydroRackRow} sizes="(min-width: 900px) 30vw, 50vw" />
+                    </div>
+                    <div className="split"><div className="console"><HydroLoop /></div><SitePhoto photo={photos.hydroManifoldCloseup} crop sizes="(min-width: 900px) 45vw, 100vw" /></div>
+                  </div>
+                ),
               },
               {
                 id: "air-cooling",
@@ -281,10 +292,9 @@ export default function Home() {
                     <div className="showcase">
                       <SitePhoto photo={photos.hallPadCorridor} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hallMinerFans} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SitePhoto photo={photos.siteExterior} sizes="(min-width: 900px) 30vw, 50vw" />
+                      <SitePhoto photo={photos.hallOpenRacks} sizes="(min-width: 900px) 30vw, 50vw" />
                     </div>
-                    <div className="split"><SitePhoto photo={photos.hallFanWallRacks} crop /><SitePhoto photo={photos.hallFanWall} crop /></div>
-                    <TODO source="assets/photos">Photos of hydro halls with machines running</TODO>
+                    <div className="split"><SitePhoto photo={photos.hallFanWallRacks} crop sizes="(min-width: 900px) 45vw, 100vw" /><SitePhoto photo={photos.hallFanCorridor} crop sizes="(min-width: 900px) 45vw, 100vw" /></div>
                   </div>
                 ),
               },

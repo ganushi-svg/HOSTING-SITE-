@@ -136,6 +136,15 @@ export const photos = {
   hallPadCorridor: { src: "/photos/hall-pad-corridor-1600.webp", w: 1068, h: 1600, alt: "Narrow corridor lined on both sides with tall evaporative cooling pads", caption: "Cooling-pad corridor that feeds fresh air to the hall" },
   hallFanWallRacks: { src: "/photos/hall-fan-wall-racks-1600.webp", w: 1600, h: 1068, alt: "Aisle with large exhaust fans on one side and racks of miners on the other", caption: "Exhaust fans opposite the miner racks" },
   hallMinerFans: { src: "/photos/hall-miner-fans-1600.webp", w: 1068, h: 1600, alt: "Close-up of miner cooling fans mounted in a steel rack", caption: "Miner fans pulling air through the rack" },
+  // content/sites.md › Photos (hydro zone and second hall, professional shoot, added 4 Nov 2026). Lightly enhanced (contrast, sharpening).
+  hydroContainerDusk: { src: "/photos/hydro-container-dusk-1920.webp", w: 1920, h: 1282, alt: "White hydro-cooling container with louvred vents at dusk", caption: "Hydro container at dusk, Abu Dhabi site" },
+  hydroContainerAisle: { src: "/photos/hydro-container-aisle-1920.webp", w: 1440, h: 1920, alt: "Aisle inside a hydro container with racks of hydro miners and coolant hoses on both sides", caption: "Inside a hydro container: miners on both sides of the aisle" },
+  hydroRackHoses: { src: "/photos/hydro-rack-hoses-1920.webp", w: 1440, h: 1920, alt: "Rack of hydro miners, each connected to coolant supply and return hoses", caption: "Every hydro miner on its own coolant loop" },
+  hydroRackRow: { src: "/photos/hydro-rack-row-1920.webp", w: 1440, h: 1920, alt: "Long rack of hydro miners with neatly routed coolant hoses", caption: "A full rack of hydro miners" },
+  hydroManifoldCloseup: { src: "/photos/hydro-manifold-closeup-1920.webp", w: 1282, h: 1920, alt: "Close-up of coolant hoses and quick-connect fittings on hydro miners", caption: "Coolant hoses and quick-connect fittings" },
+  hallMinerCloseupBlue: { src: "/photos/hall-miner-closeup-blue-1920.webp", w: 1920, h: 1282, alt: "Close-up of air-cooled miners in blue light", caption: "Air-cooled miners running, Abu Dhabi site" },
+  hallFanCorridor: { src: "/photos/hall-fan-corridor-1920.webp", w: 1920, h: 1440, alt: "Corridor with a wall of exhaust fans on one side and racks of miners on the other", caption: "Exhaust-fan corridor beside the miner racks" },
+  hallOpenRacks: { src: "/photos/hall-open-racks-1920.webp", w: 1440, h: 1920, alt: "Steel racks of air-cooled miners with power and network cabling", caption: "Racks of air-cooled miners" },
   hydroPumps: { src: "/photos/hydro-pumps-1600.webp", w: 1280, h: 961, alt: "Water tank with two pumps and pipework beside a hall wall at night", caption: "Pumps and tank for a hydro-cooled hall, September 2025" }, // TODO: confirm caption (content/sites.md)
 } satisfies Record<string, Photo>;
 

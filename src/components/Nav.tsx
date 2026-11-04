@@ -6,12 +6,14 @@ import { sections, site } from "@/lib/site";
 import { QuoteIcon } from "./QuoteIcon";
 
 /**
- * Sticky header for the single page: brand, the gold quote button, and a tab bar with one tab per section.
- * The tab for the section on screen is underlined in gold and kept scrolled into view on small screens.
+ * Sticky header (brand and the gold quote button) plus a floating section dock at the bottom of the screen
+ * (Ganushi, 4 Nov 2026). A lit pill slides to the section on screen, the active tab is kept scrolled into view
+ * on small screens, and a thin bar shows how far down the page you are.
  */
 export function Nav() {
   const [active, setActive] = useState<string>(sections[0].id);
   const bar = useRef<HTMLElement>(null);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const els = sections.map((s) => document.getElementById(s.id)).filter((el): el is HTMLElement => Boolean(el));
@@ -24,6 +26,8 @@ export function Nav() {
       // At the very bottom the last section is current even if it is short.
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = els[els.length - 1]?.id ?? current;
       setActive(current);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
     update();
@@ -37,9 +41,11 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    const tab = bar.current?.querySelector<HTMLElement>(`[data-section="${active}"]`);
-    const list = bar.current;
+    const list = bar.current?.querySelector<HTMLElement>(".section-dock-inner"); // the scrolling row
+    const tab = list?.querySelector<HTMLElement>(`[data-section="${active}"]`);
     if (!tab || !list) return;
+    list.style.setProperty("--ind-x", `${tab.offsetLeft}px`);
+    list.style.setProperty("--ind-w", `${tab.offsetWidth}px`);
     if (list.scrollWidth <= list.clientWidth) return;
     const t = tab.getBoundingClientRect();
     const l = list.getBoundingClientRect();
@@ -47,6 +53,7 @@ export function Nav() {
   }, [active]);
 
   return (
+    <>
     <header className="header">
       <div className="container header-bar">
         <a href="#overview" className="brand" aria-label={`${site.name}, back to top`}>
@@ -60,15 +67,18 @@ export function Nav() {
           Request a quote <QuoteIcon size={22} />
         </a>
       </div>
-      <nav className="section-tabs" aria-label="Page sections" ref={bar}>
-        <div className="container section-tabs-inner">
-          {sections.map((s) => (
-            <a key={s.id} href={`#${s.id}`} data-section={s.id} aria-current={active === s.id ? "true" : undefined}>
-              {s.label}
-            </a>
-          ))}
-        </div>
-      </nav>
     </header>
+    <nav className="section-dock" aria-label="Page sections" ref={bar}>
+      <span className="dock-progress" aria-hidden="true" style={{ transform: `scaleX(${progress})` }} />
+      <div className="section-dock-inner">
+        <span className="dock-indicator" aria-hidden="true" />
+        {sections.map((s) => (
+          <a key={s.id} href={`#${s.id}`} data-section={s.id} aria-current={active === s.id ? "true" : undefined}>
+            {s.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+    </>
   );
 }
