@@ -2,6 +2,7 @@ import type React from "react";
 import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Container, Cylinder, Droplets, Eye, Fan, FileBarChart, Filter, Lock, LockOpen, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Sparkles, SprayCan, Truck, Wallet, Wind, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { CoolingLayout } from "@/components/CoolingLayout";
+import { Faq } from "@/components/Faq";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerTurntable } from "@/components/MinerTurntable";
@@ -16,7 +17,7 @@ import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, onboarding, quality, repair, services, site, whyHost } from "@/lib/site";
+import { billing, capacity, contact, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, onboarding, quality, repair, services, site, whyHost } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -648,14 +649,7 @@ export default function Home() {
       <section id="faq" className="section alt" aria-labelledby="faq-title">
         <div className="container">
           <SectionHead eyebrow="FAQ" title="Common questions" />
-          <div className="faq">
-            {faqs.map((f) => (
-              <details className="panel" key={f.question}>
-                <summary>{f.question}</summary>
-                <p>{f.answer}</p>
-              </details>
-            ))}
-          </div>
+          <Faq />
         </div>
       </section>
 
