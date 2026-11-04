@@ -151,6 +151,10 @@ export default function Home() {
       <section id="services" className="section alt" aria-labelledby="services-title">
         <div className="container">
           <SectionHead eyebrow="Services" title="What hosting includes">Power, cooling, repair and reporting from one team, with every charge traceable to a machine and a day.</SectionHead>
+          <figure className="banner">
+            {/* eslint-disable-next-line @next/next/no-img-element -- brand banner, served as-is */}
+            <img src="/brand/banner-cloud.webp" width={1600} height={679} alt="Segments Cloud brand banner with the blue and gold logo mark" loading="lazy" />
+          </figure>
           <Reveal className="overview"><p>{services.overview}</p></Reveal>
           <div className="feat">
             {serviceGroups.map((g, i) => (
@@ -533,6 +537,10 @@ export default function Home() {
       <section id="repair" className="section alt" aria-labelledby="repair-title">
         <div className="container">
           <SectionHead eyebrow="Segments Repair" title="Our in-house repair center">When a machine fails, it does not wait in a queue somewhere else. It comes to our own repair center and back to your rack.</SectionHead>
+          <figure className="banner">
+            {/* eslint-disable-next-line @next/next/no-img-element -- brand banner, served as-is */}
+            <img src="/brand/banner-repair.webp" width={1600} height={679} alt="Segments Repair brand banner with the logo mark and a wrench" loading="lazy" />
+          </figure>
           <div className="repair-hero">
             <Reveal className="panel repair-intro">
               <div className="repair-brand">
