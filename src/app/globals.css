@@ -1340,3 +1340,43 @@ body::after {
 .lightbox-prev:hover { transform: translateY(-50%) scale(1.06); } .lightbox-next:hover { transform: translateY(-50%) scale(1.06); }
 @media (max-width: 720px) { .lightbox { padding: 60px 8px 16px; } .lightbox-prev, .lightbox-next { top: auto; bottom: 14px; transform: none; } .lightbox-prev:hover, .lightbox-next:hover { transform: scale(1.06); } .lightbox-figure img { max-height: calc(100vh - 170px); } }
 @media (prefers-reduced-motion: reduce) { .lightbox-figure { animation-duration: 0.8s; } }
+
+/* ---------- Contract terms as a ticket ledger with a rotating seal (Ganushi, 4 Nov 2026) ---------- */
+.contract { position: relative; padding: 28px; border-radius: var(--r-xl); border: 1px solid rgba(var(--glow), 0.35); background: linear-gradient(135deg, rgba(var(--glow), 0.1), rgba(9, 16, 34, 0.9) 50%), var(--elev); display: grid; gap: 22px; }
+.contract-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.contract-head h3 { font-size: clamp(1.3rem, 2.4vw, 1.8rem); margin: 4px 0 6px; }
+.contract-head .muted { max-width: 56ch; }
+.cseal { position: relative; flex: none; width: 118px; height: 118px; display: grid; place-items: center; }
+.cseal > svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: seal-spin 22s linear infinite; }
+.cseal-core svg { position: static; width: 26px; height: 26px; animation: none; }
+.cseal-text { font: 700 8.6px var(--ff-display); letter-spacing: 0.16em; fill: var(--gold); }
+.cseal-core { width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center; color: var(--gold-ink); background: radial-gradient(circle at 35% 30%, #ffe27a, #e9a812 70%); box-shadow: 0 0 0 3px #081129, 0 0 0 4px rgba(247, 190, 39, 0.6), 0 0 30px -6px rgba(247, 190, 39, 0.8); }
+@keyframes seal-spin { to { transform: rotate(360deg); } }
+.tickets { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ticket { display: grid; grid-template-columns: 64px 1fr; border-radius: 14px; overflow: hidden; border: 1px solid rgba(var(--glow), 0.3); background: rgba(4, 8, 20, 0.55); transition: transform 0.25s, border-color 0.25s; }
+.ticket:hover { transform: translateY(-2px); border-color: rgba(247, 190, 39, 0.6); }
+.ticket-stub { position: relative; display: grid; place-items: center; align-content: center; gap: 4px; color: #fff; background: linear-gradient(160deg, hsl(calc(214 + var(--t) * 14), 85%, 56%), hsl(calc(224 + var(--t) * 14), 75%, 34%)); }
+.ticket-stub small { font: 700 0.62rem var(--ff-mono); opacity: 0.85; }
+.ticket-stub::after { content: ""; position: absolute; right: -1px; top: 8px; bottom: 8px; border-right: 2px dashed rgba(4, 8, 20, 0.9); }
+.ticket-stub::before, .ticket-body::before { content: ""; position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--elev); border: 1px solid rgba(var(--glow), 0.3); }
+.ticket-stub::before { right: -8px; top: -8px; z-index: 1; }
+.ticket-body { position: relative; display: grid; gap: 4px; align-content: center; padding: 12px 14px 12px 16px; }
+.ticket-body::before { left: -8px; bottom: -8px; }
+.ticket-label { font: 600 0.7rem var(--ff-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--lo); }
+.ticket-value { color: #fff; font-size: 0.98rem; line-height: 1.35; }
+@media (max-width: 760px) { .tickets { grid-template-columns: 1fr; } .contract-head { flex-direction: column-reverse; align-items: flex-start; } .cseal { width: 96px; height: 96px; } .cseal-core { width: 54px; height: 54px; } .cseal-text { font-size: 9.5px; } .contract { padding: 20px; } }
+@media (prefers-reduced-motion: reduce) { .cseal > svg { animation-duration: 60s; } }
+
+/* Journey step numbers: lit gold numerals with a step tag (Ganushi, 4 Nov 2026) */
+.journey-no { position: absolute; top: 12px; right: 16px; display: grid; justify-items: end; gap: 2px; -webkit-text-stroke: 0; color: inherit; line-height: 1; }
+.journey-no small { font: 700 0.6rem var(--ff-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); padding: 3px 8px; border-radius: 999px; background: rgba(247, 190, 39, 0.12); border: 1px solid rgba(247, 190, 39, 0.4); }
+.journey-no b { font: 800 2.8rem/1 var(--ff-display); letter-spacing: -0.04em; background: linear-gradient(180deg, #fff3c4 0%, #ffd95e 45%, #e9a812 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 12px rgba(247, 190, 39, 0.45)); }
+.journey-card h3 { padding-right: 96px; }
+.journey-card:hover .journey-no b { filter: drop-shadow(0 0 18px rgba(247, 190, 39, 0.8)); }
+
+/* Globe depth (Ganushi, 4 Nov 2026): gloss top-left, darker lower-right limb, atmosphere halo and a ground shadow. Static shadows, no animation. */
+.globe::after { content: ""; position: absolute; inset: 3.5%; border-radius: 50%; pointer-events: none; z-index: 1;
+  background: radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04) 24%, transparent 42%);
+  box-shadow: inset -34px -30px 80px rgba(0, 0, 0, 0.62), inset 14px 12px 50px rgba(150, 205, 255, 0.18), inset 0 0 0 1px rgba(160, 205, 255, 0.35), 0 0 56px 4px rgba(76, 141, 255, 0.3); }
+.globe-shadow { position: absolute; left: 12%; right: 12%; bottom: -6%; height: 12%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.7), rgba(76, 141, 255, 0.1) 65%, transparent); z-index: -1; pointer-events: none; }
+.globe-pin-live { z-index: 2; }

@@ -15,7 +15,6 @@ export function CoolingExplainer({ kind }: { kind: "hydro" | "air" }) {
       </div>
       <h4>Benefits</h4>
       <ul>{c.benefits.map((b) => <li key={b}><CheckCircle2 size={17} aria-hidden="true" /> {b}</li>)}</ul>
-      <p className="explainer-choose">{coolingSystems.choose}</p>
     </article>
   );
 }

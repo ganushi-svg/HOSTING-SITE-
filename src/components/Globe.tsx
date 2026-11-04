@@ -68,10 +68,10 @@ export function Globe() {
         vIdx[i] = Math.min(TH - 1, Math.max(0, Math.floor((Math.PI / 2 - lat) / Math.PI * TH))) * TW;
         lon0[i] = (lon + Math.PI) / (2 * Math.PI) * TW;
         const sh = Math.max(0, x * L[0] + y * L[1] + z * L[2]);
-        light[i] = 0.08 + Math.pow(sh, 1.15);
-        spec[i] = Math.pow(sh, 40) * 150;
+        light[i] = 0.05 + Math.pow(sh, 1.35) * 1.08; // deeper terminator for a rounder look
+        spec[i] = Math.pow(sh, 28) * 170;
         const rr = Math.sqrt(r2);
-        rim[i] = Math.pow(Math.max(0, (rr - 0.82) / 0.18), 2);
+        rim[i] = Math.pow(Math.max(0, (rr - 0.78) / 0.22), 2);
       }
     };
 
@@ -90,7 +90,9 @@ export function Globe() {
         const water = td[t + 2] > td[t] * 1.6 ? 1 : 0;
         const li = light[i], sp = spec[i] * water, rm = rim[i];
         let r = td[t] * li + sp, g = td[t + 1] * li + sp, b = td[t + 2] * li + sp;
-        r = r * (1 - 0.25 * rm) + 90 * 0.45 * rm; g = g * (1 - 0.25 * rm) + 150 * 0.45 * rm; b = b * (1 - 0.25 * rm) + 255 * 0.45 * rm;
+        // night side carries a faint blue ambient, the limb a blue atmosphere
+        const night = 1 - Math.min(1, li);
+        r = r * (1 - 0.3 * rm) + 90 * 0.5 * rm + 3 * night; g = g * (1 - 0.3 * rm) + 150 * 0.5 * rm + 9 * night; b = b * (1 - 0.3 * rm) + 255 * 0.5 * rm + 26 * night;
         od[o] = r > 255 ? 255 : r; od[o + 1] = g > 255 ? 255 : g; od[o + 2] = b > 255 ? 255 : b; od[o + 3] = 255;
       }
       ctx.putImageData(out, 0, 0);
@@ -212,6 +214,7 @@ export function Globe() {
     <figure className="globe" aria-label={`Rotating globe showing hosting clients in ${capacity.clientRegionsLabel} connected by light rays to Segments in Abu Dhabi`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- static poster shown until the canvas draws */}
       <img className="globe-poster" src="/brand/globe-earth.webp" width={1040} height={1040} alt="" aria-hidden="true" />
+      <span className="globe-shadow" aria-hidden="true" />
       <canvas ref={canvasRef} width={SIZE} height={SIZE} aria-hidden="true" />
       <figcaption ref={pinRef} className="globe-pin globe-pin-live"><b>Segments</b><span>Abu Dhabi</span></figcaption>
     </figure>

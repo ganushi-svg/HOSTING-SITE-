@@ -1,5 +1,5 @@
 import type React from "react";
-import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Container, Cylinder, Droplets, Eye, Fan, FileBarChart, Filter, Lock, LockOpen, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Sparkles, SprayCan, Truck, Wallet, Wind, Wrench, Zap } from "lucide-react";
+import { AlertTriangle, Boxes, CalendarClock, Check, CheckCircle2, ClipboardCheck, Clock, Coins, Container, Cylinder, Droplets, Eye, Fan, FileBarChart, Filter, Lock, LockOpen, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, Receipt, ScanSearch, ScrollText, Server, ShieldCheck, Sparkles, SprayCan, Truck, Users, Wallet, Wind, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { CoolingLayout } from "@/components/CoolingLayout";
 import { Faq } from "@/components/Faq";
@@ -629,7 +629,7 @@ export default function Home() {
                 <li key={o.title} className={`journey-step ${i % 2 ? "is-right" : "is-left"}`} style={{ ["--i" as string]: i }}>
                   <span className="journey-node" aria-hidden="true"><Icon size={22} strokeWidth={1.8} /></span>
                   <Reveal delay={0.05} className="panel journey-card">
-                    <span className="journey-no num">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="journey-no" aria-hidden="true"><small>Step {i + 1} of {onboarding.length}</small><b>{String(i + 1).padStart(2, "0")}</b></span>
                     <h3>{o.title}</h3>
                     <p className="muted">{o.text}</p>
                     <span className="journey-fact">{o.fact}</span>
@@ -638,10 +638,33 @@ export default function Home() {
               );
             })}
           </ol>
-          <div className="panel pad terms">
-            <h3>Contract terms</h3>
-            <ul className="term-list">{contractTerms.map((t) => <li key={t.label}><strong>{t.label}</strong>{t.value ? <b>{t.value}</b> : <TODO source="content/contract-and-onboarding.md" inline>to be provided</TODO>}</li>)}</ul>
-          </div>
+          <Reveal className="contract">
+            <div className="contract-head">
+              <div>
+                <p className="eyebrow">Hosting contract</p>
+                <h3>The terms, in plain words</h3>
+                <p className="muted">Everything below is written into the hosting contract you sign before your machines are racked.</p>
+              </div>
+              <span className="cseal" aria-hidden="true">
+                <svg viewBox="0 0 120 120"><defs><path id="seal-ring" d="M60 60 m-49 0 a49 49 0 1 1 98 0 a49 49 0 1 1 -98 0" /></defs><text className="cseal-text"><textPath href="#seal-ring">SEGMENTS CLOUD · HOSTING CONTRACT · 12 MONTHS · </textPath></text></svg>
+                <span className="cseal-core"><ScrollText size={26} /></span>
+              </span>
+            </div>
+            <ul className="tickets">
+              {contractTerms.map((t, i) => {
+                const Icon = [Clock, Users, Boxes, Wallet, Receipt, Coins, Truck, CalendarClock][i] ?? Clock;
+                return (
+                  <li key={t.label} className="ticket" style={{ ["--t" as string]: i }}>
+                    <span className="ticket-stub" aria-hidden="true"><Icon size={20} strokeWidth={1.9} /><small>{String(i + 1).padStart(2, "0")}</small></span>
+                    <span className="ticket-body">
+                      <span className="ticket-label">{t.label}</span>
+                      {t.value ? <b className="ticket-value">{t.value}</b> : <TODO source="content/contract-and-onboarding.md" inline>to be provided</TODO>}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </Reveal>
         </div>
       </section>
 
