@@ -32,7 +32,7 @@ const compare = [
   { label: "Upfront capex", plug: "None", turnkey: `${pricing.turnkeyCapexPerMwLabel} per MW` },
   { label: "How you start", plug: "Ship your machines to our halls", turnkey: "Capacity built for your fleet" },
 ];
-const plugTerms = ["What the rate includes besides power", "Setup fee and deposit", "Minimum term and minimum fleet size", "Payment currencies and methods"];
+const plugTerms = ["What the rate includes besides power", "Minimum term and minimum fleet size", "Payment currencies and methods"];
 const turnkeyTerms = ["What the capex covers", "Who owns the infrastructure", "Minimum capacity (MW)", "Build timeline", "Contract term"];
 const contractTerms = ["Contract length", "Notice period", "Who contracts with you", "Payment terms", "Machine delivery and return"];
 
@@ -184,7 +184,11 @@ export default function Home() {
                         </tbody>
                       </table>
                     </div><div className="panel pad"><h3>How plug and play is billed</h3><ul className="dot-list">{billing.map((b) => <li key={b}>{b}</li>)}</ul></div></div>
-                    <div className="panel pad"><h3>Other terms</h3><ul className="term-list">{plugTerms.map((t) => <li key={t}><span>{t}</span><TODO source="content/pricing.md" inline>to be provided</TODO></li>)}</ul></div>
+                    <div className="panel pad"><h3>Other terms</h3><ul className="term-list">
+                      <li><span>Setup fee</span><b>{pricing.setupFeeLabel}</b></li>
+                      <li><span>Deposit</span><b>{pricing.depositLabel}</b></li>
+                      <li className="term-note">The setup fee follows your fleet: total machine power in kW × USD {pricing.setupFeePerKwUsd}. For example, 10 machines of 3,000 W is 30 kW, a setup fee of USD 3,000.</li>
+                      {plugTerms.map((t) => <li key={t}><span>{t}</span><TODO source="content/pricing.md" inline>to be provided</TODO></li>)}</ul></div>
                   </div>
                 ),
               },

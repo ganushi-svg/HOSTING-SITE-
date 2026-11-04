@@ -45,6 +45,10 @@ export function PowerCalculator() {
   const tier = tierFor(Math.max(1, n));
   const rate = tier.rateUsd;
   const total = kwh * rate;
+  // One-off costs (content/pricing.md): setup = fleet kW × USD 100; deposit = one month (30 days) of power.
+  const fleetKw = (w * n) / 1000;
+  const setup = fleetKw * pricing.setupFeePerKwUsd;
+  const deposit = ((w * 24 * 30) / 1000) * n * rate;
 
   return (
     <div className="calc">
@@ -81,6 +85,11 @@ export function PowerCalculator() {
         <div className="calc-total">
           <span>Whole fleet</span>
           <b className="num">{usd(total)}</b>
+        </div>
+        <div className="calc-rows calc-upfront">
+          <div><span>Fleet power</span><b className="num">{fleetKw.toLocaleString("en-US", { maximumFractionDigits: 1 })} kW</b></div>
+          <div><span>One-off setup fee ({pricing.setupFeeLabel})</span><b className="num">{usd(setup)}</b></div>
+          <div><span>Deposit (one month of power)</span><b className="num">{usd(deposit)}</b></div>
         </div>
         <p className="fine-print">
           Rates: {pricing.tiers.map((t) => `${t.rateLabel} for ${t.label.toLowerCase()}`).join(", ")}. Power only.

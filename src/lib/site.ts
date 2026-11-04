@@ -34,6 +34,10 @@ export const pricing = {
   plugFromLabel: "$0.058",
   plugRangeLabel: "$0.058 – $0.068",
   // content/pricing.md › tiers (Ganushi KC, 4 Nov 2026), largest fleet first.
+  // content/pricing.md › setup and deposit (Ganushi KC, 4 Nov 2026)
+  setupFeePerKwUsd: 100,
+  setupFeeLabel: "USD 100 per kW",
+  depositLabel: "One month of power",
   tiers: [
     { min: 100, label: "100+ machines", rateUsd: 0.058, rateLabel: "$0.058" },
     { min: 50, label: "50 – 99 machines", rateUsd: 0.062, rateLabel: "$0.062" },

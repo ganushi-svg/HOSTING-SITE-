@@ -605,3 +605,7 @@ body::after {
 .explainer li svg { flex: none; margin-top: 3px; color: var(--good); }
 .explainer-hydro { border-color: rgba(var(--glow-2), 0.4); box-shadow: 0 0 40px -16px rgba(var(--glow-2), 0.6); }
 .explainer-choose { font-size: 0.875rem; color: var(--gold-light) !important; padding-top: 10px; border-top: 1px solid var(--stroke); }
+
+.term-list li b { color: #fff; font-weight: 600; }
+.term-list li.term-note { display: block; font-size: 0.85rem; color: var(--lo); }
+.calc-upfront { margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(var(--glow), 0.3); }
