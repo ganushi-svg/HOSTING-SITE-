@@ -615,13 +615,13 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="vcard-actions">
-                  <a className="vcard-btn vcard-call" href={contact.phoneUrl}><Phone size={18} aria-hidden="true" /><span><b>Call</b><small>{contact.hours}</small></span></a>
-                  <a className="vcard-btn vcard-wa" href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer"><WhatsAppIcon size={20} /><span><b>WhatsApp</b><small>After office hours</small></span></a>
+                  <a className="vcard-btn vcard-call" href={contact.phoneUrl}><i className="vcard-badge"><Phone size={18} strokeWidth={2.2} aria-hidden="true" /></i><span><b>Call</b><small>{contact.hours}</small></span></a>
+                  <a className="vcard-btn vcard-wa" href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer"><i className="vcard-badge"><WhatsAppIcon size={20} /></i><span><b>WhatsApp</b><small>After office hours</small></span></a>
                 </div>
                 <dl className="vcard-lines">
-                  <div><dt><Phone size={15} aria-hidden="true" /></dt><dd className="num selectable">{contact.phone}</dd></div>
-                  <div><dt><Mail size={15} aria-hidden="true" /></dt><dd className="selectable">{contact.email}</dd></div>
-                  <div><dt><MapPin size={15} aria-hidden="true" /></dt><dd>{contact.office}</dd></div>
+                  <div><dt className="vcard-ico"><Phone size={16} strokeWidth={2.2} aria-hidden="true" /></dt><dd className="num selectable">{contact.phone}</dd></div>
+                  <div><dt className="vcard-ico"><Mail size={16} strokeWidth={2.2} aria-hidden="true" /></dt><dd className="selectable">{contact.email}</dd></div>
+                  <div><dt className="vcard-ico"><MapPin size={16} strokeWidth={2.2} aria-hidden="true" /></dt><dd>{contact.office}</dd></div>
                 </dl>
                 <a className="vcard-save" href="/ganushi-kc.vcf" download>Save contact to phone</a>
               </Reveal>
