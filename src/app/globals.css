@@ -938,3 +938,5 @@ body::after {
 .vcard-badge { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; font-style: normal;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.18); transition: transform 0.25s ease; }
 .vcard-btn:hover .vcard-badge { transform: rotate(-8deg) scale(1.06); }
+.cm-stage::before { content: ""; position: absolute; left: 14%; right: 14%; bottom: 3%; height: 14%; border-radius: 50%; background: radial-gradient(closest-side, rgba(var(--glow), 0.55), rgba(var(--glow), 0.12) 60%, transparent); opacity: 0; }
+.is-hydro .cm-stage::before { opacity: 1; bottom: 6%; }

@@ -60,7 +60,7 @@ export function CalcMiner({ cooling, watts, qty }: { cooling: Model["cooling"]; 
       <div className="cm-stage">
         <span className="cm-grid" aria-hidden="true" />
         {/* eslint-disable-next-line @next/next/no-img-element -- transparent WebP layers stacked for the effect */}
-        <img className="cm-real" src={`/miners/turntable/${key}-still.webp`} width={720} height={540} alt={`Representative ${key === "hydro" ? "hydro" : "air"}-cooled miner render powering up`} decoding="async" />
+        <img className="cm-real" src={hydro ? "/miners/turntable/hydro-still.webp" : "/miners/turntable/air-calc.webp"} width={720} height={540} alt={`Representative ${key === "hydro" ? "hydro" : "air"}-cooled miner render powering up`} decoding="async" />
         {/* eslint-disable-next-line @next/next/no-img-element -- blueprint trace of the same render */}
         <img className="cm-print" src={`/miners/turntable/${key}-blueprint.webp`} width={720} height={540} alt="" aria-hidden="true" decoding="async" />
         <svg className="cm-fx" viewBox="0 0 720 540" aria-hidden="true">
