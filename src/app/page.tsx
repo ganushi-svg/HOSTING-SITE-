@@ -8,12 +8,11 @@ import { QuoteIcon } from "@/components/QuoteIcon";
 import { Reveal } from "@/components/Reveal";
 import { SampleReport } from "@/components/SampleReport";
 import { SitePhoto } from "@/components/SitePhoto";
-import { SiteVideo } from "@/components/SiteVideo";
 import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, quality, services, site, siteVideo } from "@/lib/site";
+import { billing, capacity, contact, faqs, photos, pricing, quality, services, site } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -252,7 +251,7 @@ export default function Home() {
                     <div className="photo-feature"><SitePhoto photo={photos.hallLongRacks} priority sizes="(min-width: 1200px) 1168px, 100vw" /></div>
                     <div className="showcase">
                       <SitePhoto photo={photos.hallRackRow} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SiteVideo src={siteVideo.src} poster={siteVideo.poster} label={siteVideo.caption} caption={siteVideo.caption} />
+                      <SitePhoto photo={photos.hallOpenRacks} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hallAislePads} sizes="(min-width: 900px) 30vw, 50vw" />
                     </div>
                     <div className="split">
@@ -292,9 +291,9 @@ export default function Home() {
                     <div className="showcase">
                       <SitePhoto photo={photos.hallPadCorridor} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hallMinerFans} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SitePhoto photo={photos.hallOpenRacks} sizes="(min-width: 900px) 30vw, 50vw" />
+                      <SitePhoto photo={photos.hallFanWallRacks} sizes="(min-width: 900px) 30vw, 50vw" />
                     </div>
-                    <div className="split"><SitePhoto photo={photos.hallFanWallRacks} crop sizes="(min-width: 900px) 45vw, 100vw" /><SitePhoto photo={photos.hallFanCorridor} crop sizes="(min-width: 900px) 45vw, 100vw" /></div>
+                    <div className="photo-feature"><SitePhoto photo={photos.hallFanCorridor} sizes="(min-width: 1200px) 1168px, 100vw" /></div>
                   </div>
                 ),
               },
@@ -307,7 +306,18 @@ export default function Home() {
       <section id="quality" className="section" aria-labelledby="quality-title">
         <div className="container">
           <SectionHead eyebrow="Quality control" title="A dedicated team for sites and machines">Clean air, healthy coolant and working machines. Our quality team follows a set routine at every site, writes everything down and raises problems early.</SectionHead>
-          <TODO source="content/quality.md">Quality team name, size and who leads it</TODO>
+          <Reveal className="panel qc-badge">
+            <div className="qc-logo">
+              {/* eslint-disable-next-line @next/next/no-img-element -- small static logo */}
+              <img src="/brand/quality-control-logo.webp" width={882} height={442} alt="Segments Quality Control logo" />
+            </div>
+            <div className="qc-copy">
+              <p className="eyebrow">Our quality team</p>
+              <h3>{quality.team.name}</h3>
+              <p className="muted">{quality.team.summary}</p>
+              <p className="qc-pending">Team size and lead <TODO source="content/quality.md" inline>Quality team size and who leads it</TODO></p>
+            </div>
+          </Reveal>
           <Tabs
             label="Quality routines"
             tabs={[

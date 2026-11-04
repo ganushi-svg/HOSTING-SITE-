@@ -566,3 +566,12 @@ body::after {
 }
 @keyframes dock-in-m { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .section-dock::before { animation-duration: 18s; } .dock-indicator { transition-duration: 0.9s; } }
+
+/* Segments Quality Control team badge */
+.qc-badge { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 28px; align-items: center; padding: 22px; margin-bottom: 28px; }
+.qc-logo { border-radius: var(--r-lg); background: #eaeceb; padding: 6px 10px; box-shadow: 0 0 0 1px rgba(var(--glow), 0.3), 0 0 36px -10px rgba(var(--glow), 0.7); }
+.qc-logo img { display: block; width: 100%; height: auto; }
+.qc-copy { display: grid; gap: 8px; }
+.qc-copy h3 { font-size: 1.4rem; }
+.qc-pending { font-size: 0.875rem; color: var(--lo); }
+@media (max-width: 700px) { .qc-badge { grid-template-columns: 1fr; } .qc-logo { max-width: 320px; } }

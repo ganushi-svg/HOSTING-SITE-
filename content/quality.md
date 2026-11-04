@@ -38,5 +38,6 @@ Source: Drive › Segments_Cloud_Maintenance_Tracker.
 - Every maintenance job is tracked on a board by site, category (electrical, civil, mechanical / HVAC, plumbing, logistics) and status until it is closed.
 
 ## Still needed
-- TODO: quality team name, size and who leads it
+- Team name: Segments Quality Control, with its own logo (Ganushi KC, 4 Nov 2026; logo at public/brand/quality-control-logo.webp).
+- TODO: quality team size and who leads it
 - TODO: how often air-intake filters are changed as a rule (the report shows one month)

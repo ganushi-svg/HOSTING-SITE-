@@ -49,6 +49,10 @@ export const capacity = {
 
 export const quality = {
   // content/quality.md
+  team: {
+    name: "Segments Quality Control", // Ganushi KC, 4 Nov 2026, with the team logo (public/brand/quality-control-logo.webp)
+    summary: "A dedicated team that inspects our halls, hydro containers and hosted machines on a fixed schedule, logs every check and follows each job through to closure.",
+  },
   airReport: { visits: 3, manDays: 13, giFilters: 272, disposableFilters: 272, month: "August 2026" },
   airWork: [
     "Mesh (GI) pre-filters and disposable intake filters cleaned, then replaced the next day.",
