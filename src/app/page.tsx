@@ -1,4 +1,4 @@
-import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Truck, Wallet, Wrench, Zap } from "lucide-react";
+import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Sparkles, Truck, Wallet, Wind, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
@@ -363,7 +363,14 @@ export default function Home() {
           </Reveal>
           <div className="qc-duties">
             {quality.team.duties.map((d, i) => (
-              <Reveal key={d.title} delay={i * 0.05} className="panel feat-card"><h3>{d.title}</h3><p className="muted">{d.text}</p></Reveal>
+              <Reveal key={d.title} delay={i * 0.05} className={`panel duty duty-${i}`}>
+                <div className="duty-top">
+                  <span className="duty-ico">{[<Wind key="a" size={22} />, <Sparkles key="b" size={22} />, <Droplets key="c" size={22} />, <ClipboardCheck key="d" size={22} />][i]}</span>
+                  <span className="duty-tag">{["Weekly · Monthly · 3–4 months", "Every machine", "Weekly inspection", "Until closed"][i]}</span>
+                </div>
+                <h3>{d.title}</h3>
+                <p className="muted">{d.text}</p>
+              </Reveal>
             ))}
           </div>
           <Tabs

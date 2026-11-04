@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Short muted loop of real site footage. Plays for every visitor, but only while it is on screen:
- * it starts loading just before it scrolls into view and pauses when it leaves, so several videos on the
- * page never decode at once (smooth playback). No controls (Ganushi, 4 Nov 2026): it plays as a silent loop.
+ * Short muted loop of real site footage, with no controls (Ganushi, 4 Nov 2026). It loads a little before it
+ * scrolls into view and plays while visible, pausing when it leaves so several videos never decode at once.
+ * If the browser pauses or blocks it (power saving, autoplay rules), it retries on the next touch or scroll.
  */
 export function SiteVideo({ src, poster, label, caption }: { src: string; poster: string; label: string; caption: string }) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -14,31 +14,36 @@ export function SiteVideo({ src, poster, label, caption }: { src: string; poster
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
-    let userPaused = false;
-    const onPause = () => { if (!document.hidden && v.dataset.auto !== "1") userPaused = true; };
-    const onPlay = () => { userPaused = false; };
-    v.addEventListener("pause", onPause);
-    v.addEventListener("play", onPlay);
+    v.muted = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    let visible = false;
+    const tryPlay = () => { if (visible && v.paused && v.currentSrc) v.play().catch(() => {}); };
     const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setNear(true);
-        if (!userPaused) v.play().catch(() => {});
-      } else if (!v.paused) {
-        v.dataset.auto = "1"; v.pause(); delete v.dataset.auto;
-      }
-    }, { rootMargin: "200px 0px", threshold: 0.15 });
+      visible = entry.isIntersecting;
+      if (visible) { setNear(true); tryPlay(); } else if (!v.paused) v.pause();
+    }, { rootMargin: "400px 0px", threshold: 0 });
     io.observe(v);
-    return () => { io.disconnect(); v.removeEventListener("pause", onPause); v.removeEventListener("play", onPlay); };
+    v.addEventListener("canplay", tryPlay);
+    v.addEventListener("loadeddata", tryPlay);
+    // Retry after the visitor interacts, for browsers that block autoplay until then.
+    const retry = () => tryPlay();
+    window.addEventListener("touchstart", retry, { passive: true });
+    window.addEventListener("scroll", retry, { passive: true });
+    document.addEventListener("visibilitychange", retry);
+    return () => {
+      io.disconnect();
+      v.removeEventListener("canplay", tryPlay);
+      v.removeEventListener("loadeddata", tryPlay);
+      window.removeEventListener("touchstart", retry);
+      window.removeEventListener("scroll", retry);
+      document.removeEventListener("visibilitychange", retry);
+    };
   }, []);
-
-  // Once the source is attached, start playing.
-  useEffect(() => {
-    if (near) ref.current?.play().catch(() => {});
-  }, [near]);
 
   return (
     <figure className="site-video">
-      <video ref={ref} src={near ? src : undefined} poster={poster} muted loop playsInline disablePictureInPicture preload={near ? "auto" : "none"} aria-label={label} />
+      <video ref={ref} src={near ? src : undefined} poster={poster} muted loop playsInline autoPlay disablePictureInPicture preload={near ? "auto" : "none"} aria-label={label} />
       <figcaption>{caption}</figcaption>
     </figure>
   );

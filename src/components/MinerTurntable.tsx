@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Pause, Play } from "lucide-react";
 import { turntableFor, type Model } from "@/lib/models";
 
 type Props = {
   name: string;
   cooling: Model["cooling"];
-  /** "hero": model page, with a pause button and caption. "card": model grid, the card stays a link. */
+  /** "hero": model page, with a caption. "card": model grid, the card stays a link. */
   variant?: "hero" | "card";
 };
 
@@ -23,8 +22,7 @@ export function MinerTurntable({ name, cooling, variant = "hero" }: Props) {
   const host = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(!card);
   const [tabVisible, setTabVisible] = useState(true);
-  const [moving, setMoving] = useState(true);
-  const animate = moving && visible && tabVisible;
+  const animate = visible && tabVisible;
 
   useEffect(() => {
     const visibility = () => setTabVisible(!document.hidden);
@@ -50,12 +48,6 @@ export function MinerTurntable({ name, cooling, variant = "hero" }: Props) {
           decoding="async"
         />
         {!card && <figcaption>Representative {label} render, not the exact model and not a product photo</figcaption>}
-        {!card && (
-          <button type="button" className="viewer-btn viewer-btn-corner" onClick={() => setMoving((m) => !m)} aria-pressed={!moving}>
-            {moving ? <Pause size={16} aria-hidden="true" /> : <Play size={16} aria-hidden="true" />}
-            {moving ? "Pause motion" : "Play motion"}
-          </button>
-        )}
       </figure>
       {card && <span className="render-tag">Representative render</span>}
     </div>

@@ -838,3 +838,15 @@ body::after {
 .vcard-save { justify-self: start; font-size: 0.82rem; font-weight: 600; color: var(--accent-strong); text-decoration: none; border-bottom: 1px dashed currentColor; }
 @media (max-width: 420px) { .vcard-actions { grid-template-columns: 1fr; } .vcard-photo { width: 84px; height: 84px; } }
 @media (prefers-reduced-motion: reduce) { .vcard::after { animation-duration: 14s; } }
+
+/* Quality duty cards */
+.duty { position: relative; overflow: hidden; padding: 24px 22px 22px; display: grid; gap: 12px; align-content: start; --a: 76, 141, 255; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+.duty-1 { --a: 168, 85, 247; } .duty-2 { --a: 34, 211, 238; } .duty-3 { --a: 16, 185, 129; }
+.duty::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, rgba(var(--a), 0.2), rgb(var(--a)), rgba(var(--a), 0.2)); }
+.duty::after { content: ""; position: absolute; right: -40px; top: -40px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(closest-side, rgba(var(--a), 0.25), transparent); pointer-events: none; }
+.duty:hover { transform: translateY(-4px); border-color: rgba(var(--a), 0.7); box-shadow: 0 22px 44px -24px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(var(--a), 0.4); }
+.duty-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.duty-ico { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: #fff; background: linear-gradient(150deg, rgba(var(--a), 0.95), rgba(var(--a), 0.55)); box-shadow: 0 8px 22px -8px rgb(var(--a)); }
+.duty-tag { font: 600 0.68rem var(--ff-body); letter-spacing: 0.06em; text-transform: uppercase; text-align: right; color: rgb(var(--a)); filter: brightness(1.35); }
+.duty h3 { font-size: 1.08rem; color: #fff; margin-top: 4px; }
+.duty p { font-size: 0.9rem; line-height: 1.65; }
