@@ -315,9 +315,18 @@ export default function Home() {
               <p className="eyebrow">Our quality team</p>
               <h3>{quality.team.name}</h3>
               <p className="muted">{quality.team.summary}</p>
-              <p className="qc-pending">Team size and lead <TODO source="content/quality.md" inline>Quality team size and who leads it</TODO></p>
+              <div className="qc-stats">
+                <div><b className="num"><CountUp value={quality.team.size} /></b><span>specialists dedicated to quality</span></div>
+                <div><b>Weekly</b><span>filter cleaning in every hall</span></div>
+                <div><b>Every machine</b><span>deep-cleaned for efficiency</span></div>
+              </div>
             </div>
           </Reveal>
+          <div className="qc-duties">
+            {quality.team.duties.map((d, i) => (
+              <Reveal key={d.title} delay={i * 0.05} className="panel feat-card"><h3>{d.title}</h3><p className="muted">{d.text}</p></Reveal>
+            ))}
+          </div>
           <Tabs
             label="Quality routines"
             tabs={[
@@ -339,7 +348,13 @@ export default function Home() {
                         <SitePhoto key={p.src} photo={p} crop sizes="(min-width: 900px) 33vw, 50vw" />
                       ))}
                     </div>
-                    <TODO source="content/quality.md">How often intake filters are changed as a rule</TODO>
+                    <div className="panel table-wrap">
+                      <table className="data-table">
+                        <caption className="sr-only">Air filter cleaning and replacement schedule</caption>
+                        <thead><tr><th scope="col">Filter</th><th scope="col">Schedule</th></tr></thead>
+                        <tbody>{quality.team.filterSchedule.map((f) => <tr key={f.what}><th scope="row">{f.what}</th><td>{f.when}</td></tr>)}</tbody>
+                      </table>
+                    </div>
                   </div>
                 ),
               },

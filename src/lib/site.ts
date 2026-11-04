@@ -51,7 +51,20 @@ export const quality = {
   // content/quality.md
   team: {
     name: "Segments Quality Control", // Ganushi KC, 4 Nov 2026, with the team logo (public/brand/quality-control-logo.webp)
-    summary: "A dedicated team that inspects our halls, hydro containers and hosted machines on a fixed schedule, logs every check and follows each job through to closure.",
+    // Size, filter intervals and deep cleaning: Ganushi KC, 4 Nov 2026 (content/quality.md)
+    size: 10,
+    summary: "Segments Quality Control is a team of 10 people who look after nothing but quality at our sites. They keep the air clean in every hall, check the coolant in every hydro container, deep-clean the machines, and log each job until it is closed.",
+    duties: [
+      { title: "Air filters", text: "Intake filters cleaned every week. Disposable filters replaced every month. Mesh (GI) pre-filters replaced every 3 to 4 months, judged by inspecting their condition." },
+      { title: "Machine deep cleaning", text: "Every hosted machine is deep-cleaned to clear dust from fans and boards, so it runs cooler and more efficiently." },
+      { title: "Hydro containers", text: "A nine-step inspection every week and regular coolant testing against set standards." },
+      { title: "Tracking and logs", text: "Every check is logged and every maintenance job stays on the tracking board until it is closed." },
+    ],
+    filterSchedule: [
+      { what: "Intake filters", when: "Cleaned weekly" },
+      { what: "Disposable filters", when: "Replaced monthly" },
+      { what: "Mesh (GI) pre-filters", when: "Replaced every 3–4 months, by condition" },
+    ],
   },
   airReport: { visits: 3, manDays: 13, giFilters: 272, disposableFilters: 272, month: "August 2026" },
   airWork: [
@@ -86,6 +99,9 @@ export const quality = {
   ],
   schedule: [
     { when: "Daily", what: "Water levels and readings checked" },
+    { when: "Weekly (air)", what: "Intake filters cleaned" },
+    { when: "Monthly (air)", what: "Disposable filters replaced" },
+    { when: "Every 3–4 months (air)", what: "Mesh (GI) pre-filters replaced, based on inspection" },
     { when: "Weekly", what: "The nine-step cleaning and inspection routine, with a signed log" },
     { when: "Every 6 months", what: "Coolant pH test and pipe leak survey" },
     { when: "Yearly", what: "Coolant lab test before summer" },
