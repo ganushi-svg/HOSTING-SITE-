@@ -98,22 +98,27 @@ export function PowerCalculator() {
         </div>
       </form>
       <div className="panel calc-out" aria-live="polite">
-        <p className="eyebrow">Hosting power bill · {d} running days</p>
+        <p className="calc-kicker">Interactive tool</p>
+        <h3 className="calc-title">Power cost calculator</h3>
+        <p className="calc-sub">Hosting power bill for {d} running days at our plug and play rate.</p>
         <div className="calc-rows">
           <div><span>Energy per machine</span><b className="num">{kwhFmt(kwhPerMachine)} kWh</b></div>
           <div><span>Energy, whole fleet</span><b className="num">{kwhFmt(kwh)} kWh</b></div>
           <div><span>Per machine</span><b className="num">{usd(kwhPerMachine * rate)}</b></div>
         </div>
-        <div className="calc-rows"><div><span>Your rate ({tier.label.toLowerCase()})</span><b className="num">{tier.rateLabel} / kWh</b></div></div>
-        <div className="calc-total">
-          <span>Whole fleet</span>
-          <b className="num">{usd(total)}</b>
+        <div className="calc-box">
+          <div className="calc-total">
+            <span>Est. monthly bill, whole fleet ({d} days)</span>
+            <b className="num">{usd(total)}</b>
+          </div>
+          <div className="calc-tier"><span>Active rate tier</span><b className="num">{tier.rateLabel} / kWh ({tier.label.toLowerCase()})</b></div>
         </div>
         <div className="calc-rows calc-upfront">
           <div><span>Fleet power</span><b className="num">{fleetKw.toLocaleString("en-US", { maximumFractionDigits: 1 })} kW</b></div>
           <div><span>One-off setup fee ({pricing.setupFeeLabel})</span><b className="num">{usd(setup)}</b></div>
           <div><span>Deposit (one month of power)</span><b className="num">{usd(deposit)}</b></div>
         </div>
+        <a className="calc-cta" href="#contact">Lock in this rate · Request a quote</a>
         <p className="fine-print">
           Rates: {pricing.tiers.map((t) => `${t.rateLabel} for ${t.label.toLowerCase()}`).join(", ")}. Power only.
           Days a machine is offline are not charged. This is a hosting cost, not a mining profit estimate.

@@ -198,18 +198,18 @@ export default function Home() {
           <SectionHead eyebrow="Pricing" title="Two ways to host">Ship your machines to our halls on a per-kWh rate, or have capacity built for your fleet.</SectionHead>
           <div className="plans">
             <Reveal className="panel plan plan-pick">
-              <span className="tag">Your machines, our halls</span>
+              <span className="plan-kicker">Your machines, our halls</span>
               <h3>Plug and play</h3>
               <p className="price num">{pricing.plugFromLabel}<small>/ kWh, from</small></p>
               <ul>{pricing.tiers.map((t) => <li key={t.min}><b>{t.rateLabel}</b> per kWh for {t.label.toLowerCase()}</li>)}<li>Billed only on running days</li><li>Air-cooled halls or the hydro zone</li><li>Monthly power report per machine</li></ul>
-              <a className="button" href="#contact">Get a quote <QuoteIcon /></a>
+              <a className="button plan-cta" href="#contact">Get a quote <QuoteIcon /></a>
             </Reveal>
             <Reveal delay={0.06} className="panel plan">
-              <span className="tag tag-plain">For larger fleets</span>
+              <span className="plan-kicker plan-kicker-muted">For larger fleets</span>
               <h3>Turnkey solution</h3>
               <p className="price num">{pricing.turnkeyPowerFromLabel}<small>/ kWh, from</small></p>
               <ul><li>Capex {pricing.turnkeyCapexPerMwLabel} per MW</li><li>Capacity built for your fleet</li><li>Run by the team operating {capacity.totalMw} MW</li><li>Terms set in your proposal</li></ul>
-              <a className="button button-outline" href="#turnkey">See turnkey details</a>
+              <a className="button button-outline plan-cta" href="#turnkey">See turnkey details</a>
             </Reveal>
           </div>
 

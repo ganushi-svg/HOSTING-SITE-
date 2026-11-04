@@ -1605,3 +1605,28 @@ h1, h2, .head h2 { color: #F8FAFC; letter-spacing: -0.015em; }
 .data-table tbody tr:hover { background: rgba(192, 132, 252, 0.05); }
 .plans { gap: 28px; margin-bottom: 48px; }
 .stats { gap: 20px; }
+
+/* Pricing cards and calculator, refined to Ganushi's component spec (4 Nov 2026) */
+.plan { gap: 0; padding: 32px !important; }
+.plan:hover { border-color: rgba(192, 132, 252, 0.55) !important; transform: translateY(-3px); }
+.plan-kicker { font: 600 0.75rem var(--ff-body); letter-spacing: 0.1em; text-transform: uppercase; color: #C084FC; }
+.plan-kicker-muted { color: #94A3B8; }
+.plan h3 { font: 700 1.5rem/1.2 var(--ff-display); color: #F8FAFC; margin: 8px 0 0; }
+.plan .price { margin: 24px 0; font-size: 2.6rem; font-weight: 800; }
+.plan ul { gap: 12px; margin-bottom: 32px; font-size: 0.9rem; color: #94A3B8; }
+.plan li { align-items: flex-start; }
+.plan li::before { content: "✓"; width: auto; height: auto; margin: 0; background: none; color: #C084FC; font-weight: 700; }
+.plan li b { color: #F8FAFC; }
+.plan .plan-cta { margin-top: auto; align-self: stretch; justify-content: center; border-radius: 12px !important; min-height: 50px; }
+.calc-out { display: grid; gap: 14px; align-content: start; }
+.calc-kicker { font: 600 0.75rem var(--ff-body); letter-spacing: 0.1em; text-transform: uppercase; color: #22D3EE; margin: 0; }
+.calc-title { font: 700 1.5rem/1.2 var(--ff-display); color: #F8FAFC; margin: 0; }
+.calc-sub { margin: 0 0 6px; color: #94A3B8; font-size: 0.9rem; }
+.calc-box { background: #0B0711; border: 1px solid #2D2342; border-radius: 12px; padding: 20px; display: grid; gap: 12px; }
+.calc-box .calc-total { border-top: 0; padding-top: 0; margin: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.calc-box .calc-total span { font-size: 0.875rem; }
+.calc-tier { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border-top: 1px solid #2D2342; padding-top: 12px; font-size: 0.875rem; }
+.calc-tier span { color: #94A3B8; } .calc-tier b { color: #F8FAFC; font-weight: 600; }
+.calc-cta { display: block; text-align: center; padding: 14px 16px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); border: 1px solid rgba(124, 58, 237, 0.4); color: #C084FC; font-weight: 600; text-decoration: none; transition: background 0.2s, border-color 0.2s; }
+.calc-cta:hover { background: rgba(124, 58, 237, 0.3); border-color: rgba(192, 132, 252, 0.6); }
+.calc-cta:focus-visible { outline: 2px solid #C084FC; outline-offset: 3px; }
