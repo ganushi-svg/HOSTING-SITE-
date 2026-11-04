@@ -954,3 +954,58 @@ body::after {
 /* Example figures in the Quality tab are labelled as such (Ganushi, 4 Nov 2026). */
 .stats-example .stat { position: relative; }
 .example-tag { position: absolute; top: 12px; right: 12px; padding: 2px 8px; border-radius: 999px; font: 600 0.66rem var(--ff-body); font-style: normal; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-strong); background: rgba(var(--glow), 0.12); border: 1px dashed rgba(var(--glow), 0.5); }
+
+/* ---------- Quality › Hydro containers: inspection route (Ganushi, 4 Nov 2026) ---------- */
+/* Nine steps hang off a glowing coolant pipe; a pulse of coolant travels down it. Gauges and the
+   two-water rule sit below. Motion is transform and opacity only. */
+.hroute { list-style: none; margin: 0; padding: 6px 0 0; position: relative; display: grid; gap: 14px; }
+.hroute::before { content: ""; position: absolute; left: 27px; top: 0; bottom: 0; width: 4px; border-radius: 4px; background: linear-gradient(180deg, rgba(95, 212, 255, 0.1), rgba(95, 212, 255, 0.55) 10%, rgba(95, 212, 255, 0.55) 90%, rgba(95, 212, 255, 0.1)); box-shadow: 0 0 16px rgba(95, 212, 255, 0.35); }
+.hroute::after { content: ""; position: absolute; left: 25px; top: 0; width: 8px; height: 46px; border-radius: 8px; background: linear-gradient(180deg, transparent, #bfefff, transparent); animation: hroute-pulse 4.5s linear infinite; }
+@keyframes hroute-pulse { from { transform: translateY(-50px); } to { transform: translateY(calc(var(--h, 1200px))); } }
+.hroute-step { position: relative; display: grid; grid-template-columns: 58px 1fr; align-items: center; gap: 12px; }
+.hroute-node { position: relative; z-index: 1; width: 46px; height: 46px; margin-left: 6px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #1a3f78, #071530 70%); border: 2px solid rgba(95, 212, 255, 0.7); box-shadow: 0 0 0 4px rgba(4, 8, 20, 0.9), 0 0 18px rgba(95, 212, 255, 0.45); }
+.hroute-node b { font: 700 0.82rem var(--ff-mono); color: #bfefff; }
+.hroute-node.is-end { border-color: var(--good); color: var(--good); box-shadow: 0 0 0 4px rgba(4, 8, 20, 0.9), 0 0 18px rgba(60, 207, 116, 0.45); }
+.hroute-card { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border-color: rgba(95, 212, 255, 0.22); transition: transform 0.25s ease; }
+.hroute-card:hover { transform: translateX(4px); }
+.hroute-card h3 { font-size: 1.02rem; margin: 0 0 4px; }
+.hroute-card p { margin: 0; color: var(--lo); font-size: 0.92rem; }
+.hroute-ico { flex: none; width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #bfefff; background: linear-gradient(145deg, rgba(95, 212, 255, 0.28), rgba(95, 212, 255, 0.06)); border: 1px solid rgba(95, 212, 255, 0.35); }
+.hroute-end { display: grid; grid-template-columns: 58px 1fr; align-items: center; gap: 12px; color: var(--good); font-weight: 600; font-size: 0.9rem; }
+.hroute-end .hroute-node { width: 34px; height: 34px; margin-left: 12px; }
+@media (min-width: 860px) {
+  .hroute { grid-template-columns: 1fr 1fr; column-gap: 18px; }
+  .hroute::before, .hroute::after { left: 50%; margin-left: -2px; }
+  .hroute::after { margin-left: -4px; }
+  .hroute { row-gap: 0; }
+  .hroute-step { grid-template-columns: 1fr; grid-row: var(--row); padding-bottom: 10px; }
+  .hroute-step:nth-child(odd) { grid-column: 1; padding-right: 44px; }
+  .hroute-step:nth-child(even) { grid-column: 2; padding-left: 44px; }
+  .hroute-step:nth-child(odd) .hroute-node { position: absolute; right: -25px; top: 50%; transform: translateY(-50%); margin: 0; }
+  .hroute-step:nth-child(even) .hroute-node { position: absolute; left: -25px; top: 50%; transform: translateY(-50%); margin: 0; }
+  .hroute-step:nth-child(even) .hroute-card:hover { transform: translateX(-4px); }
+  .hroute-end { grid-column: 1 / -1; grid-row: 10; justify-items: center; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+  .hroute-end .hroute-node { margin: 0; }
+}
+.hydro-rules { margin-top: 24px; }
+.gauge-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0 12px; }
+.gauge { display: grid; justify-items: center; text-align: center; gap: 2px; padding: 12px 6px 10px; border-radius: 14px; background: rgba(4, 8, 20, 0.5); border: 1px solid rgba(95, 212, 255, 0.18); }
+.gauge svg { width: 100%; max-width: 120px; overflow: visible; }
+.gauge-track { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 7; stroke-linecap: round; }
+.gauge-fill { fill: none; stroke: #5fd4ff; stroke-width: 7; stroke-linecap: round; stroke-dasharray: var(--seg) 1; stroke-dashoffset: 0; filter: drop-shadow(0 0 5px rgba(95, 212, 255, 0.6)); }
+.gauge-pin { fill: #bfefff; }
+.gauge b { font-size: 1rem; color: var(--hi); }
+.gauge span { font-size: 0.74rem; color: var(--lo); }
+.two-water-grid { display: grid; grid-template-columns: 1fr 10px 1fr; gap: 12px; margin-top: 14px; }
+.water { padding: 14px; border-radius: 14px; display: grid; gap: 6px; align-content: start; }
+.water.sealed { background: linear-gradient(160deg, rgba(60, 207, 116, 0.14), rgba(60, 207, 116, 0.03)); border: 1px solid rgba(60, 207, 116, 0.35); }
+.water.open { background: linear-gradient(160deg, rgba(95, 212, 255, 0.14), rgba(95, 212, 255, 0.03)); border: 1px solid rgba(95, 212, 255, 0.35); }
+.water-ico { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; color: #fff; background: rgba(255, 255, 255, 0.08); }
+.sealed .water-ico { color: var(--good); } .open .water-ico { color: #5fd4ff; }
+.water b { color: var(--hi); font-size: 0.95rem; }
+.water p { margin: 0; font-size: 0.84rem; color: var(--lo); }
+.water ul { margin: 2px 0 0; padding: 0; list-style: none; display: grid; gap: 3px; font-size: 0.82rem; color: var(--hi); }
+.water ul li::before { content: "•"; margin-right: 6px; color: inherit; opacity: 0.6; }
+.water-wall { border-left: 2px dashed rgba(255, 255, 255, 0.22); justify-self: center; }
+@media (max-width: 520px) { .gauge-row { grid-template-columns: 1fr; } .two-water-grid { grid-template-columns: 1fr; } .water-wall { border-left: 0; border-top: 2px dashed rgba(255, 255, 255, 0.22); width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .hroute::after { animation-duration: 10s; } }

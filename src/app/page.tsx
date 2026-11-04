@@ -1,4 +1,5 @@
-import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Sparkles, Truck, Wallet, Wind, Wrench, Zap } from "lucide-react";
+import type React from "react";
+import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Container, Cylinder, Droplets, Eye, Fan, FileBarChart, Filter, Lock, LockOpen, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Sparkles, SprayCan, Truck, Wallet, Wind, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
@@ -411,12 +412,57 @@ export default function Home() {
                 content: (
                   <div className="stack">
                     <p className="muted">Once a week, early in the morning, the team follows the same nine steps on each hydro container. It takes about 110 minutes and ends with a signed, photographed log.</p>
-                    <ol className="steps steps-9">
-                      {quality.hydroSteps.map((s) => <li key={s.title} className="panel step"><h3>{s.title}</h3><p>{s.text}</p></li>)}
+                    <ol className="hroute">
+                      {quality.hydroSteps.map((st, i) => {
+                        const Icon = [Eye, Gauge, Droplets, Filter, Wind, SprayCan, Container, Cylinder, ClipboardCheck][i] ?? ClipboardCheck;
+                        return (
+                          <li key={st.title} className="hroute-step" style={{ "--row": i + 1 } as React.CSSProperties}>
+                            <span className="hroute-node" aria-hidden="true"><b>{String(i + 1).padStart(2, "0")}</b></span>
+                            <div className="panel hroute-card">
+                              <span className="hroute-ico" aria-hidden="true"><Icon size={20} /></span>
+                              <div><h3>{st.title}</h3><p>{st.text}</p></div>
+                            </div>
+                          </li>
+                        );
+                      })}
+                      <li className="hroute-end" aria-hidden="true"><span className="hroute-node is-end"><Check size={16} /></span><span>Log signed and photographed</span></li>
                     </ol>
-                    <div className="split">
-                      <div className="panel pad"><h3>Numbers checked every week</h3><dl className="spec-list">{quality.hydroTargets.map((t) => <div key={t.label}><dt>{t.label}</dt><dd className="num">{t.value}</dd></div>)}</dl><p className="fine-print">Targets from the site&apos;s inspection procedure. A reading outside them is escalated the same day.</p></div>
-                      <div className="panel pad"><h3><ShieldCheck size={20} aria-hidden="true" className="inline-ico good" /> The two-water rule</h3><p className="muted">The coolant that runs through your miners lives in a sealed loop. Nothing but the approved coolant ever goes into it: no chemicals, no descaler, no tap water. Cleaning happens only on the open spray-water side of the cooling tower.</p></div>
+                    <div className="split hydro-rules">
+                      <div className="panel pad gauges">
+                        <h3>Numbers checked every week</h3>
+                        <div className="gauge-row">
+                          {quality.hydroTargets.map((t, i) => (
+                            <div key={t.label} className="gauge">
+                              <svg viewBox="0 0 100 60" aria-hidden="true">
+                                <path className="gauge-track" d="M10 55 A40 40 0 0 1 90 55" />
+                                <path className="gauge-fill" style={{ "--seg": [0.78, 0.7, 0.67][i] } as React.CSSProperties} d="M10 55 A40 40 0 0 1 90 55" pathLength={1} />
+                                <circle className="gauge-pin" cx="50" cy="55" r="3.5" />
+                              </svg>
+                              <b className="num">{t.value}</b>
+                              <span>{t.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="fine-print">Targets from the site&apos;s inspection procedure. A reading outside them is escalated the same day.</p>
+                      </div>
+                      <div className="panel pad two-water">
+                        <h3><ShieldCheck size={20} aria-hidden="true" className="inline-ico good" /> The two-water rule</h3>
+                        <div className="two-water-grid">
+                          <div className="water sealed">
+                            <span className="water-ico" aria-hidden="true"><Lock size={18} /></span>
+                            <b>Sealed loop</b>
+                            <p>The coolant that runs through your miners. Only the approved coolant ever goes in.</p>
+                            <ul><li>No chemicals</li><li>No descaler</li><li>No tap water</li></ul>
+                          </div>
+                          <span className="water-wall" aria-hidden="true" />
+                          <div className="water open">
+                            <span className="water-ico" aria-hidden="true"><LockOpen size={18} /></span>
+                            <b>Open spray side</b>
+                            <p>The cooling tower&apos;s spray water. This is the only side that gets cleaned.</p>
+                            <ul><li>Sump checked</li><li>Nozzles checked</li><li>Pump filter washed</li></ul>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ),
