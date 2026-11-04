@@ -566,3 +566,21 @@ body::after {
 }
 @keyframes dock-in-m { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .section-dock::before { animation-duration: 18s; } .dock-indicator { transition-duration: 0.9s; } }
+
+/* Segments Quality Control team badge */
+.qc-badge { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 28px; align-items: center; padding: 22px; margin-bottom: 28px; }
+.qc-logo { border-radius: var(--r-lg); background: #eaeceb; padding: 6px 10px; box-shadow: 0 0 0 1px rgba(var(--glow), 0.3), 0 0 36px -10px rgba(var(--glow), 0.7); }
+.qc-logo img { display: block; width: 100%; height: auto; }
+.qc-copy { display: grid; gap: 8px; }
+.qc-copy h3 { font-size: 1.4rem; }
+.qc-pending { font-size: 0.875rem; color: var(--lo); }
+@media (max-width: 700px) { .qc-badge { grid-template-columns: 1fr; } .qc-logo { max-width: 320px; } }
+
+.qc-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 6px; }
+.qc-stats > div { padding: 12px 14px; border-radius: var(--r-md); border: 1px solid var(--stroke); background: rgba(var(--glow), 0.06); display: grid; gap: 2px; }
+.qc-stats b { font: 700 1.35rem/1.1 var(--ff-display); color: #fff; }
+.qc-stats b .count { font: inherit; color: inherit; }
+.qc-stats span { font-size: 0.8125rem; color: var(--lo); }
+.qc-duties { margin: 0 0 28px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1000px) { .qc-duties { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .qc-duties, .qc-stats { grid-template-columns: 1fr; } }

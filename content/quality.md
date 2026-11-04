@@ -38,5 +38,8 @@ Source: Drive › Segments_Cloud_Maintenance_Tracker.
 - Every maintenance job is tracked on a board by site, category (electrical, civil, mechanical / HVAC, plumbing, logistics) and status until it is closed.
 
 ## Still needed
-- TODO: quality team name, size and who leads it
-- TODO: how often air-intake filters are changed as a rule (the report shows one month)
+- Team name: Segments Quality Control, with its own logo (Ganushi KC, 4 Nov 2026; logo at public/brand/quality-control-logo.webp).
+- Team size: 10 people dedicated to quality at the sites (Ganushi KC, 4 Nov 2026).
+- Filter schedule (Ganushi KC, 4 Nov 2026): intake filters cleaned weekly; disposable filters replaced monthly; mesh (GI) pre-filters replaced every 3 to 4 months, depending on their condition at inspection.
+- All hosted machines are deep-cleaned to keep them running efficiently (Ganushi KC, 4 Nov 2026).
+- Team lead: not shown on the site (no name provided).
