@@ -293,11 +293,11 @@ export const services = {
     { step: "Repair log", title: "Every repair, stage by stage", text: "If a machine fails, you can follow it from pickup to diagnosis, quote, repair and back to the rack.", chips: ["Pickup", "Quote", "Repair", "Return"] },
   ],
   overview:
-    "We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW of power at sites all around Abu Dhabi and hosts both hydro and air-cooled machines, with a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.",
+    "We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW of power at sites all around Abu Dhabi and hosts both hydro and air-cooled machines, with a site in-charge and hosting technicians on site 24/7 at every site, and every site fully monitored. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.",
   power: ["Power capacity is tracked for every site and zone.", "Load is read from the fleet platform before new machines are placed."],
   cooling: ["Air-cooled halls for air-cooled ASICs.", "A hydro-cooled zone for hydro models."],
   operations: [
-    "On-site hosting technicians and a site in-charge at each site.",
+    "Hosting technicians on site 24/7 and a site in-charge at each site, with every site fully monitored.",
     "In-house repair: pickup from the site, intake and diagnosis at the Segments repair center, quote, repair and return to the rack.",
     "You approve each repair quote before work starts.",
     "Spare fans, PSU fans and cables held in the Segments warehouse.",
@@ -341,7 +341,7 @@ export const faqs = [
   {
     question: "What does hosting include?",
     answer:
-      "Space in an air-cooled hall or a hydro-cooled zone, on-site hosting technicians, in-house repair, and monitoring of every machine with a monthly power and hosting report.",
+      "Space in an air-cooled hall or a hydro-cooled zone, hosting technicians on site 24/7 with every site fully monitored, in-house repair, and monitoring of every machine with a monthly power and hosting report.",
   },
   {
     question: "How is my hosting charge calculated?",

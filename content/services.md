@@ -38,7 +38,7 @@ Source: Site Balance Power › Models tab (fleet nameplate table).
 - Hydro-cooled: Antminer S21 XP Hydro, S21+ Hydro, S21 Hydro, S19 XP Hydro, S19 Pro+ Hydro, S19 Pro Hydro.
 
 ## Still needed
-- TODO: confirm whether on-site technicians are 24/7
+- Hosting technicians are on site 24/7 and every site is fully monitored (Ganushi KC, 4 Nov 2026).
 
 - Sample client report on the site: illustrative figures only, built from the published models and an example rate; not a real client extract (Ganushi KC, 4 Nov 2026).
 
