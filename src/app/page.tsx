@@ -32,15 +32,16 @@ const compare = [
   { label: "Upfront capex", plug: "None", turnkey: `${pricing.turnkeyCapexPerMwLabel} per MW` },
   { label: "How you start", plug: "Ship your machines to our halls", turnkey: "Capacity built for your fleet" },
 ];
-const plugTerms = ["What the rate includes besides power", "Minimum fleet size", "Payment methods"];
 const turnkeyTerms = ["What the capex covers", "Who owns the infrastructure", "Minimum capacity (MW)", "Build timeline", "Contract term"];
 const contractTerms: { label: string; value?: string }[] = [
   { label: "Contract length", value: `${pricing.minimumTermLabel} minimum` },
+  { label: "Who can host with us", value: pricing.whoCanHostLabel },
+  { label: "Minimum fleet", value: pricing.minimumFleetLabel },
+  { label: "Deposit", value: "One month of hosting" },
+  { label: "Invoices", value: pricing.invoicingLabel },
+  { label: "Payment", value: `${pricing.currenciesLabel}; ${pricing.paymentMethodsLabel}` },
+  { label: "Machine delivery and return", value: pricing.deliveryLabel },
   { label: "Notice period" },
-  { label: "Who contracts with you" },
-  { label: "Payment currency", value: pricing.currenciesLabel },
-  { label: "Payment terms" },
-  { label: "Machine delivery and return" },
 ];
 
 function MachineTable({ list }: { list: Model[] }) {
@@ -196,8 +197,12 @@ export default function Home() {
                       <li><span>Deposit</span><b>{pricing.depositLabel}</b></li>
                       <li><span>Minimum term</span><b>{pricing.minimumTermLabel}</b></li>
                       <li><span>Payment currency</span><b>{pricing.currenciesLabel}</b></li>
+                      <li><span>Payment methods</span><b>{pricing.paymentMethodsLabel}</b></li>
+                      <li><span>Hosting charge</span><b>{pricing.rateBasisLabel}</b></li>
+                      <li><span>Minimum fleet</span><b>{pricing.minimumFleetLabel}</b></li>
+                      <li><span>Invoices</span><b>{pricing.invoicingLabel}</b></li>
                       <li className="term-note">The setup fee follows your fleet: total machine power in kW × USD {pricing.setupFeePerKwUsd}. For example, 10 machines of 3,000 W is 30 kW, a setup fee of USD 3,000.</li>
-                      {plugTerms.map((t) => <li key={t}><span>{t}</span><TODO source="content/pricing.md" inline>to be provided</TODO></li>)}</ul></div>
+                    </ul></div>
                   </div>
                 ),
               },

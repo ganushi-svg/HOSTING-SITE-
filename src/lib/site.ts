@@ -40,6 +40,13 @@ export const pricing = {
   depositLabel: "One month of power",
   minimumTermLabel: "12 months",
   currenciesLabel: "USD or AED",
+  // content/pricing.md and content/contract-and-onboarding.md (Ganushi KC, 4 Nov 2026)
+  paymentMethodsLabel: "USDT, AED (bank transfer or cash) or BTC",
+  rateBasisLabel: "Calculated from each miner's power consumption",
+  minimumFleetLabel: "None, any quantity is welcome",
+  invoicingLabel: "Shared at the start of every month in your client group",
+  deliveryLabel: "Charged by distance, as set out in the hosting contract",
+  whoCanHostLabel: "Individuals and companies of any size",
   tiers: [
     { min: 100, label: "100+ machines", rateUsd: 0.058, rateLabel: "$0.058" },
     { min: 50, label: "50 – 99 machines", rateUsd: 0.062, rateLabel: "$0.062" },
@@ -277,6 +284,19 @@ export const faqs = [
     question: "What happens when a machine breaks?",
     answer:
       "It is picked up from the site, diagnosed at the Segments repair center and quoted. You approve the quote before work starts, and the repair cost appears on your hosting invoice.",
+  },
+  {
+    question: "How do I pay?",
+    answer:
+      "In USD or AED. We accept USDT, AED by bank transfer or cash, and BTC. A deposit of one month of hosting is held, and your hosting invoice is shared at the start of every month in your client group.",
+  },
+  {
+    question: "Is there a minimum number of machines?",
+    answer: "No. Individuals and companies of any size are welcome, with any number of machines. The rate is $0.068 per kWh under 50 machines, $0.062 for 50 to 99 and $0.058 for 100 or more.",
+  },
+  {
+    question: "How do my machines get to the site?",
+    answer: "Delivering your machines to our site, and returning them, is charged by distance and handled as set out in the hosting contract.",
   },
   {
     question: "Will hosting guarantee mining profit?",

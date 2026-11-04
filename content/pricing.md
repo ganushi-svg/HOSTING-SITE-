@@ -20,10 +20,10 @@ Source: Drive › Kim_September_2026_Power_Hosting_Report (Sheet 1 header and Su
 - Repair cost is billed with the hosting invoice (Drive › 2Bminer reconciliation README, Sep 2026).
 
 ## Still needed
-- TODO: what the plug and play rate includes besides power (cooling, operations, monitoring?)
+- How the rate is charged: the hosting charge is calculated from each miner's own power consumption (Ganushi KC, 4 Nov 2026). Whether cooling, technicians and monitoring are all covered by the rate was not stated separately; the site lists them under Services, not as rate inclusions.
 - Setup fee: USD 100 per kW of the client's machine load, so it scales with the number and power of the miners (Ganushi KC, 4 Nov 2026).
 - Deposit: one month of power (Ganushi KC, 4 Nov 2026).
 - Minimum term: 12 months (Ganushi KC, 4 Nov 2026).
-- TODO: minimum fleet size
+- Minimum fleet size: none, any quantity is accepted (Ganushi KC, 4 Nov 2026).
 - Payment currencies: USD or AED (Ganushi KC, 4 Nov 2026).
-- TODO: payment methods
+- Payment methods: USDT; AED by bank transfer or cash; BTC (Ganushi KC, 4 Nov 2026).
