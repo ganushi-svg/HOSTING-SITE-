@@ -38,3 +38,6 @@ Source: two turntable videos uploaded by Ganushi KC on 30 Oct 2026 (antminer1.mp
 - Shown in the Machines section beside each cooling tab (with a pause button), captioned as a representative render, not the exact model and not a product photo.
 - The two turntable renders come from Bitmain (the manufacturer) and Segments has permission to publish them (Ganushi KC, 4 Nov 2026).
 - The Miner Studio pack's product photos are not used (no reuse permission).
+
+## Antminer logo on the renders (4 Nov 2026)
+Ganushi KC asked for the original Antminer mark on the miners. The logo (ANTMINER antenna mark, public/brand/antminer-logo.png, 159 px) was taken from Bitmain's own website (www-static.bitmain.com) and composited, in perspective, onto the large flat side panel of both turntable renders for the frames where that panel faces the camera (air: frames 20-44 and 86-120; hydro: frames 14-50 and 76-112). The logo is Bitmain's trademark, shown on Bitmain machines under the permission recorded above. The paused still of each render is a frame that shows the logo. The calculator picture (air-calc / hydro-calc) is unchanged and does not show it.
