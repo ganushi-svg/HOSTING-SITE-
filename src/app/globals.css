@@ -739,7 +739,12 @@ body::after {
 
 /* Hero globe */
 .hero-visual { position: relative; display: grid; justify-items: center; }
-.globe { position: relative; margin: 0; width: min(100%, 520px); aspect-ratio: 1; }
+.globe { position: relative; margin: 0; width: min(100%, 520px); aspect-ratio: 1; container-type: size; }
+.globe canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.globe-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+.globe-pin-live { left: 0; top: 0; will-change: transform; text-align: center; }
+.globe-pin-live::after { content: ""; position: absolute; left: 50%; top: -14px; width: 2px; height: 14px; background: linear-gradient(180deg, transparent, rgba(251, 210, 78, 0.9)); transform: translateX(-50%); }
+.globe:has(canvas) .globe-poster { opacity: 0; }
 .globe svg { width: 100%; height: 100%; overflow: visible; }
 .globe::before { content: ""; position: absolute; inset: 4%; border-radius: 50%; background: radial-gradient(closest-side, rgba(var(--glow), 0.4), transparent 72%); z-index: -1; transform: scale(1.12); }
 .arc { stroke-dasharray: 0.22 1; stroke-dashoffset: 1.22; animation: arc-flow 3.3s linear infinite; animation-delay: var(--d); }
@@ -749,7 +754,7 @@ body::after {
 .hub-ring-2 { animation-delay: 1.3s; }
 @keyframes hub-ping { from { transform: scale(0.5); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
 .globe-label { fill: #cfe0ff; font: 600 13px var(--ff-display); letter-spacing: 0.08em; text-transform: uppercase; paint-order: stroke; stroke: #04070f; stroke-width: 4px; }
-.globe-pin { position: absolute; transform: translate(-108%, -50%); display: grid; text-align: right; padding: 6px 12px; border-radius: 10px; background: rgba(4, 8, 20, 0.85); border: 1px solid rgba(247, 190, 39, 0.6); box-shadow: 0 0 24px -6px rgba(247, 190, 39, 0.7); pointer-events: none; }
+.globe-pin { position: absolute; margin: 0; display: grid; text-align: right; padding: 6px 12px; border-radius: 10px; background: rgba(4, 8, 20, 0.85); border: 1px solid rgba(247, 190, 39, 0.6); box-shadow: 0 0 24px -6px rgba(247, 190, 39, 0.7); pointer-events: none; }
 .globe-pin b { font: 700 0.95rem var(--ff-display); color: var(--gold); line-height: 1.1; }
 .globe-pin span { font-size: 0.72rem; color: var(--hero-lo); }
 .globe-note { display: inline-flex; align-items: center; gap: 10px; margin-top: -6px; padding: 8px 16px; border-radius: 999px; font-size: 0.85rem; color: #eaf1ff; background: rgba(4, 8, 20, 0.6); border: 1px solid rgba(var(--glow), 0.4); }

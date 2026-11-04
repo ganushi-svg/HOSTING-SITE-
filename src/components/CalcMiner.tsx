@@ -5,7 +5,7 @@ import type { Model } from "@/lib/models";
  * changes (the parent remounts it with a new key), the render dissolves into a blueprint of itself, current runs
  * in along the power lead, the fans spin up (coolant flows on hydro), and it settles back to the real render.
  * The blueprint is a pre-traced image (public/miners/turntable/*-blueprint.webp), so no filters are animated:
- * motion is transform and opacity, plus a short dash flow on a few SVG paths. Captioned as a representative render.
+ * motion is transform and opacity, plus a short dash flow on a few SVG paths. The visible caption was removed at Ganushi's request (4 Nov 2026); the alt text still says it is a representative render.
  */
 const BLADES = Array.from({ length: 7 }, (_, i) => i * (360 / 7));
 
@@ -86,7 +86,6 @@ export function CalcMiner({ cooling, watts, qty }: { cooling: Model["cooling"]; 
       <figcaption>
         <span className="cm-status"><i aria-hidden="true" /> Powering up</span>
         <b className="num">{kw} kW</b>
-        <span className="cm-note">Representative render, not the exact model</span>
       </figcaption>
     </figure>
   );
