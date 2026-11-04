@@ -7,15 +7,15 @@ const nextConfig: NextConfig = {
   async redirects() {
     const to = (source: string, hash: string) => ({ source, destination: `/#${hash}`, permanent: false });
     return [
-      to("/services", "services"),
+      to("/services", "infrastructure"),
       to("/pricing", "pricing"),
-      to("/turnkey", "turnkey"),
-      to("/models", "machines"),
-      to("/models/:slug*", "machines"),
-      to("/sites", "sites"),
-      to("/quality", "quality"),
-      to("/monitoring", "reporting"),
-      to("/how-it-works", "how-it-works"),
+      to("/turnkey", "pricing"),
+      to("/models", "calculator"),
+      to("/models/:slug*", "calculator"),
+      to("/sites", "infrastructure"),
+      to("/quality", "infrastructure"),
+      to("/monitoring", "infrastructure"),
+      to("/how-it-works", "infrastructure"),
       to("/contact", "contact"),
       to("/privacy", "privacy"),
     ];

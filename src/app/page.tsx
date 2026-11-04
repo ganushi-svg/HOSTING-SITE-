@@ -1,102 +1,58 @@
 import type React from "react";
-import { Boxes, CalendarClock, Check, CheckCircle2, ClipboardCheck, Clock, Coins, Container, Cylinder, Droplets, Eye, Fan, FileBarChart, Filter, Lock, LockOpen, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, Receipt, ScanSearch, ScrollText, Server, ShieldCheck, Sparkles, SprayCan, Truck, Users, Wallet, Wind, Wrench, Zap } from "lucide-react";
-import { CoolingExplainer } from "@/components/CoolingExplainer";
-import { CoolingLayout } from "@/components/CoolingLayout";
-import { Faq } from "@/components/Faq";
+import { Check, Clock, Droplets, Fan, FileBarChart, Mail, MapPin, Phone, Wrench, Zap } from "lucide-react";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
-import { MinerTurntable } from "@/components/MinerTurntable";
+import { MachinesTable } from "@/components/MachinesTable";
 import { CountUp } from "@/components/CountUp";
-import { EstimateButton, PowerCalculator } from "@/components/PowerCalculator";
+import { PowerCalculator } from "@/components/PowerCalculator";
 import { QuoteIcon } from "@/components/QuoteIcon";
 import { Reveal } from "@/components/Reveal";
-import { SampleReport } from "@/components/SampleReport";
 import { SitePhoto } from "@/components/SitePhoto";
-import { SiteVideo } from "@/components/SiteVideo";
-import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
-import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, onboarding, quality, repair, services, site, whyHost, faqs, sections } from "@/lib/site";
+import { models } from "@/lib/models";
+import { capacity, contact, photos, pricing, repair, site, whyHost, faqs, sections } from "@/lib/site";
 
-// The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
+/**
+ * The whole site is this one page, in a six-section executive flow (Ganushi, 4 Nov 2026): Overview, Infrastructure,
+ * Pricing, Calculator and hardware, FAQ, Contact. Every fact traces to content/ through src/lib. The former Services,
+ * Sites, Quality, Repair, Reporting and How-it-works sections are folded into the four Infrastructure cards; their
+ * components (CoolingLayout, SampleReport, MinerTurntable, Faq, SiteVideo, Tabs) stay in src/components for reuse.
+ */
 
-const serviceGroups = [
-  { icon: Zap, title: "Power", items: services.power },
-  { icon: Droplets, title: "Cooling", items: services.cooling },
-  { icon: Wrench, title: "Operations and repair", items: services.operations },
-  { icon: FileBarChart, title: "Monitoring", items: services.monitoring },
+// The five flagship models shown before "Show all 16 models" (models.ts).
+const FLAGSHIPS = ["antminer-s21-xp", "antminer-s21-xp-hydro", "antminer-s21-plus", "antminer-z15-pro", "antminer-l9"];
+// The six questions shown on the page; the rest of `faqs` stay in site.ts for Pip.
+const FAQ_COUNT = 6;
+
+// Four Infrastructure cards, at most three points each. Sources: content/services.md, sites.md, quality.md,
+// cooling-structure.md (summer readiness), performance.md and contract-and-onboarding.md.
+const infra = [
+  {
+    icon: Zap, kicker: `${capacity.totalMw} MW`, title: "Across Abu Dhabi",
+    points: ["Hosting sites all around Abu Dhabi, each with a named site in-charge", "Hosting technicians on site 24/7, fully monitored", "Power capacity tracked per site and zone; load read before machines are placed"],
+  },
+  {
+    icon: Droplets, kicker: "Air & hydro", title: "Cooling built for the UAE heat",
+    points: ["Air-cooled halls: filtered fresh air, evaporative pads and exhaust fan walls", "Hydro zone: sealed coolant loops with a weekly nine-step inspection per container", "Filters cleaned weekly and replaced monthly by Segments Quality Control"],
+  },
+  {
+    icon: Wrench, kicker: "In-house", title: "Bitmain-trained repair",
+    points: [repair.steps.map((s) => s.title).join(" → "), "Common spares held in our own warehouse", "You approve every quote before work starts; the cost lands on the same invoice"],
+  },
+  {
+    icon: FileBarChart, kicker: "Pool-synced", title: "Transparent billing",
+    points: ["Fleet data synced daily: status, hash rate, last share, repair state", "Monthly report per machine: running days, energy kWh and charge", "Offline days billed $0; running days come from your pool data"],
+  },
 ];
 
-// Arithmetic only: MW × capex per MW, and MW × 1,000 kW × 24 h × 30 days × power rate (content/pricing.md).
-const turnkeySizes = [1, 5, 10, 20].map((mw) => ({ mw, capex: mw * pricing.turnkeyCapexPerMwUsd, power: mw * 1000 * 24 * 30 * pricing.turnkeyPowerFromUsd }));
-const whole = (n: number) => usd(n).replace(".00", "");
-
-const compare = [
-  { label: "Power rate", plug: `${pricing.plugRangeLabel} per kWh by fleet size ($0.058 for 100+)`, turnkey: `From ${pricing.turnkeyPowerFromLabel} per kWh` },
-  { label: "Upfront cost", plug: `Setup fee (${pricing.setupFeeLabel}) + deposit of one month of hosting`, turnkey: `Capex ${pricing.turnkeyCapexPerMwLabel} per MW` },
-  { label: "How you start", plug: "Ship your machines to our halls", turnkey: "Capacity built for your fleet" },
+const keyTerms = [
+  { label: "Setup fee", value: pricing.setupFeeLabel },
+  { label: "Deposit", value: pricing.depositLabel },
+  { label: "Minimum term", value: pricing.minimumTermLabel },
+  { label: "Settlement", value: `${pricing.currenciesLabel}, by ${pricing.paymentMethodsLabel}` },
+  { label: "Your coins", value: "Stay in your wallet, 100%" },
 ];
-const contractTerms: { label: string; value?: string }[] = [
-  { label: "Contract length", value: `${pricing.minimumTermLabel} minimum` },
-  { label: "Who can host with us", value: pricing.whoCanHostLabel },
-  { label: "Minimum fleet", value: pricing.minimumFleetLabel },
-  { label: "Deposit", value: "One month of hosting" },
-  { label: "Invoices", value: pricing.invoicingLabel },
-  { label: "Payment", value: `${pricing.currenciesLabel}; ${pricing.paymentMethodsLabel}` },
-  { label: "Machine delivery and return", value: pricing.deliveryLabel },
-  { label: "Notice period", value: pricing.noticePeriodLabel },
-];
-
-/** Tiny decorative visual per monitoring stage: live pulse line, daily sync ticks, monthly bars, repair stages. */
-function PipeViz({ i }: { i: number }) {
-  return (
-    <svg className="pipe-viz" viewBox="0 0 200 44" aria-hidden="true" focusable="false">
-      {i === 0 && (<><path className="pv-line" d="M0 30 L20 30 L30 12 L42 36 L54 22 L70 22 L80 8 L92 34 L104 20 L130 20 L140 14 L152 30 L170 24 L200 24" /><circle className="pv-dot" r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="M0 30 L20 30 L30 12 L42 36 L54 22 L70 22 L80 8 L92 34 L104 20 L130 20 L140 14 L152 30 L170 24 L200 24" /></circle></>)}
-      {i === 1 && ([0, 1, 2, 3, 4, 5, 6].map((d) => <g key={d}><rect className="pv-tick" x={6 + d * 28} y="8" width="20" height="28" rx="5" style={{ animationDelay: `${d * 0.35}s` }} /><path className="pv-check" d={`M${12 + d * 28} 22 l5 5 9 -10`} /></g>))}
-      {i === 2 && ([14, 22, 18, 30, 26, 36, 32].map((h, k) => <rect key={k} className="pv-bar" x={8 + k * 28} y={40 - h} width="18" height={h} rx="3" style={{ animationDelay: `${k * 0.15}s` }} />))}
-      {i === 3 && (<><path className="pv-track" d="M14 22 H186" />{[14, 76, 138, 186].map((x, k) => <circle key={x} className="pv-stage" cx={x} cy="22" r="6" style={{ animationDelay: `${k * 0.5}s` }} />)}<circle className="pv-dot" r="3.5"><animateMotion dur="3.6s" repeatCount="indefinite" path="M14 22 H186" /></circle></>)}
-    </svg>
-  );
-}
-
-function MachineTable({ list }: { list: Model[] }) {
-  return (
-    <div className="panel table-wrap">
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th scope="col">Model</th>
-            <th scope="col">Algorithm · coin</th>
-            <th scope="col" className="num">Power</th>
-            <th scope="col" className="num">Hash rate</th>
-            <th scope="col" className="num">Power cost / 30 days</th>
-            <th scope="col"><span className="sr-only">Estimate</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map((m) => {
-            const est = monthlyEstimate(m.watts);
-            return (
-              <tr key={m.slug}>
-                <th scope="row">
-                  {m.name} {m.featured && <span className="badge-gold">Featured</span>}
-                  {m.todo && <TODO source="content/models.md" inline>{m.todo}</TODO>}
-                  {m.wattsNote && <small className="cell-note">{m.wattsNote}</small>}
-                </th>
-                <td>{m.algorithm} · {m.coins}</td>
-                <td className="num">{m.watts.toLocaleString("en-US")} W</td>
-                <td className="num hash">{m.hashrate ?? "–"}</td>
-                <td className="num">{usd(est.from)} – {usd(est.to)}</td>
-                <td><EstimateButton slug={m.slug} name={m.name} /></td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 function SectionHead({ eyebrow, title, children }: { eyebrow: string; title: string; children?: React.ReactNode }) {
   return (
@@ -109,9 +65,7 @@ function SectionHead({ eyebrow, title, children }: { eyebrow: string; title: str
 }
 
 export default function Home() {
-  const air = models.filter((m) => m.cooling === "Air");
-  const hydro = models.filter((m) => m.cooling === "Hydro");
-  const r = quality.airReport;
+  const shownFaqs = faqs.slice(0, FAQ_COUNT);
   // Structured data for search engines (Ganushi, 4 Nov 2026). Every value comes from site.ts / models.ts, so nothing here is invented.
   const jsonLd = [
     { "@context": "https://schema.org", "@type": "WebSite", name: site.name, url: site.url, inLanguage: "en" },
@@ -124,7 +78,7 @@ export default function Home() {
         priceSpecification: { "@type": "UnitPriceSpecification", price: pricing.plugFromUsd, priceCurrency: "USD", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "KWH" }, description: "Plug and play hosting from this rate per kWh; the rate is set by fleet size." },
       },
     },
-    { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) },
+    { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: shownFaqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: sections.map((sec, i) => ({ "@type": "ListItem", position: i + 1, name: sec.label, item: `${site.url}/#${sec.id}` })) },
   ];
 
@@ -145,17 +99,6 @@ export default function Home() {
               <a className="button" href="#contact">Request a quote <QuoteIcon size={26} /></a>
               <a className="button button-ghost" href="#calculator">Estimate power cost</a>
             </div>
-            <aside className="rate-card rate-card-inline" aria-label="Hosting rate summary">
-              <p className="eyebrow">Plug and play hosting</p>
-              <p className="rate-big num">{pricing.plugFromLabel}<span>/ kWh, from</span></p>
-              <p className="rate-sub">For 100+ machines. $0.062 for 50–99 and $0.068 under 50, billed only on days your machines run.</p>
-              <dl>
-                <div><dt>Operating capacity</dt><dd className="num">{capacity.totalMw} MW</dd></div>
-                <div><dt>Hosting sites</dt><dd>All around Abu Dhabi</dd></div>
-                <div><dt>Cooling</dt><dd>Air + hydro</dd></div>
-                <div><dt>Turnkey power</dt><dd className="num">from {pricing.turnkeyPowerFromLabel}</dd></div>
-              </dl>
-            </aside>
 
           </div>
           <div className="hero-visual">
@@ -174,19 +117,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section id="services" className="section alt" aria-labelledby="services-title">
+      {/* INFRASTRUCTURE */}
+      <section id="infrastructure" className="section alt" aria-labelledby="infrastructure-title">
         <div className="container">
-          <SectionHead eyebrow="Services" title="What hosting includes">Power, cooling, repair and reporting from one team, with every charge traceable to a machine and a day.</SectionHead>
-          <Reveal className="overview"><span className="overview-art" aria-hidden="true" /><p>{services.overview}</p></Reveal>
-          <div className="feat">
-            {serviceGroups.map((g, i) => (
-              <Reveal key={g.title} delay={i * 0.05} className="panel feat-card">
-                <span className="ico"><g.icon size={20} strokeWidth={1.7} aria-hidden="true" /></span>
-                <h3>{g.title}</h3>
-                <ul className="dot-list">{g.items.map((t) => <li key={t}>{t}</li>)}</ul>
+          <SectionHead eyebrow="Infrastructure & operations" title="Abu Dhabi Infrastructure & Operations">One team runs the power, the cooling, the repair center and the billing, so every charge on your invoice traces to a machine and a day.</SectionHead>
+          <div className="infra-grid">
+            {infra.map((c, i) => (
+              <Reveal key={c.title} delay={i * 0.05} className="panel infra-card">
+                <span className="ico"><c.icon size={20} strokeWidth={1.7} aria-hidden="true" /></span>
+                <p className="infra-kicker num">{c.kicker}</p>
+                <h3>{c.title}</h3>
+                <ul className="dot-list">{c.points.map((t) => <li key={t}>{t}</li>)}</ul>
               </Reveal>
             ))}
+          </div>
+          <div className="infra-photos">
+            <SitePhoto photo={photos.hallLongRacks} crop sizes="(min-width: 840px) 33vw, 100vw" />
+            <SitePhoto photo={photos.hydroContainerDusk} crop sizes="(min-width: 840px) 33vw, 100vw" />
+            <SitePhoto photo={photos.hallCoolingPadWall} crop sizes="(min-width: 840px) 33vw, 100vw" />
           </div>
         </div>
       </section>
@@ -200,552 +148,67 @@ export default function Home() {
               <span className="plan-kicker">Your machines, our halls</span>
               <h3>Plug and play</h3>
               <p className="price num">{pricing.plugFromLabel}<small>/ kWh, from</small></p>
-              <ul>{pricing.tiers.map((t) => <li key={t.min}><b>{t.rateLabel}</b> per kWh for {t.label.toLowerCase()}</li>)}<li>Billed only on running days</li><li>Air-cooled halls or the hydro zone</li><li>Monthly power report per machine</li></ul>
+              <ul>{pricing.tiers.map((t) => <li key={t.min}><b>{t.rateLabel}</b> per kWh for {t.label.toLowerCase()}</li>)}<li>Billed only on running days</li><li>Air-cooled halls or the hydro zone</li></ul>
               <a className="button plan-cta" href="#contact">Get a quote <QuoteIcon /></a>
             </Reveal>
             <Reveal delay={0.06} className="panel plan">
               <span className="plan-kicker plan-kicker-muted">For larger fleets</span>
               <h3>Turnkey solution</h3>
               <p className="price num">{pricing.turnkeyPowerFromLabel}<small>/ kWh, from</small></p>
-              <ul><li>Capex {pricing.turnkeyCapexPerMwLabel} per MW</li><li>Capacity built for your fleet</li><li>Run by the team operating {capacity.totalMw} MW</li><li>Terms set in your proposal</li></ul>
-              <a className="button button-outline plan-cta" href="#turnkey">See turnkey details</a>
+              <ul><li>Capex <b>{pricing.turnkeyCapexPerMwLabel}</b> per MW: {pricing.turnkeyTerms[0].value.toLowerCase()}</li>{pricing.turnkeyTerms.slice(1).map((t) => <li key={t.label}><b>{t.value}</b> {t.label.toLowerCase()}</li>)}</ul>
+              <a className="button button-outline plan-cta" href="#contact">Request a proposal</a>
             </Reveal>
           </div>
-
+          <Reveal className="key-terms" aria-label="Key terms and settlement">
+            <p className="eyebrow">Key terms & settlement</p>
+            <ul>{keyTerms.map((t) => <li key={t.label}><span>{t.label}</span><b>{t.value}</b></li>)}</ul>
+          </Reveal>
           <Reveal className="why">
             <div className="why-head">
               <p className="eyebrow">{whyHost.eyebrow}</p>
               <h3>{whyHost.title}</h3>
               <p className="muted">{whyHost.lead}</p>
             </div>
-            <svg className="why-flow" viewBox="0 0 340 230" role="img" aria-label="Mined coins flow into your wallet; the hosting invoice is paid from your own USD or AED funds. The two never mix.">
-              <defs><linearGradient id="wf-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffe27a" /><stop offset="1" stopColor="#d99a0c" /></linearGradient></defs>
-              {/* lane 1: coins to wallet */}
-              <g className="wf-lane">
-                <g transform="translate(46 62)">
-                  <circle r="30" className="wf-node wf-node-gold" />
-                  {[8, 3, -2, -7].map((y) => <ellipse key={y} cx="0" cy={y} rx="13" ry="5" fill="url(#wf-gold)" stroke="#8a5a00" strokeWidth="0.8" />)}
-                </g>
-                <text x="46" y="110" className="wf-label">Mined coins</text>
-                <path id="wf-p1" d="M80 62 H256" className="wf-path wf-path-gold" />
-                <path d="M248 55 l10 7 -10 7" className="wf-arrow wf-arrow-gold" />
-                {[0, 1, 2].map((i) => <circle key={i} r="4.5" className="wf-dot wf-dot-gold"><animateMotion dur="2.4s" begin={`-${i * 0.8}s`} repeatCount="indefinite" path="M80 62 H256" /></circle>)}
-                <g transform="translate(294 62)">
-                  <circle r="30" className="wf-node wf-node-gold" />
-                  <rect x="-16" y="-10" width="32" height="24" rx="5" fill="#1a3f8f" stroke="#f7be27" strokeWidth="1.5" />
-                  <rect x="4" y="-2" width="12" height="9" rx="2" fill="#f7be27" />
-                  <g transform="translate(14 -20)"><circle r="9" fill="#f7be27" /><path d="M-3 0 h6 v5 h-6z M-2 0 v-2.5 a2 2 0 0 1 4 0 V0" fill="none" stroke="#2a1a02" strokeWidth="1.4" /></g>
-                </g>
-                <text x="294" y="110" className="wf-label">Your wallet</text>
-              </g>
-              {/* the two never mix */}
-              <line x1="20" y1="128" x2="320" y2="128" className="wf-divider" />
-              <rect x="110" y="118" width="120" height="20" rx="10" className="wf-pill" /><text x="170" y="132" className="wf-pill-text">THE TWO NEVER MIX</text>
-              {/* lane 2: invoice paid from your funds */}
-              <g className="wf-lane">
-                <g transform="translate(46 180)">
-                  <circle r="30" className="wf-node wf-node-blue" />
-                  <path d="M-11 -14 h22 v26 l-4 -3 -4 3 -3 -3 -4 3 -3 -3 -4 3z" fill="#0b1530" stroke="#7cc4ff" strokeWidth="1.5" />
-                  <path d="M-6 -7 h12 M-6 -2 h12 M-6 3 h7" stroke="#7cc4ff" strokeWidth="1.4" strokeLinecap="round" />
-                </g>
-                <text x="46" y="226" className="wf-label">Hosting invoice</text>
-                <path d="M256 180 H84" className="wf-path wf-path-blue" />
-                <path d="M92 173 l-10 7 10 7" className="wf-arrow wf-arrow-blue" />
-                {[0, 1, 2].map((i) => <circle key={i} r="4" className="wf-dot wf-dot-blue"><animateMotion dur="2.4s" begin={`-${i * 0.8}s`} repeatCount="indefinite" path="M256 180 H84" /></circle>)}
-                <g transform="translate(294 180)">
-                  <circle r="30" className="wf-node wf-node-blue" />
-                  <rect x="-17" y="-11" width="34" height="22" rx="4" fill="#0b1530" stroke="#7cc4ff" strokeWidth="1.5" />
-                  <rect x="-17" y="-5" width="34" height="5" fill="#4c8dff" />
-                  <text x="0" y="8" className="wf-card">USD · AED</text>
-                </g>
-                <text x="294" y="226" className="wf-label">Your own funds</text>
-              </g>
-            </svg>
-            <ul className="why-points">
+            <ul className="why-points why-points-wide">
               {whyHost.points.map((pt) => <li key={pt.title}><b>{pt.title}</b><span>{pt.text}</span></li>)}
             </ul>
             <p className="fine-print why-note">{whyHost.note}</p>
           </Reveal>
-          <Tabs
-            label="Pricing details"
-            tabs={[
-              {
-                id: "billing",
-                label: "How billing works",
-                content: (
-                  <div className="split">
-                    <div className="stack"><div className="panel table-wrap">
-                      <table className="data-table">
-                        <caption className="sr-only">Plug and play rate by fleet size</caption>
-                        <thead><tr><th scope="col">Fleet size</th><th scope="col" className="num">Rate per kWh</th></tr></thead>
-                        <tbody>
-                          {pricing.tiers.map((t) => <tr key={t.min}><th scope="row">{t.label}</th><td className="num">{t.rateLabel}</td></tr>)}
-                        </tbody>
-                      </table>
-                    </div><div className="panel pad"><h3>How plug and play is billed</h3><ul className="dot-list">{billing.map((b) => <li key={b}>{b}</li>)}</ul></div></div>
-                    <div className="panel pad"><h3>Other terms</h3><ul className="term-list">
-                      <li><span>Setup fee</span><b>{pricing.setupFeeLabel}</b></li>
-                      <li><span>Deposit</span><b>{pricing.depositLabel}</b></li>
-                      <li><span>Minimum term</span><b>{pricing.minimumTermLabel}</b></li>
-                      <li><span>Payment currency</span><b>{pricing.currenciesLabel}</b></li>
-                      <li><span>Payment methods</span><b>{pricing.paymentMethodsLabel}</b></li>
-                      <li><span>Hosting charge</span><b>{pricing.rateBasisLabel}</b></li>
-                      <li><span>Minimum fleet</span><b>{pricing.minimumFleetLabel}</b></li>
-                      <li><span>Invoices</span><b>{pricing.invoicingLabel}</b></li>
-                      <li className="term-note">The setup fee follows your fleet: total machine power in kW × USD {pricing.setupFeePerKwUsd}. For example, 10 machines of 3,000 W is 30 kW, a setup fee of USD 3,000.</li>
-                    </ul></div>
-                  </div>
-                ),
-              },
-              {
-                id: "turnkey",
-                label: "Turnkey",
-                content: (
-                  <div className="stack">
-                    <div className="panel table-wrap">
-                      <table className="data-table">
-                        <caption className="sr-only">Turnkey capex and power cost by capacity</caption>
-                        <thead><tr><th scope="col">Capacity</th><th scope="col" className="num">Capex</th><th scope="col" className="num">Power, 30 days at full load</th></tr></thead>
-                        <tbody>{turnkeySizes.map((s) => <tr key={s.mw}><th scope="row">{s.mw} MW</th><td className="num">{whole(s.capex)}</td><td className="num">from {whole(s.power)}</td></tr>)}</tbody>
-                      </table>
-                    </div>
-                    <p className="fine-print">Capex = MW × {pricing.turnkeyCapexPerMwLabel}. Power = MW × 1,000 kW × 24 h × 30 days × {pricing.turnkeyPowerFromLabel}. Power only; your proposal sets the final figures.</p>
-                    <div className="panel pad"><h3>Agreed in your proposal</h3><ul className="term-list">{pricing.turnkeyTerms.map((t) => <li key={t.label}><strong>{t.label}</strong><b>{t.value}</b></li>)}</ul></div>
-                  </div>
-                ),
-              },
-              {
-                id: "compare",
-                label: "Compare",
-                content: (
-                  <div className="panel table-wrap">
-                    <table className="data-table">
-                      <thead><tr><th scope="col"><span className="sr-only">Item</span></th><th scope="col">Plug and play</th><th scope="col">Turnkey</th></tr></thead>
-                      <tbody>{compare.map((c) => <tr key={c.label}><th scope="row">{c.label}</th><td>{c.plug}</td><td>{c.turnkey}</td></tr>)}</tbody>
-                    </table>
-                  </div>
-                ),
-              },
-            ]}
-          />
         </div>
       </section>
 
-      {/* CALCULATOR */}
+      {/* CALCULATOR AND HARDWARE */}
       <section id="calculator" className="section alt" aria-labelledby="calculator-title">
         <div className="container">
-          <SectionHead eyebrow="Power cost calculator" title="Estimate your hosting power bill">Pick a machine and a quantity to see the monthly power charge at our plug and play rate.</SectionHead>
+          <SectionHead eyebrow="Calculator & supported hardware" title="Estimate your hosting power bill">Pick a machine and a quantity to see the monthly power charge at our plug and play rate. Hosting cost only, never mining revenue.</SectionHead>
           <PowerCalculator />
-        </div>
-      </section>
-
-      {/* MACHINES */}
-      <section id="machines" className="section" aria-labelledby="machines-title">
-        <div className="container">
-          <SectionHead eyebrow="Machines we host" title={`${models.length} models, air and hydro-cooled`}>Power draw, hash rate where we have it, and a 30-day power cost at the plug and play range. Ask us about any model not listed.</SectionHead>
-          <Tabs
-            label="Machines by cooling"
-            tabs={[
-              { id: "air-machines", label: `Air-cooled (${air.length})`, content: <div className="machines"><div className="panel machine-stage"><MinerTurntable name="air-cooled models" cooling="Air" /></div><MachineTable list={air} /></div> },
-              { id: "hydro-machines", label: `Hydro-cooled (${hydro.length})`, content: <div className="machines"><div className="panel machine-stage"><MinerTurntable name="hydro-cooled models" cooling="Hydro" /></div><MachineTable list={hydro} /></div> },
-            ]}
-          />
-        </div>
-      </section>
-
-      {/* SITES */}
-      <section id="sites" className="section alt" aria-labelledby="sites-title">
-        <div className="container">
-          <SectionHead eyebrow="Sites and infrastructure" title="Our hosting sites around Abu Dhabi">{capacity.totalMw} MW across our sites all around Abu Dhabi, each with a site in-charge and on-site hosting technicians.</SectionHead>
-          <Tabs
-            label="Sites"
-            tabs={[
-              {
-                id: "halls",
-                label: "Finished halls",
-                content: (
-                  <div className="stack">
-                    <div className="photo-feature"><SitePhoto photo={photos.hallLongRacks} priority sizes="(min-width: 1200px) 1168px, 100vw" /></div>
-                    <div className="showcase">
-                      <SitePhoto photo={photos.hallRackRow} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SitePhoto photo={photos.hallOpenRacks} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SitePhoto photo={photos.hallAislePads} sizes="(min-width: 900px) 30vw, 50vw" />
-                    </div>
-                    <div className="split">
-                      <SitePhoto photo={photos.hallRackCloseup} crop sizes="(min-width: 900px) 45vw, 100vw" />
-                      <SitePhoto photo={photos.hallMinersWired} crop sizes="(min-width: 900px) 45vw, 100vw" />
-                    </div>
-                    <div className="split">
-                      <SitePhoto photo={photos.hallPadsAndRacks} crop sizes="(min-width: 900px) 45vw, 100vw" />
-                      <SitePhoto photo={photos.hallMinerCloseupBlue} crop sizes="(min-width: 900px) 45vw, 100vw" />
-                    </div>
-                  </div>
-                ),
-              },
-              {
-                id: "hydro-cooling",
-                label: "Hydro cooling",
-                content: (
-                  <div className="stack">
-                    <p className="muted">Hydro miners sit in purpose-built containers. Each machine has its own coolant supply and return, and the heat is carried out to a closed-circuit cooling tower.</p>
-                    <div className="showcase showcase-hydro">
-                      <SiteVideo src={hydroContainerVideo.src} poster={hydroContainerVideo.poster} label={hydroContainerVideo.caption} caption={hydroContainerVideo.caption} />
-                      <SitePhoto photo={photos.hydroContainerAisle} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SitePhoto photo={photos.hydroRackHoses} sizes="(min-width: 900px) 30vw, 50vw" />
-                    </div>
-                    <div className="video-pair">
-                      {hydroVideos.map((v) => <SiteVideo key={v.src} src={v.src} poster={v.poster} label={v.caption} caption={v.caption} />)}
-                    </div>
-                    <div className="split split-explain"><CoolingExplainer kind="hydro" /><SitePhoto photo={photos.hydroManifoldCloseup} sizes="(min-width: 900px) 45vw, 100vw" /></div>
-                    <CoolingLayout kind="hydro" />
-                  </div>
-                ),
-              },
-              {
-                id: "air-cooling",
-                label: "Air cooling",
-                content: (
-                  <div className="stack">
-                    <p className="muted">Fresh air is drawn through wet evaporative cooling pads, across the miners and out through exhaust fans.</p>
-                    <div className="photo-feature"><SitePhoto photo={photos.hallCoolingPadWall} sizes="(min-width: 1200px) 1168px, 100vw" /></div>
-                    <div className="showcase">
-                      <SitePhoto photo={photos.hallPadCorridor} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SitePhoto photo={photos.hallMinerFans} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SitePhoto photo={photos.hallFanWallRacks} sizes="(min-width: 900px) 30vw, 50vw" />
-                    </div>
-                    <div className="video-mixed">
-                      <div className="video-wide"><SiteVideo src={airVideos.wide.src} poster={airVideos.wide.poster} label={airVideos.wide.caption} caption={airVideos.wide.caption} /></div>
-                      <div className="video-tall"><SiteVideo src={airVideos.tall.src} poster={airVideos.tall.poster} label={airVideos.tall.caption} caption={airVideos.tall.caption} /></div>
-                    </div>
-                    <div className="split split-explain"><CoolingExplainer kind="air" /><SitePhoto photo={photos.hallFanCorridor} sizes="(min-width: 900px) 45vw, 100vw" /></div>
-                    <CoolingLayout kind="air" />
-                  </div>
-                ),
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      {/* QUALITY */}
-      <section id="quality" className="section" aria-labelledby="quality-title">
-        <div className="container">
-          <SectionHead eyebrow="Quality control" title="A dedicated team for sites and machines">Clean air, healthy coolant and working machines. Our quality team follows a set routine at every site, writes everything down and raises problems early.</SectionHead>
-          <Reveal className="panel qc-badge">
-            <div className="qc-logo">
-              {/* eslint-disable-next-line @next/next/no-img-element -- small static logo */}
-              <img src="/brand/quality-control-logo.webp" width={882} height={442} alt="Segments Quality Control logo" />
-            </div>
-            <div className="qc-copy">
-              <p className="eyebrow">Our quality team</p>
-              <h3>{quality.team.name}</h3>
-              <p className="muted">{quality.team.summary}</p>
-              <div className="qc-stats">
-                <div><b className="num"><CountUp value={quality.team.size} /></b><span>specialists dedicated to quality</span></div>
-                <div><b>Weekly</b><span>filter cleaning in every hall</span></div>
-                <div><b>Every machine</b><span>deep-cleaned for efficiency</span></div>
-              </div>
-            </div>
-          </Reveal>
-          <div className="qc-duties">
-            {quality.team.duties.map((d, i) => (
-              <Reveal key={d.title} delay={i * 0.05} className={`panel duty duty-${i}`}>
-                <div className="duty-top">
-                  <span className="duty-ico">{[<Wind key="a" size={22} />, <Sparkles key="b" size={22} />, <Droplets key="c" size={22} />, <ClipboardCheck key="d" size={22} />][i]}</span>
-                  <span className="duty-tag">{["Weekly · Monthly · 3–4 months", "Every machine", "Weekly inspection", "Until closed"][i]}</span>
-                </div>
-                <h3>{d.title}</h3>
-                <p className="muted">{d.text}</p>
-              </Reveal>
-            ))}
+          <div className="hardware-head">
+            <p className="eyebrow">Supported hardware</p>
+            <h3>{models.length} models, air and hydro-cooled</h3>
           </div>
-          <Tabs
-            label="Quality routines"
-            tabs={[
-              {
-                id: "quality-air",
-                label: "Air-cooled halls",
-                content: (
-                  <div className="stack">
-                    <p className="muted">Desert dust is the enemy of an air-cooled hall. Here is an example of what a month of maintenance can look like at one hall.</p>
-                    <div className="stats stats-example">
-                      <div className="panel stat"><b className="num"><CountUp value={r.visits} /></b><span>Maintenance visits in the month</span><em className="example-tag">Example</em></div>
-                      <div className="panel stat"><b className="num"><CountUp value={r.manDays} /></b><span>Man-days of work</span><em className="example-tag">Example</em></div>
-                      <div className="panel stat"><b className="num"><CountUp value={r.giFilters} /></b><span>Mesh (GI) filters cleaned and replaced</span><em className="example-tag">Example</em></div>
-                      <div className="panel stat"><b className="num"><CountUp value={r.disposableFilters} /></b><span>Disposable filters cleaned and replaced</span><em className="example-tag">Example</em></div>
-                    </div>
-                    <p className="fine-print">Example figures to show the scale of the work, not live data. Actual visits and filter counts vary by hall, season and dust conditions.</p>
-                    <ul className="check-list">{quality.airWork.map((w) => <li key={w}><ClipboardCheck size={17} aria-hidden="true" /> {w}</li>)}</ul>
-                    <div className="gallery">
-                      {[photos.qcNewFiltersWall, photos.qcNewFiltersAisle, photos.qcMeshPrefilters, photos.qcFiltersReplaced, photos.qcMeshOutdoor, photos.qcCleanHall].map((p) => (
-                        <SitePhoto key={p.src} photo={p} crop sizes="(min-width: 900px) 33vw, 50vw" />
-                      ))}
-                    </div>
-                    <div className="panel table-wrap">
-                      <table className="data-table">
-                        <caption className="sr-only">Air filter cleaning and replacement schedule</caption>
-                        <thead><tr><th scope="col">Filter</th><th scope="col">Schedule</th></tr></thead>
-                        <tbody>{quality.team.filterSchedule.map((f) => <tr key={f.what}><th scope="row">{f.what}</th><td>{f.when}</td></tr>)}</tbody>
-                      </table>
-                    </div>
-                  </div>
-                ),
-              },
-              {
-                id: "quality-hydro",
-                label: "Hydro containers",
-                content: (
-                  <div className="stack">
-                    <p className="muted">Once a week, early in the morning, the team follows the same nine steps on each hydro container. It takes about 110 minutes and ends with a signed, photographed log.</p>
-                    <ol className="hroute">
-                      {quality.hydroSteps.map((st, i) => {
-                        const Icon = [Eye, Gauge, Droplets, Filter, Wind, SprayCan, Container, Cylinder, ClipboardCheck][i] ?? ClipboardCheck;
-                        return (
-                          <li key={st.title} className="hroute-step" style={{ "--row": i + 1 } as React.CSSProperties}>
-                            <span className="hroute-node" aria-hidden="true"><b>{String(i + 1).padStart(2, "0")}</b></span>
-                            <div className="panel hroute-card">
-                              <span className="hroute-ico" aria-hidden="true"><Icon size={20} /></span>
-                              <div><h3>{st.title}</h3><p>{st.text}</p></div>
-                            </div>
-                          </li>
-                        );
-                      })}
-                      <li className="hroute-end" aria-hidden="true"><span className="hroute-node is-end"><Check size={16} /></span><span>Log signed and photographed</span></li>
-                    </ol>
-                    <div className="split hydro-rules">
-                      <div className="panel pad gauges">
-                        <h3>Numbers checked every week</h3>
-                        <div className="gauge-row">
-                          {quality.hydroTargets.map((t, i) => (
-                            <div key={t.label} className="gauge">
-                              <svg viewBox="0 0 100 60" aria-hidden="true">
-                                <path className="gauge-track" d="M10 55 A40 40 0 0 1 90 55" />
-                                <path className="gauge-fill" style={{ "--seg": [0.78, 0.7, 0.67][i] } as React.CSSProperties} d="M10 55 A40 40 0 0 1 90 55" pathLength={1} />
-                                <circle className="gauge-pin" cx="50" cy="55" r="3.5" />
-                              </svg>
-                              <b className="num">{t.value}</b>
-                              <span>{t.label}</span>
-                            </div>
-                          ))}
-                        </div>
-                        <p className="fine-print">Targets from the site&apos;s inspection procedure. A reading outside them is escalated the same day.</p>
-                      </div>
-                      <div className="panel pad two-water">
-                        <h3><ShieldCheck size={20} aria-hidden="true" className="inline-ico good" /> The two-water rule</h3>
-                        <div className="two-water-grid">
-                          <div className="water sealed">
-                            <span className="water-ico" aria-hidden="true"><Lock size={18} /></span>
-                            <b>Sealed loop</b>
-                            <p>The coolant that runs through your miners. Only the approved coolant ever goes in.</p>
-                            <ul><li>No chemicals</li><li>No descaler</li><li>No tap water</li></ul>
-                          </div>
-                          <span className="water-wall" aria-hidden="true" />
-                          <div className="water open">
-                            <span className="water-ico" aria-hidden="true"><LockOpen size={18} /></span>
-                            <b>Open spray side</b>
-                            <p>The cooling tower&apos;s spray water. This is the only side that gets cleaned.</p>
-                            <ul><li>Sump checked</li><li>Nozzles checked</li><li>Pump filter washed</li></ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ),
-              },
-              {
-                id: "quality-coolant",
-                label: "Coolant",
-                content: (
-                  <div className="stack">
-                    <div className="panel table-wrap">
-                      <table className="data-table">
-                        <thead><tr><th scope="col">Check</th><th scope="col">Standard</th></tr></thead>
-                        <tbody>{quality.coolant.map((c) => <tr key={c.check}><th scope="row">{c.check}</th><td>{c.target}</td></tr>)}</tbody>
-                      </table>
-                    </div>
-                    <p className="fine-print">Every check is logged with the date, the values and any top-ups.</p>
-                  </div>
-                ),
-              },
-              {
-                id: "quality-calendar",
-                label: "Calendar",
-                content: (
-                  <div className="split">
-                    <div className="panel pad cal">
-                      <h3>The maintenance calendar</h3>
-                      <p className="cal-legend"><span className="cal-tag cal-air">Air halls</span><span className="cal-tag cal-hydro">Hydro containers</span></p>
-                      <ol className="cal-line">
-                        {quality.schedule.map((s, i) => (
-                          <li key={s.when} style={{ ["--i" as string]: i }}>
-                            <span className="cal-dot" aria-hidden="true" />
-                            <p className="cal-when">{s.when}</p>
-                            <ul>{s.tasks.map((t) => <li key={t.what}><span className={`cal-tag cal-${t.kind}`}>{t.kind === "air" ? "Air" : "Hydro"}</span>{t.what}</li>)}</ul>
-                          </li>
-                        ))}
-                      </ol>
-                    </div>
-                    <div className="panel pad"><h3>Every job tracked to closure</h3><p className="muted">Each maintenance job goes on a tracking board with its site, its category (electrical, civil, mechanical and HVAC, plumbing, logistics) and its status, and stays there until it is closed.</p></div>
-                  </div>
-                ),
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      {/* REPAIR */}
-      <section id="repair" className="section alt" aria-labelledby="repair-title">
-        <div className="container">
-          <SectionHead eyebrow="Segments Repair" title="Our in-house repair center">When a machine fails, it does not wait in a queue somewhere else. It comes to our own repair center and back to your rack.</SectionHead>
-          <div className="repair-hero">
-            <Reveal className="panel repair-intro">
-              <div className="repair-brand">
-                {/* eslint-disable-next-line @next/next/no-img-element -- small static logo */}
-                <img src="/brand/segments-repair-logo.webp" width={640} height={640} alt="Segments Repair logo" />
-                <div><p className="eyebrow">Repair department</p><h3>{repair.name}</h3></div>
-              </div>
-              <p className="muted">{repair.summary}</p>
-              <ul className="repair-highlights">
-                {repair.highlights.map((h) => <li key={h.title}><CheckCircle2 size={18} aria-hidden="true" /><span><b>{h.title}</b>{h.text}</span></li>)}
-              </ul>
-            </Reveal>
-            <Reveal delay={0.08} className="repair-video">
-              <SiteVideo src={repair.video.src} poster={repair.video.poster} label={repair.video.caption} caption={repair.video.caption} />
-            </Reveal>
-          </div>
-          <div className="rail-wrap">
-            <span className="rail-art" aria-hidden="true" />
-            <div className="rail-head">
-              <p className="eyebrow">Repair process</p>
-              <h3>From pickup to rack in five steps</h3>
-            </div>
-            <ol className="rail">
-              {repair.steps.map((s, i) => {
-                const Icon = [Truck, ScanSearch, FileCheck2, Wrench, Server][i];
-                return (
-                  <li key={s.title} className="rail-step" style={{ ["--i" as string]: i }}>
-                    <div className="rail-node"><Icon size={22} strokeWidth={1.8} aria-hidden="true" /><span className="rail-no num">{i + 1}</span></div>
-                    <h4>{s.title}</h4>
-                    <p>{s.text}</p>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      {/* REPORTING */}
-      <section id="reporting" className="section alt" aria-labelledby="reporting-title">
-        <div className="container">
-          <SectionHead eyebrow="Monitoring and reporting" title="See what your machines are doing">Every machine is tracked, and every charge on your invoice can be traced to a machine and a day.</SectionHead>
-          <div className="panel insight">
-            <div className="insight-head">
-              <span className="insight-live"><span aria-hidden="true" />Live fleet visibility</span>
-              <p className="muted">What you see as a client, from the day your machines are racked.</p>
-            </div>
-            <ol className="pipe">
-              {services.monitoringFlow.map((f, i) => {
-                const Icon = [Gauge, RefreshCw, FileBarChart, Wrench][i];
-                return (
-                  <li key={f.step} className={`pipe-card pipe-${i}`}>
-                    <span className="pipe-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="pipe-ico"><Icon size={24} strokeWidth={1.9} aria-hidden="true" /></span>
-                    <p className="pipe-step">{f.step}</p>
-                    <h3>{f.title}</h3>
-                    <p className="muted">{f.text}</p>
-                    <PipeViz i={i} />
-                    <ul className="pipe-chips">{f.chips.map((c) => <li key={c}>{c}</li>)}</ul>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
-          <Reveal className="report-block">
-            <h3>Sample client report</h3>
-            <p className="muted">This is what your monthly report looks like. The figures are illustrative, not client data: four example machines at an example rate inside our published range, showing a full month, a repair, an offline machine and one racked mid-month.</p>
-            <SampleReport />
-          </Reveal>
-          <Reveal className="promise">
-            <div className="promise-head">
-              <p className="eyebrow">Our transparency promise</p>
-              <h3>Every kilowatt-hour on your invoice, <em>traced to a machine and a day.</em></h3>
-            </div>
-            <ul className="promise-grid">
-              <li><span className="promise-ico"><Clock size={20} aria-hidden="true" /></span><b>Pay only for running days</b><span>A machine that is offline is not charged for those days.</span></li>
-              <li><span className="promise-ico"><FileBarChart size={20} aria-hidden="true" /></span><b>A report every month</b><span>Running days, energy and charge for each machine.</span></li>
-              <li><span className="promise-ico"><Wrench size={20} aria-hidden="true" /></span><b>You approve every repair</b><span>We quote first; the cost appears on the same invoice.</span></li>
-              <li><span className="promise-ico"><ShieldCheck size={20} aria-hidden="true" /></span><b>Fleet data synced daily</b><span>Status, hash rate and last share for every machine.</span></li>
-            </ul>
-            <div className="promise-cta">
-              <a className="button" href="#contact">Request a quote <QuoteIcon size={24} /></a>
-              <a className="button button-outline" href="#calculator">Estimate your power bill</a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section id="how-it-works" className="section" aria-labelledby="how-title">
-        <div className="container">
-          <SectionHead eyebrow="How it works" title="From first enquiry to running machines" />
-          <ol className="journey">
-            {onboarding.map((o, i) => {
-              const Icon = [MessageSquare, FileSignature, Wallet, Truck, Server, FileBarChart][i];
-              return (
-                <li key={o.title} className={`journey-step ${i % 2 ? "is-right" : "is-left"}`} style={{ ["--i" as string]: i }}>
-                  <span className="journey-node" aria-hidden="true"><Icon size={22} strokeWidth={1.8} /></span>
-                  <Reveal delay={0.05} className="panel journey-card">
-                    <span className="journey-no" aria-hidden="true"><small>Step {i + 1} of {onboarding.length}</small><b>{String(i + 1).padStart(2, "0")}</b></span>
-                    <h3>{o.title}</h3>
-                    <p className="muted">{o.text}</p>
-                    <span className="journey-fact">{o.fact}</span>
-                  </Reveal>
-                </li>
-              );
-            })}
-          </ol>
-          <Reveal className="contract">
-            <div className="contract-head">
-              <div>
-                <p className="eyebrow">Hosting contract</p>
-                <h3>The terms, in plain words</h3>
-                <p className="muted">Everything below is written into the hosting contract you sign before your machines are racked.</p>
-              </div>
-              <span className="cseal" aria-hidden="true">
-                <svg viewBox="0 0 120 120"><defs><path id="seal-ring" d="M60 60 m-49 0 a49 49 0 1 1 98 0 a49 49 0 1 1 -98 0" /></defs><text className="cseal-text"><textPath href="#seal-ring">SEGMENTS CLOUD · HOSTING CONTRACT · 12 MONTHS · </textPath></text></svg>
-                <span className="cseal-core"><ScrollText size={26} /></span>
-              </span>
-            </div>
-            <ul className="tickets">
-              {contractTerms.map((t, i) => {
-                const Icon = [Clock, Users, Boxes, Wallet, Receipt, Coins, Truck, CalendarClock][i] ?? Clock;
-                return (
-                  <li key={t.label} className="ticket" style={{ ["--t" as string]: i }}>
-                    <span className="ticket-stub" aria-hidden="true"><Icon size={20} strokeWidth={1.9} /><small>{String(i + 1).padStart(2, "0")}</small></span>
-                    <span className="ticket-body">
-                      <span className="ticket-label">{t.label}</span>
-                      {t.value ? <b className="ticket-value">{t.value}</b> : <TODO source="content/contract-and-onboarding.md" inline>to be provided</TODO>}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          </Reveal>
+          <MachinesTable models={models} flagships={FLAGSHIPS} />
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="section alt" aria-labelledby="faq-title">
+      <section id="faq" className="section" aria-labelledby="faq-title">
         <div className="container">
           <SectionHead eyebrow="FAQ" title="Common questions" />
-          <Faq />
+          <div className="faq">
+            {shownFaqs.map((f, i) => (
+              <Reveal key={f.question} delay={i * 0.03}>
+                <details className="panel">
+                  <summary>{f.question}</summary>
+                  <p>{f.answer}</p>
+                </details>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="section" aria-labelledby="contact-title">
+      <section id="contact" className="section alt" aria-labelledby="contact-title">
         <div className="container">
           <SectionHead eyebrow="Contact" title="Request a hosting quote">Tell us about your fleet and we will reply by email with a quote.</SectionHead>
           <div className="contact">

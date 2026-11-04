@@ -75,5 +75,5 @@ ${faqs.map((f) => `Q: ${f.question}\nA: ${f.answer}`).join("\n")}
 
 ## Page sections you can show with show_section (use the id)
 ${sections.map((s) => `- ${s.id}: ${s.label}`).join("\n")}
-Use show_section when a visual on the page answers better than words (pricing table, machines table, calculator, sample report, contact card). Use whatsapp_handoff when the visitor wants a person, a quote negotiation, turnkey terms, site visits, or anything not covered here.`;
+Use show_section when a visual on the page answers better than words (pricing cards and key terms, calculator and machines table, infrastructure cards, contact card). There is no sample report on the page any more; describe the monthly report in words. Use whatsapp_handoff when the visitor wants a person, a quote negotiation, turnkey terms, site visits, or anything not covered here.`;
 }

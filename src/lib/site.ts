@@ -148,16 +148,11 @@ export const quality = {
 
 // Sections of the single page, in order. The header tab bar jumps to each one.
 export const sections = [
+  // Six-section executive flow (Ganushi, 4 Nov 2026): one dock tab per section.
   { id: "overview", label: "Overview" },
-  { id: "services", label: "Services" },
+  { id: "infrastructure", label: "Infrastructure" },
   { id: "pricing", label: "Pricing" },
-  { id: "calculator", label: "Power cost" },
-  { id: "machines", label: "Machines" },
-  { id: "sites", label: "Sites" },
-  { id: "quality", label: "Quality" },
-  { id: "repair", label: "Repair" },
-  { id: "reporting", label: "Reporting" },
-  { id: "how-it-works", label: "How it works" },
+  { id: "calculator", label: "Calculator" },
   { id: "faq", label: "FAQ" },
   { id: "contact", label: "Contact" },
 ] as const;
