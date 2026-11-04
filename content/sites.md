@@ -34,7 +34,7 @@ Renamed without the site name; captions say "Abu Dhabi site". Readable PSU seria
 
 ## Photos (hydro zone and second hall, added 4 Nov 2026)
 Source: segments-hosting-site-photos.zip uploaded by Ganushi KC, 4 Nov 2026 (three site folders). Renamed without site names; captions say "Abu Dhabi site".
-Lightly enhanced for the web (contrast +6%, colour +4%, gentle sharpening), exported at 1920 px, WebP quality 85.
+Tone-corrected with Adobe Lightroom auto tone through the Adobe connector (Ganushi asked, 4 Nov 2026), together with the finished-hall photos of 3 Nov; metadata stripped before upload; gentle sharpening; exported at 1920 px, WebP quality 85. hall-miner-fans was not sent (its serial label is blurred locally).
 - hydro-container-dusk, hydro-container-aisle, hydro-rack-hoses, hydro-rack-row, hydro-manifold-closeup: hydro containers and hydro miners on coolant hoses (Hydro cooling tab)
 - hall-miner-closeup-blue, hall-fan-corridor, hall-open-racks: second air-cooled hall
 Not used: one hydro photo shows two identifiable people; one shows stacked hydro units with readable asset tags and barcodes; others repeat better shots.
