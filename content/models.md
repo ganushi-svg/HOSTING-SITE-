@@ -8,7 +8,7 @@ Featured: Antminer Z15 Pro (requested by Ganushi KC, 28 Oct 2026).
 
 | Model | Cooling | Nameplate W | Hash rate | Algorithm (coin) | Source of W |
 |---|---|---|---|---|---|
-| Antminer Z15 Pro | Air | 2,780 | 840 kSol/s | Equihash (Zcash) | Bitmain published spec. TODO: Ganushi to confirm against our units |
+| Antminer Z15 Pro | Air | 2,560 | 840 kSol/s | Equihash (Zcash) | Web check 4 Nov 2026: hash rate 840 kSol/s agreed by all listings; power listed as 2,560 W (Kryptex, reseller), 2,650 W (MiningBoard) and 2,780 W (ASIC Miner Value). Ganushi KC chose 2,560 W on 4 Nov 2026. |
 | Antminer S21 XP | Air | 3,645 | | SHA-256 (Bitcoin) | Models tab |
 | Antminer S21+ | Air | 3,564 | 235 TH/s | SHA-256 (Bitcoin) | Models tab; hash rate from Sep 2026 client report |
 | Antminer S21 | Air | 3,500 | | SHA-256 (Bitcoin) | Models tab |
