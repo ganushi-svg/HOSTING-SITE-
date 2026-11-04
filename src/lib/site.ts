@@ -48,7 +48,7 @@ export const pricing = {
   rateBasisLabel: "Calculated from each miner's power consumption",
   minimumFleetLabel: "None, any quantity is welcome",
   invoicingLabel: "Shared at the start of every month in your client group",
-  deliveryLabel: "Charged by distance, as set out in the hosting contract",
+  deliveryLabel: "We deliver and collect; charges quoted by quantity; fully wrapped and bubble-wrapped",
   whoCanHostLabel: "Individuals and companies of any size",
   tiers: [
     { min: 100, label: "100+ machines", rateUsd: 0.058, rateLabel: "$0.058" },
@@ -275,7 +275,7 @@ export const onboarding = [
   { title: "Request a quote", text: "Tell us your machine models and quantity through the form below or on WhatsApp.", fact: "Any fleet size" },
   { title: "Agree the terms", text: "We confirm your rate for your fleet size and send the hosting contract to sign.", fact: "12-month minimum" },
   { title: "Setup fee and deposit", text: "Pay the one-off setup fee and a deposit of one month of hosting, in USD or AED.", fact: "USD 100 per kW" },
-  { title: "Deliver your machines", text: "Bring your machines to our site, or let us collect them. Delivery is charged by distance, as set out in the contract.", fact: "Charged by distance" },
+  { title: "Delivery to site", text: "We pick up and deliver your machines, with charges quoted by quantity. Every unit is fully wrapped against dust and bubble-wrapped against damage.", fact: "Fully wrapped, dust-free" },
   { title: "Racked and running", text: "Your machines go into an air-cooled hall or a hydro container and appear on our fleet platform.", fact: "Tracked per machine" },
   { title: "Monthly invoice and report", text: "At the start of each month your invoice and power report arrive in your client group: running days, energy and charge per machine.", fact: "Pay only for running days" },
 ];
@@ -357,7 +357,7 @@ export const faqs = [
   },
   {
     question: "How do my machines get to the site?",
-    answer: "Delivering your machines to our site, and returning them, is charged by distance and handled as set out in the hosting contract.",
+    answer: "We pick up, deliver and later return your machines, with charges quoted by quantity. Every unit is moved professionally: fully wrapped so no dust gets in, and bubble-wrapped so it arrives undamaged. Movements follow the hosting contract.",
   },
   {
     question: "Will hosting guarantee mining profit?",

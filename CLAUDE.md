@@ -46,7 +46,7 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 9. Reporting: monitoring and the redacted sample client report
 10. How it works: a six-step zig-zag onboarding journey (from content/contract-and-onboarding.md) and the contract terms
 11. FAQ
-12. Contact: Ganushi KC (Operations Manager) with Call (office hours 10 AM–6 PM) and WhatsApp (after hours) buttons on +971 54 211 9496, enquiry form and the draft privacy notice
+12. Contact: a digital visiting card for Ganushi KC (Operations Manager, with photo and a downloadable vCard) with Call (office hours 10 AM–6 PM) and WhatsApp (after hours) buttons on +971 54 211 9496, enquiry form and the draft privacy notice
 
 ## Stack
 - Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.

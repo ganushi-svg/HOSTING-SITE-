@@ -593,21 +593,30 @@ export default function Home() {
           <SectionHead eyebrow="Contact" title="Request a hosting quote">Tell us about your fleet and we will reply by email with a quote.</SectionHead>
           <div className="contact">
             <div className="contact-side">
-              <Reveal className="panel contact-person">
-                <div className="cp-head">
-                  <span className="cp-avatar" aria-hidden="true">GK</span>
-                  <div><p className="eyebrow">Your contact</p><h3>{contact.person}</h3><p className="muted">{contact.personTitle}, Segments Cloud</p></div>
+              <Reveal className="vcard">
+                <div className="vcard-top">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- small static logo */}
+                  <img className="vcard-logo" src="/logo-mark.webp" width={30} height={35} alt="" />
+                  <span className="vcard-brand">Segments Cloud<small>Mining hosting · Abu Dhabi</small></span>
                 </div>
-                <div className="cp-actions">
-                  <a className="cp-action cp-call" href={contact.phoneUrl}>
-                    <span className="cp-ico"><Phone size={20} aria-hidden="true" /></span>
-                    <span><small>Call · office hours</small><b>{contact.phone}</b><em>{contact.hours}</em></span>
-                  </a>
-                  <a className="cp-action cp-wa" href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                    <span className="cp-ico"><WhatsAppIcon size={22} /></span>
-                    <span><small>WhatsApp · after hours</small><b>{contact.whatsapp}</b><em>Message us any time outside office hours</em></span>
-                  </a>
+                <div className="vcard-id">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- portrait supplied by Ganushi KC */}
+                  <img className="vcard-photo" src="/brand/ganushi.webp" width={480} height={480} alt="Ganushi KC" />
+                  <div>
+                    <h3>{contact.person}</h3>
+                    <p className="vcard-title">{contact.personTitle}</p>
+                  </div>
                 </div>
+                <div className="vcard-actions">
+                  <a className="vcard-btn vcard-call" href={contact.phoneUrl}><Phone size={18} aria-hidden="true" /><span><b>Call</b><small>{contact.hours}</small></span></a>
+                  <a className="vcard-btn vcard-wa" href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer"><WhatsAppIcon size={20} /><span><b>WhatsApp</b><small>After office hours</small></span></a>
+                </div>
+                <dl className="vcard-lines">
+                  <div><dt><Phone size={15} aria-hidden="true" /></dt><dd className="num selectable">{contact.phone}</dd></div>
+                  <div><dt><Mail size={15} aria-hidden="true" /></dt><dd className="selectable">{contact.email}</dd></div>
+                  <div><dt><MapPin size={15} aria-hidden="true" /></dt><dd>{contact.office}</dd></div>
+                </dl>
+                <a className="vcard-save" href="/ganushi-kc.vcf" download>Save contact to phone</a>
               </Reveal>
               <div className="panel contact-info">
                 <div><Clock size={18} aria-hidden="true" /><span><small>Office hours</small><b>{contact.hours}</b></span></div>

@@ -808,3 +808,33 @@ body::after {
   .journey-step.is-right .journey-card::after { left: -19px; width: 18px; }
   .journey-step.is-left .journey-card::before { content: ""; position: absolute; top: 50%; left: -19px; width: 18px; height: 2px; background: rgba(var(--glow), 0.6); }
 }
+
+/* Digital visiting card (Contact) */
+.vcard { position: relative; overflow: hidden; padding: 26px; border-radius: 22px; display: grid; gap: 20px;
+  background: radial-gradient(70% 60% at 100% 0%, rgba(247, 190, 39, 0.16), transparent 60%), radial-gradient(80% 80% at 0% 100%, rgba(var(--glow), 0.28), transparent 60%), linear-gradient(150deg, #0d1f52, #081129 60%, #050a18);
+  border: 1px solid rgba(var(--glow), 0.5); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9), 0 0 50px -18px rgba(var(--glow), 0.8); }
+.vcard::before { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; background: url("/logo-mark.webp") center / contain no-repeat; opacity: 0.07; transform: rotate(-12deg); pointer-events: none; }
+.vcard::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 35%; pointer-events: none; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.07), transparent); animation: vcard-sheen 6s ease-in-out infinite; will-change: transform; }
+@keyframes vcard-sheen { 0% { transform: translateX(-120%); } 50%, 100% { transform: translateX(360%); } }
+.vcard-top { display: flex; align-items: center; gap: 10px; }
+.vcard-brand { display: grid; font: 700 0.95rem var(--ff-display); color: #fff; line-height: 1.15; }
+.vcard-brand small { font: 600 0.62rem var(--ff-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--hero-lo); }
+.vcard-id { display: flex; align-items: center; gap: 18px; }
+.vcard-photo { flex: none; width: 104px; height: 104px; border-radius: 50%; box-shadow: 0 0 0 3px #081129, 0 0 0 5px var(--gold), 0 0 30px -4px rgba(247, 190, 39, 0.8); }
+.vcard-id h3 { font-size: 1.6rem; color: #fff; }
+.vcard-title { display: inline-block; margin-top: 6px; padding: 4px 12px; border-radius: 999px; font: 600 0.78rem var(--ff-body); letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: linear-gradient(135deg, #1f53d6, #3b7bff); }
+.vcard-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vcard-btn { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; text-decoration: none; color: #fff; transition: transform 0.2s; }
+.vcard-btn:hover { transform: translateY(-2px); }
+.vcard-btn span { display: grid; line-height: 1.2; }
+.vcard-btn b { font-size: 0.95rem; }
+.vcard-btn small { font-size: 0.72rem; opacity: 0.85; }
+.vcard-call { background: linear-gradient(150deg, #3b7bff, #1f53d6); }
+.vcard-wa { background: linear-gradient(150deg, #22c55e, #128c4a); }
+.vcard-lines { margin: 0; display: grid; gap: 10px; padding-top: 16px; border-top: 1px dashed rgba(255, 255, 255, 0.18); }
+.vcard-lines div { display: flex; gap: 12px; align-items: flex-start; }
+.vcard-lines dt { color: var(--gold); margin-top: 3px; }
+.vcard-lines dd { margin: 0; color: #eaf1ff; font-size: 0.92rem; }
+.vcard-save { justify-self: start; font-size: 0.82rem; font-weight: 600; color: var(--accent-strong); text-decoration: none; border-bottom: 1px dashed currentColor; }
+@media (max-width: 420px) { .vcard-actions { grid-template-columns: 1fr; } .vcard-photo { width: 84px; height: 84px; } }
+@media (prefers-reduced-motion: reduce) { .vcard::after { animation-duration: 14s; } }
