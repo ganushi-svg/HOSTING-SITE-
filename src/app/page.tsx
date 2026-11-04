@@ -49,6 +49,18 @@ const contractTerms: { label: string; value?: string }[] = [
   { label: "Notice period", value: pricing.noticePeriodLabel },
 ];
 
+/** Tiny decorative visual per monitoring stage: live pulse line, daily sync ticks, monthly bars, repair stages. */
+function PipeViz({ i }: { i: number }) {
+  return (
+    <svg className="pipe-viz" viewBox="0 0 200 44" aria-hidden="true" focusable="false">
+      {i === 0 && (<><path className="pv-line" d="M0 30 L20 30 L30 12 L42 36 L54 22 L70 22 L80 8 L92 34 L104 20 L130 20 L140 14 L152 30 L170 24 L200 24" /><circle className="pv-dot" r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="M0 30 L20 30 L30 12 L42 36 L54 22 L70 22 L80 8 L92 34 L104 20 L130 20 L140 14 L152 30 L170 24 L200 24" /></circle></>)}
+      {i === 1 && ([0, 1, 2, 3, 4, 5, 6].map((d) => <g key={d}><rect className="pv-tick" x={6 + d * 28} y="8" width="20" height="28" rx="5" style={{ animationDelay: `${d * 0.35}s` }} /><path className="pv-check" d={`M${12 + d * 28} 22 l5 5 9 -10`} /></g>))}
+      {i === 2 && ([14, 22, 18, 30, 26, 36, 32].map((h, k) => <rect key={k} className="pv-bar" x={8 + k * 28} y={40 - h} width="18" height={h} rx="3" style={{ animationDelay: `${k * 0.15}s` }} />))}
+      {i === 3 && (<><path className="pv-track" d="M14 22 H186" />{[14, 76, 138, 186].map((x, k) => <circle key={x} className="pv-stage" cx={x} cy="22" r="6" style={{ animationDelay: `${k * 0.5}s` }} />)}<circle className="pv-dot" r="3.5"><animateMotion dur="3.6s" repeatCount="indefinite" path="M14 22 H186" /></circle></>)}
+    </svg>
+  );
+}
+
 function MachineTable({ list }: { list: Model[] }) {
   return (
     <div className="panel table-wrap">
@@ -618,16 +630,18 @@ export default function Home() {
               <span className="insight-live"><span aria-hidden="true" />Live fleet visibility</span>
               <p className="muted">What you see as a client, from the day your machines are racked.</p>
             </div>
-            <ol className="insight-grid">
+            <ol className="pipe">
               {services.monitoringFlow.map((f, i) => {
                 const Icon = [Gauge, RefreshCw, FileBarChart, Wrench][i];
                 return (
-                  <li key={f.step} className="insight-col">
-                    <span className="insight-ico"><Icon size={22} strokeWidth={1.7} aria-hidden="true" /></span>
-                    <p className="insight-step num">{String(i + 1).padStart(2, "0")} — {f.step}</p>
+                  <li key={f.step} className={`pipe-card pipe-${i}`}>
+                    <span className="pipe-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="pipe-ico"><Icon size={24} strokeWidth={1.9} aria-hidden="true" /></span>
+                    <p className="pipe-step">{f.step}</p>
                     <h3>{f.title}</h3>
                     <p className="muted">{f.text}</p>
-                    <ul>{f.chips.map((c) => <li key={c}><Check size={15} aria-hidden="true" />{c}</li>)}</ul>
+                    <PipeViz i={i} />
+                    <ul className="pipe-chips">{f.chips.map((c) => <li key={c}>{c}</li>)}</ul>
                   </li>
                 );
               })}
