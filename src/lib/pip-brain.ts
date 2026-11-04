@@ -50,9 +50,12 @@ export function pipAnswer(input: string): PipReply {
   const qty = quantityIn(t);
 
   // Hard rule first: never talk profit or returns.
+  if (has(t, "keep my coins", "sell my coins", "pay with coins", "pay in coins", "hold", "hodl")) {
+    return { text: "You keep them. Hosting is invoiced in USD or AED and settled from your own funds (USDT, AED or BTC), so nothing obliges you to sell the coins you mine. Many clients hold what they mine and decide for themselves when to sell. Prices can fall as well as rise, so that choice is yours.", chips: ["How do I pay?", "What does hosting cost?"], go: { id: "pricing", label: "Why miners host with Segments" } };
+  }
   if (has(t, "profit", "roi", "return", "earn", "revenue", "income", "payback", "how much will i make", "btc price", "bitcoin price")) {
     return {
-      text: "I can't estimate mining revenue or profit, and Segments never promises returns. What I can do is show the hosting power bill for any machine on our list, which is the cost side you control. Want an estimate?",
+      text: "I can't estimate mining revenue or profit, and Segments never promises returns. What I can tell you is the part you control: hosting is invoiced in USD or AED from your own funds, so every coin your machines mine stays in your wallet to hold or sell when you choose, and you pay only for the days a machine runs. Want the hosting power bill for a machine?",
       chips: ["Estimate power cost", "What does hosting cost?", "Talk to a person"],
       go: { id: "calculator", label: "Power cost calculator" },
     };

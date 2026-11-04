@@ -16,7 +16,7 @@ import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, onboarding, quality, repair, services, site } from "@/lib/site";
+import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, onboarding, quality, repair, services, site, whyHost } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -184,6 +184,22 @@ export default function Home() {
             </Reveal>
           </div>
 
+          <Reveal className="why">
+            <div className="why-head">
+              <p className="eyebrow">{whyHost.eyebrow}</p>
+              <h3>{whyHost.title}</h3>
+              <p className="muted">{whyHost.lead}</p>
+            </div>
+            <div className="why-visual" aria-hidden="true">
+              <span className="coin c1" /><span className="coin c2" /><span className="coin c3" /><span className="coin c4" />
+              <span className="wallet"><Wallet size={26} /></span>
+              <span className="why-tag">Yours to keep</span>
+            </div>
+            <ul className="why-points">
+              {whyHost.points.map((pt) => <li key={pt.title}><b>{pt.title}</b><span>{pt.text}</span></li>)}
+            </ul>
+            <p className="fine-print why-note">{whyHost.note}</p>
+          </Reveal>
           <Tabs
             label="Pricing details"
             tabs={[

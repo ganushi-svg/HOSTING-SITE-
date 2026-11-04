@@ -311,6 +311,20 @@ export const services = {
   modelsHydro: ["Antminer S21 XP Hydro", "S21+ Hydro", "S21 Hydro", "S19 XP Hydro", "S19 Pro+ Hydro", "S19 Pro Hydro"],
 };
 
+// Why clients host with Segments: the hold-your-coins argument (content/pricing.md › Keep your coins, Ganushi KC, 4 Nov 2026).
+export const whyHost = {
+  eyebrow: "Why miners host with Segments",
+  title: "Mine today. Keep every coin. Pay hosting from cash.",
+  lead: "Our invoices are in USD or AED, settled from your own funds. Nothing obliges you to sell the coins your machines mine to cover hosting, so what you mine stays yours to hold or sell when you choose.",
+  points: [
+    { title: "Your coins stay in your wallet", text: "We never take payment in the coins you mine. Hold them, stake your own strategy, sell when you decide." },
+    { title: "Pay only for running days", text: "A machine that is offline is not billed for those days. Your hosting cost tracks what actually ran." },
+    { title: "From $0.058 per kWh, no minimum fleet", text: "Three rate tiers by fleet size, and one machine is welcome. The rate is set by the invoice, not by the market." },
+    { title: "Every kilowatt-hour accounted for", text: "A monthly report shows running days, energy and charge per machine, so you always know what you paid for." },
+  ],
+  note: "Coin prices can fall as well as rise, and mining results depend on network difficulty, machine efficiency and uptime. We make no promise of returns; we keep your machines running and your coins yours.",
+};
+
 export const billing = [
   // content/pricing.md › How the charge is calculated
   "Plug and play rate set by the number of machines you host: $0.058 per kWh for 100 or more, $0.062 for 50 to 99, and $0.068 for fewer than 50.",
@@ -362,8 +376,8 @@ export const faqs = [
     answer: "We pick up, deliver and later return your machines, with charges quoted by quantity. Every unit is moved professionally: fully wrapped so no dust gets in, and bubble-wrapped so it arrives undamaged. Movements follow the hosting contract.",
   },
   {
-    question: "Will hosting guarantee mining profit?",
+    question: "Do I have to sell the coins I mine to pay for hosting?",
     answer:
-      "No. Mining results depend on network difficulty, Bitcoin price, machine efficiency, pool fees and downtime. We describe the hosting service only and make no promise of returns.",
+      "No. Hosting is invoiced in USD or AED and settled from your own funds, in USDT, AED or BTC, so every coin your machines mine stays in your wallet. Many clients prefer to hold what they mine and decide for themselves when to sell, instead of selling each month to cover a bill. Coin prices can fall as well as rise and mining results depend on network difficulty, machine efficiency and uptime, so we make no promise of returns: our job is to keep your machines running and your coins yours.",
   },
 ];
