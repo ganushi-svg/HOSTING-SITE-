@@ -41,8 +41,13 @@ export function PowerCalculator() {
   const w = Math.max(0, watts || 0);
   const kwhPerMachine = (w * 24 * d) / 1000;
   const kwh = kwhPerMachine * n;
-  const from = kwh * pricing.plugFromUsd;
-  const to = kwh * pricing.plugToUsd;
+  // 100+ machines get the confirmed bulk rate; smaller fleets fall somewhere in the published range.
+  const bulk = n >= pricing.bulkMinMachines;
+  const lo = bulk ? pricing.bulkRateUsd : pricing.plugFromUsd;
+  const hi = bulk ? pricing.bulkRateUsd : pricing.plugToUsd;
+  const from = kwh * lo;
+  const to = kwh * hi;
+  const money = (a: number, b: number) => (a === b ? usd(a) : `${usd(a)} – ${usd(b)}`);
 
   return (
     <div className="calc">
@@ -73,14 +78,16 @@ export function PowerCalculator() {
         <div className="calc-rows">
           <div><span>Energy per machine</span><b className="num">{kwhFmt(kwhPerMachine)} kWh</b></div>
           <div><span>Energy, whole fleet</span><b className="num">{kwhFmt(kwh)} kWh</b></div>
-          <div><span>Per machine</span><b className="num">{usd(kwhPerMachine * pricing.plugFromUsd)} – {usd(kwhPerMachine * pricing.plugToUsd)}</b></div>
+          <div><span>Per machine</span><b className="num">{money(kwhPerMachine * lo, kwhPerMachine * hi)}</b></div>
         </div>
         <div className="calc-total">
           <span>Whole fleet</span>
-          <b className="num">{usd(from)}<small> to </small>{usd(to)}</b>
+          <b className="num">{bulk ? usd(from) : <>{usd(from)}<small> to </small>{usd(to)}</>}</b>
         </div>
         <p className="fine-print">
-          At {pricing.plugRangeLabel} per kWh; your rate within that range depends on how many machines you host. Power only.
+          {bulk
+            ? <>At {pricing.bulkRateLabel} per kWh, the rate for {pricing.bulkMinMachines}+ machines. Power only.</>
+            : <>At {pricing.plugRangeLabel} per kWh; fleets of {pricing.bulkMinMachines}+ machines get {pricing.bulkRateLabel}. Power only.</>}
           Days a machine is offline are not charged. This is a hosting cost, not a mining profit estimate.
         </p>
       </div>

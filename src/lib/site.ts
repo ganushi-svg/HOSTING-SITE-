@@ -33,6 +33,10 @@ export const pricing = {
   plugToUsd: 0.068,
   plugFromLabel: "$0.058",
   plugRangeLabel: "$0.058 – $0.068",
+  // content/pricing.md › tiers (Ganushi KC, 4 Nov 2026). Only the 100+ tier is confirmed so far.
+  bulkMinMachines: 100,
+  bulkRateUsd: 0.058,
+  bulkRateLabel: "$0.058",
   // content/pricing.md › Turnkey solution
   turnkeyPowerFromUsd: 0.039,
   turnkeyPowerFromLabel: "$0.039",
@@ -199,7 +203,7 @@ export const services = {
 
 export const billing = [
   // content/pricing.md › How the charge is calculated
-  "Plug and play rate from $0.058 to $0.068 per kWh, set by the number of machines you host.",
+  "Plug and play rate from $0.058 to $0.068 per kWh, set by the number of machines you host: $0.058 for 100 or more machines.",
   "Charge per machine = watts × 24 hours × running days ÷ 1,000 × rate.",
   "Running days come from your pool data: an offline machine counts up to its last share.",
   "Days a machine is offline are not charged.",

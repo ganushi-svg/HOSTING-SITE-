@@ -32,7 +32,7 @@ const compare = [
   { label: "Upfront capex", plug: "None", turnkey: `${pricing.turnkeyCapexPerMwLabel} per MW` },
   { label: "How you start", plug: "Ship your machines to our halls", turnkey: "Capacity built for your fleet" },
 ];
-const plugTerms = ["Quantity tiers for the plug and play rate", "What the rate includes besides power", "Setup fee and deposit", "Minimum term and minimum fleet size", "Payment currencies and methods"];
+const plugTerms = ["Rate for fleets under 100 machines", "What the rate includes besides power", "Setup fee and deposit", "Minimum term and minimum fleet size", "Payment currencies and methods"];
 const turnkeyTerms = ["What the capex covers", "Who owns the infrastructure", "Minimum capacity (MW)", "Build timeline", "Contract term"];
 const contractTerms = ["Contract length", "Notice period", "Who contracts with you", "Payment terms", "Machine delivery and return"];
 
@@ -155,7 +155,7 @@ export default function Home() {
               <span className="tag">Your machines, our halls</span>
               <h3>Plug and play</h3>
               <p className="price num">{pricing.plugFromLabel}<small>/ kWh, from</small></p>
-              <ul><li>{pricing.plugRangeLabel} per kWh, set by quantity</li><li>Billed only on running days</li><li>Air-cooled halls or the hydro zone</li><li>Monthly power report per machine</li></ul>
+              <ul><li><b>{pricing.bulkRateLabel}</b> per kWh for {pricing.bulkMinMachines}+ machines</li><li>{pricing.plugRangeLabel} per kWh, set by quantity</li><li>Billed only on running days</li><li>Air-cooled halls or the hydro zone</li><li>Monthly power report per machine</li></ul>
               <a className="button" href="#contact">Get a quote <QuoteIcon /></a>
             </Reveal>
             <Reveal delay={0.06} className="panel plan">
@@ -175,7 +175,16 @@ export default function Home() {
                 label: "How billing works",
                 content: (
                   <div className="split">
-                    <div className="panel pad"><h3>How plug and play is billed</h3><ul className="dot-list">{billing.map((b) => <li key={b}>{b}</li>)}</ul></div>
+                    <div className="stack"><div className="panel table-wrap">
+                      <table className="data-table">
+                        <caption className="sr-only">Plug and play rate by fleet size</caption>
+                        <thead><tr><th scope="col">Fleet size</th><th scope="col" className="num">Rate per kWh</th></tr></thead>
+                        <tbody>
+                          <tr><th scope="row">{pricing.bulkMinMachines}+ machines</th><td className="num">{pricing.bulkRateLabel}</td></tr>
+                          <tr><th scope="row">Under {pricing.bulkMinMachines} machines</th><td className="num">up to $0.068 <TODO source="content/pricing.md" inline>tier breakpoints</TODO></td></tr>
+                        </tbody>
+                      </table>
+                    </div><div className="panel pad"><h3>How plug and play is billed</h3><ul className="dot-list">{billing.map((b) => <li key={b}>{b}</li>)}</ul></div></div>
                     <div className="panel pad"><h3>Other terms</h3><ul className="term-list">{plugTerms.map((t) => <li key={t}><span>{t}</span><TODO source="content/pricing.md" inline>to be provided</TODO></li>)}</ul></div>
                   </div>
                 ),

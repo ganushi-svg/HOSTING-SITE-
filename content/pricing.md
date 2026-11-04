@@ -3,7 +3,8 @@
 ## Plug and play hosting (your machines in our halls)
 - From $0.058 to $0.068 per kWh, depending on quantity. Source: Ganushi KC, 28 Oct 2026.
 - Replaces the single $0.060 rate given on 27 Oct 2026.
-- TODO: quantity tiers (which fleet size gets which rate)
+- Tier: 100 or more machines → $0.058 per kWh. Source: Ganushi KC, 4 Nov 2026.
+- TODO: rate for fleets under 100 machines (somewhere in $0.058–$0.068; breakpoints not yet given)
 
 ## Turnkey solution
 - Power from $0.039 per kWh. Source: Ganushi KC, 28 Oct 2026.
