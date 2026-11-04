@@ -27,3 +27,5 @@ Source: Drive › Kim_September_2026_Power_Hosting_Report (Sheet 1 header and Su
 - Minimum fleet size: none, any quantity is accepted (Ganushi KC, 4 Nov 2026).
 - Payment currencies: USD or AED (Ganushi KC, 4 Nov 2026).
 - Payment methods: USDT; AED by bank transfer or cash; BTC (Ganushi KC, 4 Nov 2026).
+
+- Upfront cost for plug and play: the setup fee (USD 100 per kW) plus a deposit of one month of hosting (Ganushi KC, 4 Nov 2026).

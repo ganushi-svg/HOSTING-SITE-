@@ -16,4 +16,4 @@ Ganushi asked for the general steps to be set out from the known terms. Each ste
 - Who can host: any individual or company; any number of machines (Ganushi KC, 4 Nov 2026).
 - Payment terms: a deposit of one month of hosting; the hosting invoice is shared at the start of every month in each client's group (Ganushi KC, 4 Nov 2026).
 - Machine delivery and return: Segments picks up and delivers machines, with charges quoted by quantity; moves follow the hosting contract. Every unit is fully wrapped so no dust gets in, and bubble-wrapped against damage (Ganushi KC, 4 Nov 2026; replaces "charged by distance").
-- TODO: notice period
+- Notice period: set by the hosting contract agreed between the client and Segments; usually 2 months before ending (Ganushi KC, 4 Nov 2026).

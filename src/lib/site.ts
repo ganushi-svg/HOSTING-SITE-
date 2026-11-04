@@ -49,6 +49,8 @@ export const pricing = {
   minimumFleetLabel: "None, any quantity is welcome",
   invoicingLabel: "Shared at the start of every month in your client group",
   deliveryLabel: "We deliver and collect; charges quoted by quantity; fully wrapped and bubble-wrapped",
+  // content/contract-and-onboarding.md (Ganushi KC, 4 Nov 2026)
+  noticePeriodLabel: "Usually 2 months, as agreed in each client's hosting contract",
   whoCanHostLabel: "Individuals and companies of any size",
   tiers: [
     { min: 100, label: "100+ machines", rateUsd: 0.058, rateLabel: "$0.058" },

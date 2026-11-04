@@ -31,7 +31,7 @@ const whole = (n: number) => usd(n).replace(".00", "");
 
 const compare = [
   { label: "Power rate", plug: `${pricing.plugRangeLabel} per kWh by fleet size ($0.058 for 100+)`, turnkey: `From ${pricing.turnkeyPowerFromLabel} per kWh` },
-  { label: "Upfront capex", plug: "None", turnkey: `${pricing.turnkeyCapexPerMwLabel} per MW` },
+  { label: "Upfront cost", plug: `Setup fee (${pricing.setupFeeLabel}) + deposit of one month of hosting`, turnkey: `Capex ${pricing.turnkeyCapexPerMwLabel} per MW` },
   { label: "How you start", plug: "Ship your machines to our halls", turnkey: "Capacity built for your fleet" },
 ];
 const turnkeyTerms = ["What the capex covers", "Who owns the infrastructure", "Minimum capacity (MW)", "Build timeline", "Contract term"];
@@ -43,7 +43,7 @@ const contractTerms: { label: string; value?: string }[] = [
   { label: "Invoices", value: pricing.invoicingLabel },
   { label: "Payment", value: `${pricing.currenciesLabel}; ${pricing.paymentMethodsLabel}` },
   { label: "Machine delivery and return", value: pricing.deliveryLabel },
-  { label: "Notice period" },
+  { label: "Notice period", value: pricing.noticePeriodLabel },
 ];
 
 function MachineTable({ list }: { list: Model[] }) {
