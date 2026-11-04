@@ -1,6 +1,7 @@
 import type React from "react";
 import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Container, Cylinder, Droplets, Eye, Fan, FileBarChart, Filter, Lock, LockOpen, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Sparkles, SprayCan, Truck, Wallet, Wind, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
+import { CoolingLayout } from "@/components/CoolingLayout";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerTurntable } from "@/components/MinerTurntable";
@@ -314,6 +315,7 @@ export default function Home() {
                       {hydroVideos.map((v) => <SiteVideo key={v.src} src={v.src} poster={v.poster} label={v.caption} caption={v.caption} />)}
                     </div>
                     <div className="split split-explain"><CoolingExplainer kind="hydro" /><SitePhoto photo={photos.hydroManifoldCloseup} sizes="(min-width: 900px) 45vw, 100vw" /></div>
+                    <CoolingLayout kind="hydro" />
                   </div>
                 ),
               },
@@ -334,6 +336,7 @@ export default function Home() {
                       <div className="video-tall"><SiteVideo src={airVideos.tall.src} poster={airVideos.tall.poster} label={airVideos.tall.caption} caption={airVideos.tall.caption} /></div>
                     </div>
                     <div className="split split-explain"><CoolingExplainer kind="air" /><SitePhoto photo={photos.hallFanCorridor} sizes="(min-width: 900px) 45vw, 100vw" /></div>
+                    <CoolingLayout kind="air" />
                   </div>
                 ),
               },

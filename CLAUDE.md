@@ -22,6 +22,7 @@ Read these before writing or changing any page. If a fact is not in these files,
 - `content/pricing.md` - pricing model
 - `content/contract-and-onboarding.md` - contract terms and onboarding steps
 - `content/sites.md` - sites, capacity, cooling
+- `content/cooling-structure.md` - layer-by-layer structure of the air hall (drawing SC-CH-01) and hydro container, for the interactive section drawings
 - `content/models.md` - machine models, nameplate power, algorithm
 - `content/quality.md` - quality team, maintenance routines and standards
 - `content/performance.md` - real uptime and client numbers
@@ -40,7 +41,7 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 3. Pricing: plug and play and turnkey plan cards from `content/pricing.md`; sub-tabs How billing works / Turnkey / Compare
 4. Power cost: calculator for the hosting power bill only (never mining revenue or profit), with the representative miner render (CalcMiner) that dissolves into a pre-traced blueprint (public/miners/turntable/*-blueprint.webp), powers up (current in, fans or coolant running) and settles back each time a value changes (Ganushi, 4 Nov 2026)
 5. Machines: sub-tabs Air-cooled / Hydro-cooled, a table of every model from `content/models.md` (featured: Antminer Z15 Pro) beside the representative turntable render
-6. Sites: sub-tabs Finished halls / Hydro cooling / Air cooling, with real photos and video (hydro containers, hydro racks and two hydro videos in the Hydro tab)
+6. Sites: sub-tabs Finished halls / Hydro cooling / Air cooling, with real photos and video (hydro containers, hydro racks and two hydro videos in the Hydro tab). Each cooling tab ends with an interactive section drawing (CoolingLayout, Ganushi 4 Nov 2026): ten numbered layers, animated air or coolant flow, tap a layer to read what it does (content/cooling-structure.md)
 7. Quality: the dedicated team "Segments Quality Control" with its logo, from `content/quality.md`; sub-tabs Air-cooled halls / Hydro containers / Coolant / Calendar
 8. Repair: "Segments Repair", the in-house repair center, with its logo, video and the six-step repair process (Ganushi, 4 Nov 2026)
 9. Reporting: monitoring and a sample client report with illustrative figures (not client data, Ganushi 4 Nov 2026)
@@ -51,7 +52,7 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 
 ## Stack
 - Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.
-- All facts in `src/lib/site.ts` and `src/lib/models.ts`, each naming its `content/` source. The single page is `src/app/page.tsx`. Favour Server Components; `"use client"` only for Nav (section tabs), Tabs (sub-tabs), PowerCalculator, LeadForm, Reveal, SiteVideo, MinerTurntable, Spotlight (cursor glow), CountUp and Pip (the assistant). Model cards and pages show a turntable render on an acrylic glowing stage: one hydro render for all hydro models, one air-cooled render for all others (public/miners/turntable, supplied by Ganushi 30 Oct 2026), captioned as representative renders (the calculator miner has no visible caption, Ganushi 4 Nov 2026; its alt text keeps the wording). The Hydro cooling and Air cooling tabs each have a plain-language explainer (CoolingExplainer: what the system is, how it differs, benefits) in place of the old hydro-loop illustration (Ganushi, 4 Nov 2026). Never present a render or illustration as a product photo.
+- All facts in `src/lib/site.ts` and `src/lib/models.ts`, each naming its `content/` source. The single page is `src/app/page.tsx`. Favour Server Components; `"use client"` only for Nav (section tabs), Tabs (sub-tabs), PowerCalculator, LeadForm, Reveal, SiteVideo, MinerTurntable, Spotlight (cursor glow), CountUp, Pip (the assistant), Globe (canvas) and CoolingLayout (layer picker). Model cards and pages show a turntable render on an acrylic glowing stage: one hydro render for all hydro models, one air-cooled render for all others (public/miners/turntable, supplied by Ganushi 30 Oct 2026), captioned as representative renders (the calculator miner has no visible caption, Ganushi 4 Nov 2026; its alt text keeps the wording). The Hydro cooling and Air cooling tabs each have a plain-language explainer (CoolingExplainer: what the system is, how it differs, benefits) in place of the old hydro-loop illustration (Ganushi, 4 Nov 2026). Never present a render or illustration as a product photo.
 - Deploy on Vercel. Preview builds are `noindex` until `NEXT_PUBLIC_ALLOW_INDEXING=true` is set at launch.
 - Enquiry form: `src/app/api/enquiry/route.ts` sends to ganushi@segments.ae through Resend. Keys in environment variables only (`RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_TO_EMAIL`), never in the repo and never prefixed `NEXT_PUBLIC_`.
 - Before public launch: shared rate limiting (e.g. Upstash), a bot check (e.g. Cloudflare Turnstile), verified sender domain with DMARC, legally approved privacy notice and terms.
