@@ -1386,3 +1386,10 @@ body::after {
 .banner img { display: block; width: 100%; height: auto; transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
 .banner:hover img { transform: scale(1.015); }
 .banner::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 70%, rgba(4, 7, 15, 0.25)); }
+
+/* Repair steps panel: faint line-art print from the Segments Repair banner (Ganushi, 4 Nov 2026) */
+.rail-art { position: absolute; right: -2%; top: -8%; width: 46%; aspect-ratio: 848 / 679; pointer-events: none; z-index: 0; opacity: 0.16;
+  background: url("/brand/repair-lineart.webp") center / contain no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 35%, #000 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 35%, #000 100%); }
+.rail-wrap > .rail-head, .rail-wrap > .rail { position: relative; z-index: 1; }
+@media (max-width: 900px) { .rail-art { width: 70%; top: auto; bottom: -6%; opacity: 0.12; } }

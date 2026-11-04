@@ -537,10 +537,6 @@ export default function Home() {
       <section id="repair" className="section alt" aria-labelledby="repair-title">
         <div className="container">
           <SectionHead eyebrow="Segments Repair" title="Our in-house repair center">When a machine fails, it does not wait in a queue somewhere else. It comes to our own repair center and back to your rack.</SectionHead>
-          <figure className="banner">
-            {/* eslint-disable-next-line @next/next/no-img-element -- brand banner, served as-is */}
-            <img src="/brand/banner-repair.webp" width={1600} height={679} alt="Segments Repair brand banner with the logo mark and a wrench" loading="lazy" />
-          </figure>
           <div className="repair-hero">
             <Reveal className="panel repair-intro">
               <div className="repair-brand">
@@ -558,6 +554,7 @@ export default function Home() {
             </Reveal>
           </div>
           <div className="rail-wrap">
+            <span className="rail-art" aria-hidden="true" />
             <div className="rail-head">
               <p className="eyebrow">Repair process</p>
               <h3>From fault to rack in six steps</h3>
