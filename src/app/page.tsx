@@ -424,10 +424,22 @@ export default function Home() {
             <SampleReport />
             <TODO source="assets/report-sample">Ganushi to approve this redacted extract before the site goes live</TODO>
           </Reveal>
-          <div className="statement">
-            <ShieldCheck size={26} aria-hidden="true" />
-            <p><b>Mining is volatile. Your hosting bill shouldn&apos;t be a mystery.</b> We describe the hosting service only and make no promise of mining returns.</p>
-          </div>
+          <Reveal className="promise">
+            <div className="promise-head">
+              <p className="eyebrow">Our transparency promise</p>
+              <h3>Every kilowatt-hour on your invoice, <em>traced to a machine and a day.</em></h3>
+            </div>
+            <ul className="promise-grid">
+              <li><span className="promise-ico"><Clock size={20} aria-hidden="true" /></span><b>Pay only for running days</b><span>A machine that is offline is not charged for those days.</span></li>
+              <li><span className="promise-ico"><FileBarChart size={20} aria-hidden="true" /></span><b>A report every month</b><span>Running days, energy and charge for each machine.</span></li>
+              <li><span className="promise-ico"><Wrench size={20} aria-hidden="true" /></span><b>You approve every repair</b><span>We quote first; the cost appears on the same invoice.</span></li>
+              <li><span className="promise-ico"><ShieldCheck size={20} aria-hidden="true" /></span><b>Fleet data synced daily</b><span>Status, hash rate and last share for every machine.</span></li>
+            </ul>
+            <div className="promise-cta">
+              <a className="button" href="#contact">Request a quote <QuoteIcon size={24} /></a>
+              <a className="button button-outline" href="#calculator">Estimate your power bill</a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
