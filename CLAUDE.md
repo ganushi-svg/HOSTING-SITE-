@@ -42,10 +42,11 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 5. Machines: sub-tabs Air-cooled / Hydro-cooled, a table of every model from `content/models.md` (featured: Antminer Z15 Pro) beside the representative turntable render
 6. Sites: sub-tabs Finished halls / Hydro cooling / Air cooling, with real photos and video (hydro containers and hydro racks in the Hydro tab)
 7. Quality: the dedicated team "Segments Quality Control" with its logo, from `content/quality.md`; sub-tabs Air-cooled halls / Hydro containers / Coolant / Calendar
-8. Reporting: monitoring and the redacted sample client report
-9. How it works: onboarding steps and contract terms
-10. FAQ
-11. Contact: contact details, enquiry form and the draft privacy notice
+8. Repair: "Segments Repair", the in-house repair center, with its logo, video and the six-step repair process (Ganushi, 4 Nov 2026)
+9. Reporting: monitoring and the redacted sample client report
+10. How it works: onboarding steps and contract terms
+11. FAQ
+12. Contact: contact details, enquiry form and the draft privacy notice
 
 ## Stack
 - Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.
@@ -56,7 +57,7 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 
 ## Design
 - Professional, calm and infrastructure-grade. Trust matters more than flash.
-- "Midnight Glow" theme (Ganushi, 3 Nov 2026), on the Segments Cloud Design System layout: always dark, a deep navy-to-black ground with fixed blue glows and a faint grid, glass panels edged in glowing blue hairlines with a cursor spotlight, a live grid and scanning light in the hero, glowing tabs, and key numbers that count up into view. Space Grotesk headings, Inter body, JetBrains Mono for numbers. Rich motion. Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page). Motion stays on for everyone (Ganushi, 29 Oct 2026); visitors with reduced motion set get a slower, softer version, never none. The installed-miners video was replaced by a photo (Ganushi, 4 Nov 2026); any site video added later keeps its controls so it can be paused.
+- "Midnight Glow" theme (Ganushi, 3 Nov 2026), on the Segments Cloud Design System layout: always dark, a deep navy-to-black ground with fixed blue glows and a faint grid, glass panels edged in glowing blue hairlines with a cursor spotlight, a live grid and scanning light in the hero, glowing tabs, and key numbers that count up into view. Space Grotesk headings, Inter body, JetBrains Mono for numbers. Rich motion. Gold is for the main call to action only. Mobile-first, accessible (4.5:1 contrast, alt text, keyboard focus, one H1 per page). Motion stays on for everyone (Ganushi, 29 Oct 2026); visitors with reduced motion set get a slower, softer version, never none. The installed-miners video was replaced by a photo (Ganushi, 4 Nov 2026); the Segments Repair video keeps its controls so it can be paused.
 - Real photos over stock images. Take layout and tone cues from `content/references.md`, never copy their text or assets.
 - Fast: compress images, no heavy libraries without asking.
 

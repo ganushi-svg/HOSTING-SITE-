@@ -1,4 +1,4 @@
-import { Check, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, Gauge, Mail, MapPin, Phone, RefreshCw, ShieldCheck, User, Wrench, Zap } from "lucide-react";
+import { Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, Gauge, Mail, MapPin, Phone, RefreshCw, ShieldCheck, User, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerTurntable } from "@/components/MinerTurntable";
@@ -8,11 +8,12 @@ import { QuoteIcon } from "@/components/QuoteIcon";
 import { Reveal } from "@/components/Reveal";
 import { SampleReport } from "@/components/SampleReport";
 import { SitePhoto } from "@/components/SitePhoto";
+import { SiteVideo } from "@/components/SiteVideo";
 import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, quality, services, site } from "@/lib/site";
+import { billing, capacity, contact, faqs, photos, pricing, quality, repair, services, site } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -439,6 +440,39 @@ export default function Home() {
               },
             ]}
           />
+        </div>
+      </section>
+
+      {/* REPAIR */}
+      <section id="repair" className="section alt" aria-labelledby="repair-title">
+        <div className="container">
+          <SectionHead eyebrow="Segments Repair" title="Our in-house repair center">When a machine fails, it does not wait in a queue somewhere else. It comes to our own repair center and back to your rack.</SectionHead>
+          <div className="repair-hero">
+            <Reveal className="panel repair-intro">
+              <div className="repair-brand">
+                {/* eslint-disable-next-line @next/next/no-img-element -- small static logo */}
+                <img src="/brand/segments-repair-logo.webp" width={640} height={640} alt="Segments Repair logo" />
+                <div><p className="eyebrow">Repair department</p><h3>{repair.name}</h3></div>
+              </div>
+              <p className="muted">{repair.summary}</p>
+              <ul className="repair-highlights">
+                {repair.highlights.map((h) => <li key={h.title}><CheckCircle2 size={18} aria-hidden="true" /><span><b>{h.title}</b>{h.text}</span></li>)}
+              </ul>
+            </Reveal>
+            <Reveal delay={0.08} className="repair-video">
+              <SiteVideo src={repair.video.src} poster={repair.video.poster} label={repair.video.caption} caption={repair.video.caption} />
+            </Reveal>
+          </div>
+          <h3 className="repair-steps-title">From fault to rack in six steps</h3>
+          <div className="repair-steps" role="list">
+            {repair.steps.map((s, i) => (
+              <Reveal key={s.title} delay={(i % 3) * 0.06} className="panel repair-step"><span role="listitem" className="sr-only">Step {i + 1}</span>
+                <span className="repair-step-no num">{String(i + 1).padStart(2, "0")}</span>
+                <h4>{s.title}</h4>
+                <p className="muted">{s.text}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

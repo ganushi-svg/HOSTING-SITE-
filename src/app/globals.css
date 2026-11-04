@@ -647,3 +647,37 @@ body::after {
 @media (max-width: 1000px) { .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); } .flow::before, .flow::after { display: none; } }
 @media (max-width: 560px) { .flow { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .flow::after { animation-duration: 10s; } }
+
+/* Segments Repair section */
+.repair-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 24px; align-items: stretch; margin-bottom: 40px; }
+.repair-intro { padding: clamp(22px, 3vw, 32px); display: grid; gap: 16px; align-content: start; }
+.repair-brand { display: flex; align-items: center; gap: 18px; }
+.repair-brand img { width: 96px; height: 96px; border-radius: 50%; flex: none; box-shadow: 0 0 0 2px rgba(247, 190, 39, 0.5), 0 0 34px -6px rgba(var(--glow), 0.9); }
+.repair-brand h3 { font-size: 1.6rem; color: #fff; }
+.repair-intro > p { line-height: 1.75; }
+.repair-highlights { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.repair-highlights li { display: flex; gap: 10px; padding: 14px; border-radius: var(--r-md); background: rgba(var(--glow), 0.07); border: 1px solid rgba(var(--glow), 0.25); }
+.repair-highlights svg { flex: none; margin-top: 2px; color: var(--good); }
+.repair-highlights span { display: grid; gap: 2px; font-size: 0.875rem; color: var(--lo); }
+.repair-highlights b { color: #fff; font-size: 0.95rem; }
+.repair-video { display: flex; justify-content: center; }
+.repair-video .site-video { width: 100%; max-width: 380px; }
+.repair-video video { aspect-ratio: 9 / 16; object-fit: cover; border-radius: var(--r-xl); border: 1px solid rgba(var(--glow), 0.4); box-shadow: 0 0 50px -12px rgba(var(--glow), 0.8); }
+.repair-steps-title { font-size: 1.3rem; color: #fff; margin-bottom: 18px; }
+.repair-steps { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: none; }
+.repair-step { position: relative; padding: 22px 20px 20px; display: grid; gap: 8px; align-content: start; overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+.repair-step:hover { transform: translateY(-4px); border-color: rgba(var(--glow), 0.7); box-shadow: var(--shadow-hover); }
+.repair-step::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #3b7bff, #22d3ee); box-shadow: 0 0 14px rgba(var(--glow), 0.9); }
+.repair-step-no { font-size: 2rem; font-weight: 700; line-height: 1; background: linear-gradient(135deg, #8fb8ff, #22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.repair-step h4 { font-size: 1.05rem; color: #fff; }
+.repair-step p { font-size: 0.9rem; line-height: 1.6; }
+@media (max-width: 900px) { .repair-hero { grid-template-columns: 1fr; } .repair-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .repair-steps, .repair-highlights { grid-template-columns: 1fr; } .repair-brand img { width: 72px; height: 72px; } }
+
+/* Vibrant data chips (Reporting flow), one colour family per card */
+.flow-chips li { font: 600 0.72rem var(--ff-mono); padding: 5px 11px; border-radius: 999px; color: #fff; border: 0;
+  background: linear-gradient(135deg, #3b7bff, #7c4dff); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 4px 14px -4px rgba(91, 110, 255, 0.8); transition: transform 0.2s, box-shadow 0.2s; }
+.flow-chips li:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25) inset, 0 6px 20px -4px rgba(124, 77, 255, 0.95); }
+.flow-card:nth-child(2) .flow-chips li { background: linear-gradient(135deg, #06b6d4, #10b981); box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset, 0 4px 14px -4px rgba(16, 185, 129, 0.8); }
+.flow-card:nth-child(3) .flow-chips li { background: linear-gradient(135deg, #8b5cf6, #ec4899); box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset, 0 4px 14px -4px rgba(236, 72, 153, 0.8); }
+.flow-card:nth-child(4) .flow-chips li { background: linear-gradient(135deg, #f97316, #ef4444); box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset, 0 4px 14px -4px rgba(239, 68, 68, 0.8); }

@@ -140,6 +140,7 @@ export const sections = [
   { id: "machines", label: "Machines" },
   { id: "sites", label: "Sites" },
   { id: "quality", label: "Quality" },
+  { id: "repair", label: "Repair" },
   { id: "reporting", label: "Reporting" },
   { id: "how-it-works", label: "How it works" },
   { id: "faq", label: "FAQ" },
@@ -224,6 +225,28 @@ export const siteVideo = {
   src: "/video/installed-miners.mp4",
   poster: "/video/installed-miners-poster.webp",
   caption: "Installed miners and power strips in an air-cooled hall at an Abu Dhabi site",
+};
+
+// Segments Repair, the in-house repair center (Ganushi KC, 4 Nov 2026: name, logo and video).
+// Steps from content/services.md › Operations and repair; Bitmain training from content/services.md (confirmed 3 Nov 2026).
+export const repair = {
+  name: "Segments Repair",
+  summary: "Segments Repair is our in-house repair center for hosted miners. Technicians trained by Bitmain diagnose faults down to the board on microscope rework and soldering stations, repair the machine and test it before it goes back to your rack. Common spare parts are kept in our own warehouse, and you approve every quote before work starts.",
+  highlights: [
+    { title: "Bitmain-trained technicians", text: "Diagnosis and repair by technicians trained by Bitmain." },
+    { title: "Spares in stock", text: "Fans, PSU fans and cables held in the Segments warehouse." },
+    { title: "You approve first", text: "No repair starts until you accept the quote." },
+    { title: "Logged end to end", text: "Every stage appears in your repair log; the cost on your invoice." },
+  ],
+  steps: [
+    { title: "Fault flagged", text: "The fleet platform shows a machine offline or under-hashing, and the site team raises it." },
+    { title: "Pickup", text: "The machine is collected from its rack and taken to the repair center." },
+    { title: "Intake and diagnosis", text: "It is logged on arrival and tested to find the faulty part." },
+    { title: "Quote and approval", text: "You receive a repair quote and approve it before any work begins." },
+    { title: "Repair and test", text: "The part is repaired or replaced, then the machine is tested." },
+    { title: "Back to the rack", text: "It returns to your rack and the repair log and invoice are updated." },
+  ],
+  video: { src: "/video/segments-repair.mp4", poster: "/video/segments-repair-poster.webp", caption: "Inside the Segments Repair center" },
 };
 
 export const services = {
