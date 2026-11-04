@@ -22,4 +22,4 @@ grep -rn "TODO" src content   # what is still missing
 - `public/photos/` — compressed site photos (originals in `assets/photos/`)
 
 ## Deploy (Vercel)
-Import the repo, set `RESEND_API_KEY` (and later `RESEND_FROM_EMAIL`, `NEXT_PUBLIC_SITE_URL`). The preview stays out of search engines until `NEXT_PUBLIC_ALLOW_INDEXING=true`.
+Import the repo, set `RESEND_API_KEY` (and later `RESEND_FROM_EMAIL`, `NEXT_PUBLIC_SITE_URL`). Set `ANTHROPIC_API_KEY` to switch Pip, the site assistant, from scripted answers to Claude. The preview stays out of search engines until `NEXT_PUBLIC_ALLOW_INDEXING=true`.

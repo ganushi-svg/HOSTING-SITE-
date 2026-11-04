@@ -1268,3 +1268,5 @@ body::after {
 .why-note { grid-column: 1 / -1; margin-top: 4px; }
 @media (max-width: 860px) { .why { grid-template-columns: 1fr; } .why-visual { grid-row: auto; grid-column: 1; height: 170px; } .why-points { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .why-visual .coin { animation-duration: 8s; } }
+.pip-sent { margin-top: 8px !important; font-size: 0.8rem; color: var(--good); font-weight: 600; }
+.pip-input input:disabled { opacity: 0.6; }

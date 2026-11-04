@@ -7,7 +7,9 @@ import { contact } from "@/lib/site";
 import { WhatsAppIcon } from "./WhatsAppButton";
 
 type Mood = "idle" | "wave" | "think" | "talk";
-type Msg = { id: number; from: "pip" | "you"; text: string; chips?: string[]; go?: PipReply["go"]; whatsapp?: boolean };
+type Msg = { id: number; from: "pip" | "you"; text: string; chips?: string[]; go?: PipReply["go"]; whatsapp?: string | boolean; sent?: boolean };
+type Action = { type: "show"; id: string; label: string } | { type: "whatsapp"; url: string } | { type: "enquiry_sent" };
+type Turn = { role: "user" | "assistant"; content: unknown };
 
 const AUTO_OPEN_MS = 5 * 60 * 1000; // Pip introduces itself after five minutes on the page (Ganushi, 4 Nov 2026)
 const SEEN = "pip-seen";
@@ -15,8 +17,8 @@ const SEEN = "pip-seen";
 /**
  * Pip, the animated hosting assistant (Ganushi, 4 Nov 2026). A launcher in the bottom-right corner, a chat panel,
  * and the character itself with four moods: idle (floats, blinks), wave (says hi), think (while composing an answer)
- * and talk. Answers come from pip-brain.ts, which only uses the facts on this site; anything else goes to WhatsApp.
- * All motion is transform and opacity.
+ * and talk. Answers come from /api/pip (Claude with the site's facts and four actions) when the key is configured;
+ * otherwise, or if that call fails, from the scripted pip-brain.ts. All motion is transform and opacity.
  */
 export function Pip() {
   const [open, setOpen] = useState(false);
@@ -25,11 +27,13 @@ export function Pip() {
   const [typing, setTyping] = useState(false);
   const [text, setText] = useState("");
   const [nudge, setNudge] = useState(false);
+  const [topic, setTopic] = useState("");
   const idRef = useRef(1);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const moodTimer = useRef<number>(0);
-  const [topic, setTopic] = useState("");
+  const history = useRef<Turn[]>([]); // API-shaped conversation for /api/pip
+  const apiDown = useRef(false); // once the API answers 503 (no key) or fails, stay scripted for this visit
   const panelId = useId();
 
   const setMoodFor = useCallback((m: Mood, ms: number) => {
@@ -71,7 +75,24 @@ export function Pip() {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
   }, [msgs, typing]);
 
-  const ask = useCallback((q: string) => {
+  const goTo = useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (window.innerWidth < 720) setOpen(false);
+  }, []);
+
+  const addPip = useCallback((m: Omit<Msg, "id" | "from">) => {
+    setMsgs((cur) => [...cur, { id: idRef.current++, from: "pip", ...m }]);
+    setMoodFor("talk", 1800);
+  }, [setMoodFor]);
+
+  /** Scripted answer (fallback): same behaviour as before the API existed. */
+  const scripted = useCallback((query: string) => {
+    const reply = pipAnswer(query);
+    const delay = 700 + Math.min(1100, reply.text.length * 4);
+    window.setTimeout(() => { setTyping(false); addPip(reply); }, delay);
+  }, [addPip]);
+
+  const ask = useCallback(async (q: string) => {
     const query = q.trim();
     if (!query) return;
     setTopic(query);
@@ -80,19 +101,25 @@ export function Pip() {
     setTyping(true);
     setMood("think");
     window.clearTimeout(moodTimer.current);
-    const reply = pipAnswer(query);
-    const delay = 700 + Math.min(1100, reply.text.length * 4);
-    window.setTimeout(() => {
+    if (apiDown.current) return scripted(query);
+    const turns: Turn[] = [...history.current, { role: "user", content: query }];
+    try {
+      const res = await fetch("/api/pip", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: turns }), signal: AbortSignal.timeout(45_000) });
+      if (res.status === 503 || res.status === 502 || res.status === 400) { apiDown.current = res.status === 503; return scripted(query); }
+      if (res.status === 429) { setTyping(false); addPip({ text: "I've had a lot of questions in a row. Give me a few minutes, or reach Ganushi on WhatsApp.", whatsapp: true }); return; }
+      if (!res.ok) return scripted(query);
+      const data = (await res.json()) as { text: string; actions: Action[]; turns: Turn[] };
+      history.current = [...turns, ...data.turns];
       setTyping(false);
-      setMsgs((cur) => [...cur, { id: idRef.current++, from: "pip", ...reply }]);
-      setMoodFor("talk", 1800);
-    }, delay);
-  }, [setMoodFor]);
-
-  const goTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    if (window.innerWidth < 720) setOpen(false);
-  };
+      const show = data.actions.find((a): a is Extract<Action, { type: "show" }> => a.type === "show");
+      const wa = data.actions.find((a): a is Extract<Action, { type: "whatsapp" }> => a.type === "whatsapp");
+      const sent = data.actions.some((a) => a.type === "enquiry_sent");
+      addPip({ text: data.text, go: show ? { id: show.id, label: show.label } : undefined, whatsapp: wa ? wa.url : undefined, sent });
+      if (show) goTo(show.id);
+    } catch {
+      scripted(query);
+    }
+  }, [addPip, goTo, scripted]);
 
   return (
     <>
@@ -122,11 +149,12 @@ export function Pip() {
           {msgs.map((m) => (
             <div key={m.id} className={`pip-msg from-${m.from}`}>
               <p>{m.text}</p>
+              {m.sent && <p className="pip-sent">✓ Enquiry sent to {contact.person}</p>}
               {(m.go || m.whatsapp) && (
                 <div className="pip-actions">
                   {m.go && <button type="button" className="pip-go" onClick={() => goTo(m.go!.id)}>Show me: {m.go.label}</button>}
                   {m.whatsapp && contact.whatsapp && (
-                    <a className="pip-wa" href={PIP.whatsappUrl(topic)} target="_blank" rel="noopener noreferrer"><WhatsAppIcon size={18} /> WhatsApp {contact.person?.split(" ")[0]}</a>
+                    <a className="pip-wa" href={typeof m.whatsapp === "string" ? m.whatsapp : PIP.whatsappUrl(topic)} target="_blank" rel="noopener noreferrer"><WhatsAppIcon size={18} /> WhatsApp {contact.person?.split(" ")[0]}</a>
                   )}
                 </div>
               )}
@@ -141,10 +169,10 @@ export function Pip() {
         </div>
 
         <form className="pip-input" onSubmit={(e) => { e.preventDefault(); ask(text); }}>
-          <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder="Ask about pricing, machines, repair…" aria-label="Your question for Pip" autoComplete="off" maxLength={240} />
-          <button type="submit" aria-label="Send" disabled={!text.trim()}><Send size={18} /></button>
+          <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder="Ask about pricing, machines, repair…" aria-label="Your question for Pip" autoComplete="off" maxLength={240} disabled={typing} />
+          <button type="submit" aria-label="Send" disabled={!text.trim() || typing}><Send size={18} /></button>
         </form>
-        <p className="pip-foot">Pip answers from the facts on this site and never estimates mining profit. For anything else, <a href={PIP.whatsappUrl(topic)} target="_blank" rel="noopener noreferrer">WhatsApp us</a>.</p>
+        <p className="pip-foot">Pip is an automated assistant that answers from the facts on this site and never estimates mining profit. For anything else, <a href={PIP.whatsappUrl(topic)} target="_blank" rel="noopener noreferrer">WhatsApp us</a>.</p>
       </section>
     </>
   );
