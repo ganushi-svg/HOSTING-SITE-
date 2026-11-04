@@ -883,7 +883,8 @@ body::after {
 .cm-fan-ring { fill: none; stroke: #8fd0ff; stroke-width: 2.5; }
 .cm-blade { fill: rgba(143, 208, 255, 0.22); stroke: #9fd8ff; stroke-width: 1.6; }
 .cm-hub { fill: rgba(143, 208, 255, 0.35); stroke: #bfe6ff; stroke-width: 1.5; }
-.cm-fan { transform-box: view-box; transform-origin: 0 0; }
+/* Spin each fan about its own hub: the invisible r=50 circle makes the group's box symmetric about 0,0. */
+.cm-fan { transform-box: fill-box; transform-origin: center; }
 
 .is-run .cm-real { animation: cm-real 3.6s ease both; }
 .is-run .cm-print, .is-run .cm-grid { animation: cm-print 3.6s ease both; }
@@ -1630,3 +1631,5 @@ h1, h2, .head h2 { color: #F8FAFC; letter-spacing: -0.015em; }
 .calc-cta { display: block; text-align: center; padding: 14px 16px; border-radius: 12px; background: rgba(124, 58, 237, 0.2); border: 1px solid rgba(124, 58, 237, 0.4); color: #C084FC; font-weight: 600; text-decoration: none; transition: background 0.2s, border-color 0.2s; }
 .calc-cta:hover { background: rgba(124, 58, 237, 0.3); border-color: rgba(192, 132, 252, 0.6); }
 .calc-cta:focus-visible { outline: 2px solid #C084FC; outline-offset: 3px; }
+/* Keep the render, its blueprint and the fan overlay on one scale: never stretch the images (fixes fan positions, 4 Nov 2026). */
+.cm-stage > img { object-fit: contain; object-position: center; }

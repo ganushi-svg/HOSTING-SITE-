@@ -15,6 +15,7 @@ function Fan({ cx, cy, r }: { cx: number; cy: number; r: number }) {
     <g transform={`translate(${cx} ${cy}) scale(${k})`}>
       <circle r={50} className="cm-fan-disc" />
       <g className="cm-fan">
+        <circle r={50} fill="none" stroke="none" />
         {BLADES.map((a) => (
           <path key={a} className="cm-blade" transform={`rotate(${a})`} d="M0 -8 C 14 -16, 26 -32, 12 -46 C 4 -34, -4 -22, 0 -8 Z" />
         ))}
