@@ -226,6 +226,13 @@ export const hydroVideos = [
   { src: "/video/hydro-site-tour.mp4", poster: "/video/hydro-site-tour-poster.webp", caption: "Hydro racks, coolant manifold and dry coolers, Abu Dhabi site" },
 ];
 
+// Air-cooled hall videos (Ganushi KC, 4 Nov 2026). Source clips had ~4 real frames per second; sped up 2x and
+// motion-interpolated to 30 fps so they play at normal speed. No audio. Captions name no site.
+export const airVideos = {
+  wide: { src: "/video/air-fans-tour.mp4", poster: "/video/air-fans-tour-poster.webp", caption: "Exhaust fans, cooling pads and miner racks in an air-cooled hall, Abu Dhabi site" },
+  tall: { src: "/video/air-hall-tour.mp4", poster: "/video/air-hall-tour-poster.webp", caption: "Inside a finished air-cooled hall, Abu Dhabi site" },
+};
+
 export const siteVideo = {
   // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.
   src: "/video/installed-miners.mp4",

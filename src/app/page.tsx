@@ -13,7 +13,7 @@ import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, quality, repair, services, site } from "@/lib/site";
+import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, airVideos, quality, repair, services, site } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -322,6 +322,10 @@ export default function Home() {
                       <SitePhoto photo={photos.hallPadCorridor} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hallMinerFans} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hallFanWallRacks} sizes="(min-width: 900px) 30vw, 50vw" />
+                    </div>
+                    <div className="video-mixed">
+                      <div className="video-wide"><SiteVideo src={airVideos.wide.src} poster={airVideos.wide.poster} label={airVideos.wide.caption} caption={airVideos.wide.caption} /></div>
+                      <div className="video-tall"><SiteVideo src={airVideos.tall.src} poster={airVideos.tall.poster} label={airVideos.tall.caption} caption={airVideos.tall.caption} /></div>
                     </div>
                     <div className="split split-explain"><CoolingExplainer kind="air" /><SitePhoto photo={photos.hallFanCorridor} sizes="(min-width: 900px) 45vw, 100vw" /></div>
                   </div>

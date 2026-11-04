@@ -723,3 +723,10 @@ body::after {
 .insight-col ul svg { flex: none; color: var(--good); }
 @media (max-width: 1000px) { .insight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .insight-col:nth-child(3) { border-left: 0; } .insight-col:nth-child(n+3) { border-top: 1px solid var(--stroke); } }
 @media (max-width: 560px) { .insight-grid { grid-template-columns: 1fr; } .insight-col + .insight-col { border-left: 0; border-top: 1px solid var(--stroke); } }
+
+/* Air cooling: one landscape and one portrait video */
+.video-mixed { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: 24px; align-items: start; }
+.video-mixed video { border-radius: var(--r-xl); border: 1px solid rgba(var(--glow), 0.45); box-shadow: 0 0 44px -14px rgba(var(--glow), 0.8); object-fit: cover; }
+.video-wide video { aspect-ratio: 16 / 9; }
+.video-tall video { aspect-ratio: 9 / 16; }
+@media (max-width: 760px) { .video-mixed { grid-template-columns: 1fr; } .video-tall { max-width: 340px; margin: 0 auto; } }
