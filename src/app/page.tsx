@@ -1,5 +1,5 @@
 import { Check, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, Mail, MapPin, Phone, ShieldCheck, User, Wrench, Zap } from "lucide-react";
-import { HydroLoop } from "@/components/HydroLoop";
+import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerTurntable } from "@/components/MinerTurntable";
 import { CountUp } from "@/components/CountUp";
@@ -285,7 +285,7 @@ export default function Home() {
                       <SitePhoto photo={photos.hydroRackHoses} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hydroRackRow} sizes="(min-width: 900px) 30vw, 50vw" />
                     </div>
-                    <div className="split"><div className="console"><HydroLoop /></div><SitePhoto photo={photos.hydroManifoldCloseup} crop sizes="(min-width: 900px) 45vw, 100vw" /></div>
+                    <div className="split split-explain"><CoolingExplainer kind="hydro" /><SitePhoto photo={photos.hydroManifoldCloseup} sizes="(min-width: 900px) 45vw, 100vw" /></div>
                   </div>
                 ),
               },
@@ -301,7 +301,7 @@ export default function Home() {
                       <SitePhoto photo={photos.hallMinerFans} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hallFanWallRacks} sizes="(min-width: 900px) 30vw, 50vw" />
                     </div>
-                    <div className="photo-feature"><SitePhoto photo={photos.hallFanCorridor} sizes="(min-width: 1200px) 1168px, 100vw" /></div>
+                    <div className="split split-explain"><CoolingExplainer kind="air" /><SitePhoto photo={photos.hallFanCorridor} sizes="(min-width: 900px) 45vw, 100vw" /></div>
                   </div>
                 ),
               },

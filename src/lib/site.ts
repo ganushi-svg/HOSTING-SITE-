@@ -132,6 +132,34 @@ export const sections = [
   { id: "contact", label: "Contact" },
 ] as const;
 
+// Plain-language explainers for the two cooling systems (Sites tabs). Facts from content/sites.md, content/quality.md
+// and content/models.md; general descriptions of how each system works, no performance figures.
+export const coolingSystems = {
+  hydro: {
+    title: "What is a hydro container?",
+    what: "A hydro container is a sealed, purpose-built unit where every miner is cooled by liquid instead of air. Each machine has its own coolant supply and return hose. The coolant takes the heat out of the machine, carries it to a closed-circuit cooling tower outside, and comes back cooled to go round again.",
+    differs: "In an air-cooled hall the miners are cooled by large volumes of outside air. Hydro miners sit in a sealed coolant loop instead, so they have no fans pulling desert dust through them.",
+    benefits: [
+      "Built for high-power hydro models such as the Antminer S21 XP Hydro (5,676 W)",
+      "Sealed loop filled with deionised or distilled water only, pH kept between 7.0 and 9.0",
+      "No machine fans to clog with dust",
+      "A nine-step inspection every week by Segments Quality Control",
+    ],
+  },
+  air: {
+    title: "What is an air-cooled hall?",
+    what: "Air-cooled miners sit on open racks in large halls. Fresh air is drawn in through wet evaporative cooling pads, which cool it as the water evaporates. The miners' own fans pull that air through each machine, and exhaust fans push the warm air out of the hall.",
+    differs: "There is no coolant loop to look after, and almost every ASIC model can run in it, from the Antminer Z15 Pro to the L9 and KS5. Cooling depends on air flow, so clean filters and clean machines matter most.",
+    benefits: [
+      "Hosts the widest range of air-cooled models",
+      "Intake filters cleaned weekly and disposable filters replaced monthly",
+      "Mesh (GI) pre-filters replaced every 3 to 4 months, by condition",
+      "Every machine deep-cleaned to keep it running efficiently",
+    ],
+  },
+  choose: "Your machine model decides: hydro models are hosted in hydro containers, air-cooled models in our halls.",
+};
+
 export const sites = {
   // content/sites.md
   area: "around Abu Dhabi", // Ganushi, 3 Nov 2026: sites are described at Abu Dhabi level; no site count is published
