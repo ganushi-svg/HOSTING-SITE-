@@ -381,13 +381,14 @@ export default function Home() {
                 label: "Air-cooled halls",
                 content: (
                   <div className="stack">
-                    <p className="muted">Desert dust is the enemy of an air-cooled hall. Here is one site&apos;s maintenance log for {r.month}.</p>
-                    <div className="stats">
-                      <div className="panel stat"><b className="num"><CountUp value={r.visits} /></b><span>Maintenance visits in the month</span></div>
-                      <div className="panel stat"><b className="num"><CountUp value={r.manDays} /></b><span>Man-days of work</span></div>
-                      <div className="panel stat"><b className="num"><CountUp value={r.giFilters} /></b><span>Mesh (GI) filters cleaned and replaced</span></div>
-                      <div className="panel stat"><b className="num"><CountUp value={r.disposableFilters} /></b><span>Disposable filters cleaned and replaced</span></div>
+                    <p className="muted">Desert dust is the enemy of an air-cooled hall. Here is an example of what a month of maintenance can look like at one hall.</p>
+                    <div className="stats stats-example">
+                      <div className="panel stat"><b className="num"><CountUp value={r.visits} /></b><span>Maintenance visits in the month</span><em className="example-tag">Example</em></div>
+                      <div className="panel stat"><b className="num"><CountUp value={r.manDays} /></b><span>Man-days of work</span><em className="example-tag">Example</em></div>
+                      <div className="panel stat"><b className="num"><CountUp value={r.giFilters} /></b><span>Mesh (GI) filters cleaned and replaced</span><em className="example-tag">Example</em></div>
+                      <div className="panel stat"><b className="num"><CountUp value={r.disposableFilters} /></b><span>Disposable filters cleaned and replaced</span><em className="example-tag">Example</em></div>
                     </div>
+                    <p className="fine-print">Example figures to show the scale of the work, not live data. Actual visits and filter counts vary by hall, season and dust conditions.</p>
                     <ul className="check-list">{quality.airWork.map((w) => <li key={w}><ClipboardCheck size={17} aria-hidden="true" /> {w}</li>)}</ul>
                     <div className="gallery">
                       {[photos.qcNewFiltersWall, photos.qcNewFiltersAisle, photos.qcMeshPrefilters, photos.qcFiltersReplaced, photos.qcMeshOutdoor, photos.qcCleanHall].map((p) => (

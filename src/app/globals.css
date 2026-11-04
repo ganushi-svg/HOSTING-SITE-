@@ -950,3 +950,7 @@ body::after {
 .calc-miner:not(.is-hydro) .cm-stage { aspect-ratio: 720 / 430; }
 .calc-miner:not(.is-hydro) .cm-stage > img, .calc-miner:not(.is-hydro) .cm-fx { inset: auto 0; top: -5.8%; height: calc(100% * 540 / 430); }
 .calc-miner:not(.is-hydro) .cm-stage::before { bottom: 14%; }
+
+/* Example figures in the Quality tab are labelled as such (Ganushi, 4 Nov 2026). */
+.stats-example .stat { position: relative; }
+.example-tag { position: absolute; top: 12px; right: 12px; padding: 2px 8px; border-radius: 999px; font: 600 0.66rem var(--ff-body); font-style: normal; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-strong); background: rgba(var(--glow), 0.12); border: 1px dashed rgba(var(--glow), 0.5); }

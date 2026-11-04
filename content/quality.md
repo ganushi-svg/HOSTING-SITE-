@@ -4,7 +4,7 @@ Ganushi KC, 28 Oct 2026: Segments has a dedicated quality team for its sites and
 Site names stay off the website (content/sites.md). Do not publish the individual jobs from the maintenance tracker.
 
 ## Air-cooled halls: filters and cleaning
-Source: Drive › one site's Maintenance Work Report, August 2026.
+Source: Drive › one site's Maintenance Work Report, August 2026. Shown on the site as an example month, not live data (Ganushi KC, 4 Nov 2026).
 - 3 maintenance visits, 13 man-days in the month.
 - 272 GI (galvanised mesh) filters and 272 disposable filters serviced: cleaned on one day, replaced the next.
 - Floor cleaning of the data center, warehouse and office areas.
