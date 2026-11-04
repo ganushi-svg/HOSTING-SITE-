@@ -35,7 +35,7 @@ Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and
 
 ## Pages
 The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Design System reference she shared. A sticky header holds the logo and the quote button; a floating glass dock at the bottom of the screen (Ganushi, 4 Nov 2026) has one tab per section, a lit pill on the section being read and a scroll-progress line. Some sections have their own sub-tabs. Old page addresses (/pricing, /turnkey, /models/... and so on) redirect to the matching section in `next.config.ts`.
-1. Overview: glowing navy hero with a dot-map globe (arcs from client regions in Europe and the USA into Segments, Abu Dhabi; no client count shown) and the plug and play rate card, then key figures (numbers from `content/performance.md`)
+1. Overview: glowing navy hero with a globe (realistic shaded Earth with arcs from client regions in Europe and the USA into Segments, Abu Dhabi; no client count shown) and the plug and play rate card, then key figures (numbers from `content/performance.md`)
 2. Services: what hosting includes
 3. Pricing: plug and play and turnkey plan cards from `content/pricing.md`; sub-tabs How billing works / Turnkey / Compare
 4. Power cost: calculator for the hosting power bill only (never mining revenue or profit)
@@ -44,7 +44,7 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 7. Quality: the dedicated team "Segments Quality Control" with its logo, from `content/quality.md`; sub-tabs Air-cooled halls / Hydro containers / Coolant / Calendar
 8. Repair: "Segments Repair", the in-house repair center, with its logo, video and the six-step repair process (Ganushi, 4 Nov 2026)
 9. Reporting: monitoring and the redacted sample client report
-10. How it works: onboarding steps and contract terms
+10. How it works: a six-step zig-zag onboarding journey (from content/contract-and-onboarding.md) and the contract terms
 11. FAQ
 12. Contact: Ganushi KC (Operations Manager) with Call (office hours 10 AM–6 PM) and WhatsApp (after hours) buttons on +971 54 211 9496, enquiry form and the draft privacy notice
 

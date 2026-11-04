@@ -1,4 +1,4 @@
-import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, FileCheck2, Gauge, Mail, MapPin, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Truck, Wrench, Zap } from "lucide-react";
+import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, FileCheck2, FileSignature, Gauge, Mail, MapPin, MessageSquare, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Truck, Wallet, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
@@ -14,7 +14,7 @@ import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, quality, repair, services, site } from "@/lib/site";
+import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, onboarding, quality, repair, services, site } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -549,9 +549,21 @@ export default function Home() {
       <section id="how-it-works" className="section" aria-labelledby="how-title">
         <div className="container">
           <SectionHead eyebrow="How it works" title="From first enquiry to running machines" />
-          <ol className="steps">
-            <li className="panel step"><h3>Request a quote</h3><p>Send your machine models and quantity through the form below.</p></li>
-            {[2, 3, 4].map((n) => <li key={n} className="panel step"><TODO source="content/contract-and-onboarding.md">Step title and description</TODO></li>)}
+          <ol className="journey">
+            {onboarding.map((o, i) => {
+              const Icon = [MessageSquare, FileSignature, Wallet, Truck, Server, FileBarChart][i];
+              return (
+                <li key={o.title} className={`journey-step ${i % 2 ? "is-right" : "is-left"}`} style={{ ["--i" as string]: i }}>
+                  <span className="journey-node" aria-hidden="true"><Icon size={22} strokeWidth={1.8} /></span>
+                  <Reveal delay={0.05} className="panel journey-card">
+                    <span className="journey-no num">{String(i + 1).padStart(2, "0")}</span>
+                    <h3>{o.title}</h3>
+                    <p className="muted">{o.text}</p>
+                    <span className="journey-fact">{o.fact}</span>
+                  </Reveal>
+                </li>
+              );
+            })}
           </ol>
           <div className="panel pad terms">
             <h3>Contract terms</h3>
