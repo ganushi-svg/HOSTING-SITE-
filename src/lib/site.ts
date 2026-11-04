@@ -23,8 +23,11 @@ export const contact = {
   phone: "+971 54 211 9496",
   whatsapp: "+971 54 211 9496" as string | null,
   whatsappUrl: "https://wa.me/971542119496",
-  person: null as string | null, // TODO: content/contact.md
-  hours: null as string | null, // TODO: content/contact.md
+  // content/contact.md (Ganushi KC, 4 Nov 2026)
+  person: "Ganushi KC" as string | null,
+  personTitle: "Operations Manager",
+  hours: "10:00 AM – 6:00 PM (UAE time)" as string | null,
+  phoneUrl: "tel:+971542119496",
 };
 
 export const pricing = {
@@ -68,6 +71,7 @@ export const capacity = {
   // content/performance.md
   totalMw: 45,
   uptimePct: 95, // Ganushi KC, 4 Nov 2026
+  clientRegionsLabel: "Europe, the USA and beyond", // Ganushi KC, 4 Nov 2026: ongoing clients in many countries; no count published
 };
 
 export const quality = {
@@ -232,6 +236,10 @@ export const airVideos = {
   wide: { src: "/video/air-fans-tour.mp4", poster: "/video/air-fans-tour-poster.webp", caption: "Exhaust fans, cooling pads and miner racks in an air-cooled hall, Abu Dhabi site" },
   tall: { src: "/video/air-hall-tour.mp4", poster: "/video/air-hall-tour-poster.webp", caption: "Inside a finished air-cooled hall, Abu Dhabi site" },
 };
+
+// Hydro container at night (Ganushi KC, 4 Nov 2026): replaces the dusk container photo. 2.8 s clip played forward then
+// back as a seamless 5.6 s loop; 720p, 30 fps, no audio.
+export const hydroContainerVideo = { src: "/video/hydro-container-night.mp4", poster: "/video/hydro-container-night-poster.webp", caption: "Hydro container at night, Abu Dhabi site" };
 
 export const siteVideo = {
   // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.

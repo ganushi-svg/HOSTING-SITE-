@@ -1,5 +1,6 @@
-import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, FileCheck2, Gauge, Mail, MapPin, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Truck, User, Wrench, Zap } from "lucide-react";
+import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, FileCheck2, Gauge, Mail, MapPin, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Truck, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
+import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerTurntable } from "@/components/MinerTurntable";
 import { CountUp } from "@/components/CountUp";
@@ -13,7 +14,7 @@ import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, airVideos, quality, repair, services, site } from "@/lib/site";
+import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, hydroContainerVideo, airVideos, quality, repair, services, site } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -114,18 +115,23 @@ export default function Home() {
               <a className="button" href="#contact">Request a quote <QuoteIcon size={26} /></a>
               <a className="button button-ghost" href="#calculator">Estimate power cost</a>
             </div>
+            <aside className="rate-card rate-card-inline" aria-label="Hosting rate summary">
+              <p className="eyebrow">Plug and play hosting</p>
+              <p className="rate-big num">{pricing.plugFromLabel}<span>/ kWh, from</span></p>
+              <p className="rate-sub">For 100+ machines. $0.062 for 50–99 and $0.068 under 50, billed only on days your machines run.</p>
+              <dl>
+                <div><dt>Operating capacity</dt><dd className="num">{capacity.totalMw} MW</dd></div>
+                <div><dt>Hosting sites</dt><dd>All around Abu Dhabi</dd></div>
+                <div><dt>Cooling</dt><dd>Air + hydro</dd></div>
+                <div><dt>Turnkey power</dt><dd className="num">from {pricing.turnkeyPowerFromLabel}</dd></div>
+              </dl>
+            </aside>
+
           </div>
-          <aside className="rate-card" aria-label="Hosting rate summary">
-            <p className="eyebrow">Plug and play hosting</p>
-            <p className="rate-big num">{pricing.plugFromLabel}<span>/ kWh, from</span></p>
-            <p className="rate-sub">For 100+ machines. $0.062 for 50–99 and $0.068 under 50, billed only on days your machines run.</p>
-            <dl>
-              <div><dt>Operating capacity</dt><dd className="num">{capacity.totalMw} MW</dd></div>
-              <div><dt>Hosting sites</dt><dd>All around Abu Dhabi</dd></div>
-              <div><dt>Cooling</dt><dd>Air + hydro</dd></div>
-              <div><dt>Turnkey power</dt><dd className="num">from {pricing.turnkeyPowerFromLabel}</dd></div>
-            </dl>
-          </aside>
+          <div className="hero-visual">
+            <Globe />
+            <p className="globe-note"><span aria-hidden="true" />Ongoing clients from {capacity.clientRegionsLabel} host with Segments</p>
+          </div>
         </div>
       </section>
 
@@ -298,11 +304,10 @@ export default function Home() {
                 content: (
                   <div className="stack">
                     <p className="muted">Hydro miners sit in purpose-built containers. Each machine has its own coolant supply and return, and the heat is carried out to a closed-circuit cooling tower.</p>
-                    <div className="photo-feature"><SitePhoto photo={photos.hydroContainerDusk} sizes="(min-width: 1200px) 1168px, 100vw" /></div>
-                    <div className="showcase">
+                    <div className="showcase showcase-hydro">
+                      <SiteVideo src={hydroContainerVideo.src} poster={hydroContainerVideo.poster} label={hydroContainerVideo.caption} caption={hydroContainerVideo.caption} />
                       <SitePhoto photo={photos.hydroContainerAisle} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hydroRackHoses} sizes="(min-width: 900px) 30vw, 50vw" />
-                      <SitePhoto photo={photos.hydroRackRow} sizes="(min-width: 900px) 30vw, 50vw" />
                     </div>
                     <div className="video-pair">
                       {hydroVideos.map((v) => <SiteVideo key={v.src} src={v.src} poster={v.poster} label={v.caption} caption={v.caption} />)}
@@ -575,17 +580,32 @@ export default function Home() {
         <div className="container">
           <SectionHead eyebrow="Contact" title="Request a hosting quote">Tell us about your fleet and we will reply by email with a quote.</SectionHead>
           <div className="contact">
-            <div className="panel contact-info">
-              <div><MapPin size={18} aria-hidden="true" /><span><small>Office</small><address>{contact.office}</address></span></div>
-              <div><Mail size={18} aria-hidden="true" /><span><small>Email</small><b className="selectable">{contact.email}</b></span></div>
-              <div><Phone size={18} aria-hidden="true" /><span><small>Phone</small><b className="selectable">{contact.phone}</b></span></div>
-              <div><WhatsAppIcon size={20} /><span><small>WhatsApp</small>{contact.whatsapp ? <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">{contact.whatsapp}</a> : <TODO source="content/contact.md" inline>WhatsApp number</TODO>}</span></div>
-              <div><User size={18} aria-hidden="true" /><span><small>Your contact</small>{contact.person ? <b>{contact.person}</b> : <TODO source="content/contact.md" inline>Name and title</TODO>}</span></div>
-              <div><Clock size={18} aria-hidden="true" /><span><small>Hours</small>{contact.hours ? <b>{contact.hours}</b> : <TODO source="content/contact.md" inline>Office hours</TODO>}</span></div>
-              <ul className="contact-points">
-                <li><Check size={16} aria-hidden="true" /> From {pricing.plugFromLabel} per kWh, billed on running days</li>
-                <li><Fan size={16} aria-hidden="true" /> Air and hydro-cooled halls</li>
-              </ul>
+            <div className="contact-side">
+              <Reveal className="panel contact-person">
+                <div className="cp-head">
+                  <span className="cp-avatar" aria-hidden="true">GK</span>
+                  <div><p className="eyebrow">Your contact</p><h3>{contact.person}</h3><p className="muted">{contact.personTitle}, Segments Cloud</p></div>
+                </div>
+                <div className="cp-actions">
+                  <a className="cp-action cp-call" href={contact.phoneUrl}>
+                    <span className="cp-ico"><Phone size={20} aria-hidden="true" /></span>
+                    <span><small>Call · office hours</small><b>{contact.phone}</b><em>{contact.hours}</em></span>
+                  </a>
+                  <a className="cp-action cp-wa" href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                    <span className="cp-ico"><WhatsAppIcon size={22} /></span>
+                    <span><small>WhatsApp · after hours</small><b>{contact.whatsapp}</b><em>Message us any time outside office hours</em></span>
+                  </a>
+                </div>
+              </Reveal>
+              <div className="panel contact-info">
+                <div><Clock size={18} aria-hidden="true" /><span><small>Office hours</small><b>{contact.hours}</b></span></div>
+                <div><Mail size={18} aria-hidden="true" /><span><small>Email</small><b className="selectable">{contact.email}</b></span></div>
+                <div><MapPin size={18} aria-hidden="true" /><span><small>Office</small><address>{contact.office}</address></span></div>
+                <ul className="contact-points">
+                  <li><Check size={16} aria-hidden="true" /> From {pricing.plugFromLabel} per kWh, billed on running days</li>
+                  <li><Fan size={16} aria-hidden="true" /> Air and hydro-cooled halls</li>
+                </ul>
+              </div>
             </div>
             <div className="panel form-panel">
               <h3>Tell us about your fleet.</h3>

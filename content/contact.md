@@ -8,6 +8,5 @@ Source: CLAUDE.md, provided by Ganushi KC.
 - WhatsApp: +971 54 211 9496 (same as phone; Ganushi KC, 28 Oct 2026)
 - Location wording for the service: "UAE" (confirmed 27 Oct 2026)
 
-## Still needed
-- TODO: contact person name and title to show on the site
-- TODO: office hours
+- Contact person: Ganushi KC, Operations Manager (Ganushi KC, 4 Nov 2026).
+- Office hours: 10:00 AM to 6:00 PM. Call +971 54 211 9496 during office hours; outside them, message on WhatsApp on the same number (Ganushi KC, 4 Nov 2026).

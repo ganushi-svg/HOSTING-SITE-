@@ -38,6 +38,7 @@ Tone-corrected with Adobe Lightroom auto tone through the Adobe connector (Ganus
 - hydro-container-dusk, hydro-container-aisle, hydro-rack-hoses, hydro-rack-row, hydro-manifold-closeup: hydro containers and hydro miners on coolant hoses (Hydro cooling tab)
 - hall-miner-closeup-blue, hall-fan-corridor, hall-open-racks: second air-cooled hall
 Not used: one hydro photo shows two identifiable people; one shows stacked hydro units with readable asset tags and barcodes; others repeat better shots.
+Removed 4 Nov 2026 at Ganushi's request: hydro-container-dusk (replaced by the hydro-container-night video) and hydro-rack-row.
 Retired from the page (replaced by better shots): power-distribution, hall-fan-wall, site-exterior, hydro-pumps.
 
 ## Photos (installation phase)

@@ -12,7 +12,7 @@ Audience: miner owners, funds and fleet operators comparing hosting providers. T
 - Phone: +971 54 211 9496
 - WhatsApp: see `content/contact.md`
 - Domain: TODO
-- Contact person name and title shown on site: TODO
+- Contact person shown on site: Ganushi KC, Operations Manager (4 Nov 2026)
 
 ## Source of truth
 Read these before writing or changing any page. If a fact is not in these files, it does not go on the site.
@@ -35,7 +35,7 @@ Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and
 
 ## Pages
 The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Design System reference she shared. A sticky header holds the logo and the quote button; a floating glass dock at the bottom of the screen (Ganushi, 4 Nov 2026) has one tab per section, a lit pill on the section being read and a scroll-progress line. Some sections have their own sub-tabs. Old page addresses (/pricing, /turnkey, /models/... and so on) redirect to the matching section in `next.config.ts`.
-1. Overview: glowing navy hero with the plug and play rate card, then key figures (numbers from `content/performance.md`)
+1. Overview: glowing navy hero with a dot-map globe (arcs from client regions in Europe and the USA into Segments, Abu Dhabi; no client count shown) and the plug and play rate card, then key figures (numbers from `content/performance.md`)
 2. Services: what hosting includes
 3. Pricing: plug and play and turnkey plan cards from `content/pricing.md`; sub-tabs How billing works / Turnkey / Compare
 4. Power cost: calculator for the hosting power bill only (never mining revenue or profit)
@@ -46,7 +46,7 @@ The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Desi
 9. Reporting: monitoring and the redacted sample client report
 10. How it works: onboarding steps and contract terms
 11. FAQ
-12. Contact: contact details, enquiry form and the draft privacy notice
+12. Contact: Ganushi KC (Operations Manager) with Call (office hours 10 AM–6 PM) and WhatsApp (after hours) buttons on +971 54 211 9496, enquiry form and the draft privacy notice
 
 ## Stack
 - Next.js 16 (App Router) + React 19 + TypeScript, Tailwind CSS 4 installed; styling and design tokens live in `src/app/globals.css`. Switched from Astro on 28 Oct 2026 (Ganushi's decision), based on the supplied crypto-mining-hosting starter kit.
