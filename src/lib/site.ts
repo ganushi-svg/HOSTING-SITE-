@@ -228,6 +228,13 @@ export const siteVideo = {
 
 export const services = {
   // content/services.md
+  // The monitoring list as a four-step flow for the Reporting section.
+  monitoringFlow: [
+    { step: "Track", title: "Every machine on the fleet platform", text: "Each miner is watched on our fleet platform from the day it is racked.", chips: ["Status", "Hash rate", "Last share", "Repair state"] },
+    { step: "Sync", title: "Fleet data synced daily", text: "Your machines' data is pulled together every day, so nothing waits for month end.", chips: ["Daily", "Per machine"] },
+    { step: "Report", title: "A monthly power and hosting report", text: "One report per month shows exactly what you are billed for, machine by machine.", chips: ["Running days", "Energy kWh", "Charge"] },
+    { step: "Repair log", title: "Every repair, stage by stage", text: "If a machine fails, you can follow it from pickup to diagnosis, quote, repair and back to the rack.", chips: ["Pickup", "Quote", "Repair", "Return"] },
+  ],
   overview:
     "We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW of power at sites all around Abu Dhabi and hosts both hydro and air-cooled machines, with a site in-charge and hosting technicians at every site. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.",
   power: ["Power capacity is tracked for every site and zone.", "Load is read from the fleet platform before new machines are placed."],

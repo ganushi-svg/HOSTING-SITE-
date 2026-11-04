@@ -1,4 +1,4 @@
-import { Check, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, Mail, MapPin, Phone, ShieldCheck, User, Wrench, Zap } from "lucide-react";
+import { Check, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, Gauge, Mail, MapPin, Phone, RefreshCw, ShieldCheck, User, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerTurntable } from "@/components/MinerTurntable";
@@ -446,7 +446,22 @@ export default function Home() {
       <section id="reporting" className="section alt" aria-labelledby="reporting-title">
         <div className="container">
           <SectionHead eyebrow="Monitoring and reporting" title="See what your machines are doing">Every machine is tracked, and every charge on your invoice can be traced to a machine and a day.</SectionHead>
-          <ul className="check-grid">{services.monitoring.map((m) => <li key={m} className="panel"><Check size={18} aria-hidden="true" /> {m}</li>)}</ul>
+          <ol className="flow">
+            {services.monitoringFlow.map((f, i) => {
+              const Icon = [Gauge, RefreshCw, FileBarChart, Wrench][i];
+              return (
+                <li key={f.step} className="panel flow-card" style={{ ["--i" as string]: i }}>
+                  <div className="flow-top">
+                    <span className="flow-ico"><Icon size={22} strokeWidth={1.7} aria-hidden="true" /></span>
+                    <span className="flow-num num">{String(i + 1).padStart(2, "0")} · {f.step}</span>
+                  </div>
+                  <h3>{f.title}</h3>
+                  <p className="muted">{f.text}</p>
+                  <ul className="flow-chips">{f.chips.map((c) => <li key={c}>{c}</li>)}</ul>
+                </li>
+              );
+            })}
+          </ol>
           <Reveal className="report-block">
             <h3>Sample client report</h3>
             <p className="muted">An extract from a real September 2026 report. Client name, worker IDs, serial numbers, asset tags, IP addresses, pool addresses and site codes are removed, and charges are shown at an example rate inside our published range.</p>
