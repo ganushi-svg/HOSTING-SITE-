@@ -34,7 +34,7 @@ Read these before writing or changing any page. If a fact is not in these files,
 Not provided yet (use TODO placeholders, do not invent): FAQ, certifications and licences, testimonials, about-us story, privacy policy and terms of use, Arabic version, analytics.
 
 ## Pages
-The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Design System reference she shared. A sticky header holds the logo and the quote button; a floating glass dock at the bottom of the screen (Ganushi, 4 Nov 2026) has one tab per section, a lit pill on the section being read and a scroll-progress line. Some sections have their own sub-tabs. Old page addresses (/pricing, /turnkey, /models/... and so on) redirect to the matching section in `next.config.ts`.
+The site is ONE page (Ganushi, 3 Nov 2026), styled after the Segments Cloud Design System reference she shared. A sticky header holds the logo and the quote button; a floating glass dock at the bottom of the screen (Ganushi, 4 Nov 2026) has one tab per section, a lit pill on the section being read and a slider-style scroll-progress line with a knob that runs from blue to gold (4 Nov 2026). Some sections have their own sub-tabs. Old page addresses (/pricing, /turnkey, /models/... and so on) redirect to the matching section in `next.config.ts`.
 1. Overview: glowing navy hero with a globe (realistic shaded Earth with arcs from client regions in Europe and the USA into Segments, Abu Dhabi; no client count shown) and the plug and play rate card, then key figures (numbers from `content/performance.md`)
 2. Services: what hosting includes
 3. Pricing: plug and play and turnkey plan cards from `content/pricing.md`; sub-tabs How billing works / Turnkey / Compare

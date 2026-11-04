@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type React from "react";
 import Image from "next/image";
 import { sections, site } from "@/lib/site";
 import { QuoteIcon } from "./QuoteIcon";
@@ -10,6 +11,10 @@ import { QuoteIcon } from "./QuoteIcon";
  * (Ganushi, 4 Nov 2026). A lit pill slides to the section on screen, the active tab is kept scrolled into view
  * on small screens, and a thin bar shows how far down the page you are.
  */
+const BLUE = [76, 141, 255];
+const GOLD = [247, 190, 39];
+const knobColor = (p: number) => `rgb(${BLUE.map((b, i) => Math.round(b + (GOLD[i] - b) * p)).join(",")})`;
+
 export function Nav() {
   const [active, setActive] = useState<string>(sections[0].id);
   const bar = useRef<HTMLElement>(null);
@@ -69,7 +74,11 @@ export function Nav() {
       </div>
     </header>
     <nav className="section-dock" aria-label="Page sections" ref={bar}>
-      <span className="dock-progress" aria-hidden="true" style={{ transform: `scaleX(${progress})` }} />
+      {/* Slider-style progress: blue at the top of the page, warming to gold towards the end. */}
+      <span className="dock-progress" aria-hidden="true" style={{ "--p": progress, "--knob": knobColor(progress) } as React.CSSProperties}>
+        <span className="dock-progress-clip"><span className="dock-progress-fill" /></span>
+        <span className="dock-progress-run"><i /></span>
+      </span>
       <div className="section-dock-inner">
         <span className="dock-indicator" aria-hidden="true" />
         {sections.map((s) => (
