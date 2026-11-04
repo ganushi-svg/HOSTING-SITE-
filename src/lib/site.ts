@@ -220,6 +220,12 @@ export const photos = {
   hydroPumps: { src: "/photos/hydro-pumps-1600.webp", w: 1280, h: 961, alt: "Water tank with two pumps and pipework beside a hall wall at night", caption: "Pumps and tank for a hydro-cooled hall, September 2025" }, // TODO: confirm caption (content/sites.md)
 } satisfies Record<string, Photo>;
 
+// Hydro videos (Ganushi KC, 4 Nov 2026). Re-encoded 720p 30 fps, no audio. Captions name no site.
+export const hydroVideos = [
+  { src: "/video/hydro-container-walk.mp4", poster: "/video/hydro-container-walk-poster.webp", caption: "Walk-through of a hydro container, Abu Dhabi site" },
+  { src: "/video/hydro-site-tour.mp4", poster: "/video/hydro-site-tour-poster.webp", caption: "Hydro racks, coolant manifold and dry coolers, Abu Dhabi site" },
+];
+
 export const siteVideo = {
   // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.
   src: "/video/installed-miners.mp4",

@@ -1,4 +1,4 @@
-import { Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, Gauge, Mail, MapPin, Phone, RefreshCw, ShieldCheck, User, Wrench, Zap } from "lucide-react";
+import { AlertTriangle, Check, CheckCircle2, ClipboardCheck, Clock, Droplets, Fan, FileBarChart, FileCheck2, Gauge, Mail, MapPin, Phone, RefreshCw, ScanSearch, Server, ShieldCheck, Truck, User, Wrench, Zap } from "lucide-react";
 import { CoolingExplainer } from "@/components/CoolingExplainer";
 import { LeadForm } from "@/components/LeadForm";
 import { MinerTurntable } from "@/components/MinerTurntable";
@@ -13,7 +13,7 @@ import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { monthlyEstimate, models, usd, type Model } from "@/lib/models";
-import { billing, capacity, contact, faqs, photos, pricing, quality, repair, services, site } from "@/lib/site";
+import { billing, capacity, contact, faqs, photos, pricing, hydroVideos, quality, repair, services, site } from "@/lib/site";
 
 // The whole site is this one page (Ganushi, 3 Nov 2026). Every fact traces to content/ through src/lib.
 
@@ -304,6 +304,9 @@ export default function Home() {
                       <SitePhoto photo={photos.hydroRackHoses} sizes="(min-width: 900px) 30vw, 50vw" />
                       <SitePhoto photo={photos.hydroRackRow} sizes="(min-width: 900px) 30vw, 50vw" />
                     </div>
+                    <div className="video-pair">
+                      {hydroVideos.map((v) => <SiteVideo key={v.src} src={v.src} poster={v.poster} label={v.caption} caption={v.caption} />)}
+                    </div>
                     <div className="split split-explain"><CoolingExplainer kind="hydro" /><SitePhoto photo={photos.hydroManifoldCloseup} sizes="(min-width: 900px) 45vw, 100vw" /></div>
                   </div>
                 ),
@@ -463,15 +466,23 @@ export default function Home() {
               <SiteVideo src={repair.video.src} poster={repair.video.poster} label={repair.video.caption} caption={repair.video.caption} />
             </Reveal>
           </div>
-          <h3 className="repair-steps-title">From fault to rack in six steps</h3>
-          <div className="repair-steps" role="list">
-            {repair.steps.map((s, i) => (
-              <Reveal key={s.title} delay={(i % 3) * 0.06} className="panel repair-step"><span role="listitem" className="sr-only">Step {i + 1}</span>
-                <span className="repair-step-no num">{String(i + 1).padStart(2, "0")}</span>
-                <h4>{s.title}</h4>
-                <p className="muted">{s.text}</p>
-              </Reveal>
-            ))}
+          <div className="rail-wrap">
+            <div className="rail-head">
+              <p className="eyebrow">Repair process</p>
+              <h3>From fault to rack in six steps</h3>
+            </div>
+            <ol className="rail">
+              {repair.steps.map((s, i) => {
+                const Icon = [AlertTriangle, Truck, ScanSearch, FileCheck2, Wrench, Server][i];
+                return (
+                  <li key={s.title} className="rail-step" style={{ ["--i" as string]: i }}>
+                    <div className="rail-node"><Icon size={22} strokeWidth={1.8} aria-hidden="true" /><span className="rail-no num">{i + 1}</span></div>
+                    <h4>{s.title}</h4>
+                    <p>{s.text}</p>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
         </div>
       </section>
@@ -480,22 +491,26 @@ export default function Home() {
       <section id="reporting" className="section alt" aria-labelledby="reporting-title">
         <div className="container">
           <SectionHead eyebrow="Monitoring and reporting" title="See what your machines are doing">Every machine is tracked, and every charge on your invoice can be traced to a machine and a day.</SectionHead>
-          <ol className="flow">
-            {services.monitoringFlow.map((f, i) => {
-              const Icon = [Gauge, RefreshCw, FileBarChart, Wrench][i];
-              return (
-                <li key={f.step} className="panel flow-card" style={{ ["--i" as string]: i }}>
-                  <div className="flow-top">
-                    <span className="flow-ico"><Icon size={22} strokeWidth={1.7} aria-hidden="true" /></span>
-                    <span className="flow-num num">{String(i + 1).padStart(2, "0")} · {f.step}</span>
-                  </div>
-                  <h3>{f.title}</h3>
-                  <p className="muted">{f.text}</p>
-                  <ul className="flow-chips">{f.chips.map((c) => <li key={c}>{c}</li>)}</ul>
-                </li>
-              );
-            })}
-          </ol>
+          <div className="panel insight">
+            <div className="insight-head">
+              <span className="insight-live"><span aria-hidden="true" />Live fleet visibility</span>
+              <p className="muted">What you see as a client, from the day your machines are racked.</p>
+            </div>
+            <ol className="insight-grid">
+              {services.monitoringFlow.map((f, i) => {
+                const Icon = [Gauge, RefreshCw, FileBarChart, Wrench][i];
+                return (
+                  <li key={f.step} className="insight-col">
+                    <span className="insight-ico"><Icon size={22} strokeWidth={1.7} aria-hidden="true" /></span>
+                    <p className="insight-step num">{String(i + 1).padStart(2, "0")} — {f.step}</p>
+                    <h3>{f.title}</h3>
+                    <p className="muted">{f.text}</p>
+                    <ul>{f.chips.map((c) => <li key={c}><Check size={15} aria-hidden="true" />{c}</li>)}</ul>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
           <Reveal className="report-block">
             <h3>Sample client report</h3>
             <p className="muted">An extract from a real September 2026 report. Client name, worker IDs, serial numbers, asset tags, IP addresses, pool addresses and site codes are removed, and charges are shown at an example rate inside our published range.</p>
