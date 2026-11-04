@@ -43,8 +43,8 @@ const tools: Anthropic.Beta.BetaTool[] = [
       type: "object",
       properties: {
         model_slug: { type: "string", enum: models.map((m) => m.slug), description: "The model's slug from the briefing" },
-        quantity: { type: "integer", minimum: 1, maximum: 10000 },
-        running_days: { type: "integer", minimum: 1, maximum: 31, description: "Days the machines run in the month; use 30 unless the visitor says otherwise" },
+        quantity: { type: "integer", description: "Number of machines, 1 to 10,000" },
+        running_days: { type: "integer", description: "Days the machines run in the month, 1 to 31; use 30 unless the visitor says otherwise" },
       },
       required: ["model_slug", "quantity", "running_days"],
       additionalProperties: false,
@@ -99,7 +99,7 @@ async function runTool(name: string, input: ToolInput, actions: ClientAction[], 
   if (name === "estimate_power_cost") {
     const m = models.find((x) => x.slug === input.model_slug);
     const qty = Number(input.quantity), days = Number(input.running_days);
-    if (!m || !Number.isInteger(qty) || qty < 1 || !Number.isInteger(days) || days < 1 || days > 31) return { content: "Invalid input", isError: true };
+    if (!m || !Number.isInteger(qty) || qty < 1 || qty > 10000 || !Number.isInteger(days) || days < 1 || days > 31) return { content: "Invalid input: quantity 1 to 10,000, running days 1 to 31", isError: true };
     const tier = tierFor(qty);
     const kwhPerMachine = (m.watts * 24 * days) / 1000;
     const fleetKw = (m.watts * qty) / 1000;
