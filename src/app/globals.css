@@ -850,3 +850,91 @@ body::after {
 .duty-tag { font: 600 0.68rem var(--ff-body); letter-spacing: 0.06em; text-transform: uppercase; text-align: right; color: rgb(var(--a)); filter: brightness(1.35); }
 .duty h3 { font-size: 1.08rem; color: #fff; margin-top: 4px; }
 .duty p { font-size: 0.9rem; line-height: 1.65; }
+
+/* ---------- Calculator miner: blueprint power-up (Ganushi, 4 Nov 2026) ---------- */
+.calc-form { align-content: stretch; grid-template-rows: auto auto auto 1fr; }
+.calc-miner-wrap { display: flex; }
+.calc-miner { margin: 4px 0 0; flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: var(--r-lg); border: 1px solid rgba(var(--glow), 0.22); background: radial-gradient(120% 90% at 50% 100%, rgba(var(--glow), 0.12), transparent 60%), rgba(4, 8, 20, 0.55); position: relative; overflow: hidden; }
+.cm-stage { flex: 1; display: grid; place-items: center; min-height: 170px; }
+.cm-stage svg { width: 100%; max-width: 440px; height: auto; overflow: visible; }
+.calc-miner figcaption { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.8125rem; color: var(--lo); }
+.calc-miner figcaption b { color: var(--hi); font-size: 0.95rem; }
+.cm-note { margin-left: auto; font-size: 0.72rem; opacity: 0.8; }
+.cm-status { display: inline-flex; align-items: center; gap: 8px; opacity: 0.55; }
+.cm-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--good); opacity: 0.5; }
+.is-run .cm-status { animation: cm-status 3.2s ease both; }
+.is-run .cm-status i { animation: cm-led 0.5s ease-in-out 6 alternate; }
+@keyframes cm-status { 0%, 85% { opacity: 1; } 100% { opacity: 0.55; } }
+@keyframes cm-led { to { opacity: 1; transform: scale(1.35); } }
+
+/* solid view */
+.cm-real .cm-chassis { fill: url(#cm-metal); stroke: rgba(var(--glow), 0.45); stroke-width: 1.5; }
+.cm-real .cm-psu { fill: #1b2945; stroke: rgba(var(--glow), 0.4); stroke-width: 1.2; }
+.cm-real .cm-frame { fill: #0a1222; stroke: rgba(var(--glow), 0.3); }
+.cm-real .cm-ring { fill: #050a16; stroke: #2c3f66; stroke-width: 2; }
+.cm-real .cm-blade { fill: #2a3b5e; stroke: #3d5486; stroke-width: 0.8; }
+.cm-real .cm-hub { fill: #3a4f7d; }
+.cm-real .cm-board { fill: #12203b; stroke: #2c4170; }
+.cm-real .cm-cable, .cm-real .cm-pipe, .cm-real .cm-loop { fill: none; stroke: #2c3f66; stroke-width: 5; stroke-linecap: round; }
+.cm-real .cm-pipe { stroke: #1f4c80; stroke-width: 9; }
+.cm-real .cm-loop { stroke: #1f4c80; stroke-width: 4; }
+.cm-real .cm-plug { fill: #3a4f7d; }
+.cm-real .cm-trace, .cm-real .cm-vent { fill: none; stroke: #33497a; stroke-width: 2; }
+/* blueprint view */
+.cm-print { opacity: 0; }
+.cm-print * { vector-effect: non-scaling-stroke; }
+.cm-print .cm-chassis, .cm-print .cm-psu, .cm-print .cm-frame, .cm-print .cm-ring, .cm-print .cm-blade, .cm-print .cm-hub, .cm-print .cm-board, .cm-print .cm-plug { fill: rgba(124, 196, 255, 0.05); stroke: #7cc4ff; stroke-width: 1.2; }
+.cm-print .cm-cable, .cm-print .cm-trace, .cm-print .cm-vent, .cm-print .cm-pipe, .cm-print .cm-loop { fill: none; stroke: #7cc4ff; stroke-width: 1.2; stroke-dasharray: 4 3; }
+.cm-print .cm-dim { fill: none; stroke: rgba(124, 196, 255, 0.6); stroke-width: 1; }
+/* current and coolant */
+.cm-flow { fill: none; stroke: #bfe3ff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 10 22; opacity: 0; }
+.cm-flow-water { stroke: #6fd3ff; stroke-width: 4; }
+.cm-fan { transform-box: view-box; }
+.cm-real .cm-fan { animation: cm-spin 6s linear infinite; }
+
+.is-run .cm-real { animation: cm-real 3.2s ease both; }
+.is-run .cm-print { animation: cm-print 3.2s ease both; }
+.is-run .cm-flow { animation: cm-flow-in 3.2s ease both, cm-dash 0.6s linear infinite; }
+.is-run .cm-flow-late { animation: cm-flow-late 3.2s ease both, cm-dash 0.6s linear infinite; }
+.is-run .cm-print .cm-fan { animation: cm-spinup 3.2s cubic-bezier(.5, 0, .3, 1) both; }
+.is-run .cm-print .cm-psu { animation: cm-psu 3.2s ease both; }
+
+@keyframes cm-real { 0% { opacity: 1; } 12%, 80% { opacity: 0.08; } 100% { opacity: 1; } }
+@keyframes cm-print { 0% { opacity: 0; } 12%, 80% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes cm-flow-in { 0%, 10% { opacity: 0; } 18%, 74% { opacity: 1; } 90%, 100% { opacity: 0; } }
+@keyframes cm-flow-late { 0%, 28% { opacity: 0; } 36%, 74% { opacity: 1; } 90%, 100% { opacity: 0; } }
+@keyframes cm-dash { to { stroke-dashoffset: -32; } }
+@keyframes cm-psu { 0%, 24% { opacity: 0.5; } 30%, 78% { opacity: 1; } 100% { opacity: 0.5; } }
+@keyframes cm-spin { to { transform: rotate(360deg); } }
+@keyframes cm-spinup { 0%, 30% { transform: rotate(0deg); } 100% { transform: rotate(2160deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .is-run .cm-real, .is-run .cm-print, .is-run .cm-flow, .is-run .cm-flow-late, .is-run .cm-print .cm-fan, .is-run .cm-print .cm-psu, .is-run .cm-status { animation-duration: 5s; }
+  .cm-real .cm-fan { animation-duration: 12s; }
+}
+@media (max-width: 720px) { .cm-note { margin-left: 0; width: 100%; } }
+
+/* ---------- Primary button, current style (Ganushi, 4 Nov 2026) ---------- */
+/* Pill shape, lit gold gradient with a glass top edge, a light sweep every few seconds, and an arrow that
+   slides out and back in on hover. Motion is transform and opacity only. */
+.button:not(.button-ghost):not(.button-outline) {
+  position: relative; isolation: isolate; overflow: hidden; border-radius: 999px; border-color: rgba(255, 228, 140, 0.9);
+  background: linear-gradient(180deg, #ffd95e 0%, #f7be27 55%, #e9a812 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -2px 0 rgba(120, 70, 0, 0.18), 0 8px 24px -10px rgba(247, 190, 39, 0.8);
+  letter-spacing: 0.005em;
+}
+.button:not(.button-ghost):not(.button-outline)::after {
+  content: ""; position: absolute; inset: -2px auto -2px 0; width: 46%; z-index: -1; pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+  transform: translateX(-130%) skewX(-18deg); animation: btn-sweep 5.5s ease-in-out infinite;
+}
+.button:not(.button-ghost):not(.button-outline):hover { background: linear-gradient(180deg, #ffe27a 0%, #fbcb3a 55%, #efb11a 100%); transform: translateY(-1px); }
+.button:not(.button-ghost):not(.button-outline):active { transform: translateY(0) scale(0.98); }
+.button-ghost, .button-outline { border-radius: 999px; }
+@keyframes btn-sweep { 0%, 62% { transform: translateX(-130%) skewX(-18deg); } 84%, 100% { transform: translateX(320%) skewX(-18deg); } }
+.quote-icon .qi-a, .quote-icon .qi-b { transition: transform 0.35s cubic-bezier(.3, .7, .2, 1); }
+.quote-icon .qi-b { transform: translate(-14px, 14px); }
+.button:hover .quote-icon { transform: none; }
+.button:hover .quote-icon .qi-a, .button:focus-visible .quote-icon .qi-a { transform: translate(14px, -14px); }
+.button:hover .quote-icon .qi-b, .button:focus-visible .quote-icon .qi-b { transform: translate(0, 0); }
+@media (prefers-reduced-motion: reduce) { .button::after { animation-duration: 11s; } .quote-icon .qi-a, .quote-icon .qi-b { transition-duration: 0.7s; } }

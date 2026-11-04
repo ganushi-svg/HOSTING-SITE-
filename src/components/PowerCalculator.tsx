@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { CalcMiner } from "./CalcMiner";
 import { models, usd } from "@/lib/models";
 import { pricing, tierFor } from "@/lib/site";
 
@@ -30,6 +31,25 @@ export function PowerCalculator() {
     return () => window.removeEventListener(EVENT, pick);
   }, []);
 
+  // Replay the miner power-up when the calculator first comes into view and after each change (debounced).
+  const form = useRef<HTMLFormElement>(null);
+  const [run, setRun] = useState(0);
+  const seen = useRef(false);
+  useEffect(() => {
+    const el = form.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !seen.current) { seen.current = true; setRun((r) => r + 1); io.disconnect(); }
+    }, { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!seen.current) return;
+    const t = setTimeout(() => setRun((r) => r + 1), 220);
+    return () => clearTimeout(t);
+  }, [slug, watts, qty, days]);
+
   const choose = (value: string) => {
     setSlug(value);
     const m = models.find((x) => x.slug === value);
@@ -52,7 +72,7 @@ export function PowerCalculator() {
 
   return (
     <div className="calc">
-      <form className="panel calc-form" onSubmit={(e) => e.preventDefault()}>
+      <form ref={form} className="panel calc-form" onSubmit={(e) => e.preventDefault()}>
         <label className="full" htmlFor={`${id}-model`}>Machine
           <select id={`${id}-model`} value={slug} onChange={(e) => choose(e.target.value)}>
             <optgroup label="Air-cooled">
@@ -73,6 +93,9 @@ export function PowerCalculator() {
         <label className="full" htmlFor={`${id}-d`}>Running days in the month: <b className="num">{d}</b>
           <input id={`${id}-d`} type="range" min={1} max={31} value={d} onChange={(e) => setDays(+e.target.value)} />
         </label>
+        <div className={`full calc-miner-wrap${run ? " is-run" : ""}`} key={run}>
+          <CalcMiner cooling={models.find((m) => m.slug === slug)?.cooling ?? "Air"} watts={w} qty={n} />
+        </div>
       </form>
       <div className="panel calc-out" aria-live="polite">
         <p className="eyebrow">Hosting power bill · {d} running days</p>
