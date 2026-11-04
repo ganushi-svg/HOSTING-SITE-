@@ -269,7 +269,7 @@ export const repair = {
     { title: "Repair and test", text: "The part is repaired or replaced, then the machine is tested." },
     { title: "Back to the rack", text: "It returns to your rack and the repair log and invoice are updated." },
   ],
-  video: { src: "/video/segments-repair.mp4", poster: "/video/segments-repair-poster.webp", caption: "Inside the Segments Repair center" },
+  video: { src: "/video/segments-repair-30fps.mp4", poster: "/video/segments-repair-poster.webp", caption: "Inside the Segments Repair center" },
 };
 
 // content/contract-and-onboarding.md › Onboarding steps (4 Nov 2026)
