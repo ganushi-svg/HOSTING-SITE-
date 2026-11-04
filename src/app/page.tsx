@@ -32,9 +32,16 @@ const compare = [
   { label: "Upfront capex", plug: "None", turnkey: `${pricing.turnkeyCapexPerMwLabel} per MW` },
   { label: "How you start", plug: "Ship your machines to our halls", turnkey: "Capacity built for your fleet" },
 ];
-const plugTerms = ["What the rate includes besides power", "Minimum term and minimum fleet size", "Payment currencies and methods"];
+const plugTerms = ["What the rate includes besides power", "Minimum fleet size", "Payment methods"];
 const turnkeyTerms = ["What the capex covers", "Who owns the infrastructure", "Minimum capacity (MW)", "Build timeline", "Contract term"];
-const contractTerms = ["Contract length", "Notice period", "Who contracts with you", "Payment terms", "Machine delivery and return"];
+const contractTerms: { label: string; value?: string }[] = [
+  { label: "Contract length", value: `${pricing.minimumTermLabel} minimum` },
+  { label: "Notice period" },
+  { label: "Who contracts with you" },
+  { label: "Payment currency", value: pricing.currenciesLabel },
+  { label: "Payment terms" },
+  { label: "Machine delivery and return" },
+];
 
 function MachineTable({ list }: { list: Model[] }) {
   return (
@@ -124,7 +131,7 @@ export default function Home() {
         <div className="container stats">
           <Reveal className="panel stat"><b className="num"><CountUp value={capacity.totalMw} suffix=" MW" /></b><span>Operating power capacity</span></Reveal>
           <Reveal delay={0.05} className="panel stat"><b>Abu Dhabi</b><span>Hosting sites all around Abu Dhabi</span></Reveal>
-          <Reveal delay={0.1} className="panel stat"><span>Uptime</span><TODO source="content/performance.md" inline>value</TODO></Reveal>
+          <Reveal delay={0.1} className="panel stat"><b className="num"><CountUp value={capacity.uptimePct} suffix="%" /></b><span>Uptime</span></Reveal>
           <Reveal delay={0.15} className="panel stat"><span>Machines hosted</span><TODO source="content/performance.md" inline>value</TODO></Reveal>
         </div>
       </section>
@@ -187,6 +194,8 @@ export default function Home() {
                     <div className="panel pad"><h3>Other terms</h3><ul className="term-list">
                       <li><span>Setup fee</span><b>{pricing.setupFeeLabel}</b></li>
                       <li><span>Deposit</span><b>{pricing.depositLabel}</b></li>
+                      <li><span>Minimum term</span><b>{pricing.minimumTermLabel}</b></li>
+                      <li><span>Payment currency</span><b>{pricing.currenciesLabel}</b></li>
                       <li className="term-note">The setup fee follows your fleet: total machine power in kW × USD {pricing.setupFeePerKwUsd}. For example, 10 machines of 3,000 W is 30 kW, a setup fee of USD 3,000.</li>
                       {plugTerms.map((t) => <li key={t}><span>{t}</span><TODO source="content/pricing.md" inline>to be provided</TODO></li>)}</ul></div>
                   </div>
@@ -406,7 +415,19 @@ export default function Home() {
                 label: "Calendar",
                 content: (
                   <div className="split">
-                    <div className="panel pad"><h3>The maintenance calendar</h3><ul className="term-list">{quality.schedule.map((s) => <li key={s.when}><strong>{s.when}</strong><span className="muted">{s.what}</span></li>)}</ul></div>
+                    <div className="panel pad cal">
+                      <h3>The maintenance calendar</h3>
+                      <p className="cal-legend"><span className="cal-tag cal-air">Air halls</span><span className="cal-tag cal-hydro">Hydro containers</span></p>
+                      <ol className="cal-line">
+                        {quality.schedule.map((s, i) => (
+                          <li key={s.when} style={{ ["--i" as string]: i }}>
+                            <span className="cal-dot" aria-hidden="true" />
+                            <p className="cal-when">{s.when}</p>
+                            <ul>{s.tasks.map((t) => <li key={t.what}><span className={`cal-tag cal-${t.kind}`}>{t.kind === "air" ? "Air" : "Hydro"}</span>{t.what}</li>)}</ul>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
                     <div className="panel pad"><h3>Every job tracked to closure</h3><p className="muted">Each maintenance job goes on a tracking board with its site, its category (electrical, civil, mechanical and HVAC, plumbing, logistics) and its status, and stays there until it is closed.</p></div>
                   </div>
                 ),
@@ -456,7 +477,7 @@ export default function Home() {
           </ol>
           <div className="panel pad terms">
             <h3>Contract terms</h3>
-            <ul className="term-list">{contractTerms.map((t) => <li key={t}><strong>{t}</strong><TODO source="content/contract-and-onboarding.md" inline>to be provided</TODO></li>)}</ul>
+            <ul className="term-list">{contractTerms.map((t) => <li key={t.label}><strong>{t.label}</strong>{t.value ? <b>{t.value}</b> : <TODO source="content/contract-and-onboarding.md" inline>to be provided</TODO>}</li>)}</ul>
           </div>
         </div>
       </section>

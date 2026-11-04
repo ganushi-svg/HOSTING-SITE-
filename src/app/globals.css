@@ -609,3 +609,20 @@ body::after {
 .term-list li b { color: #fff; font-weight: 600; }
 .term-list li.term-note { display: block; font-size: 0.85rem; color: var(--lo); }
 .calc-upfront { margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(var(--glow), 0.3); }
+
+/* Maintenance calendar timeline (Quality › Calendar) */
+.cal h3 { margin-bottom: 6px; }
+.cal-legend { display: flex; gap: 8px; margin-bottom: 18px; }
+.cal-line { list-style: none; margin: 0; padding: 0 0 0 26px; position: relative; display: grid; gap: 16px; }
+.cal-line::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; background: linear-gradient(180deg, var(--gold), rgba(var(--glow), 0.9) 35%, rgba(var(--glow-2), 0.8)); box-shadow: 0 0 12px rgba(var(--glow), 0.6); }
+.cal-line > li { position: relative; padding: 12px 14px; border-radius: var(--r-md); background: rgba(var(--glow), 0.06); border: 1px solid rgba(var(--glow), 0.2); transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; }
+.cal-line > li:hover { transform: translateX(3px); border-color: rgba(var(--glow), 0.6); box-shadow: 0 0 22px -8px rgba(var(--glow), 0.8); }
+.cal-dot { position: absolute; left: -25px; top: 16px; width: 14px; height: 14px; border-radius: 50%; background: #0b1530; border: 2px solid var(--accent); box-shadow: 0 0 0 4px rgba(var(--glow), 0.15), 0 0 14px rgba(var(--glow), 0.9); animation: cal-pulse 3s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.4s); }
+.cal-when { font: 700 0.95rem var(--ff-display); color: #fff; margin-bottom: 6px; letter-spacing: 0.01em; }
+.cal-line ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cal-line ul li { display: flex; gap: 10px; align-items: baseline; color: var(--lo); font-size: 0.9375rem; }
+.cal-tag { flex: none; display: inline-block; font: 600 0.65rem var(--ff-body); letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; }
+.cal-air { color: #a6caff; background: rgba(var(--glow), 0.16); border: 1px solid rgba(var(--glow), 0.45); }
+.cal-hydro { color: #8ff0ff; background: rgba(var(--glow-2), 0.14); border: 1px solid rgba(var(--glow-2), 0.45); }
+@keyframes cal-pulse { 0%, 100% { box-shadow: 0 0 0 4px rgba(var(--glow), 0.15), 0 0 10px rgba(var(--glow), 0.6); } 50% { box-shadow: 0 0 0 6px rgba(var(--glow), 0.25), 0 0 20px rgba(var(--glow), 1); } }
+@media (prefers-reduced-motion: reduce) { .cal-dot { animation-duration: 7s; } }

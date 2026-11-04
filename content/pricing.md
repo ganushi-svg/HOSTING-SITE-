@@ -23,5 +23,7 @@ Source: Drive › Kim_September_2026_Power_Hosting_Report (Sheet 1 header and Su
 - TODO: what the plug and play rate includes besides power (cooling, operations, monitoring?)
 - Setup fee: USD 100 per kW of the client's machine load, so it scales with the number and power of the miners (Ganushi KC, 4 Nov 2026).
 - Deposit: one month of power (Ganushi KC, 4 Nov 2026).
-- TODO: minimum term, minimum fleet size
-- TODO: payment currencies and methods
+- Minimum term: 12 months (Ganushi KC, 4 Nov 2026).
+- TODO: minimum fleet size
+- Payment currencies: USD or AED (Ganushi KC, 4 Nov 2026).
+- TODO: payment methods

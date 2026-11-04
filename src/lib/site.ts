@@ -38,6 +38,8 @@ export const pricing = {
   setupFeePerKwUsd: 100,
   setupFeeLabel: "USD 100 per kW",
   depositLabel: "One month of power",
+  minimumTermLabel: "12 months",
+  currenciesLabel: "USD or AED",
   tiers: [
     { min: 100, label: "100+ machines", rateUsd: 0.058, rateLabel: "$0.058" },
     { min: 50, label: "50 – 99 machines", rateUsd: 0.062, rateLabel: "$0.062" },
@@ -58,6 +60,7 @@ export const tierFor = (machines: number) => pricing.tiers.find((t) => machines 
 export const capacity = {
   // content/performance.md
   totalMw: 45,
+  uptimePct: 95, // Ganushi KC, 4 Nov 2026
 };
 
 export const quality = {
@@ -110,15 +113,15 @@ export const quality = {
     { check: "Tubing and fittings", target: "Quarterly check for corrosion, leaks and deposits" },
     { check: "Flush", target: "When coolant is over 6 months old or contaminated" },
   ],
+  // Grouped by frequency for the Calendar tab timeline. kind: "air" | "hydro" | "all".
   schedule: [
-    { when: "Daily", what: "Water levels and readings checked" },
-    { when: "Weekly (air)", what: "Intake filters cleaned" },
-    { when: "Monthly (air)", what: "Disposable filters replaced" },
-    { when: "Every 3–4 months (air)", what: "Mesh (GI) pre-filters replaced, based on inspection" },
-    { when: "Weekly", what: "The nine-step cleaning and inspection routine, with a signed log" },
-    { when: "Every 6 months", what: "Coolant pH test and pipe leak survey" },
-    { when: "Yearly", what: "Coolant lab test before summer" },
-  ],
+    { when: "Daily", tasks: [{ kind: "hydro", what: "Water levels and readings checked" }] },
+    { when: "Weekly", tasks: [{ kind: "air", what: "Intake filters cleaned" }, { kind: "hydro", what: "Nine-step cleaning and inspection, with a signed log" }] },
+    { when: "Monthly", tasks: [{ kind: "air", what: "Disposable filters replaced" }] },
+    { when: "Every 3–4 months", tasks: [{ kind: "air", what: "Mesh (GI) pre-filters replaced, based on inspection" }] },
+    { when: "Every 6 months", tasks: [{ kind: "hydro", what: "Coolant pH test and pipe leak survey" }] },
+    { when: "Yearly", tasks: [{ kind: "hydro", what: "Coolant lab test before summer" }] },
+  ] as { when: string; tasks: { kind: "air" | "hydro"; what: string }[] }[],
 };
 
 // Sections of the single page, in order. The header tab bar jumps to each one.
