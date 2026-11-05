@@ -1747,3 +1747,109 @@ h1, h2, .head h2 { color: #F8FAFC; letter-spacing: -0.015em; }
 .section .plume circle { fill: rgba(220, 230, 255, 0.5); animation: none; }
 @media (prefers-reduced-motion: reduce) { .sec-float { animation-duration: 24s; } .sec-3d { transition-duration: 1s; } }
 @media (hover: none) { .sec-3d { transform: none; } }
+
+/* ==========================================================================
+   Theme and alignment polish (Ganushi, 5 Nov 2026). CSS only: no content, text or structure changes.
+   One grid for every section, equal-height card rows, aligned tables and lists, orchid active states,
+   tabular numbers, and a glass pill section bar, in the Segments purple system.
+   ========================================================================== */
+
+/* 1. One container grid: max-w-7xl (1280px) with a 24px gutter, so every section shares the same edges */
+:root { --max: 1280px; }
+.container { max-width: 1280px; padding-inline: 24px; }
+@media (max-width: 640px) { .container { padding-inline: 16px; } }
+.faq { max-width: none; }
+.head { max-width: 760px; }
+
+/* 2. Surfaces, text and hairlines */
+html, body, .watermark { background-color: #0B0711; }
+.section p:not(.eyebrow):not(.price):not(.infra-kicker):not(.calc-kicker):not(.calc-title):not(.rate-big), .dot-list, .faq details p, .fine-print { color: #94A3B8; }
+.infra-card, .key-terms, .form-done, .model-thumb, .site-photo img, .site-video video, .cm-stage, .calc-box { border-color: #2D2342 !important; }
+.infra-card, .key-terms, .site-photo img, .site-video video, .faq details, .privacy { border-radius: 16px !important; }
+.infra-card { background: #161022 !important; border: 1px solid #2D2342 !important; }
+hr, .vcard-actions + * { border-color: #2D2342; }
+
+/* 3. Equal-height card rows: cards stretch, headers line up, buttons sit on the bottom edge */
+.plans, .infra-grid, .stats, .key-terms ul, .contact, .setup-media, .calc { align-items: stretch; }
+.plans > *, .infra-grid > *, .stats > * { height: 100%; }
+.plan { display: flex !important; flex-direction: column; justify-content: flex-start; }
+.plan .plan-cta { margin-top: auto !important; }
+.infra-card { display: flex !important; flex-direction: column; align-content: initial; gap: 10px; }
+.infra-card .dot-list { margin-top: 2px; }
+.stat { justify-content: center; }
+.contact-side { display: flex; flex-direction: column; gap: 20px; }
+.contact-side > :last-child { flex: 1; }
+.form-panel { height: 100%; align-content: start; }
+.calc > * { height: 100%; }
+.setup-media > * { height: 100%; }
+
+/* 4. Tables: roomy rows, #2D2342 dividers, labels left, numbers right on tabular figures */
+.table-wrap { overflow: hidden; overflow-x: auto; border-radius: 16px; }
+.data-table { font-size: 0.9375rem; }
+.data-table thead th { background: #120C1F !important; color: #94A3B8; font-weight: 600; letter-spacing: 0.1em; padding-top: 14px; padding-bottom: 14px; border-bottom: 1px solid #2D2342; }
+.data-table th, .data-table td { padding: 18px 20px; border-bottom: 1px solid #2D2342; vertical-align: middle; text-align: left; }
+.data-table th:first-child, .data-table td:first-child { padding-left: 24px; }
+.data-table th:last-child, .data-table td:last-child { padding-right: 24px; text-align: right; }
+.data-table .num, .data-table td.num, .data-table th.num { text-align: right; white-space: nowrap; }
+.data-table tbody th { color: #F8FAFC; font-weight: 600; }
+.data-table td { color: #94A3B8; }
+.data-table td.num { color: #F8FAFC; font-family: var(--ff-mono); font-weight: 600; }
+.data-table tbody tr { transition: background 0.2s ease; }
+.data-table tbody tr:hover { background: rgba(192, 132, 252, 0.05); }
+.data-table tr:last-child > * { border-bottom: 0; }
+
+/* Definition lists and lists: label left, value right on one baseline */
+.key-terms li { min-width: 0; }
+.vcard-lines div { display: flex; align-items: center; gap: 14px; }
+.vcard-lines dd { margin: 0; color: #F8FAFC; }
+.dot-list { gap: 10px; }
+.dot-list li { line-height: 1.55; }
+.calc-rows div, .calc-tier, .calc-total { align-items: baseline; }
+.calc-rows div b, .calc-tier b, .calc-total b { margin-left: auto; text-align: right; }
+
+/* 5. Numbers: tabular figures so columns align; ice-white data, cyan for live calculator outputs */
+.num, .data-table td, .stat b, .price, .calc-rows b, .calc-total b, .calc-tier b, .key-terms b, .infra-kicker, .readout, .calc-preset, .vcard-lines dd { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+.price, .price.num, .key-terms li b { color: #F8FAFC; }
+.calc-rows b, .calc-rows b.num, .calc-total b, .calc-total b.num { color: #22D3EE; }
+
+/* 6. Buttons: Deep Violet primary with a soft glow; outline buttons pick up orchid on hover */
+.button:not(.button-ghost):not(.button-outline) { background: #7C3AED !important; border-color: #7C3AED !important; color: #F8FAFC !important; transition: background 0.2s ease, box-shadow 0.25s ease, transform 0.2s ease !important; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 10px 28px -10px rgba(124, 58, 237, 0.7) !important; }
+.button:not(.button-ghost):not(.button-outline):hover { background: #6D28D9 !important; border-color: #6D28D9 !important; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 14px 36px -10px rgba(124, 58, 237, 0.9) !important; transform: translateY(-1px); }
+.button-outline, .button-ghost { border-radius: 12px; }
+.button-outline:hover, .button-ghost:hover { color: #C084FC !important; border-color: #C084FC !important; background: rgba(192, 132, 252, 0.12) !important; }
+.link-button { border-radius: 999px; border: 1px solid rgba(192, 132, 252, 0.45); color: #C084FC; background: rgba(192, 132, 252, 0.08); transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+.link-button:hover { background: rgba(192, 132, 252, 0.18); border-color: #C084FC; color: #F8FAFC; }
+
+/* 7. Active tabs, pills and badges: Electric Orchid text and border on a translucent fill */
+.tab-list { background: #161022 !important; border: 1px solid #2D2342 !important; border-radius: 999px; padding: 5px; }
+.tab-list [role="tab"] { border-radius: 999px; border: 1px solid transparent; color: #94A3B8; transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease; }
+.tab-list [role="tab"]:hover { color: #F8FAFC; }
+.tab-list [role="tab"][aria-selected="true"] { color: #C084FC !important; border-color: #C084FC !important; background: rgba(192, 132, 252, 0.12) !important; box-shadow: none; }
+.calc-preset.is-active, .calc-preset[aria-pressed="true"] { color: #C084FC !important; border-color: #C084FC !important; background: rgba(192, 132, 252, 0.12) !important; }
+.badge-gold, .vcard-title, .tag { color: #C084FC !important; border: 1px solid rgba(192, 132, 252, 0.6) !important; background: rgba(192, 132, 252, 0.12) !important; -webkit-text-fill-color: #C084FC; }
+.cool-pill { font-variant-numeric: tabular-nums; }
+.cool-pill.cool-air { color: #94A3B8; border-color: #2D2342; }
+.layout-list button.is-active, .layout-list button[aria-pressed="true"] { color: #C084FC; border-color: #C084FC; background: rgba(192, 132, 252, 0.12); }
+.faq details[open] { border-color: #C084FC !important; box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.18); }
+.faq details[open] summary { color: #F8FAFC; }
+.faq summary::after { color: #C084FC; }
+
+/* 8. Section bar: centred glass pill, #161022 at 85% with backdrop blur, orchid highlight on the active link */
+.section-dock { background: rgba(22, 16, 34, 0.85) !important; -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border: 1px solid #2D2342 !important; border-radius: 999px; box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(192, 132, 252, 0.08) !important; padding: 6px; }
+.section-dock::before { opacity: 0.35; }
+.section-dock a { color: #94A3B8; }
+.section-dock a:hover { color: #F8FAFC; }
+.section-dock a[aria-current="true"] { color: #C084FC !important; text-shadow: none; }
+.dock-indicator { background: rgba(192, 132, 252, 0.12) !important; border: 1px solid #C084FC; box-shadow: 0 0 18px -6px rgba(192, 132, 252, 0.6) !important; }
+.dock-indicator::after { background: #C084FC; }
+
+/* 9. Header: same glass treatment so it reads as one system with the section bar */
+.header { background: rgba(11, 7, 17, 0.85); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid #2D2342; }
+/* Grid children may shrink, so wide tab bars never push the page sideways on phones */
+.setups > *, .setup-pane > *, .tabs { min-width: 0; }
+@media (max-width: 560px) {
+  .setups .tab-list { width: 100%; border-radius: 16px; }
+  .setups .tab-list [role="tab"] { flex: 1 1 0; min-width: 0; white-space: normal; text-align: center; line-height: 1.25; border-radius: 12px; padding-inline: 10px; }
+}
+/* Infrastructure cards: titles reserve two lines on wide screens so all four bullet lists start on one line */
+@media (min-width: 1001px) { .infra-card h3 { line-height: 1.2; min-height: 2.4em; } }
