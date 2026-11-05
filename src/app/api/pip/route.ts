@@ -66,7 +66,7 @@ const tools: Anthropic.Beta.BetaTool[] = [
   },
   {
     name: "whatsapp_handoff",
-    description: "Offer a WhatsApp button that opens a chat with Ganushi at Segments, with the topic prefilled. Use for anything you cannot answer, for quotes, turnkey terms, site visits, or when the visitor asks for a person.",
+    description: `Offer a WhatsApp button that opens a chat with ${contact.person} at Segments, with the topic prefilled. Use for anything you cannot answer, for quotes, turnkey terms, site visits, or when the visitor asks for a person.`,
     strict: true,
     input_schema: {
       type: "object",
@@ -77,7 +77,7 @@ const tools: Anthropic.Beta.BetaTool[] = [
   },
   {
     name: "send_enquiry",
-    description: "Email the visitor's hosting enquiry to Ganushi. Call it only after reading the summary back and getting a clear yes; set confirmed to true only in that case.",
+    description: "Email the visitor's hosting enquiry to the Segments team. Call it only after reading the summary back and getting a clear yes; set confirmed to true only in that case.",
     strict: true,
     input_schema: {
       type: "object",
@@ -143,7 +143,7 @@ async function runTool(name: string, input: ToolInput, actions: ClientAction[], 
     });
     if (!r.ok) return { content: `Not sent: ${r.message} Offer WhatsApp instead.`, isError: true };
     actions.push({ type: "enquiry_sent" });
-    return { content: `Sent to ${contact.person}. Tell the visitor a reply will come by email.` };
+    return { content: `Sent to the Segments team. Tell the visitor ${contact.person} will reply by email.` };
   }
   return { content: "Unknown tool", isError: true };
 }

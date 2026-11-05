@@ -234,8 +234,8 @@ export default function Home() {
                   <span className="vcard-brand">Segments Cloud<small>Mining hosting · Abu Dhabi</small></span>
                 </div>
                 <div className="vcard-id">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- portrait supplied by Ganushi KC */}
-                  <img className="vcard-photo" src="/brand/ganushi.webp" width={480} height={480} alt="Ganushi KC" />
+                  {/* eslint-disable-next-line @next/next/no-img-element -- portrait supplied by Segments (5 Nov 2026) */}
+                  <img className="vcard-photo" src={contact.photo} width={480} height={480} alt={`${contact.person}, ${contact.personTitle} at Segments Cloud`} />
                   <div>
                     <h3>{contact.person}</h3>
                     <p className="vcard-title">{contact.personTitle}</p>
@@ -250,7 +250,7 @@ export default function Home() {
                   <div><dt className="vcard-ico"><Mail size={16} strokeWidth={2.2} aria-hidden="true" /></dt><dd className="selectable">{contact.email}</dd></div>
                   <div><dt className="vcard-ico"><MapPin size={16} strokeWidth={2.2} aria-hidden="true" /></dt><dd>{contact.office}</dd></div>
                 </dl>
-                <a className="vcard-save" href="/ganushi-kc.vcf" download>Save contact to phone</a>
+                <a className="vcard-save" href={contact.vcard} download>Save contact to phone</a>
               </Reveal>
               <div className="panel contact-info">
                 <div><Clock size={18} aria-hidden="true" /><span><small>Office hours</small><b>{contact.hours}</b></span></div>

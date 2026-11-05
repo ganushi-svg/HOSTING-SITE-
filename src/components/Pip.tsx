@@ -177,7 +177,7 @@ export function Pip() {
     try {
       const res = await fetch("/api/pip", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: turns }), signal: AbortSignal.timeout(45_000) });
       if (res.status === 503 || res.status === 502 || res.status === 400) { apiDown.current = res.status === 503; return scripted(query); }
-      if (res.status === 429) { setTyping(false); addPip({ text: "I've had a lot of questions in a row. Give me a few minutes, or reach Ganushi on WhatsApp.", whatsapp: true }); return; }
+      if (res.status === 429) { setTyping(false); addPip({ text: "I've had a lot of questions in a row. Give me a few minutes, or reach " + (contact.person ?? "us") + " on WhatsApp.", whatsapp: true }); return; }
       if (!res.ok) return scripted(query);
       const data = (await res.json()) as { text: string; actions: Action[]; turns: Turn[] };
       history.current = [...turns, ...data.turns];
@@ -229,7 +229,7 @@ export function Pip() {
           {msgs.map((m) => (
             <div key={m.id} className={`pip-msg from-${m.from}`}>
               <p>{m.text}</p>
-              {m.sent && <p className="pip-sent">✓ Enquiry sent to {contact.person}</p>}
+              {m.sent && <p className="pip-sent">✓ Enquiry sent to the Segments team</p>}
               {(m.go || m.whatsapp) && (
                 <div className="pip-actions">
                   {m.go && <button type="button" className="pip-go" onClick={() => goTo(m.go!.id)}>Show me: {m.go.label}</button>}

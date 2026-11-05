@@ -65,14 +65,14 @@ export function pipAnswer(input: string): PipReply {
     return { text: `Hello! Ask me about pricing, machines, cooling, repair, reporting or how to get started. Or pick one below.`, chips: PIP.starters };
   }
   if (has(t, "thank", "thanks", "shukran", "cheers")) {
-    return { text: "You're welcome! If you want to go further, I can connect you with Ganushi on WhatsApp any time.", chips: ["Talk to a person", "How do I get started?"] };
+    return { text: `You're welcome! If you want to go further, I can connect you with ${contact.person} on WhatsApp any time.`, chips: ["Talk to a person", "How do I get started?"] };
   }
   if (has(t, "who are you", "what are you", "your name", "are you a bot", "are you human", "are you real")) {
     return { text: `I'm Pip, the ${PIP.role}. I'm an automated helper that answers from the facts published on this site. For anything personal or detailed, a real person at Segments picks up on WhatsApp.`, chips: ["Talk to a person", "What does hosting cost?"] };
   }
 
   // Hand-off to a person.
-  if (has(t, "person", "human", "someone", "agent", "manager", "ganushi", "whatsapp", "call", "phone", "number", "email", "contact", "speak", "talk to", "reach")) {
+  if (has(t, "person", "human", "someone", "agent", "manager", "ganushi", "marie", "sales", "whatsapp", "call", "phone", "number", "email", "contact", "speak", "talk to", "reach")) {
     return {
       text: `Of course. ${contact.person} (${contact.personTitle}) handles hosting enquiries. Call ${contact.phone} during office hours, ${contact.hours}, and WhatsApp the same number after hours. Email: ${contact.email}. Office: ${contact.office}.`,
       whatsapp: true,
@@ -166,7 +166,7 @@ export function pipAnswer(input: string): PipReply {
     return { text: "Every machine is tracked on our fleet platform: status, hash rate, last share and repair state, synced daily. Each month you get a power and hosting report with running days, energy and charge for every machine, plus a repair log, and offline days are billed at zero.", chips: ["How is the charge calculated?", "How does repair work?"], go: { id: "infrastructure", label: "Billing" } };
   }
   if (has(t, "deliver", "ship", "shipping", "transport", "pickup", "pick up", "collect", "send my machines", "logistics", "customs", "import")) {
-    return { text: `${pricing.deliveryLabel}. Moves follow the hosting contract. For imports from abroad, talk to Ganushi so the paperwork is lined up before the machines ship.`, chips: ["How do I get started?", "Talk to a person"], go: { id: "contact", label: "Request a quote" } };
+    return { text: `${pricing.deliveryLabel}. Moves follow the hosting contract. For imports from abroad, talk to ${contact.person} so the paperwork is lined up before the machines ship.`, chips: ["How do I get started?", "Talk to a person"], go: { id: "contact", label: "Request a quote" } };
   }
   if (has(t, "start", "begin", "onboard", "process", "how does it work", "how it works", "steps", "sign up", "join")) {
     return { text: "Six steps: request a quote with your models and quantity; agree the terms and sign the hosting contract (12 months minimum); pay the setup fee and one-month deposit; we collect and deliver your machines, fully wrapped; they're racked and appear on the fleet platform; then each month you get your invoice and report.", chips: ["Request a quote", "Setup fee", "Talk to a person"], go: { id: "contact", label: "Request a quote" } };
@@ -182,7 +182,7 @@ export function pipAnswer(input: string): PipReply {
   }
 
   return {
-    text: "I'm not sure about that one. I can help with pricing, machines, cooling, sites, quality, repair, reporting and how to get started. For anything else, Ganushi will answer you personally on WhatsApp.",
+    text: `I'm not sure about that one. I can help with pricing, machines, cooling, sites, quality, repair, reporting and how to get started. For anything else, ${contact.person} will answer you personally on WhatsApp.`,
     chips: PIP.starters,
     whatsapp: true,
   };

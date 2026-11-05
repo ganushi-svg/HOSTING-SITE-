@@ -23,7 +23,7 @@ export async function sendEnquiryEmail(e: Enquiry): Promise<SendResult> {
   if (!key) return { ok: false, status: 503, message: "The form is not set up yet. Please email or call us." };
   // TODO: set RESEND_FROM_EMAIL once segments.ae is verified in Resend. The fallback only delivers to the Resend account owner.
   const from = process.env.RESEND_FROM_EMAIL || "Segments Cloud website <onboarding@resend.dev>";
-  const to = process.env.RESEND_TO_EMAIL || contact.email;
+  const to = process.env.RESEND_TO_EMAIL || contact.enquiryInbox;
 
   const fields: [string, string][] = [
     ["Name", oneLine(e.name)],

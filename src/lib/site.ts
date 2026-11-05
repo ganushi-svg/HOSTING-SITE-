@@ -19,15 +19,21 @@ export const site = {
 export const contact = {
   // content/contact.md
   office: "Office 2712, Concord Tower, Media City, Dubai",
-  email: "ganushi@segments.ae",
-  phone: "+971 54 211 9496",
-  whatsapp: "+971 54 211 9496" as string | null,
-  whatsappUrl: "https://wa.me/971542119496",
-  // content/contact.md (Ganushi KC, 4 Nov 2026)
-  person: "Ganushi KC" as string | null,
-  personTitle: "Operations Manager",
+  // Contact person shown on the site: Marie, Sales Advisor (Ganushi KC, 5 Nov 2026; content/contact.md)
+  email: "marie@segments.ae",
+  phone: "+971 52 836 4053",
+  whatsapp: "+971 52 836 4053" as string | null,
+  whatsappUrl: "https://wa.me/971528364053",
+  person: "Marie" as string | null,
+  personTitle: "Sales Advisor",
+  photo: "/brand/marie.webp",
+  vcard: "/marie-segments.vcf",
   hours: "10:00 AM – 6:00 PM (UAE time)" as string | null,
-  phoneUrl: "tel:+971542119496",
+  phoneUrl: "tel:+971528364053",
+  // Where enquiries from the form and Pip are delivered. Stays ganushi@segments.ae: until segments.ae is verified in
+  // Resend, Resend only delivers to the account owner's address. TODO: switch to marie@segments.ae (or set
+  // RESEND_TO_EMAIL) once the domain is verified.
+  enquiryInbox: "ganushi@segments.ae",
 };
 
 export const pricing = {

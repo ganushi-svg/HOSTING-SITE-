@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
       to("/how-it-works", "infrastructure"),
       to("/contact", "contact"),
       to("/privacy", "privacy"),
+      { source: "/ganushi-kc.vcf", destination: "/marie-segments.vcf", permanent: false },
     ];
   },
   async headers() {

@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { CheckCircle2, LoaderCircle } from "lucide-react";
 import { QuoteIcon } from "./QuoteIcon";
+import { contact } from "@/lib/site";
 
 type State = "idle" | "sending" | "success" | "error";
 
@@ -45,8 +46,8 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
       <div className="form-done" role="status" aria-live="polite">
         <span className="form-done-ico" aria-hidden="true"><CheckCircle2 size={30} strokeWidth={1.8} /></span>
         <h4>Request sent</h4>
-        <p>Thank you. Your enquiry is with Ganushi KC, our Operations Manager, and the reply will come by email{sentTo ? <> to <b>{sentTo}</b></> : null}.</p>
-        <p className="form-done-sub">Need an answer sooner? Call in office hours or WhatsApp after hours on +971 54 211 9496.</p>
+        <p>Thank you. Your enquiry is with our team, and {contact.person}, our {contact.personTitle}, will reply by email{sentTo ? <> to <b>{sentTo}</b></> : null}.</p>
+        <p className="form-done-sub">Need an answer sooner? Call in office hours or WhatsApp after hours on {contact.phone}.</p>
         <button type="button" className="button button-outline" onClick={() => { setStatus("idle"); setSentTo(""); }}>Send another request</button>
       </div>
     );
