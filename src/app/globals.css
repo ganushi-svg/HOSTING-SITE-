@@ -1716,3 +1716,34 @@ h1, h2, .head h2 { color: #F8FAFC; letter-spacing: -0.015em; }
 .setup-media figcaption { font-size: 0.8125rem; }
 @media (max-width: 900px) { .setup-media { grid-template-columns: 1fr 1fr; } .setup-media .site-video { grid-column: 1 / -1; } .setup-media .site-photo.crop img { height: 220px; } .setup-media .site-video video { height: 360px; } }
 @media (max-width: 560px) { .setup-media { grid-template-columns: 1fr; } .setup-media .site-photo.crop img { height: auto; aspect-ratio: 4 / 3; } .setup-media .site-video video { height: 420px; } }
+
+/* Cooling drawings in 3D (Ganushi, 5 Nov 2026): pointer-following tilt, idle float, depth faces and more working parts.
+   Transform and opacity only. */
+.layout-stage { perspective: 1100px; }
+.sec-3d { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
+.sec-float { animation: sec-float 12s ease-in-out infinite; transform-origin: 50% 60%; }
+@keyframes sec-float { 0%, 100% { transform: rotateX(2deg) rotateY(-2deg); } 50% { transform: rotateX(1deg) rotateY(2deg) translateY(-3px); } }
+.section .m3-top { fill: url(#h-face); stroke: rgba(159, 208, 255, 0.35); stroke-width: 0.8; }
+.section .m3-side { fill: rgba(159, 208, 255, 0.08); stroke: rgba(159, 208, 255, 0.3); stroke-width: 0.8; }
+.section .heat { fill: #ff8a65; opacity: 0; animation: sec-heat 3.4s ease-in-out infinite; }
+@keyframes sec-heat { 0%, 100% { opacity: 0.02; } 50% { opacity: 0.16; } }
+.section .hash-bar { stroke: #22d3ee; stroke-width: 1.6; stroke-linecap: round; transform-box: fill-box; transform-origin: left center; animation: sec-hash 1.8s ease-in-out infinite; }
+@keyframes sec-hash { 0%, 100% { transform: scaleX(0.35); opacity: 0.5; } 50% { transform: scaleX(1); opacity: 1; } }
+.section .flow-cross circle { fill: #67e8f9; }
+.section .wave { animation: sec-wave 3s linear infinite; }
+.section .wave-slow { animation-duration: 5s; }
+@keyframes sec-wave { to { transform: translateX(20px); } }
+.section .plate-pulse { animation: sec-plate 1.6s ease-in-out infinite; }
+@keyframes sec-plate { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+.section .plc-bar { fill: #3ccf74; transform-box: fill-box; transform-origin: bottom; animation: sec-bar 1.3s ease-in-out infinite alternate; }
+@keyframes sec-bar { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
+.section .leak-scan { fill: #ff6b84; animation: sec-blink 0.9s steps(1) infinite; }
+.section .v-ring { fill: none; stroke: #D8B4FE; stroke-width: 1.2; transform-box: fill-box; transform-origin: center; animation: sec-ring 2.2s ease-out infinite; }
+@keyframes sec-ring { from { transform: scale(1); opacity: 0.8; } to { transform: scale(2.4); opacity: 0; } }
+.section .bvalve { transform-box: fill-box; transform-origin: center; animation: sec-valve 6s ease-in-out infinite; }
+@keyframes sec-valve { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(20deg); } }
+.section .ripple { fill: none; stroke: #8ec5ff; stroke-width: 0.8; transform-box: fill-box; transform-origin: center; animation: sec-ripple 1.8s ease-out infinite; }
+@keyframes sec-ripple { from { transform: scale(0.3); opacity: 0.9; } to { transform: scale(1.6); opacity: 0; } }
+.section .plume circle { fill: rgba(220, 230, 255, 0.5); animation: none; }
+@media (prefers-reduced-motion: reduce) { .sec-float { animation-duration: 24s; } .sec-3d { transition-duration: 1s; } }
+@media (hover: none) { .sec-3d { transform: none; } }

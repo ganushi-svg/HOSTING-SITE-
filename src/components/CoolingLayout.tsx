@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import type React from "react";
 import { airLayers, hydroLayers } from "@/lib/cooling-layout";
 
 /**
@@ -15,6 +16,15 @@ export function CoolingLayout({ kind }: { kind: "air" | "hydro" }) {
   const id = useId();
   const current = layers[active];
   const props = { active: layers[active].id, pick: (lid: string) => setActive(layers.findIndex((l) => l.id === lid)) };
+  // 3D tilt that follows the pointer (Ganushi, 5 Nov 2026): CSS variables only, so no re-render and transform-only motion.
+  const tilt = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    e.currentTarget.style.setProperty("--ry", `${(x * 10).toFixed(2)}deg`);
+    e.currentTarget.style.setProperty("--rx", `${(-y * 7).toFixed(2)}deg`);
+  };
+  const untilt = (e: React.PointerEvent<HTMLDivElement>) => { e.currentTarget.style.setProperty("--ry", "0deg"); e.currentTarget.style.setProperty("--rx", "0deg"); };
 
   return (
     <section className={`layout layout-${kind}`} aria-labelledby={`${id}-t`}>
@@ -24,8 +34,10 @@ export function CoolingLayout({ kind }: { kind: "air" | "hydro" }) {
         <p className="muted">{kind === "air" ? "A section through one hall, drawn from our hall drawing. Tap a layer to see what it does." : "A section through one container and its cooling tower. Tap a layer to see what it does."}</p>
       </div>
       <div className="layout-body">
-        <div className="panel layout-stage">
-          {kind === "air" ? <AirSection {...props} /> : <HydroSection {...props} />}
+        <div className="panel layout-stage" onPointerMove={tilt} onPointerLeave={untilt}>
+          <div className="sec-3d">
+            <div className="sec-float">{kind === "air" ? <AirSection {...props} /> : <HydroSection {...props} />}</div>
+          </div>
         </div>
         <div className="layout-side">
           <ol className="layout-list">
@@ -65,11 +77,11 @@ function Num({ n, x, y }: { n: number; x: number; y: number }) {
 }
 
 /** Dots travelling along a path, staggered. */
-function Flow({ d, n = 4, dur = 6, className = "", begin = 0 }: { d: string; n?: number; dur?: number; className?: string; begin?: number }) {
+function Flow({ d, n = 4, dur = 6, className = "", begin = 0, r = 2.6 }: { d: string; n?: number; dur?: number; className?: string; begin?: number; r?: number }) {
   return (
     <g className={`flow ${className}`}>
       {Array.from({ length: n }, (_, i) => (
-        <circle key={i} r="2.6">
+        <circle key={i} r={r}>
           <animateMotion dur={`${dur}s`} begin={`-${(begin + (i * dur) / n).toFixed(2)}s`} repeatCount="indefinite" path={d} />
         </circle>
       ))}
@@ -206,13 +218,31 @@ function HydroSection(p: SectionProps) {
         <pattern id="sec-grid-p" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H0 V20" fill="none" stroke="rgba(124,196,255,.12)" strokeWidth="1" /></pattern>
         <pattern id="sec-honey" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.6" fill="none" stroke="rgba(255,255,255,.45)" strokeWidth="0.6" /></pattern>
         <linearGradient id="sec-temp" x1="0" x2="1"><stop offset="0" stopColor="#22d3ee" stopOpacity="0.16" /><stop offset="0.55" stopColor="#22d3ee" stopOpacity="0.03" /><stop offset="0.75" stopColor="#ff8a65" stopOpacity="0.06" /><stop offset="1" stopColor="#ff8a65" stopOpacity="0.2" /></linearGradient>
+        <radialGradient id="h-shadow"><stop offset="0" stopColor="#000" stopOpacity="0.55" /><stop offset="1" stopColor="#000" stopOpacity="0" /></radialGradient>
+        <linearGradient id="h-face" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#9fd0ff" stopOpacity="0.22" /><stop offset="1" stopColor="#9fd0ff" stopOpacity="0.04" /></linearGradient>
+        <clipPath id="h-clip-tank"><rect x="337" y="47" width="34" height="28" /></clipPath>
+        <clipPath id="h-clip-basin"><rect x="525" y="207" width="150" height="42" /></clipPath>
+        <clipPath id="h-clip-buffer"><rect x="703" y="153" width="42" height="94" /></clipPath>
       </defs>
       <rect x="0" y="0" width="760" height="290" className="sec-grid" />
+      {/* ground shadows: the container and tower sit on the slab */}
+      <ellipse cx="240" cy="256" rx="230" ry="9" fill="url(#h-shadow)" />
+      <ellipse cx="610" cy="256" rx="110" ry="8" fill="url(#h-shadow)" />
       <rect x="0" y="252" width="760" height="10" className="slab" />
       {/* isometric lids give the container and tower some depth */}
       <path d="M40 34 l18 -12 h400 l-18 12z" className="lid" /><path d="M440 34 l18 -12 v218 l-18 -12z" className="lid lid-side" />
       <path d="M520 46 l14 -10 h160 l-14 10z" className="lid" /><path d="M680 46 l14 -10 v206 l-14 -10z" className="lid lid-side" />
-      <g className="plume"><circle r="4"><animateMotion dur="2.4s" begin="-0.0s" repeatCount="indefinite" path="M592 44 q-6 -14 -2 -30" /></circle><circle r="3"><animateMotion dur="2.4s" begin="-0.8s" repeatCount="indefinite" path="M600 44 q4 -14 2 -32" /></circle><circle r="3.5"><animateMotion dur="2.4s" begin="-1.6s" repeatCount="indefinite" path="M608 44 q6 -14 0 -30" /></circle></g>
+      <g className="plume">
+        {Array.from({ length: 9 }, (_, i) => {
+          const x = 584 + (i % 5) * 8, dx = (i % 2 ? 1 : -1) * (4 + (i % 3) * 3), dur = 2.6 + (i % 3) * 0.5;
+          return (
+            <circle key={i} r={2.5 + (i % 3)}>
+              <animateMotion dur={`${dur}s`} begin={`-${((i * dur) / 9).toFixed(2)}s`} repeatCount="indefinite" path={`M${x} 40 q${dx} -12 ${dx / 2} -32`} />
+              <animate attributeName="opacity" values="0;0.55;0" dur={`${dur}s`} begin={`-${((i * dur) / 9).toFixed(2)}s`} repeatCount="indefinite" />
+            </circle>
+          );
+        })}
+      </g>
       <text x="48" y="24" className="zone-label">Container</text>
       <text x="548" y="24" className="zone-label">Outside · cooling tower</text>
       {/* container shell */}
@@ -236,7 +266,20 @@ function HydroSection(p: SectionProps) {
               {r === 2 && <Num n={2} x={x + 52} y={48} />}
             </g>
             <g {...g("miners", p)}>
-              {[0, 1, 2, 3].map((i) => <g key={i}><rect x={x + 5} y={68 + i * 40} width="37" height="26" rx="3" className="miner hmine" /><circle cx={x + 37} cy={73 + i * 40} r="1.8" className="led-mini" style={{ animationDelay: `${((r * 4 + i) % 7) * 0.35}s` }} /></g>)}
+              {[0, 1, 2, 3].map((i) => {
+                const y = 68 + i * 40;
+                return (
+                  <g key={i}>
+                    {/* 3D block: top and side faces behind the front plate */}
+                    <path d={`M${x + 5} ${y} l5 -4 h37 l-5 4z`} className="m3-top" />
+                    <path d={`M${x + 42} ${y} l5 -4 v26 l-5 4z`} className="m3-side" />
+                    <rect x={x + 5} y={y} width="37" height="26" rx="3" className="miner hmine" />
+                    <rect x={x + 7} y={y + 2} width="33" height="22" rx="2" className="heat" style={{ animationDelay: `${((r * 4 + i) % 6) * 0.45}s` }} />
+                    <path d={`M${x + 10} ${y + 18} h20`} className="hash-bar" style={{ animationDelay: `${((r * 5 + i) % 7) * 0.3}s` }} />
+                    <circle cx={x + 37} cy={y + 5} r="1.8" className="led-mini" style={{ animationDelay: `${((r * 4 + i) % 7) * 0.35}s` }} />
+                  </g>
+                );
+              })}
               {r === 0 && <Num n={1} x={x + 24} y={48} />}
             </g>
           </g>
@@ -253,24 +296,27 @@ function HydroSection(p: SectionProps) {
       </g>
       <g {...g("tank", p)}>
         <rect x="334" y="44" width="40" height="34" rx="4" className="tank" />
-        <rect x="337" y="59" width="34" height="16" className="tank-water" />
+        <g clipPath="url(#h-clip-tank)"><g className="wave"><path d="M297 60 q5 -3 10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 V76 H297z" className="tank-water" /></g></g>
         <line x1="366" y1="47" x2="366" y2="75" className="sight" />
         <text x="354" y="90" className="tiny">make-up ≥ 2/3</text>
         <Num n={4} x={354} y={34} />
       </g>
       <g {...g("hx", p)}>
         <rect x="334" y="104" width="54" height="80" rx="4" className="hx" />
-        {Array.from({ length: 9 }, (_, i) => <line key={i} x1={339 + i * 6} y1="108" x2={339 + i * 6} y2="180" className="plate" />)}
+        {Array.from({ length: 9 }, (_, i) => <line key={i} x1={339 + i * 6} y1="108" x2={339 + i * 6} y2="180" className="plate plate-pulse" style={{ animationDelay: `${(i * 0.14).toFixed(2)}s` }} />)}
+        <path d="M336 106 l6 -5 h54 l-6 5z" className="m3-top" /><path d="M388 106 l6 -5 v78 l-6 5z" className="m3-side" />
         <text x="361" y="196" className="tiny">plate HX</text>
         <Num n={5} x={361} y={96} />
       </g>
       <g {...g("sensors", p)}>
         <rect x="396" y="44" width="36" height="46" rx="3" className="plc" />
         <rect x="400" y="48" width="28" height="18" rx="2" className="plc-screen" />
+        {[0, 1, 2, 3, 4].map((i) => <rect key={i} x={403 + i * 5} y="52" width="3" height="11" className="plc-bar" style={{ animationDelay: `${(i * 0.22).toFixed(2)}s` }} />)}
         <circle cx="406" cy="76" r="2.5" className="led" />
         <circle cx="414" cy="76" r="2.5" className="led led-2" />
         <text x="414" y="102" className="tiny">PLC</text>
         <path d="M60 247 H330" className="leak" />
+        <circle r="2.4" className="leak-scan"><animateMotion dur="5s" repeatCount="indefinite" path="M60 247 H330 H60" /></circle>
         <text x="140" y="262" className="tiny">leak-detection strip</text>
         <circle cx="330" cy="52" r="3" className="sensor" /><circle cx="330" cy="240" r="3" className="sensor" />
         <Num n={6} x={414} y={34} />
@@ -279,8 +325,8 @@ function HydroSection(p: SectionProps) {
       <g {...g("pipes", p)}>
         <path d="M388 130 H520" className="pipe-tower-hot" />
         <path d="M388 170 H520" className="pipe-tower-cold" />
-        <g className="bvalve" transform="translate(454 130)"><circle r="6" /><line x1="-4" y1="-4" x2="4" y2="4" /></g>
-        <g className="bvalve" transform="translate(454 170)"><circle r="6" /><line x1="-4" y1="-4" x2="4" y2="4" /></g>
+        <g transform="translate(454 130)"><circle r="6" className="v-ring" /><g className="bvalve"><circle r="6" /><line x1="-4" y1="-4" x2="4" y2="4" /></g></g>
+        <g transform="translate(454 170)"><circle r="6" className="v-ring" style={{ animationDelay: "1.1s" }} /><g className="bvalve"><circle r="6" /><line x1="-4" y1="-4" x2="4" y2="4" /></g></g>
         <text x="500" y="124" className="readout readout-hot">45 °C return</text>
         <text x="500" y="186" className="readout readout-cold">35 °C supply</text>
         <Num n={7} x={454} y={108} />
@@ -307,7 +353,8 @@ function HydroSection(p: SectionProps) {
       {/* 9 basin */}
       <g {...g("basin", p)}>
         <rect x="524" y="206" width="152" height="44" className="basin" />
-        <rect x="524" y="220" width="152" height="30" className="tank-water" />
+        <g clipPath="url(#h-clip-basin)"><g className="wave wave-slow"><path d="M484 221 q6 -3 12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 V252 H484z" className="tank-water" /></g></g>
+        {[545, 573, 601, 629, 657].map((cx, i) => <ellipse key={cx} cx={cx - 6} cy="221" rx="6" ry="1.8" className="ripple" style={{ animationDelay: `${(i * 0.36).toFixed(2)}s` }} />)}
         <circle cx="650" cy="224" r="4" className="float" />
         <rect x="536" y="226" width="12" height="18" className="strainer" />
         <text x="600" y="240" className="tiny">basin · strainer · blowdown</text>
@@ -316,11 +363,22 @@ function HydroSection(p: SectionProps) {
       {/* 10 supply */}
       <g {...g("supply", p)}>
         <rect x="700" y="150" width="48" height="100" rx="4" className="tank" />
-        <rect x="703" y="190" width="42" height="57" className="tank-water" />
+        <g clipPath="url(#h-clip-buffer)"><g className="wave"><path d="M663 191 q5 -3 10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 t10 0 V250 H663z" className="tank-water" /></g></g>
         <path d="M700 230 H676" className="pipe-water" />
         <text x="724" y="140" className="tiny">buffer tank</text>
         <Num n={10} x={724} y={122} />
       </g>
+      {/* coolant down each supply manifold, through every miner, up each return manifold */}
+      {[0, 1, 2].map((r) => {
+        const x = 72 + r * 72;
+        return (
+          <g key={`mf-${r}`}>
+            <Flow d={`M${x - 5.5} 60 V230`} n={3} dur={4} className="flow-coolant" begin={r * 0.5} r={1.8} />
+            <Flow d={`M${x + 52.5} 230 V60`} n={3} dur={4} className="flow-hot" begin={r * 0.5 + 0.3} r={1.8} />
+            {[0, 1, 2, 3].map((i) => <Flow key={i} d={`M${x - 4} ${80 + i * 40} H${x + 52}`} n={1} dur={2.8} className="flow-cross" begin={(r * 4 + i) * 0.37} r={1.5} />)}
+          </g>
+        );
+      })}
       {/* flows: sealed loop (cyan) and tower water (blue) */}
       <Flow d="M330 240 H60 V52 H330 V130 H388" n={6} dur={7} className="flow-coolant" />
       <Flow d="M388 170 H520 V214 M520 214 H670 V140 H600 V112 M600 112 H388 V170" n={5} dur={8} className="flow-tower" />
