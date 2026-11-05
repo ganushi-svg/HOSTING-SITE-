@@ -9,11 +9,12 @@ import { PowerCalculator } from "@/components/PowerCalculator";
 import { QuoteIcon } from "@/components/QuoteIcon";
 import { Reveal } from "@/components/Reveal";
 import { SitePhoto } from "@/components/SitePhoto";
+import { SiteVideo } from "@/components/SiteVideo";
 import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { models } from "@/lib/models";
-import { capacity, contact, photos, pricing, repair, site, whyHost, faqs, sections } from "@/lib/site";
+import { airVideos, capacity, contact, hydroVideos, photos, pricing, repair, site, whyHost, faqs, sections } from "@/lib/site";
 
 /**
  * The whole site is this one page, in a six-section executive flow (Ganushi, 4 Nov 2026): Overview, Infrastructure,
@@ -137,21 +138,40 @@ export default function Home() {
           <div className="setups">
             <div className="setups-head">
               <p className="eyebrow">The two setups</p>
-              <h3>How an air-cooled hall and a hydro container are built</h3>
-              <p className="muted">Layer-by-layer section drawings of both setups. Pick one, then tap a layer to see what it does.</p>
+              <h3>How our air-cooled and hydro-cooling mining systems are built</h3>
+              <p className="muted">Pick a system, tap a layer to see what it does, then see it for real in the photos and video from our sites.</p>
             </div>
             <Tabs
               label="The two setups"
               tabs={[
-                { id: "setup-air", label: "Air-cooled hall", content: <CoolingLayout kind="air" /> },
-                { id: "setup-hydro", label: "Hydro container", content: <CoolingLayout kind="hydro" /> },
+                {
+                  id: "setup-air", label: "Air-cooled mining system",
+                  content: (
+                    <div className="setup-pane">
+                      <CoolingLayout kind="air" />
+                      <div className="setup-media">
+                        <SitePhoto photo={photos.hallPadsAndRacks} crop sizes="(min-width: 840px) 36vw, 100vw" />
+                        <SitePhoto photo={photos.hallRackCloseup} crop sizes="(min-width: 840px) 36vw, 100vw" />
+                        <SiteVideo src={airVideos.wide.src} poster={airVideos.wide.poster} label="Air-cooled mining system video" caption={airVideos.wide.caption} />
+                      </div>
+                    </div>
+                  ),
+                },
+                {
+                  id: "setup-hydro", label: "Hydro-cooling mining system",
+                  content: (
+                    <div className="setup-pane">
+                      <CoolingLayout kind="hydro" />
+                      <div className="setup-media">
+                        <SitePhoto photo={photos.hydroContainerAisle} crop sizes="(min-width: 840px) 36vw, 100vw" />
+                        <SitePhoto photo={photos.hydroContainerDusk} crop sizes="(min-width: 840px) 36vw, 100vw" />
+                        <SiteVideo src={hydroVideos[0].src} poster={hydroVideos[0].poster} label="Hydro-cooling mining system video" caption={hydroVideos[0].caption} />
+                      </div>
+                    </div>
+                  ),
+                },
               ]}
             />
-          </div>
-          <div className="infra-photos">
-            <SitePhoto photo={photos.hallLongRacks} crop sizes="(min-width: 840px) 33vw, 100vw" />
-            <SitePhoto photo={photos.hydroContainerDusk} crop sizes="(min-width: 840px) 33vw, 100vw" />
-            <SitePhoto photo={photos.hallCoolingPadWall} crop sizes="(min-width: 840px) 33vw, 100vw" />
           </div>
         </div>
       </section>

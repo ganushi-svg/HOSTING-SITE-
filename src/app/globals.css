@@ -1707,3 +1707,12 @@ h1, h2, .head h2 { color: #F8FAFC; letter-spacing: -0.015em; }
 .model-name { display: grid; gap: 2px; justify-items: start; }
 .model-name .badge-gold { margin-top: 2px; }
 @media (max-width: 640px) { .model-thumb { width: 56px; height: 42px; border-radius: 10px; } .model-thumb img { width: 50px; height: 38px; } .model-cell { gap: 10px; } }
+
+/* The two setups: two best site photos and one video under each drawing (Ganushi, 5 Nov 2026) */
+.setup-pane { display: grid; gap: 22px; }
+.setup-media { display: grid; grid-template-columns: 1.3fr 1.3fr 1fr; gap: 16px; align-items: stretch; }
+.setup-media .site-photo.crop img { aspect-ratio: auto; height: 300px; }
+.setup-media .site-video video { aspect-ratio: auto; height: 300px; object-fit: cover; }
+.setup-media figcaption { font-size: 0.8125rem; }
+@media (max-width: 900px) { .setup-media { grid-template-columns: 1fr 1fr; } .setup-media .site-video { grid-column: 1 / -1; } .setup-media .site-photo.crop img { height: 220px; } .setup-media .site-video video { height: 360px; } }
+@media (max-width: 560px) { .setup-media { grid-template-columns: 1fr; } .setup-media .site-photo.crop img { height: auto; aspect-ratio: 4 / 3; } .setup-media .site-video video { height: 420px; } }

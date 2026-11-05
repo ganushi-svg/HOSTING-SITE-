@@ -19,7 +19,7 @@ export function CoolingLayout({ kind }: { kind: "air" | "hydro" }) {
   return (
     <section className={`layout layout-${kind}`} aria-labelledby={`${id}-t`}>
       <div className="layout-head">
-        <p className="eyebrow">{kind === "air" ? "Inside an air-cooled hall" : "Inside a hydro container"}</p>
+        <p className="eyebrow">{kind === "air" ? "Air-cooled mining system" : "Hydro-cooling mining system"}</p>
         <h3 id={`${id}-t`}>{kind === "air" ? "Follow the air through the hall, layer by layer" : "Follow the coolant from the miners to the tower"}</h3>
         <p className="muted">{kind === "air" ? "A section through one hall, drawn from our hall drawing. Tap a layer to see what it does." : "A section through one container and its cooling tower. Tap a layer to see what it does."}</p>
       </div>
