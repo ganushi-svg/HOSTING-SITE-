@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Fan } from "lucide-react";
 import { monthlyEstimate, usd, type Model } from "@/lib/models";
 import { EstimateButton } from "./PowerCalculator";
 
 /**
  * Supported hardware beside the calculator (Ganushi, 4 Nov 2026): the five flagship models by default, then a
  * "Show all 16 models" toggle. Every row has an Estimate button that pre-fills the calculator. Facts from models.ts.
+ * Each Antminer row shows a small product image from Bitmain's official shop, cut out with Adobe (public/miners/thumbs,
+ * 5 Nov 2026; see content/models.md). Non-Bitmain models get a neutral fan tile, since no image permission is recorded.
  */
 export function MachinesTable({ models, flagships }: { models: Model[]; flagships: string[] }) {
   const [all, setAll] = useState(false);
@@ -34,8 +36,18 @@ export function MachinesTable({ models, flagships }: { models: Model[]; flagship
               return (
                 <tr key={m.slug}>
                   <th scope="row">
-                    {m.name} {m.featured && <span className="badge-gold">Featured</span>}
-                    {m.wattsNote && <small className="cell-note">{m.wattsNote}</small>}
+                    <span className="model-cell">
+                      <span className={`model-thumb${m.maker === "Bitmain" ? "" : " is-generic"}`} aria-hidden={m.maker !== "Bitmain"}>
+                        {m.maker === "Bitmain" ? (
+                          // eslint-disable-next-line @next/next/no-img-element -- small transparent WebP thumbnail
+                          <img src={`/miners/thumbs/${m.slug}.webp`} width={64} height={48} alt={`${m.name}, product image from Bitmain`} loading="lazy" decoding="async" />
+                        ) : <Fan size={22} strokeWidth={1.6} />}
+                      </span>
+                      <span className="model-name">
+                        {m.name} {m.featured && <span className="badge-gold">Featured</span>}
+                        {m.wattsNote && <small className="cell-note">{m.wattsNote}</small>}
+                      </span>
+                    </span>
                   </th>
                   <td><span className={`cool-pill cool-${m.cooling.toLowerCase()}`}>{m.cooling}</span></td>
                   <td>{m.algorithm} · {m.coins}</td>

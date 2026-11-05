@@ -29,7 +29,7 @@ export function turntableFor(cooling: Model["cooling"]) {
 const tab = "Fleet nameplate table";
 
 export const models: Model[] = [
-  { slug: "antminer-z15-pro", name: "Antminer Z15 Pro", maker: "Bitmain", cooling: "Air", watts: 2560, hashrate: "840 kSol/s", algorithm: "Equihash", coins: "Zcash", wattsSource: "Published specification, confirmed by Ganushi KC", featured: true },
+  { slug: "antminer-z15-pro", name: "Antminer Z15 Pro", maker: "Bitmain", cooling: "Air", watts: 2780, hashrate: "840 kSol/s", algorithm: "Equihash", coins: "Zcash", wattsSource: "Bitmain official listing (shop.bitmain.com), 5 Nov 2026", featured: true },
   { slug: "antminer-s21-xp", name: "Antminer S21 XP", maker: "Bitmain", cooling: "Air", watts: 3645, hashrate: "270 TH/s", algorithm: "SHA-256", coins: "Bitcoin", wattsSource: tab },
   { slug: "antminer-s21-plus", name: "Antminer S21+", maker: "Bitmain", cooling: "Air", watts: 3564, hashrate: "235 TH/s", algorithm: "SHA-256", coins: "Bitcoin", wattsSource: tab },
   { slug: "antminer-s21", name: "Antminer S21", maker: "Bitmain", cooling: "Air", watts: 3500, hashrate: "200 TH/s", algorithm: "SHA-256", coins: "Bitcoin", wattsSource: tab },
