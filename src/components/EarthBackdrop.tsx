@@ -5,6 +5,8 @@
  * Abu Dhabi by curved links that carry data packets. Two depth layers drift at different speeds as the page scrolls
  * (CSS scroll-driven animation), and the hub breathes. Server component: pure SVG and CSS, transform and opacity only.
  */
+import { DayNight } from "./DayNight";
+
 const W = 2400, H = 1200;
 // lon/lat projected onto the 2400x1200 map, 78N to 60S (same projection as public/earth/dotmap.webp)
 const proj = (lon: number, lat: number): [number, number] => [((lon + 180) / 360) * W, ((78 - lat) / 138) * H];
@@ -35,6 +37,7 @@ export function EarthBackdrop() {
       <div className="eb-layer eb-far">
         <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice">
           <image href="/earth/dotmap.webp" x="0" y="0" width={W} height={H} />
+          <DayNight />
         </svg>
       </div>
       <div className="eb-layer eb-near">

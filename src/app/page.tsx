@@ -1,6 +1,7 @@
 import type React from "react";
 import { Clock, Droplets, FileBarChart, Mail, MapPin, Phone, Wrench, Zap } from "lucide-react";
 import { CoolingLayout } from "@/components/CoolingLayout";
+import { OpsPanel } from "@/components/OpsPanel";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
 import { MachinesTable } from "@/components/MachinesTable";
@@ -135,6 +136,7 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+          <OpsPanel />
           <div className="setups">
             <div className="setups-head">
               <p className="eyebrow">The two setups</p>
