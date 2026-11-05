@@ -8,6 +8,7 @@ import { Pip } from "@/components/Pip";
 import { PhotoLightbox } from "@/components/PhotoLightbox";
 import { Footer } from "@/components/Footer";
 import { Spotlight } from "@/components/Spotlight";
+import { EarthBackdrop } from "@/components/EarthBackdrop";
 import "./globals.css";
 
 const display = Space_Grotesk({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-display", display: "swap" });
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
-        <div className="watermark" aria-hidden="true" />
+        <EarthBackdrop />
         <a className="skip-link" href="#main">Skip to content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(org).replace(/</g, "\\u003c") }} />
         <Nav />
