@@ -1,5 +1,6 @@
 import type React from "react";
 import { Clock, Droplets, FileBarChart, Mail, MapPin, Phone, Wrench, Zap } from "lucide-react";
+import { CoolingLayout } from "@/components/CoolingLayout";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
 import { MachinesTable } from "@/components/MachinesTable";
@@ -8,6 +9,7 @@ import { PowerCalculator } from "@/components/PowerCalculator";
 import { QuoteIcon } from "@/components/QuoteIcon";
 import { Reveal } from "@/components/Reveal";
 import { SitePhoto } from "@/components/SitePhoto";
+import { Tabs } from "@/components/Tabs";
 import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { models } from "@/lib/models";
@@ -131,6 +133,20 @@ export default function Home() {
                 <ul className="dot-list">{c.points.map((t) => <li key={t}>{t}</li>)}</ul>
               </Reveal>
             ))}
+          </div>
+          <div className="setups">
+            <div className="setups-head">
+              <p className="eyebrow">The two setups</p>
+              <h3>How an air-cooled hall and a hydro container are built</h3>
+              <p className="muted">Layer-by-layer section drawings of both setups. Pick one, then tap a layer to see what it does.</p>
+            </div>
+            <Tabs
+              label="The two setups"
+              tabs={[
+                { id: "setup-air", label: "Air-cooled hall", content: <CoolingLayout kind="air" /> },
+                { id: "setup-hydro", label: "Hydro container", content: <CoolingLayout kind="hydro" /> },
+              ]}
+            />
           </div>
           <div className="infra-photos">
             <SitePhoto photo={photos.hallLongRacks} crop sizes="(min-width: 840px) 33vw, 100vw" />

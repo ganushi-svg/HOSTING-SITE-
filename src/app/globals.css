@@ -1694,3 +1694,6 @@ h1, h2, .head h2 { color: #F8FAFC; letter-spacing: -0.015em; }
 .faq details p { color: #94A3B8; line-height: 1.6; }
 @media (max-width: 1000px) { .infra-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .key-terms ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .infra-grid, .infra-photos { grid-template-columns: 1fr; } .key-terms ul { grid-template-columns: 1fr; } }
+.setups { margin-top: 36px; display: grid; gap: 14px; }
+.setups-head { display: grid; gap: 4px; }
+.setups-head h3 { font-size: 1.4rem; }
