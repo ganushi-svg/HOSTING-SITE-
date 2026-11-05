@@ -44,3 +44,5 @@ Ganushi KC asked for the original Antminer mark on the miners. The logo (ANTMINE
 
 ## Hash rates added 4 Nov 2026
 At Ganushi KC's request every model now shows a hash rate. S21 XP 270 TH/s (Ganushi). Published specifications, web-checked the same day: S21 200 TH/s, S19 XP 140 TH/s, S21 Hydro 335 TH/s, KS5 20 TH/s, Whatsminer M30S++ 112 TH/s, D9 1,770 GH/s. The D9 is published at 2,839 W; the site keeps the fleet nameplate figure of 3,060 W.
+
+- Logo placement (Ganushi, 5 Nov 2026): the Antminer logo is printed on the side panel of every miner render and stays fixed to the miner: it turns with it in the rotating turntables, and the static render beside the calculator (air and hydro, plus their blueprint traces) shows it on the visible side panel in perspective. Same panel position in every view; logo from Bitmain's site, used with permission.
