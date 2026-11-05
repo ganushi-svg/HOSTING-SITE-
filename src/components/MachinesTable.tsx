@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Fan } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { monthlyEstimate, usd, type Model } from "@/lib/models";
 import { EstimateButton } from "./PowerCalculator";
 
@@ -9,7 +9,8 @@ import { EstimateButton } from "./PowerCalculator";
  * Supported hardware beside the calculator (Ganushi, 4 Nov 2026): the five flagship models by default, then a
  * "Show all 16 models" toggle. Every row has an Estimate button that pre-fills the calculator. Facts from models.ts.
  * Each Antminer row shows a small product image from Bitmain's official shop, cut out with Adobe (public/miners/thumbs,
- * 5 Nov 2026; see content/models.md). Non-Bitmain models get a neutral fan tile, since no image permission is recorded.
+ * 5 Nov 2026; see content/models.md). The Whatsminer M30S++ (MicroBT, discontinued, no official image online) shows our own
+ * rendered illustration of its chassis, labelled as an illustration in the alt text.
  */
 export function MachinesTable({ models, flagships }: { models: Model[]; flagships: string[] }) {
   const [all, setAll] = useState(false);
@@ -37,11 +38,9 @@ export function MachinesTable({ models, flagships }: { models: Model[]; flagship
                 <tr key={m.slug}>
                   <th scope="row">
                     <span className="model-cell">
-                      <span className={`model-thumb${m.maker === "Bitmain" ? "" : " is-generic"}`} aria-hidden={m.maker !== "Bitmain"}>
-                        {m.maker === "Bitmain" ? (
-                          // eslint-disable-next-line @next/next/no-img-element -- small transparent WebP thumbnail
-                          <img src={`/miners/thumbs/${m.slug}.webp`} width={64} height={48} alt={`${m.name}, product image from Bitmain`} loading="lazy" decoding="async" />
-                        ) : <Fan size={22} strokeWidth={1.6} />}
+                      <span className="model-thumb">
+                        {/* eslint-disable-next-line @next/next/no-img-element -- small transparent WebP thumbnail */}
+                        <img src={`/miners/thumbs/${m.slug}.webp`} width={64} height={48} alt={m.maker === "Bitmain" ? `${m.name}, product image from Bitmain` : `${m.name}, illustration`} loading="lazy" decoding="async" />
                       </span>
                       <span className="model-name">
                         {m.name} {m.featured && <span className="badge-gold">Featured</span>}
