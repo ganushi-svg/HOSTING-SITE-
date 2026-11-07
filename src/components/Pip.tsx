@@ -5,6 +5,7 @@ import { Send, X } from "lucide-react";
 import { PIP, pipAnswer, type PipReply } from "@/lib/pip-brain";
 import { contact } from "@/lib/site";
 import { WhatsAppIcon } from "./WhatsAppButton";
+import { PipCharacter, usePipChar } from "./PipCharacters";
 
 type Mood = "idle" | "wave" | "think" | "talk" | "happy" | "listen";
 type Msg = { id: number; from: "pip" | "you"; text: string; chips?: string[]; go?: PipReply["go"]; whatsapp?: string | boolean; sent?: boolean };
@@ -23,6 +24,7 @@ const POS = "pip-pos"; // where the visitor dragged Pip, as right/bottom offsets
  */
 export function Pip() {
   const [open, setOpen] = useState(false);
+  const [char] = usePipChar(); // preview: which of the four new characters is shown (PipCharacters.tsx)
   const [mood, setMood] = useState<Mood>("idle");
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [typing, setTyping] = useState(false);
@@ -211,13 +213,13 @@ export function Pip() {
         aria-label={open ? "Close Pip, the hosting assistant" : "Ask Pip, the hosting assistant"}
       >
         <span className="pip-disc" aria-hidden="true" />
-        <PipAvatar mood={open ? mood : hello ? "wave" : "idle"} />
+        <PipCharacter char={char} mood={open ? mood : hello ? "wave" : "idle"} />
         {!open && <span className={`pip-hint${hello ? " is-on" : ""}`} aria-hidden="true">{hello ? "Hi there! I'm Pip 👋" : "Ask Pip · drag me"}</span>}
       </button>
 
       <section id={panelId} style={panelStyle} className={`pip-panel${open ? " is-open" : ""}${onLeft ? " is-left" : ""}${panelBelow ? " is-below" : ""}`} role="dialog" aria-modal="false" aria-label={`${PIP.name}, ${PIP.role}`} aria-hidden={!open}>
         <header className="pip-head">
-          <span className="pip-head-avatar"><PipAvatar mood={mood} /></span>
+          <span className="pip-head-avatar"><PipCharacter char={char} mood={mood} /></span>
           <div className="pip-head-text">
             <b>{PIP.name}</b>
             <small>{PIP.role} · <i className="pip-online" aria-hidden="true" /> online</small>
@@ -262,7 +264,7 @@ export function Pip() {
  * The character: a round blue body on two little legs, two arms with gold hands, the gold antenna and the Segments
  * mark. Every limb is its own group with a transform origin at its joint, so moods can wave, gesture, hop and tuck.
  */
-function PipAvatar({ mood }: { mood: Mood }) {
+export function PipAvatar({ mood }: { mood: Mood }) {
   return (
     <svg className={`pip pip-${mood}`} viewBox="0 0 120 150" aria-hidden="true" focusable="false">
       <defs>

@@ -5,6 +5,7 @@ import { contact, site } from "@/lib/site";
 import { Nav } from "@/components/Nav";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Pip } from "@/components/Pip";
+import { PipPicker } from "@/components/PipCharacters";
 import { PhotoLightbox } from "@/components/PhotoLightbox";
 import { Footer } from "@/components/Footer";
 import { Spotlight } from "@/components/Spotlight";
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <Footer />
         <WhatsAppButton />
         <Pip />
+        <PipPicker />
         <PhotoLightbox />
         <Spotlight />
       </body>
