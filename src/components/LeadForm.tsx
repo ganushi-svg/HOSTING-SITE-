@@ -26,6 +26,7 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
       const result: { message?: string } = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.message || "We could not send your request. Please email or call us.");
       setStatus("success");
+      window.dispatchEvent(new Event("pip-cheer")); // Pip reacts to a sent enquiry
       setMessage("Request sent. We will reply by email.");
       form.reset();
     } catch (error) {
