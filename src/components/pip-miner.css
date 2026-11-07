@@ -1,0 +1,66 @@
+/* Pip as Miner buddy (Ganushi, 7 Nov 2026): character motion, the welcome card and the section tips.
+   Colours come from the theme tokens (--elev, --hi, --lo, --accent), so every theme dresses it in its own palette.
+   Motion is transform and opacity only. */
+
+.pc .pc-float { transform-box: fill-box; transform-origin: 50% 100%; animation: pc-float 4.2s ease-in-out infinite; }
+@keyframes pc-float { 50% { transform: translateY(-4px); } }
+.pc .pc-shadow, .pc .pc-ground { transform-box: fill-box; transform-origin: center; animation: pc-shadow 4.2s ease-in-out infinite; }
+@keyframes pc-shadow { 50% { transform: scale(0.88); opacity: 0.7; } }
+.pc-happy .pc-float { animation: pc-hop 0.9s cubic-bezier(0.3, 1.6, 0.5, 1) 2; }
+@keyframes pc-hop { 0%, 100% { transform: none; } 40% { transform: translateY(-10px) scale(1.03, 0.98); } }
+.pc-wave .pc-float { animation: pc-wave 1.3s ease-in-out 3; }
+@keyframes pc-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-7deg); } 75% { transform: rotate(7deg); } }
+.pc .pc-look { transform: translate(calc(var(--pip-ex, 0) * 2.4px), calc(var(--pip-ey, 0) * 1.5px)); transition: transform 0.3s ease-out; }
+.pc .pc-blink { transform-box: fill-box; transform-origin: center; animation: pc-blink 5.5s infinite; }
+@keyframes pc-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+.pc-talk .pc-blink { animation: pc-talk 0.45s ease-in-out infinite alternate; }
+@keyframes pc-talk { to { transform: scaleY(0.72); } }
+.pc .pc-dots circle { transform-box: fill-box; transform-origin: center; opacity: 0.3; animation: pc-dot 1.1s ease-in-out infinite; }
+.pc .pc-dots circle:nth-child(2) { animation-delay: 0.18s; } .pc .pc-dots circle:nth-child(3) { animation-delay: 0.36s; }
+@keyframes pc-dot { 50% { opacity: 1; transform: translateY(-2px); } }
+.pc .pc-fan { transform-box: fill-box; transform-origin: center; animation: pc-spin 2.6s linear infinite; }
+.pc-think .pc-fan { animation-duration: 0.4s; }
+.pc-happy .pc-fan, .pc-talk .pc-fan, .pc-wave .pc-fan { animation-duration: 1.1s; }
+@keyframes pc-spin { to { transform: rotate(360deg); } }
+.pc .pc-blur { opacity: 0; transition: opacity 0.35s; }
+.pc-think .pc-blur { opacity: 1; }
+.pc .pc-led { animation: pc-led 1.6s steps(1) infinite; }
+.pc-think .pc-led { animation-duration: 0.4s; }
+@keyframes pc-led { 50% { opacity: 0.3; } }
+.pc .pc-activity { transform-box: fill-box; transform-origin: center; transform: scaleX(0.35); opacity: 0.45; transition: transform 0.3s, opacity 0.3s; }
+.pc-talk .pc-activity { animation: pc-activity 0.5s ease-in-out infinite alternate; }
+.pc-think .pc-activity { transform: scaleX(1); opacity: 1; animation: pc-led 0.6s steps(1) infinite; }
+.pc-happy .pc-activity, .pc-wave .pc-activity { transform: scaleX(1); opacity: 0.9; }
+@keyframes pc-activity { from { transform: scaleX(0.4); opacity: 0.6; } to { transform: scaleX(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .pc .pc-float, .pc .pc-shadow, .pc .pc-ground { animation-duration: 9s; } .pc .pc-fan { animation-duration: 6s; } }
+
+/* Welcome card and section tips: speech cards that come from Pip's corner */
+.pip-welcome, .pip-tip {
+  position: fixed; z-index: 49; width: min(340px, calc(100vw - 24px)); padding: 16px 16px 14px; border-radius: 18px; color: var(--hi, #f8fafc);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)), color-mix(in srgb, var(--elev, #161022) 92%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 24px 60px -24px rgba(0, 0, 0, 0.75);
+  animation: pip-card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; transform-origin: 100% 100%;
+}
+.pip-welcome.is-left, .pip-tip.is-left { transform-origin: 0% 100%; }
+.pip-welcome.is-below, .pip-tip.is-below { transform-origin: 100% 0%; }
+@keyframes pip-card-in { from { opacity: 0; transform: translateY(10px) scale(0.94); } to { opacity: 1; transform: none; } }
+.pip-tip { width: min(300px, calc(100vw - 24px)); padding: 12px 14px; border-radius: 16px; }
+.pw-close { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.1); color: var(--hi, #f8fafc); font-size: 15px; line-height: 1; cursor: pointer; }
+.pw-close:hover { background: rgba(255, 255, 255, 0.2); }
+.pw-kicker { margin: 0 0 4px; font: 600 11px/1.2 var(--ff-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #C084FC) !important; }
+.pw-title { margin: 0 30px 6px 0; font: 700 1.08rem/1.3 var(--ff-display); color: var(--hi, #f8fafc) !important; }
+.pw-text, .pip-tip p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--lo, #94a3b8) !important; }
+.pip-tip p { padding-right: 24px; color: var(--hi, #f8fafc) !important; }
+.pw-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.pw-chips button, .pw-chips a {
+  font: 600 0.8rem/1 var(--ff-body); padding: 9px 12px; border-radius: 999px; cursor: pointer; text-decoration: none;
+  color: var(--hi, #f8fafc); background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.22); transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.pw-chips button:hover, .pw-chips a:hover { background: rgba(255, 255, 255, 0.16); border-color: var(--accent, #C084FC); transform: translateY(-1px); }
+.pw-chips .is-primary { border-color: var(--accent, #C084FC); background: color-mix(in srgb, var(--accent, #C084FC) 22%, transparent); }
+.pw-close:focus-visible, .pw-chips button:focus-visible, .pw-chips a:focus-visible { outline: 2px solid var(--accent, #C084FC); outline-offset: 2px; }
+.pip-tip-bar { position: absolute; left: 14px; right: 14px; bottom: 0; height: 2px; border-radius: 2px; background: var(--accent, #C084FC); opacity: 0.7; transform-origin: left; animation: pip-tip-time 8s linear both; }
+@keyframes pip-tip-time { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@media (max-width: 720px) { .pip-welcome, .pip-tip { left: 12px !important; right: 12px !important; width: auto; } }
+@media (prefers-reduced-motion: reduce) { .pip-welcome, .pip-tip { animation-duration: 1s; } }

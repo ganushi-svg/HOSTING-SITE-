@@ -34,6 +34,7 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
       if (!response.ok) throw new Error(result.message || "We could not send your request. Please email or call us.");
       setSentTo(String(data.email || ""));
       setStatus("success");
+      window.dispatchEvent(new Event("pip-cheer")); // Pip reacts to a sent enquiry
       form.reset();
     } catch (error) {
       setStatus("error");
