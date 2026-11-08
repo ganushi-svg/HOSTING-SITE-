@@ -22,8 +22,9 @@
 .pc-think .pc-fan { animation-duration: 0.4s; }
 .pc-happy .pc-fan, .pc-talk .pc-fan, .pc-wave .pc-fan { animation-duration: 1.1s; }
 @keyframes pc-spin { to { transform: rotate(360deg); } }
-.pc .pc-blur { opacity: 0; transition: opacity 0.35s; }
-.pc-think .pc-blur { opacity: 1; }
+.pc .pc-blur { opacity: 0.55; transition: opacity 0.35s; }
+.pc-think .pc-blur { opacity: 0.95; }
+.pc-miner .pc-fan { opacity: 0.8; }
 .pc .pc-led { animation: pc-led 1.6s steps(1) infinite; }
 .pc-think .pc-led { animation-duration: 0.4s; }
 @keyframes pc-led { 50% { opacity: 0.3; } }
