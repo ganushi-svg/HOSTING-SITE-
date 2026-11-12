@@ -1,0 +1,85 @@
+/* Monitoring sample dashboards (Ganushi, 12 Nov 2026). Theme tokens only; static colours for status meaning.
+   Motion is transform and opacity only, and nothing blinks, so the views stay calm to read. */
+.monitoring { margin-top: 56px; }
+.monitoring-head { max-width: 760px; margin-bottom: 18px; }
+.monitoring-head h3 { margin: 6px 0 8px; font: 700 clamp(1.3rem, 2vw, 1.6rem)/1.2 var(--ff-display); color: var(--hi, #f8fafc); }
+.mon-panel { padding: 18px 20px 20px; }
+.mon-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.mon-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.mon-tabs button { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 999px; cursor: pointer; font: 600 0.86rem/1 var(--ff-body);
+  color: var(--lo, #94a3b8); background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12); transition: color 0.2s, border-color 0.2s, background 0.2s; }
+.mon-tabs button:hover { color: var(--hi, #f8fafc); }
+.mon-tabs button[aria-selected="true"] { color: var(--hi, #f8fafc); border-color: var(--accent, #C084FC); background: color-mix(in srgb, var(--accent, #C084FC) 18%, transparent); }
+.mon-tabs button:focus-visible { outline: 2px solid var(--accent, #C084FC); outline-offset: 2px; }
+.mon-sample { display: inline-flex; align-items: center; gap: 7px; font: 600 0.72rem/1 var(--ff-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--lo, #94a3b8); }
+.mon-sample i { width: 7px; height: 7px; border-radius: 50%; background: #f7be27; }
+.mon-view { animation: mon-in 0.35s ease-out both; }
+@keyframes mon-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.mon-intro { margin: 0 0 14px; font-size: 0.92rem; color: var(--lo, #94a3b8); }
+.mon-kpis { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin: 0 0 16px; }
+.mon-kpis > div { padding: 11px 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.03); min-width: 0; }
+.mon-kpis dt { font-size: 0.72rem; line-height: 1.3; color: var(--lo, #94a3b8); }
+.mon-kpis dd { margin: 4px 0 0; font: 700 1.2rem/1.1 var(--ff-mono, monospace); color: var(--hi, #f8fafc); white-space: nowrap; }
+.mon-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 16px; align-items: start; }
+.mon-chart { margin: 0 0 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(0, 0, 0, 0.18); }
+.mon-chart figcaption { font: 600 0.74rem/1.2 var(--ff-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--lo, #94a3b8); margin-bottom: 10px; }
+/* temperature columns */
+.mon-bars { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; height: 150px; padding-top: 4px; align-items: end; }
+.mon-bar-col { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 4px; }
+.mon-bar { display: block; width: 100%; max-width: 30px; flex: 1; border-radius: 6px 6px 2px 2px; transform-origin: bottom; background: linear-gradient(180deg, #22d3ee, color-mix(in srgb, #22d3ee 35%, transparent)); }
+.mon-bar.is-warm { background: linear-gradient(180deg, #f7be27, color-mix(in srgb, #f7be27 35%, transparent)); }
+.mon-bar-col b { font-size: 0.75rem; color: var(--hi, #f8fafc); }
+.mon-bar-col small { font-size: 0.7rem; color: var(--lo, #94a3b8); }
+.mon-limit { position: absolute; left: 0; right: 0; height: 0; border-top: 1px dashed rgba(247, 190, 39, 0.75); z-index: 1; pointer-events: none; }
+.mon-limit i { position: absolute; right: 0; top: -16px; font: 600 0.66rem/1 var(--ff-body); font-style: normal; color: #f7be27; }
+/* stacked power bar */
+.mon-stack { display: flex; height: 22px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); }
+.mon-stack span { display: block; min-width: 2px; }
+.seg-miners { background: color-mix(in srgb, var(--accent, #C084FC) 80%, #1f4e9e); }
+.seg-cooling { background: #127c76; }
+.seg-other { background: #8995a2; }
+.seg-free { background: #2f9e65; }
+.seg-margin { background: repeating-linear-gradient(135deg, rgba(247, 190, 39, 0.85) 0 6px, rgba(247, 190, 39, 0.25) 6px 12px); }
+.mon-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0 0; padding: 0; font-size: 0.78rem; color: var(--lo, #94a3b8); }
+.mon-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.mon-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.mon-legend b { color: var(--hi, #f8fafc); font-weight: 600; }
+.mon-legend-total { margin-left: auto; }
+/* repair pipeline */
+.mon-pipeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.mon-pipeline li { display: grid; grid-template-columns: 22px minmax(0, 1.3fr) minmax(0, 1fr) 20px; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--hi, #f8fafc); }
+.mon-step { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-size: 0.7rem; border: 1px solid var(--accent, #C084FC); color: var(--hi, #f8fafc); }
+.mon-stage { line-height: 1.25; }
+.mon-track { height: 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.mon-track span { display: block; height: 100%; transform-origin: left; border-radius: 6px; background: linear-gradient(90deg, var(--accent, #C084FC), #22d3ee); }
+.mon-pipeline b { text-align: right; }
+/* tables */
+.mon-table-wrap { overflow-x: auto; min-width: 0; }
+.mon-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.mon-table th, .mon-table td { padding: 9px 10px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.08); vertical-align: top; color: var(--hi, #f8fafc); }
+.mon-table thead th { font: 600 0.7rem/1.2 var(--ff-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--lo, #94a3b8); }
+.mon-table td { color: var(--lo, #94a3b8); }
+.mon-table .num { text-align: right; }
+.mon-table small { display: block; font-size: 0.72rem; color: var(--lo, #94a3b8); margin-top: 2px; }
+.mon-pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; white-space: nowrap; border: 1px solid transparent; }
+.mon-pill.is-ok { color: #6ee7a8; border-color: rgba(110, 231, 168, 0.4); background: rgba(47, 158, 101, 0.14); }
+.mon-pill.is-watch { color: #fcd468; border-color: rgba(247, 190, 39, 0.45); background: rgba(247, 190, 39, 0.12); }
+.mon-pill.is-risk { color: #fca5a5; border-color: rgba(239, 68, 68, 0.45); background: rgba(239, 68, 68, 0.12); }
+.mon-pill.is-info { color: #a5f3fc; border-color: rgba(34, 211, 238, 0.45); background: rgba(34, 211, 238, 0.12); }
+/* site camera recordings */
+.site-cams { margin-top: 28px; }
+.site-cams-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.cam-tile { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); background: #000; }
+.cam-tile .site-video { margin: 0; }
+.cam-badge { position: absolute; z-index: 2; top: 10px; left: 10px; display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; font: 600 0.72rem/1 var(--ff-body); color: #fff; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); pointer-events: none; }
+.cam-badge i { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: cam-rec 1.6s ease-in-out infinite; }
+@keyframes cam-rec { 50% { opacity: 0.35; } }
+.cam-id { position: absolute; z-index: 2; right: 10px; bottom: 10px; font: 600 0.7rem/1 var(--ff-mono, monospace); color: rgba(255, 255, 255, 0.85); background: rgba(0, 0, 0, 0.5); padding: 5px 8px; border-radius: 6px; pointer-events: none; }
+@media (max-width: 1000px) { .mon-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } .mon-split { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .mon-panel { padding: 14px; } .mon-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mon-kpis dd { font-size: 1.05rem; }
+  .mon-tabs button { padding: 8px 11px; font-size: 0.8rem; } .site-cams-grid { grid-template-columns: 1fr; }
+  .mon-table { font-size: 0.78rem; } .mon-table th, .mon-table td { padding: 8px 6px; }
+  .mon-legend-total { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .mon-view { animation-duration: 0.8s; } .cam-badge i { animation-duration: 3s; } }

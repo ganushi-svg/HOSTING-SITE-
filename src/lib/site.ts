@@ -259,6 +259,11 @@ export const airVideos = {
 // back as a seamless 5.6 s loop; 720p, 30 fps, no audio.
 export const hydroContainerVideo = { src: "/video/hydro-container-night.mp4", poster: "/video/hydro-container-night-poster.webp", caption: "Hydro container at night · Abu Dhabi" };
 
+// Site camera recordings (Ganushi KC, 12 Nov 2026): two clips, labelled "Site camera · Recorded on site" (never "live").
+// TODO: Ganushi to share the Drive folder with the two camera clips; each is trimmed, compressed, checked for faces,
+// plates and security detail, then added here as { src, poster, cam: "CAM 01", caption }.
+export const siteCameras: { src: string; poster: string; cam: string; caption: string }[] = [];
+
 export const siteVideo = {
   // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.
   src: "/video/installed-miners.mp4",
@@ -322,7 +327,7 @@ export const services = {
     "A monthly power and hosting report with running days, energy and charge for each machine.",
     "A repair log showing every stage of each repair.",
   ],
-  modelsAir: ["Antminer Z15 Pro", "S21 XP", "S21+", "S21", "S19 XP", "L9", "L7", "D9", "KS5", "Whatsminer M30S++", "IceRiver AL3"],
+  modelsAir: ["Antminer Z15 Pro", "S21 XP", "S21+", "S21", "S19 XP", "L9", "L7", "D9", "KS5", "AL1", "Whatsminer M30S++", "IceRiver AL3", "IceRiver ALEO AE3", "IceRiver ALEO AE2"],
   modelsHydro: ["Antminer S21 XP Hydro", "S21+ Hydro", "S21 Hydro", "S19 XP Hydro", "S19 Pro+ Hydro", "S19 Pro Hydro"],
 };
 
