@@ -44,11 +44,9 @@ Tone-corrected with Adobe Lightroom auto tone through the Adobe connector (Ganus
 - hall-miner-closeup-blue, hall-fan-corridor, hall-open-racks: second air-cooled hall
 Not used: one hydro photo shows two identifiable people; one shows stacked hydro units with readable asset tags and barcodes; others repeat better shots.
 Removed 4 Nov 2026 at Ganushi's request: hydro-container-dusk (replaced by the hydro-container-night video) and hydro-rack-row.
-Retired from the page (replaced by better shots): power-distribution, hall-fan-wall, site-exterior, hydro-pumps.
+Retired from the page (replaced by better shots): power-distribution; hall-fan-wall, site-exterior and hydro-pumps were deleted on 12 Nov 2026 (installation-phase photos).
 
-## Photos (installation phase)
-Source: Drive › installed (WhatsApp photos, Aug–Sep 2025). Installation phase, no identifiable people.
-- hall-fan-wall: exhaust fan wall in an air-cooled hall during fit-out (23 Aug 2025)
-- site-exterior: mining halls at a UAE site (6 Sep 2025)
-- cooling-unit: top of a hydro container with its louvred vents, coolant pipework alongside, during installation (4 Sep 2025). Caption written 12 Nov 2026: "Hydro container and pipework during installation · Abu Dhabi, September 2025". Not shown on the page.
-- hydro-pumps: water tank and two pumps beside a hall during fit-out (4 Sep 2025). Caption written 12 Nov 2026: "Water tank and pumps beside a hall during fit-out · Abu Dhabi, September 2025". Not shown on the page.
+## Photos (installation phase) — removed 12 Nov 2026
+Ganushi does not want installation-phase photos on the site. The four WhatsApp photos from Aug–Sep 2025 (fan wall during
+fit-out, site exterior, a hydro container being installed, and a water tank with pumps) were deleted from the repository
+on 12 Nov 2026; none of them was on the page at the time. Do not add construction or fit-out photos again.
