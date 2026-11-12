@@ -5,6 +5,9 @@ import { OpsPanel } from "@/components/OpsPanel";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
 import { LegalNotices } from "@/components/LegalNotices";
+import { HostingOverview } from "@/components/HostingOverview";
+import { MonitoringSamples } from "@/components/MonitoringSamples";
+import { SiteCameras } from "@/components/SiteCameras";
 import { MachinesTable } from "@/components/MachinesTable";
 import { CountUp } from "@/components/CountUp";
 import { PowerCalculator } from "@/components/PowerCalculator";
@@ -122,6 +125,8 @@ export default function Home() {
         </div>
       </section>
 
+      <HostingOverview />
+
       {/* INFRASTRUCTURE */}
       <section id="infrastructure" className="section alt" aria-labelledby="infrastructure-title">
         <div className="container">
@@ -175,6 +180,8 @@ export default function Home() {
               ]}
             />
           </div>
+          <MonitoringSamples />
+          <SiteCameras />
         </div>
       </section>
 
