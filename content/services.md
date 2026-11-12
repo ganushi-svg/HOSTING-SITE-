@@ -44,3 +44,16 @@ Source: Site Balance Power › Models tab (fleet nameplate table).
 - Sample client report on the site: illustrative figures only, built from the published models and an example rate; not a real client extract (Ganushi KC, 4 Nov 2026).
 
 - Repair video (4 Nov 2026): the supplied clip carries only about 4 real frames a second, so it is re-encoded with motion-compensated interpolation (ffmpeg minterpolate) to a true 30 fps, the out-of-focus funnel shot cut, keyframe every second, no audio, metadata stripped.
+
+## Monitoring samples and site cameras (Ganushi KC, 12 Nov 2026)
+- The Infrastructure section shows "How we watch your machines": sample views of three of Segments' own dashboards
+  (the sites operations status deck, the Foreman site power planner and the repair-team monitoring board), cleaned for
+  the public site at Ganushi's request ("all three sample in a very good way where clients won't get disturbed").
+- Every figure in those views is illustrative, labelled "Sample view · illustrative figures" on the page, and lives in
+  src/lib/monitoring-samples.ts. Halls, clients and repair tickets carry generic labels; no site name, person, IP,
+  wallet, supplier or internal capacity figure from the source dashboards is used. The repair view uses the site's own
+  five repair steps.
+- Site camera recordings: two clips from the site cameras, labelled "Site camera · Recorded on site" (Ganushi chose
+  this; recorded footage is never called live). Each clip must be trimmed, compressed and checked before use: faces,
+  number plates and screen text blurred, and no camera positions, entrances or other security detail visible.
+  TODO: Ganushi to share the Drive folder that holds the two clips (not found in the connected Drive on 12 Nov 2026).
