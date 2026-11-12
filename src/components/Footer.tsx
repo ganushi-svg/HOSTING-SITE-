@@ -19,7 +19,7 @@ export function Footer() {
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} {site.legalNames.join(" · ")} · Dubai, UAE</span>
-        <span><a href="#privacy">Privacy notice (draft)</a> · Terms of use on request{/* TODO legal: terms of use */}</span>
+        <span><a href="#privacy">Privacy notice</a> · <a href="#terms">Terms of use</a></span>
         <span>A hosting service. Mining returns are never guaranteed.</span>
       </div>
     </footer>

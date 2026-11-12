@@ -35,7 +35,7 @@ Not used from that deck: "Buy, Host & Earn" and its ROI/profit table (no profit 
 
 ## Machines we host
 Source: Site Balance Power › Models tab (fleet nameplate table).
-- Air-cooled: Antminer S21 XP, S21+, S21, S19 XP, L9, L7, D9, KS5; Whatsminer M30S++; IceRiver AL3 (AL-BOX).
+- Air-cooled: Antminer Z15 Pro, S21 XP, S21+, S21, S19 XP, L9, L7, D9, KS5, AL1; Whatsminer M30S++; IceRiver AL3, ALEO AE3, ALEO AE2 (AE3, AE2 and AL1 added 12 Nov 2026; content/models.md).
 - Hydro-cooled: Antminer S21 XP Hydro, S21+ Hydro, S21 Hydro, S19 XP Hydro, S19 Pro+ Hydro, S19 Pro Hydro.
 
 ## Still needed
