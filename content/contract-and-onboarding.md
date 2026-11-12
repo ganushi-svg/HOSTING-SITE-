@@ -17,3 +17,8 @@ Ganushi asked for the general steps to be set out from the known terms. Each ste
 - Payment terms: a deposit of one month of hosting; the hosting invoice is shared at the start of every month in each client's group (Ganushi KC, 4 Nov 2026).
 - Machine delivery and return: Segments picks up and delivers machines, with charges quoted by quantity; moves follow the hosting contract. Every unit is fully wrapped so no dust gets in, and bubble-wrapped against damage (Ganushi KC, 4 Nov 2026; replaces "charged by distance").
 - Notice period: set by the hosting contract agreed between the client and Segments; usually 2 months before ending (Ganushi KC, 4 Nov 2026).
+
+## Contract and signing (Ganushi KC, 12 Nov 2026)
+- Contracting party: Segments Cloud Computing LLC. The terms of use and privacy notice name it as the operator of the site; the footer still shows both group companies (Segments Cloud Computing LLC and Segments Cloud Electronics LLC).
+- Signing: the hosting contract is signed by the company's responsible person (Segments' authorised representative) and by the client, who joins the Segments family. Two copies are signed: one is given to the client and one is kept by Segments for its records.
+- Note: www.segments.ae names a different entity, Segments Cloud Hash FZ-LLC, in its own privacy policy and terms, and its terms say "Standard hosting plans take no deposit". This site keeps the deposit of one month of hosting (content/pricing.md) and Segments Cloud Computing LLC, as Ganushi confirmed.

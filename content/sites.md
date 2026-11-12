@@ -7,7 +7,12 @@ Publish at "Abu Dhabi" level: "sites all around Abu Dhabi" (Ganushi, 3 Nov 2026;
 - Cooling: all sites have air-cooled zones; one site also has a hydro-cooled zone.
 - Each site has a named site in-charge.
 - Total operating power capacity: 45 MW (content/performance.md).
-- Power capacity per site: TODO (capacity column is empty in the source sheet).
+- Power capacity per site: the per-site supply, load and balance figures are internal and live in Drive ›
+  "POWER UTILIZATION NEW" (reviewed 12 Nov 2026). They are not copied into this repository and are never shown on the
+  website. TODO: Ganushi to confirm how the published 45 MW (content/performance.md) relates to that sheet.
+
+## Caption style (Ganushi, 12 Nov 2026)
+Ganushi asked for the best captions in the site's style. Every photo and video caption is now one short, calm phrase followed by " · Abu Dhabi" (plus the month for installation-phase and quality photos), e.g. "Cooling pads facing the miner racks · Abu Dhabi". Area level only; no site names. Captions live in src/lib/site.ts.
 
 ## Photos (finished halls, added 28 Oct 2026)
 Source: Drive › two site folders › installed. Chosen because they show finished halls and contain no people.
@@ -20,7 +25,7 @@ Site names stay off the website; captions say "UAE site".
 ## Video
 - installed-miners.mp4: first 5 seconds of the "installed" walkthrough clip (Drive › site folder › installed), muted, cropped. Shows racked miners and power strips, no people.
 - Photos of the requested site arrived on 3 Nov 2026 (see below).
-- Larger site videos in Drive (including a hydro-site clip) are over the 10 MB connector limit. TODO: export shorter clips under 10 MB.
+- Larger site videos in Drive (including a hydro-site clip) were over the 10 MB connector limit. Resolved: the hydro and air-cooled clips arrived in the site photo zips on 3–4 Nov 2026 and play on the page (hydro container walk-through, air-cooled exhaust-fan tour).
 
 ## Photos (finished hall, professional shoot, added 3 Nov 2026)
 Source: site photo zip uploaded by Ganushi KC, 3 Nov 2026 (10 photos of the requested site). No people, no number plates.
@@ -45,5 +50,5 @@ Retired from the page (replaced by better shots): power-distribution, hall-fan-w
 Source: Drive › installed (WhatsApp photos, Aug–Sep 2025). Installation phase, no identifiable people.
 - hall-fan-wall: exhaust fan wall in an air-cooled hall during fit-out (23 Aug 2025)
 - site-exterior: mining halls at a UAE site (6 Sep 2025)
-- cooling-unit: equipment being installed on site (4 Sep 2025). TODO: confirm what this unit is
-- hydro-pumps: pumps and tank for a hydro-cooled hall during installation (4 Sep 2025). TODO: confirm caption
+- cooling-unit: top of a hydro container with its louvred vents, coolant pipework alongside, during installation (4 Sep 2025). Caption written 12 Nov 2026: "Hydro container and pipework during installation · Abu Dhabi, September 2025". Not shown on the page.
+- hydro-pumps: water tank and two pumps beside a hall during fit-out (4 Sep 2025). Caption written 12 Nov 2026: "Water tank and pumps beside a hall during fit-out · Abu Dhabi, September 2025". Not shown on the page.

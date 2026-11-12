@@ -5,7 +5,7 @@ import { pricing } from "./site";
 export type Model = {
   slug: string;
   name: string;
-  maker: "Bitmain" | "MicroBT";
+  maker: "Bitmain" | "MicroBT" | "IceRiver";
   cooling: "Air" | "Hydro";
   watts: number;
   wattsNote?: string;
@@ -39,6 +39,11 @@ export const models: Model[] = [
   { slug: "antminer-l7", name: "Antminer L7", maker: "Bitmain", cooling: "Air", watts: 3260, wattsNote: "3,425 W for the 9,500 MH/s variant", hashrate: "9,500 MH/s variant hosted", algorithm: "Scrypt", coins: "Litecoin, Dogecoin", wattsSource: tab },
   { slug: "antminer-d9", name: "Antminer D9", maker: "Bitmain", cooling: "Air", watts: 3060, hashrate: "1,770 GH/s", algorithm: "X11", coins: "Dash", wattsSource: tab },
   { slug: "antminer-ks5", name: "Antminer KS5", maker: "Bitmain", cooling: "Air", watts: 3000, hashrate: "20 TH/s", algorithm: "kHeavyHash", coins: "Kaspa", wattsSource: tab },
+  // Added 12 Nov 2026 (Ganushi KC: "all four"): Aleo and Alephium machines, manufacturer specifications (content/models.md).
+  { slug: "iceriver-ae3", name: "IceRiver ALEO AE3", maker: "IceRiver", cooling: "Air", watts: 3400, hashrate: "2 GH/s", algorithm: "zkSNARK", coins: "Aleo", wattsSource: "IceRiver specification (Kryptex, MiningBoard), 12 Nov 2026" },
+  { slug: "iceriver-ae2", name: "IceRiver ALEO AE2", maker: "IceRiver", cooling: "Air", watts: 1300, hashrate: "720 MH/s", algorithm: "zkSNARK", coins: "Aleo", wattsSource: "IceRiver specification (Kryptex), 12 Nov 2026" },
+  { slug: "antminer-al1", name: "Antminer AL1", maker: "Bitmain", cooling: "Air", watts: 3730, hashrate: "16.6 TH/s", algorithm: "Blake3", coins: "Alephium", wattsSource: "Bitmain official listing (shop.bitmain.com), 12 Nov 2026" },
+  { slug: "iceriver-al3", name: "IceRiver AL3", maker: "IceRiver", cooling: "Air", watts: 3500, hashrate: "15 TH/s", algorithm: "Blake3", coins: "Alephium", wattsSource: "IceRiver specification (Kryptex, MiningBoard, Hashrate.no), 12 Nov 2026" },
   { slug: "antminer-s21-xp-hydro", name: "Antminer S21 XP Hydro", maker: "Bitmain", cooling: "Hydro", watts: 5676, hashrate: "473 TH/s", algorithm: "SHA-256", coins: "Bitcoin", wattsSource: tab },
   { slug: "antminer-s21-plus-hydro", name: "Antminer S21+ Hydro", maker: "Bitmain", cooling: "Hydro", watts: 5370, hashrate: "358 TH/s", algorithm: "SHA-256", coins: "Bitcoin", wattsSource: tab },
   { slug: "antminer-s21-hydro", name: "Antminer S21 Hydro", maker: "Bitmain", cooling: "Hydro", watts: 5360, hashrate: "335 TH/s", algorithm: "SHA-256", coins: "Bitcoin", wattsSource: tab },

@@ -18,6 +18,10 @@ Featured: Antminer Z15 Pro (requested by Ganushi KC, 28 Oct 2026).
 | Antminer L7 | Air | 3,260 (9,500 MH/s variant: 3,425) | 9,500 MH/s variant | Scrypt (Litecoin, Dogecoin) | Models tab |
 | Antminer D9 | Air | 3,060 | | X11 (Dash) | Models tab |
 | Antminer KS5 | Air | 3,000 | | kHeavyHash (Kaspa) | Models tab |
+| IceRiver ALEO AE3 | Air | 3,400 | 2 GH/s | zkSNARK (Aleo) | Manufacturer specification as published by Kryptex and MiningBoard, 12 Nov 2026 (released Nov 2025) |
+| IceRiver ALEO AE2 | Air | 1,300 | 720 MH/s | zkSNARK (Aleo) | Manufacturer specification as published by Kryptex, 12 Nov 2026 (one Kryptex summary says 750 MH/s; its spec table and sellers say 720 MH/s) |
+| Antminer AL1 | Air | 3,730 | 16.6 TH/s | Blake3 (Alephium) | Bitmain official listing ("ALPH Miner AL1", shop.bitmain.com), 12 Nov 2026 |
+| IceRiver AL3 | Air | 3,500 | 15 TH/s | Blake3 (Alephium) | Manufacturer specification as published by Kryptex, MiningBoard and Hashrate.no, 12 Nov 2026 (released Oct 2024) |
 | Antminer S21 XP Hydro | Hydro | 5,676 | 473 TH/s | SHA-256 (Bitcoin) | Models tab |
 | Antminer S21+ Hydro | Hydro | 5,370 | 358 TH/s | SHA-256 (Bitcoin) | Models tab |
 | Antminer S21 Hydro | Hydro | 5,360 | | SHA-256 (Bitcoin) | Models tab |
@@ -25,7 +29,16 @@ Featured: Antminer Z15 Pro (requested by Ganushi KC, 28 Oct 2026).
 | Antminer S19 Pro+ Hydro | Hydro | 5,445 | 184 TH/s | SHA-256 (Bitcoin) | Models tab |
 | Antminer S19 Pro Hydro | Hydro | 5,445 | 177 TH/s | SHA-256 (Bitcoin) | Models tab |
 
-Not given a page yet: IceRiver AL3 / AL-BOX (1,500 W in the Models tab). TODO: confirm the model name.
+## Aleo and Alephium machines (added 12 Nov 2026)
+Ganushi KC asked to add the AL3 machines and the best-earning models of that kind. Checked 12 Nov 2026: the IceRiver AL3
+mines Alephium (ALPH, Blake3), not Aleo; IceRiver's Aleo machines are the ALEO AE series (zkSNARK). Ganushi chose to add
+all four leading machines: IceRiver ALEO AE3 and ALEO AE2 (Aleo), Antminer AL1 and IceRiver AL3 (Alephium).
+- The fleet sheet's Models tab lists "IceRiver AL3 / AL-BOX" at 1,500 W, which matches neither the AL3 (3,500 W) nor any
+  other listed model. The site uses the manufacturer's 3,500 W for the AL3. TODO: Ganushi to check the 1,500 W fleet entry.
+- No revenue or profit figures are shown for any machine (CLAUDE.md rule); the choice of models is Ganushi's.
+- Pictures: the Antminer AL1 shows Bitmain's own shop image (Adobe cut-out, Bitmain permission). IceRiver's website is
+  behind a bot check and no IceRiver image permission is recorded, so the AE3, AE2 and AL3 rows show Segments' own rendered
+  illustrations of each chassis (no logo or brand text; alt text says "illustration"), made the same way as the Whatsminer one.
 
 Monthly power estimates on the model pages = nameplate W × 24 h × 30 days ÷ 1,000 × rate,
 at the plug and play range in content/pricing.md. Power only, at 100% running days.
@@ -54,7 +67,7 @@ At Ganushi KC's request every model was checked against Bitmain's official shop 
 |---|---|---|---|
 | Z15 Pro | 840 KSol/s, 2,780 W | 840 kSol/s, 2,780 W | Watts updated from 2,560 W |
 | S21 XP | 270 TH/s, 3,645 W | same | None |
-| S21+ | 216 TH/s, 3,564 W | 235 TH/s, 3,564 W | Kept 235 TH/s from the Sep 2026 client report (a higher-hash S21+ variant). TODO: Ganushi to confirm which S21+ variant is hosted |
+| S21+ | 216 TH/s, 3,564 W | 235 TH/s, 3,564 W | Kept 235 TH/s from the Sep 2026 client report (a higher-hash S21+ variant). Ganushi KC confirmed on 12 Nov 2026 that both the air-cooled S21+ and the S21+ Hydro are hosted |
 | S21 | 200 TH/s, 3,500 W | same | None |
 | S19 XP | not listed (discontinued) | 140 TH/s, 3,010 W | None |
 | L9 | 16 GH/s, 3,360 W | 17 GH/s, 3,360 W | Kept 17 GH/s from the Sep 2026 client report. TODO: Ganushi to confirm the hosted L9 variant |
@@ -73,3 +86,9 @@ Wattage on the site stays the fleet nameplate from the Site Balance Power sheet,
 
 ## Machine thumbnails (5 Nov 2026)
 Ganushi KC asked for a small image of each miner in the machines table. Each Antminer row shows Bitmain's own product image from its official shop listing (shop.bitmain.com, 5 Nov 2026), with the white background removed using Adobe's background-removal tool and saved as a 192 x 144 transparent WebP in public/miners/thumbs. They are shown under the Bitmain permission recorded above (Ganushi KC confirmed on 5 Nov 2026 that the permission covers Bitmain's shop product images). Shared images, as on Bitmain's own listings: S21+ uses the S21 XP image; KS5 uses Bitmain's KS5 listing image, which is the same photo as the S21; S21+ Hydro and S21 Hydro use the S21 XP Hydro image. Discontinued models use the closest listed chassis: S19 XP uses the S19j XP image (same chassis) and S19 Pro Hydro uses the S19 Pro+ Hydro image. The Whatsminer M30S++ (MicroBT) row first showed a neutral fan tile. On 5 Nov 2026, at Ganushi KC's request, it was given a thumbnail: MicroBT no longer lists the M30S++ on microbt.com (discontinued), and the images online are on reseller sites with unclear rights, so the thumbnail is Segments' own rendered illustration of an M30S++ style chassis (silver case, end fan, power supply on top; public/miners/thumbs/whatsminer-m30s-plus-plus.webp, script kept outside the repo). Its alt text says "illustration"; it is not presented as a product photo. Specs unchanged: 112 TH/s at 3,472 W matches the published 112 TH/s variant.
+
+## S21+ pictures (12 Nov 2026)
+Ganushi KC asked for the S21+ air-cooled and S21+ Hydro rows to get their own pictures, made as before. Both now use
+images from Bitmain's own S21+ and S21+ Hyd. listings (shop.bitmain.com gallery, 12 Nov 2026), cut out with Adobe's
+background removal: the S21+ uses Bitmain's more frontal S21+ shot (same chassis family as the S21 XP), and the S21+ Hydro
+uses Bitmain's S21+ Hyd. shot from the other side, so neither row repeats the S21 XP or S21 XP Hydro picture.
