@@ -24,7 +24,7 @@ type Tip = { id: string; kicker: string; text: string; chip?: { label: string; t
 const TIP_IDS = ["infrastructure", "pricing", "calculator", "faq", "contact"];
 function tipFor(id: string): Tip | null {
   switch (id) {
-    case "infrastructure": return { id, kicker: "Infrastructure", text: "Tap any layer in the two cooling drawings below to see what it does in our air and hydro systems." };
+    case "infrastructure": return { id, kicker: "Infrastructure", text: "Our power, air and hydro cooling, repair center and monitoring in one place. Tap a layer in the drawings to see how each system works." };
     case "pricing": return { id, kicker: "Pricing", text: `Plug and play starts at ${pricing.plugFromLabel} per kWh for 100+ machines, and you are only billed for the days your machines run.`, chip: { label: "Estimate my bill", to: "calculator" } };
     case "calculator": return { id, kicker: "Calculator", text: "Pick a machine and a quantity and I'll show the monthly hosting power bill. Hosting cost only, never mining revenue." };
     case "faq": return { id, kicker: "FAQ", text: "Can't see your question here? Ask me anything about hosting your miners.", chip: { label: `Ask ${PIP.name}`, ask: true } };
@@ -48,7 +48,12 @@ export function Pip() {
   const [nudge, setNudge] = useState(false);
   const [topic, setTopic] = useState("");
   const [welcome, setWelcome] = useState(false); // welcome card on arrival
-  const [tip, setTip] = useState<Tip | null>(null); // section tip on screen
+  const [tip, setTip] = useState<Tip | null>(null); // section tip on screen (fallback when the tab bar is not found)
+  // Pip walks to the section's tab on the bottom bar and sits on it with a short overview (Ganushi, 12 Nov 2026).
+  const [perch, setPerch] = useState<{ tip: Tip; dx: number; dy: number; left: number; bottom: number; tail: number } | null>(null);
+  const [walking, setWalking] = useState(false);
+  const [returning, setReturning] = useState(false);
+  const walkTimer = useRef<number>(0);
   const openRef = useRef(false), welcomeRef = useRef(false);
   const idRef = useRef(1);
   const listRef = useRef<HTMLDivElement>(null);
@@ -74,6 +79,7 @@ export function Pip() {
     setNudge(false);
     setWelcome(false);
     setTip(null);
+    setPerch(null);
     try { sessionStorage.setItem(SEEN, "1"); } catch {}
     greet();
   }, [greet]);
@@ -123,7 +129,7 @@ export function Pip() {
   const posStyle = pos ? ({ "--pr": `${pos.r}px`, "--pb": `${pos.b}px` } as React.CSSProperties) : undefined;
   const onLeft = pos ? pos.r > vp.w / 2 : false; // dragged to the left half: bubble and hint flip to the right side
   // Desktop panel placement: above Pip when there is room, otherwise below; aligned to Pip's side; never over Pip.
-  const LW = 96, LH = 124, PW = 390;
+  const LW = vp.w > 720 ? 78 : 66, LH = vp.w > 720 ? 100 : 86, PW = 390;
   const r = pos?.r ?? 14, bt = pos?.b ?? 78;
   const spaceAbove = vp.h - (bt + LH) - 16, spaceBelow = bt - 16;
   const panelBelow = spaceAbove < 320 && spaceBelow > spaceAbove;
@@ -153,6 +159,44 @@ export function Pip() {
   useEffect(() => { openRef.current = open; }, [open]);
   useEffect(() => { welcomeRef.current = welcome; }, [welcome]);
 
+  // Walk to the tab of `t.id` on the bottom bar: a transform from Pip's current spot to the top edge of the bar above the
+  // tab, a walk cycle on the way, and a one-line overview just above it. Returns false when the tab bar is not there.
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const walk = useCallback(() => {
+    setWalking(true);
+    window.clearTimeout(walkTimer.current);
+    walkTimer.current = window.setTimeout(() => setWalking(false), 1150);
+  }, []);
+  const perchOn = useCallback((t: Tip) => {
+    const tab = document.querySelector<HTMLElement>(`.section-dock a[data-section="${t.id}"]`);
+    const dock = tab?.closest<HTMLElement>(".section-dock");
+    const btn = launcherRef.current;
+    if (!tab || !dock || !btn) return false;
+    const tr = tab.getBoundingClientRect(), dr = dock.getBoundingClientRect(), br = btn.getBoundingClientRect();
+    if (tr.width === 0 || tr.right < 0 || tr.left > window.innerWidth) return false;
+    const cx = Math.min(Math.max(tr.left + tr.width / 2, br.width / 2 + 4), window.innerWidth - br.width / 2 - 4);
+    const feet = dr.top + 8; // Pip's feet rest on the bar's top edge
+    const bw = Math.min(280, window.innerWidth - 24);
+    const left = Math.min(Math.max(cx - bw / 2, 12), window.innerWidth - bw - 12);
+    setReturning(false);
+    setPerch({ tip: t, dx: cx - (br.left + br.width / 2), dy: feet - br.bottom, left, bottom: window.innerHeight - feet + br.height + 4, tail: cx - left });
+    walk();
+    return true;
+  }, [walk]);
+  // Pip walks back after 8.5 s, or as soon as the visitor scrolls on, so the tip never hangs over other content.
+  const unperch = useCallback(() => {
+    setPerch(null); setReturning(true); walk();
+    window.setTimeout(() => setReturning(false), 1200);
+  }, [walk]);
+  useEffect(() => {
+    if (!perch) return;
+    const y0 = window.scrollY;
+    const t = window.setTimeout(unperch, 8500);
+    const onScroll = () => { if (Math.abs(window.scrollY - y0) > window.innerHeight * 0.45) unperch(); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.clearTimeout(t); window.removeEventListener("scroll", onScroll); };
+  }, [perch, unperch]);
+
   // Pip follows the page: a short tip the first time the visitor reaches each section (once per visit, at most one
   // every 9 s, never while the chat or the welcome card is open), and reactions when the calculator or form is used.
   useEffect(() => {
@@ -170,14 +214,14 @@ export function Pip() {
           shown = [...shown, id];
           try { sessionStorage.setItem(TIPS, JSON.stringify(shown)); } catch {}
           last = Date.now();
-          setTip(t);
-          setMoodFor("talk", 1600);
+          if (!perchOn(t)) setTip(t);
+          setMoodFor("talk", 2600);
         }, 900);
       }
     }, { rootMargin: "-40% 0px -45% 0px" });
     TIP_IDS.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
     return () => { io.disconnect(); window.clearTimeout(pending); };
-  }, [setMoodFor]);
+  }, [setMoodFor, perchOn]);
   useEffect(() => {
     if (!tip) return;
     const t = window.setTimeout(() => setTip(null), 8000);
@@ -210,7 +254,6 @@ export function Pip() {
   }, [setMoodFor]);
 
   // Pip's eyes follow the pointer: two CSS variables on the launcher, updated at most once a frame.
-  const launcherRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     let frame = 0, mx = 0, my = 0;
     const apply = () => {
@@ -290,29 +333,29 @@ export function Pip() {
       <button
         ref={launcherRef}
         type="button"
-        className={`pip-launcher${open ? " is-open" : ""}${nudge ? " is-nudge" : ""}${hello && !open ? " is-hello" : ""}${onLeft ? " is-left" : ""}`}
+        className={`pip-launcher${open ? " is-open" : ""}${nudge ? " is-nudge" : ""}${hello && !open ? " is-hello" : ""}${onLeft ? " is-left" : ""}${perch && !open ? " is-perched" : ""}${returning ? " is-returning" : ""}`}
         onClick={() => { if (justDragged.current) { justDragged.current = false; return; } if (open) setOpen(false); else openPanel(); }}
-        onPointerDown={onPointerDown}
+        onPointerDown={(e) => { if (perch) return; onPointerDown(e); }}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={() => { drag.current = null; }}
-        style={posStyle}
+        style={perch && !open ? ({ ...posStyle, "--px": `${perch.dx}px`, "--py": `${perch.dy}px` } as React.CSSProperties) : posStyle}
         title="Ask Pip · drag me anywhere"
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? "Close Pip, the hosting assistant" : "Ask Pip, the hosting assistant"}
       >
         <span className="pip-disc" aria-hidden="true" />
-        <MinerBuddy mood={open || (!hello && !welcome) ? mood : "wave"} />
-        {!open && !welcome && <span className={`pip-hint${hello ? " is-on" : ""}`} aria-hidden="true">{hello ? "Hi there! I'm Pip 👋" : "Ask Pip · drag me"}</span>}
+        <MinerBuddy mood={open || (!hello && !welcome) ? mood : "wave"} walking={walking} />
+        {!open && !welcome && !perch && <span className={`pip-hint${hello ? " is-on" : ""}`} aria-hidden="true">{hello ? "Hi there! I'm Pip 👋" : "Ask Pip · drag me"}</span>}
       </button>
 
       {welcome && !open && (
         <div className={`pip-welcome${cardCls}`} style={cardStyle} role="status">
           <button type="button" className="pw-close" onClick={() => setWelcome(false)} aria-label="Close the welcome message">×</button>
           <p className="pw-kicker">{PIP.role}</p>
-          <p className="pw-title">Welcome to Segments Cloud 👋</p>
-          <p className="pw-text">I&apos;m {PIP.name}. I can walk you through our hosting rates, estimate your monthly power bill, or connect you with {contact.person ?? "our team"}.</p>
+          <p className="pw-title">Hello, welcome to Segments hosting! 👋</p>
+          <p className="pw-text">I&apos;m {PIP.name}. Any questions or help, just let me know. My team and I are here to help you out.</p>
           <div className="pw-chips">
             <button type="button" className="is-primary" onClick={() => openPanel()}>Ask {PIP.name}</button>
             <button type="button" onClick={() => { setWelcome(false); goTo("pricing"); }}>See pricing</button>
@@ -333,6 +376,20 @@ export function Pip() {
             </div>
           )}
           <span className="pip-tip-bar" aria-hidden="true" />
+        </div>
+      )}
+      {perch && !open && (
+        <div className="pip-perch-tip" style={{ left: perch.left, bottom: perch.bottom, animationDelay: "0.9s", "--tail": `${perch.tail}px` } as React.CSSProperties} role="status">
+          <button type="button" className="pw-close" onClick={unperch} aria-label="Close the tip">×</button>
+          <p className="pw-kicker">{perch.tip.kicker}</p>
+          <p>{perch.tip.text}</p>
+          {perch.tip.chip && (
+            <div className="pw-chips">
+              {perch.tip.chip.wa
+                ? <a className="is-primary" href={PIP.whatsappUrl(topic)} target="_blank" rel="noopener noreferrer">{perch.tip.chip.label}</a>
+                : <button type="button" className="is-primary" onClick={() => { const c = perch.tip.chip!; setPerch(null); if (c.ask) openPanel(); else if (c.to) goTo(c.to); }}>{perch.tip.chip.label}</button>}
+            </div>
+          )}
         </div>
       )}
 
