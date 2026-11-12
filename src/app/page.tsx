@@ -4,6 +4,7 @@ import { CoolingLayout } from "@/components/CoolingLayout";
 import { OpsPanel } from "@/components/OpsPanel";
 import { Globe } from "@/components/Globe";
 import { LeadForm } from "@/components/LeadForm";
+import { LegalNotices } from "@/components/LegalNotices";
 import { MachinesTable } from "@/components/MachinesTable";
 import { CountUp } from "@/components/CountUp";
 import { PowerCalculator } from "@/components/PowerCalculator";
@@ -12,7 +13,6 @@ import { Reveal } from "@/components/Reveal";
 import { SitePhoto } from "@/components/SitePhoto";
 import { SiteVideo } from "@/components/SiteVideo";
 import { Tabs } from "@/components/Tabs";
-import { TODO } from "@/components/TODO";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { models } from "@/lib/models";
 import { airVideos, capacity, contact, hydroVideos, photos, pricing, repair, site, whyHost, faqs, sections } from "@/lib/site";
@@ -24,7 +24,7 @@ import { airVideos, capacity, contact, hydroVideos, photos, pricing, repair, sit
  * components (CoolingLayout, SampleReport, MinerTurntable, Faq, SiteVideo, Tabs) stay in src/components for reuse.
  */
 
-// The five flagship models shown before "Show all 16 models" (models.ts).
+// The five flagship models shown before the "Show all models" toggle (models.ts).
 const FLAGSHIPS = ["antminer-s21-xp", "antminer-s21-xp-hydro", "antminer-s21-plus", "antminer-z15-pro", "antminer-l9"];
 // The six questions shown on the page; the rest of `faqs` stay in site.ts for Pip.
 const FAQ_COUNT = 6;
@@ -108,15 +108,15 @@ export default function Home() {
           </div>
           <div className="hero-visual">
             <Globe />
-            <p className="globe-note"><span aria-hidden="true" />Ongoing clients from {capacity.clientRegionsLabel} host with Segments</p>
+            <p className="globe-note"><span aria-hidden="true" />{capacity.clientsHosted.toLocaleString("en-US")}+ clients from {capacity.clientRegionsLabel} host with Segments</p>
           </div>
         </div>
       </section>
 
       <section className="section stats-band" aria-label="Key figures">
         <div className="container stats">
-          <Reveal className="panel stat"><b className="num"><CountUp value={capacity.totalMw} suffix=" MW" /></b><span>Operating power capacity</span></Reveal>
-          <Reveal delay={0.05} className="panel stat"><b>Abu Dhabi</b><span>Hosting sites all around Abu Dhabi</span></Reveal>
+          <Reveal className="panel stat"><b className="num"><CountUp value={capacity.totalMw} suffix=" MW" /></b><span>Power capacity across Abu Dhabi</span></Reveal>
+          <Reveal delay={0.05} className="panel stat"><b className="num"><CountUp value={capacity.clientsHosted} suffix="+" /></b><span>Clients hosted</span></Reveal>
           <Reveal delay={0.1} className="panel stat"><b className="num"><CountUp value={capacity.uptimePct} suffix="%" /></b><span>Uptime</span></Reveal>
           <Reveal delay={0.15} className="panel stat"><b className="num"><CountUp value={capacity.machinesHosted} suffix="+" /></b><span>Machines hosted</span></Reveal>
         </div>
@@ -287,21 +287,7 @@ export default function Home() {
             </div>
           </div>
 
-          <details className="panel privacy" id="privacy">
-            <summary>Privacy notice (draft, requires legal review)</summary>
-            <div className="privacy-body">
-              <TODO source="legal">Replace this draft with a privacy notice approved by the company&apos;s legal advisor before the public launch</TODO>
-              <h4>What the enquiry form collects</h4>
-              <p>Your name, work email, company, number of machines, machine models and your message.</p>
-              <h4>Why we use it</h4>
-              <p>Only to reply to your hosting enquiry and prepare a quote.</p>
-              <h4>Who receives it</h4>
-              <p>The form sends your details by email, through the email delivery service Resend, to the {site.name} team at {contact.email}.</p>
-              <TODO source="legal">Retention period, data transfers and your rights under UAE law</TODO>
-              <h4>Who is responsible</h4>
-              <p>{site.legalNames.join(" and ")}, {contact.office}. Questions: {contact.email}.</p>
-            </div>
-          </details>
+          <LegalNotices />
         </div>
       </section>
     </main>

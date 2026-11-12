@@ -6,7 +6,7 @@ const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process
 export const site = {
   // CLAUDE.md
   name: "Segments Cloud",
-  legalNames: ["Segments Cloud Computing LLC", "Segments Cloud Electronics LLC"], // TODO: confirm which entity contracts with hosting clients (CLAUDE.md)
+  legalNames: ["Segments Cloud Computing LLC", "Segments Cloud Electronics LLC"], // both group companies, shown in the footer (CLAUDE.md)
   serviceArea: "UAE", // content/contact.md
   description:
     "ASIC mining hosting in the UAE: 45 MW of operating capacity at sites around Abu Dhabi, plug and play hosting from $0.058 per kWh, turnkey builds, air and hydro-cooled halls, in-house repair and monthly power reports.",
@@ -15,6 +15,14 @@ export const site = {
   // Keep the preview out of search engines until management approves the launch.
   allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
 } as const;
+
+export const legal = {
+  // Ganushi KC, 12 Nov 2026 (content/contract-and-onboarding.md › Contract and signing): hosting contracts are with
+  // Segments Cloud Computing LLC; the terms of use and privacy notice name it as the operator.
+  contractingEntity: "Segments Cloud Computing LLC",
+  signing:
+    "Signed by Segments' authorised representative and by the client, in two copies: one for the client and one kept by Segments for its records.",
+};
 
 export const contact = {
   // content/contact.md
@@ -88,7 +96,8 @@ export const capacity = {
   totalMw: 45,
   uptimePct: 95, // Ganushi KC, 4 Nov 2026
   machinesHosted: 3000, // shown as "3,000+" (Ganushi KC, 4 Nov 2026)
-  clientRegionsLabel: "Europe, the USA and beyond", // Ganushi KC, 4 Nov 2026: ongoing clients in many countries; no count published
+  clientsHosted: 1000, // shown as "1,000+" (Ganushi KC, 12 Nov 2026)
+  clientRegionsLabel: "Europe, the USA and beyond", // Ganushi KC, 4 Nov 2026: clients in many countries
 };
 
 export const quality = {
@@ -201,63 +210,63 @@ export type Photo = { src: string; w: number; h: number; alt: string; caption: s
 
 export const photos = {
   // content/sites.md › Photos. Originals in assets/photos. Captions name no site, per content/sites.md.
-  finishedHallAisle: { src: "/photos/finished-hall-aisle-1600.webp", w: 596, h: 1280, alt: "Long air-cooled hall with lit racks on both sides and a clean tiled floor", caption: "Finished air-cooled hall, ready for machines. Abu Dhabi site, September 2025" },
-  rackRows: { src: "/photos/rack-rows-pdu-1600.webp", w: 1280, h: 720, alt: "Steel racks fitted with vertical power distribution strips and network cabling", caption: "Racks wired with power strips and network cabling, September 2025" },
-  rackAisle: { src: "/photos/rack-aisle-1600.webp", w: 596, h: 1280, alt: "Rows of mining racks along a finished hall", caption: "Rack rows in a finished hall, September 2025" },
-  powerDistribution: { src: "/photos/power-distribution-1600.webp", w: 1280, h: 720, alt: "Wall-mounted electrical distribution boards with breakers and indicator lights", caption: "Power distribution boards for a hall, September 2025" },
-  hallFanWall: { src: "/photos/hall-fan-wall-1600.webp", w: 1600, h: 1200, alt: "Row of large exhaust fans along the wall of an air-cooled mining hall", caption: "Exhaust fan wall in an air-cooled hall, August 2025" },
-  siteExterior: { src: "/photos/site-exterior-1600.webp", w: 960, h: 1280, alt: "Arched mining halls on open desert ground at a Segments Cloud site", caption: "Mining halls at an Abu Dhabi site, September 2025" },
-  qcNewFiltersWall: { src: "/photos/qc-new-filters-wall-1600.webp", w: 1200, h: 1600, alt: "Wall of new blue disposable air filters in a diamond frame along a hall's air intake", caption: "New intake filters fitted along a hall wall, October 2026" },
-  qcNewFiltersAisle: { src: "/photos/qc-new-filters-aisle-1600.webp", w: 1600, h: 1200, alt: "Long corridor lined with fresh blue intake filters", caption: "Fresh filters along an intake corridor, October 2026" },
-  qcMeshPrefilters: { src: "/photos/qc-mesh-prefilters-1600.webp", w: 1200, h: 1600, alt: "Steel frame holding mesh pre-filters in front of a hall's intake wall", caption: "Mesh pre-filters in front of the intake wall, October 2026" },
-  qcMeshOutdoor: { src: "/photos/qc-mesh-outdoor-1600.webp", w: 1600, h: 1200, alt: "Outdoor intake wall covered with mesh filter panels beside palm trees", caption: "Outdoor mesh pre-filter wall, October 2026" },
-  qcFiltersReplaced: { src: "/photos/qc-filters-replaced-1600.webp", w: 1200, h: 1600, alt: "Used filter frames leaning against a wall after removal", caption: "Used filter frames taken out for replacement, October 2026" },
-  qcCleanHall: { src: "/photos/qc-clean-hall-1600.webp", w: 860, h: 1600, alt: "Clean, empty hall floor in front of mesh filter walls", caption: "Hall floor after cleaning, October 2026" },
+  finishedHallAisle: { src: "/photos/finished-hall-aisle-1600.webp", w: 596, h: 1280, alt: "Long air-cooled hall with lit racks on both sides and a clean tiled floor", caption: "Finished air-cooled hall, ready for machines · Abu Dhabi, September 2025" },
+  rackRows: { src: "/photos/rack-rows-pdu-1600.webp", w: 1280, h: 720, alt: "Steel racks fitted with vertical power distribution strips and network cabling", caption: "Racks wired with power strips and network cabling · Abu Dhabi, September 2025" },
+  rackAisle: { src: "/photos/rack-aisle-1600.webp", w: 596, h: 1280, alt: "Rows of mining racks along a finished hall", caption: "Rack rows along a finished hall · Abu Dhabi, September 2025" },
+  powerDistribution: { src: "/photos/power-distribution-1600.webp", w: 1280, h: 720, alt: "Wall-mounted electrical distribution boards with breakers and indicator lights", caption: "Power distribution boards for a hall · Abu Dhabi, September 2025" },
+  hallFanWall: { src: "/photos/hall-fan-wall-1600.webp", w: 1600, h: 1200, alt: "Row of large exhaust fans along the wall of an air-cooled mining hall", caption: "Exhaust fan wall during fit-out · Abu Dhabi, August 2025" },
+  siteExterior: { src: "/photos/site-exterior-1600.webp", w: 960, h: 1280, alt: "Arched mining halls on open desert ground at a Segments Cloud site", caption: "Mining halls on site · Abu Dhabi, September 2025" },
+  qcNewFiltersWall: { src: "/photos/qc-new-filters-wall-1600.webp", w: 1200, h: 1600, alt: "Wall of new blue disposable air filters in a diamond frame along a hall's air intake", caption: "New intake filters fitted along a hall wall · Abu Dhabi, October 2026" },
+  qcNewFiltersAisle: { src: "/photos/qc-new-filters-aisle-1600.webp", w: 1600, h: 1200, alt: "Long corridor lined with fresh blue intake filters", caption: "Fresh filters lining an intake corridor · Abu Dhabi, October 2026" },
+  qcMeshPrefilters: { src: "/photos/qc-mesh-prefilters-1600.webp", w: 1200, h: 1600, alt: "Steel frame holding mesh pre-filters in front of a hall's intake wall", caption: "Mesh pre-filters in front of the intake wall · Abu Dhabi, October 2026" },
+  qcMeshOutdoor: { src: "/photos/qc-mesh-outdoor-1600.webp", w: 1600, h: 1200, alt: "Outdoor intake wall covered with mesh filter panels beside palm trees", caption: "Outdoor mesh pre-filter wall · Abu Dhabi, October 2026" },
+  qcFiltersReplaced: { src: "/photos/qc-filters-replaced-1600.webp", w: 1200, h: 1600, alt: "Used filter frames leaning against a wall after removal", caption: "Used filter frames out for replacement · Abu Dhabi, October 2026" },
+  qcCleanHall: { src: "/photos/qc-clean-hall-1600.webp", w: 860, h: 1600, alt: "Clean, empty hall floor in front of mesh filter walls", caption: "Hall floor after cleaning · Abu Dhabi, October 2026" },
   // content/sites.md › Photos (finished hall, professional shoot, added 3 Nov 2026). Air-cooled hall with evaporative cooling pads.
-  hallLongRacks: { src: "/photos/hall-long-racks-1920.webp", w: 1920, h: 1282, alt: "Long, bright mining hall with a row of racks full of running miners on a white tiled floor", caption: "Finished hall with racks of running miners, Abu Dhabi site" },
-  hallPadsAndRacks: { src: "/photos/hall-pads-and-racks-1920.webp", w: 1920, h: 1282, alt: "Hall with an evaporative cooling-pad wall on one side and racks of miners on the other", caption: "Cooling-pad wall facing the miner racks, Abu Dhabi site" },
-  hallAislePads: { src: "/photos/hall-aisle-pads-1920.webp", w: 1282, h: 1920, alt: "Clean aisle between miner racks and a cooling-pad wall", caption: "Clean aisle between racks and cooling pads" },
-  hallRackRow: { src: "/photos/hall-rack-row-1920.webp", w: 1282, h: 1920, alt: "Row of steel racks loaded with miners along a hall wall", caption: "A full row of hosted miners" },
-  hallRackCloseup: { src: "/photos/hall-rack-closeup-1920.webp", w: 1920, h: 1282, alt: "Close-up of miners on racks with labelled power cables and green status lights on the power strips", caption: "Miners on labelled power strips, every cable tagged" },
-  hallMinersWired: { src: "/photos/hall-miners-wired-1920.webp", w: 1920, h: 1282, alt: "Miners stacked on shelves with network and power cables neatly routed to a power distribution unit", caption: "Power and network cabling to each machine" },
-  hallCoolingPadWall: { src: "/photos/hall-cooling-pad-wall-1920.webp", w: 1920, h: 1282, alt: "Long wall of honeycomb evaporative cooling pads along a clean hall", caption: "Evaporative cooling-pad wall in an air-cooled hall" },
-  hallPadCorridor: { src: "/photos/hall-pad-corridor-1920.webp", w: 1282, h: 1920, alt: "Narrow corridor lined on both sides with tall evaporative cooling pads", caption: "Cooling-pad corridor that feeds fresh air to the hall" },
-  hallFanWallRacks: { src: "/photos/hall-fan-wall-racks-1920.webp", w: 1920, h: 1282, alt: "Aisle with large exhaust fans on one side and racks of miners on the other", caption: "Exhaust fans opposite the miner racks" },
-  hallMinerFans: { src: "/photos/hall-miner-fans-1600.webp", w: 1068, h: 1600, alt: "Close-up of miner cooling fans mounted in a steel rack", caption: "Miner fans pulling air through the rack" },
+  hallLongRacks: { src: "/photos/hall-long-racks-1920.webp", w: 1920, h: 1282, alt: "Long, bright mining hall with a row of racks full of running miners on a white tiled floor", caption: "Racks of running miners in a finished hall · Abu Dhabi" },
+  hallPadsAndRacks: { src: "/photos/hall-pads-and-racks-1920.webp", w: 1920, h: 1282, alt: "Hall with an evaporative cooling-pad wall on one side and racks of miners on the other", caption: "Cooling pads facing the miner racks · Abu Dhabi" },
+  hallAislePads: { src: "/photos/hall-aisle-pads-1920.webp", w: 1282, h: 1920, alt: "Clean aisle between miner racks and a cooling-pad wall", caption: "A clean aisle between racks and cooling pads · Abu Dhabi" },
+  hallRackRow: { src: "/photos/hall-rack-row-1920.webp", w: 1282, h: 1920, alt: "Row of steel racks loaded with miners along a hall wall", caption: "A full row of hosted miners · Abu Dhabi" },
+  hallRackCloseup: { src: "/photos/hall-rack-closeup-1920.webp", w: 1920, h: 1282, alt: "Close-up of miners on racks with labelled power cables and green status lights on the power strips", caption: "Every power cable tagged to its machine · Abu Dhabi" },
+  hallMinersWired: { src: "/photos/hall-miners-wired-1920.webp", w: 1920, h: 1282, alt: "Miners stacked on shelves with network and power cables neatly routed to a power distribution unit", caption: "Power and network cabling to each machine · Abu Dhabi" },
+  hallCoolingPadWall: { src: "/photos/hall-cooling-pad-wall-1920.webp", w: 1920, h: 1282, alt: "Long wall of honeycomb evaporative cooling pads along a clean hall", caption: "Evaporative cooling-pad wall · Abu Dhabi" },
+  hallPadCorridor: { src: "/photos/hall-pad-corridor-1920.webp", w: 1282, h: 1920, alt: "Narrow corridor lined on both sides with tall evaporative cooling pads", caption: "Cooling-pad corridor feeding fresh air to the hall · Abu Dhabi" },
+  hallFanWallRacks: { src: "/photos/hall-fan-wall-racks-1920.webp", w: 1920, h: 1282, alt: "Aisle with large exhaust fans on one side and racks of miners on the other", caption: "Exhaust fans opposite the miner racks · Abu Dhabi" },
+  hallMinerFans: { src: "/photos/hall-miner-fans-1600.webp", w: 1068, h: 1600, alt: "Close-up of miner cooling fans mounted in a steel rack", caption: "Miner fans pulling air through the rack · Abu Dhabi" },
   // content/sites.md › Photos (hydro zone and second hall, professional shoot, added 4 Nov 2026). Tone-corrected with Adobe Lightroom auto tone.
-  hydroContainerDusk: { src: "/photos/hydro-container-dusk-1920.webp", w: 1920, h: 1282, alt: "White hydro-cooling container with louvred vents at dusk", caption: "Hydro container at dusk, Abu Dhabi site" },
-  hydroContainerAisle: { src: "/photos/hydro-container-aisle-1920.webp", w: 1440, h: 1920, alt: "Aisle inside a hydro container with racks of hydro miners and coolant hoses on both sides", caption: "Inside a hydro container: miners on both sides of the aisle" },
-  hydroRackHoses: { src: "/photos/hydro-rack-hoses-1920.webp", w: 1440, h: 1920, alt: "Rack of hydro miners, each connected to coolant supply and return hoses", caption: "Every hydro miner on its own coolant loop" },
-  hydroRackRow: { src: "/photos/hydro-rack-row-1920.webp", w: 1440, h: 1920, alt: "Long rack of hydro miners with neatly routed coolant hoses", caption: "A full rack of hydro miners" },
-  hydroManifoldCloseup: { src: "/photos/hydro-manifold-closeup-1920.webp", w: 1282, h: 1920, alt: "Close-up of coolant hoses and quick-connect fittings on hydro miners", caption: "Coolant hoses and quick-connect fittings" },
-  hallMinerCloseupBlue: { src: "/photos/hall-miner-closeup-blue-1920.webp", w: 1920, h: 1282, alt: "Close-up of air-cooled miners in blue light", caption: "Air-cooled miners running, Abu Dhabi site" },
-  hallFanCorridor: { src: "/photos/hall-fan-corridor-1920.webp", w: 1920, h: 1440, alt: "Corridor with a wall of exhaust fans on one side and racks of miners on the other", caption: "Exhaust-fan corridor beside the miner racks" },
-  hallOpenRacks: { src: "/photos/hall-open-racks-1920.webp", w: 1440, h: 1920, alt: "Steel racks of air-cooled miners with power and network cabling", caption: "Racks of air-cooled miners" },
-  hydroPumps: { src: "/photos/hydro-pumps-1600.webp", w: 1280, h: 961, alt: "Water tank with two pumps and pipework beside a hall wall at night", caption: "Pumps and tank for a hydro-cooled hall, September 2025" }, // TODO: confirm caption (content/sites.md)
+  hydroContainerDusk: { src: "/photos/hydro-container-dusk-1920.webp", w: 1920, h: 1282, alt: "White hydro-cooling container with louvred vents at dusk", caption: "Hydro container at dusk · Abu Dhabi" },
+  hydroContainerAisle: { src: "/photos/hydro-container-aisle-1920.webp", w: 1440, h: 1920, alt: "Aisle inside a hydro container with racks of hydro miners and coolant hoses on both sides", caption: "Hydro miners on both sides of a container aisle · Abu Dhabi" },
+  hydroRackHoses: { src: "/photos/hydro-rack-hoses-1920.webp", w: 1440, h: 1920, alt: "Rack of hydro miners, each connected to coolant supply and return hoses", caption: "Every hydro miner on its own coolant loop · Abu Dhabi" },
+  hydroRackRow: { src: "/photos/hydro-rack-row-1920.webp", w: 1440, h: 1920, alt: "Long rack of hydro miners with neatly routed coolant hoses", caption: "A full rack of hydro miners · Abu Dhabi" },
+  hydroManifoldCloseup: { src: "/photos/hydro-manifold-closeup-1920.webp", w: 1282, h: 1920, alt: "Close-up of coolant hoses and quick-connect fittings on hydro miners", caption: "Coolant hoses and quick-connect fittings · Abu Dhabi" },
+  hallMinerCloseupBlue: { src: "/photos/hall-miner-closeup-blue-1920.webp", w: 1920, h: 1282, alt: "Close-up of air-cooled miners in blue light", caption: "Air-cooled miners at work · Abu Dhabi" },
+  hallFanCorridor: { src: "/photos/hall-fan-corridor-1920.webp", w: 1920, h: 1440, alt: "Corridor with a wall of exhaust fans on one side and racks of miners on the other", caption: "Exhaust-fan corridor beside the racks · Abu Dhabi" },
+  hallOpenRacks: { src: "/photos/hall-open-racks-1920.webp", w: 1440, h: 1920, alt: "Steel racks of air-cooled miners with power and network cabling", caption: "Racks of air-cooled miners · Abu Dhabi" },
+  hydroPumps: { src: "/photos/hydro-pumps-1600.webp", w: 1280, h: 961, alt: "Water tank with two pumps and pipework beside a hall wall at night", caption: "Water tank and pumps beside a hall during fit-out · Abu Dhabi, September 2025" }, // caption written 12 Nov 2026 (Ganushi: captions in the site style)
 } satisfies Record<string, Photo>;
 
 // Hydro videos (Ganushi KC, 4 Nov 2026). Re-encoded 720p 30 fps, no audio. Captions name no site.
 export const hydroVideos = [
-  { src: "/video/hydro-container-walk.mp4", poster: "/video/hydro-container-walk-poster.webp", caption: "Walk-through of a hydro container, Abu Dhabi site" },
-  { src: "/video/hydro-site-tour.mp4", poster: "/video/hydro-site-tour-poster.webp", caption: "Hydro racks, coolant manifold and dry coolers, Abu Dhabi site" },
+  { src: "/video/hydro-container-walk.mp4", poster: "/video/hydro-container-walk-poster.webp", caption: "Walking through a hydro container · Abu Dhabi" },
+  { src: "/video/hydro-site-tour.mp4", poster: "/video/hydro-site-tour-poster.webp", caption: "Hydro racks, coolant manifold and dry coolers · Abu Dhabi" },
 ];
 
 // Air-cooled hall videos (Ganushi KC, 4 Nov 2026). Source clips had ~4 real frames per second; sped up 2x and
 // motion-interpolated to 30 fps so they play at normal speed. No audio. Captions name no site.
 export const airVideos = {
-  wide: { src: "/video/air-fans-tour.mp4", poster: "/video/air-fans-tour-poster.webp", caption: "Exhaust fans, cooling pads and miner racks in an air-cooled hall, Abu Dhabi site" },
-  tall: { src: "/video/air-hall-tour.mp4", poster: "/video/air-hall-tour-poster.webp", caption: "Inside a finished air-cooled hall, Abu Dhabi site" },
+  wide: { src: "/video/air-fans-tour.mp4", poster: "/video/air-fans-tour-poster.webp", caption: "Exhaust fans, cooling pads and racks at work · Abu Dhabi" },
+  tall: { src: "/video/air-hall-tour.mp4", poster: "/video/air-hall-tour-poster.webp", caption: "Inside a finished air-cooled hall · Abu Dhabi" },
 };
 
 // Hydro container at night (Ganushi KC, 4 Nov 2026): replaces the dusk container photo. 2.8 s clip played forward then
 // back as a seamless 5.6 s loop; 720p, 30 fps, no audio.
-export const hydroContainerVideo = { src: "/video/hydro-container-night.mp4", poster: "/video/hydro-container-night-poster.webp", caption: "Hydro container at night, Abu Dhabi site" };
+export const hydroContainerVideo = { src: "/video/hydro-container-night.mp4", poster: "/video/hydro-container-night-poster.webp", caption: "Hydro container at night · Abu Dhabi" };
 
 export const siteVideo = {
   // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.
   src: "/video/installed-miners.mp4",
   poster: "/video/installed-miners-poster.webp",
-  caption: "Installed miners and power strips in an air-cooled hall at an Abu Dhabi site",
+  caption: "Installed miners and power strips in an air-cooled hall · Abu Dhabi",
 };
 
 // Segments Repair, the in-house repair center (Ganushi KC, 4 Nov 2026: name, logo and video).
@@ -278,7 +287,7 @@ export const repair = {
     { title: "Repair by Bitmain-trained technicians", text: "The part is repaired or replaced on microscope rework and soldering stations, then the machine is tested." },
     { title: "Return to Rack & Verification", text: "It goes back to your rack and is checked on the fleet platform; the repair log and invoice are updated." },
   ],
-  video: { src: "/video/segments-repair-30fps.mp4", poster: "/video/segments-repair-poster.webp", caption: "Inside the Segments Repair center" },
+  video: { src: "/video/segments-repair-30fps.mp4", poster: "/video/segments-repair-poster.webp", caption: "Inside the Segments repair center" },
 };
 
 // content/contract-and-onboarding.md › Onboarding steps (4 Nov 2026)
@@ -344,49 +353,68 @@ export const billing = [
   "Repair costs, if any, appear on the same invoice.",
 ];
 
-// content/faq.md: every answer restates facts from the content/ files named there.
+// content/faq.md: every answer restates facts from the content/ files named there. Rewritten 12 Nov 2026 at Ganushi's
+// request: short, confident answers that remove doubts about hosting. The first six are shown on the page.
+const tierSentence = `${pricing.tiers[2].rateLabel} per kWh under 50 machines, ${pricing.tiers[1].rateLabel} for 50 to 99 and ${pricing.tiers[0].rateLabel} for 100 or more`;
 export const faqs = [
   {
     question: "What does hosting include?",
     answer:
-      "Space in an air-cooled hall or a hydro-cooled zone, hosting technicians on site 24/7 with every site fully monitored, in-house repair, and monitoring of every machine with a monthly power and hosting report.",
+      "Everything your machines need to run. A place in an air-cooled hall or a hydro container, hosting technicians on site 24/7, monitoring of every site and every machine, in-house repair by Bitmain-trained technicians, and a monthly report with each machine's running days, energy and charge. You send the machines; we keep them running.",
   },
   {
     question: "How is my hosting charge calculated?",
     answer:
-      "Plug and play hosting costs $0.058 per kWh for 100 or more machines, $0.062 for 50 to 99, and $0.068 for fewer than 50. Each machine is billed as watts × 24 hours × running days ÷ 1,000 × rate. Running days come from your pool data, and days a machine is offline are not charged.",
+      `You pay for the power your machines use, on the days they run. Each machine is billed as watts × 24 hours × running days ÷ 1,000 × rate, at ${tierSentence}. Running days come from your own pool data, so a day a machine is offline is not charged.`,
   },
   {
-    question: "Which machines can you host?",
+    question: "How do I get started?",
     answer:
-      "We run air-cooled models such as the Antminer Z15 Pro, S21 series, S19 XP, L9, L7, D9 and KS5, and hydro models such as the S21 XP Hydro and S21+ Hydro. See Supported hardware under the calculator for each model's power draw and power cost. Ask us about any model not listed.",
-  },
-  {
-    question: "What is the turnkey solution?",
-    answer:
-      "A dedicated build for larger fleets, with power from $0.039 per kWh and capex of USD 300,000 per MW. See the Turnkey card under Pricing and ask us for a proposal.",
-  },
-  {
-    question: "What happens when a machine breaks?",
-    answer:
-      "It is picked up from the site, diagnosed at the Segments repair center and quoted. You approve the quote before work starts, and the repair cost appears on your hosting invoice.",
-  },
-  {
-    question: "How do I pay?",
-    answer:
-      "In USD or AED. We accept USDT, AED by bank transfer or cash, and BTC. A deposit of one month of hosting is held, and your hosting invoice is shared at the start of every month in your client group.",
-  },
-  {
-    question: "Is there a minimum number of machines?",
-    answer: "No. Individuals and companies of any size are welcome, with any number of machines. The rate is $0.068 per kWh under 50 machines, $0.062 for 50 to 99 and $0.058 for 100 or more.",
-  },
-  {
-    question: "How do my machines get to the site?",
-    answer: "We pick up, deliver and later return your machines, with charges quoted by quantity. Every unit is moved professionally: fully wrapped so no dust gets in, and bubble-wrapped so it arrives undamaged. Movements follow the hosting contract.",
+      `Send us your machine models and quantity through the form or on WhatsApp, and we reply with your rate and the hosting contract. Once it is signed, you pay the setup fee of ${pricing.setupFeeLabel} and a deposit of one month of hosting, we collect your machines, and they are racked, running and tracked on our fleet platform. From then on, your invoice and report arrive at the start of every month.`,
   },
   {
     question: "Do I have to sell the coins I mine to pay for hosting?",
     answer:
-      "No. Hosting is invoiced in USD or AED and settled from your own funds, in USDT, AED or BTC, so every coin your machines mine stays in your wallet. Many clients prefer to hold what they mine and decide for themselves when to sell, instead of selling each month to cover a bill. Coin prices can fall as well as rise and mining results depend on network difficulty, machine efficiency and uptime, so we make no promise of returns: our job is to keep your machines running and your coins yours.",
+      "No. You are never asked to pay hosting in the coins you mine. Hosting is invoiced in USD or AED and paid from your own funds, by USDT, AED or BTC, so the coins your machines mine stay in your wallet and you decide when to sell. Coin prices can fall as well as rise, and mining results depend on network difficulty, machine efficiency and uptime, so we make no promise of returns. Our job is to keep your machines running and your coins yours.",
+  },
+  {
+    question: "What happens when a machine breaks?",
+    answer:
+      "We handle it. Our team collects it from the rack, diagnoses it at the Segments repair center and sends you a quote. Nothing is repaired until you approve, and the cost appears on your usual hosting invoice. Once repaired, the machine goes back to its rack and is checked on the fleet platform. Days it spends offline are not charged.",
+  },
+  {
+    question: "Is there a minimum number of machines?",
+    answer:
+      `No. Individuals and companies are welcome with any number of machines, from a single unit to a full fleet. Larger fleets pay a lower rate: ${tierSentence}. For 1 MW or more, ask about our turnkey solution.`,
+  },
+  {
+    question: "Which machines can you host?",
+    answer:
+      "Air-cooled Antminer models such as the Z15 Pro, S21 series, S19 XP, L9, L7, D9, KS5 and AL1, IceRiver's AL3, ALEO AE3 and ALEO AE2, and the Whatsminer M30S++, plus hydro models such as the S21 XP Hydro, S21+ Hydro and S21 Hydro. Supported hardware, under the calculator, lists each model's power draw and power cost. Have a model that is not listed? Ask us.",
+  },
+  {
+    question: "How do I pay?",
+    answer:
+      "In USD or AED, by USDT, AED (bank transfer or cash) or BTC. We hold a deposit of one month of hosting, and your invoice is shared at the start of every month in your client group, with the running days, energy and charge for every machine.",
+  },
+  {
+    question: "How do my machines get to the site?",
+    answer:
+      "We collect, deliver and later return your machines, with charges quoted by quantity. Every unit travels fully wrapped so no dust gets in, and bubble-wrapped so it arrives undamaged. Movements follow your hosting contract.",
+  },
+  {
+    question: "What does the hosting contract look like?",
+    answer:
+      `A written hosting contract with ${legal.contractingEntity}, with a minimum term of ${pricing.minimumTermLabel} and a notice period agreed with you, usually 2 months. It is signed by Segments' authorised representative and by you, in two copies: one for you and one kept by Segments for its records.`,
+  },
+  {
+    question: "How will I know my machines are running?",
+    answer:
+      `Every machine is tracked on our fleet platform for status, hash rate, last share and repair state, and your fleet data is synced daily. Each month you receive a report with every machine's running days, energy and charge, and ${contact.person} is on WhatsApp whenever you want an update.`,
+  },
+  {
+    question: "What is the turnkey solution?",
+    answer:
+      `A dedicated build for fleets of 1 MW or more: power from ${pricing.turnkeyPowerFromLabel} per kWh and capex of ${pricing.turnkeyCapexPerMwLabel} per MW, covering transformers, switchgear, cooling and racks. The infrastructure is client-owned per agreement, the build takes 60 – 90 days and the contract runs 24 – 36 months. Ask us for a proposal.`,
   },
 ];

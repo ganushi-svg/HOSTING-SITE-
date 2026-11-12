@@ -7,10 +7,11 @@ import { EstimateButton } from "./PowerCalculator";
 
 /**
  * Supported hardware beside the calculator (Ganushi, 4 Nov 2026): the five flagship models by default, then a
- * "Show all 16 models" toggle. Every row has an Estimate button that pre-fills the calculator. Facts from models.ts.
+ * "Show all models" toggle (20 since 12 Nov 2026). Every row has an Estimate button that pre-fills the calculator. Facts from models.ts.
  * Each Antminer row shows a small product image from Bitmain's official shop, cut out with Adobe (public/miners/thumbs,
  * 5 Nov 2026; see content/models.md). The Whatsminer M30S++ (MicroBT, discontinued, no official image online) shows our own
- * rendered illustration of its chassis, labelled as an illustration in the alt text.
+ * rendered illustration of its chassis, labelled as an illustration in the alt text; so do the three IceRiver rows (AE3, AE2, AL3;
+ * 12 Nov 2026), because no IceRiver image permission is recorded.
  */
 export function MachinesTable({ models, flagships }: { models: Model[]; flagships: string[] }) {
   const [all, setAll] = useState(false);
