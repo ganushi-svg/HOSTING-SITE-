@@ -66,20 +66,37 @@
 .mon-pill.is-watch { color: #fcd468; border-color: rgba(247, 190, 39, 0.45); background: rgba(247, 190, 39, 0.12); }
 .mon-pill.is-risk { color: #fca5a5; border-color: rgba(239, 68, 68, 0.45); background: rgba(239, 68, 68, 0.12); }
 .mon-pill.is-info { color: #a5f3fc; border-color: rgba(34, 211, 238, 0.45); background: rgba(34, 211, 238, 0.12); }
-/* site camera recordings */
-.site-cams { margin-top: 28px; }
+/* site camera recordings: a small monitoring wall, title bar above each picture */
+.site-cams { margin-top: 22px; }
+.site-cams-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 12px; }
+.site-cams-head h4 { margin: 0; font: 700 1.05rem/1.3 var(--ff-display); color: var(--hi, #f8fafc); }
+.site-cams-head p { margin: 0; font-size: 0.88rem; }
 .site-cams-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.cam-tile { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); background: #000; }
-.cam-tile .site-video { margin: 0; }
-.cam-badge { position: absolute; z-index: 2; top: 10px; left: 10px; display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; font: 600 0.72rem/1 var(--ff-body); color: #fff; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); pointer-events: none; }
-.cam-badge i { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: cam-rec 1.6s ease-in-out infinite; }
+.cam-tile { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); background: #05070d;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 40px -26px rgba(0, 0, 0, 0.9); }
+.cam-bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font: 600 0.74rem/1.2 var(--ff-mono, monospace); color: rgba(255, 255, 255, 0.85); min-width: 0; }
+.cam-rec { display: inline-flex; align-items: center; gap: 6px; color: #fff; flex: none; }
+.cam-rec i { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18); animation: cam-rec 1.6s ease-in-out infinite; }
 @keyframes cam-rec { 50% { opacity: 0.35; } }
-.cam-id { position: absolute; z-index: 2; right: 10px; bottom: 10px; font: 600 0.7rem/1 var(--ff-mono, monospace); color: rgba(255, 255, 255, 0.85); background: rgba(0, 0, 0, 0.5); padding: 5px 8px; border-radius: 6px; pointer-events: none; }
+.cam-cap { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--ff-body); color: var(--hi, #f8fafc); }
+.cam-when { flex: none; color: var(--lo, #94a3b8); font-family: var(--ff-body); font-weight: 500; }
+.cam-tile .site-video { gap: 0; }
+.cam-tile .site-video video { display: block; aspect-ratio: 16 / 9; height: auto; object-fit: cover; border: 0; border-radius: 0; background: #05070d; }
+.cam-tile .site-video figcaption { display: none; }
+/* static corner brackets over the picture, like a monitoring screen (no motion) */
+.cam-tile::after { content: ""; position: absolute; left: 10px; right: 10px; top: 44px; bottom: 10px; pointer-events: none;
+  background:
+    linear-gradient(#fff, #fff) left top / 14px 1.5px no-repeat, linear-gradient(#fff, #fff) left top / 1.5px 14px no-repeat,
+    linear-gradient(#fff, #fff) right top / 14px 1.5px no-repeat, linear-gradient(#fff, #fff) right top / 1.5px 14px no-repeat,
+    linear-gradient(#fff, #fff) left bottom / 14px 1.5px no-repeat, linear-gradient(#fff, #fff) left bottom / 1.5px 14px no-repeat,
+    linear-gradient(#fff, #fff) right bottom / 14px 1.5px no-repeat, linear-gradient(#fff, #fff) right bottom / 1.5px 14px no-repeat;
+  opacity: 0.45; }
 @media (max-width: 1000px) { .mon-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } .mon-split { grid-template-columns: 1fr; } }
 @media (max-width: 560px) {
   .mon-panel { padding: 14px; } .mon-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mon-kpis dd { font-size: 1.05rem; }
-  .mon-tabs button { padding: 8px 11px; font-size: 0.8rem; } .site-cams-grid { grid-template-columns: 1fr; }
+  .mon-tabs button { padding: 8px 11px; font-size: 0.8rem; } .site-cams-grid { grid-template-columns: 1fr; } .cam-when { display: none; }
   .mon-table { font-size: 0.78rem; } .mon-table th, .mon-table td { padding: 8px 6px; }
   .mon-legend-total { margin-left: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .mon-view { animation-duration: 0.8s; } .cam-badge i { animation-duration: 3s; } }
+@media (prefers-reduced-motion: reduce) { .mon-view { animation-duration: 0.8s; } .cam-rec i { animation-duration: 3s; } }
