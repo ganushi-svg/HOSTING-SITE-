@@ -56,4 +56,8 @@ Source: Site Balance Power › Models tab (fleet nameplate table).
 - Site camera recordings: two clips from the site cameras, labelled "Site camera · Recorded on site" (Ganushi chose
   this; recorded footage is never called live). Each clip must be trimmed, compressed and checked before use: faces,
   number plates and screen text blurred, and no camera positions, entrances or other security detail visible.
-  TODO: Ganushi to share the Drive folder that holds the two clips (not found in the connected Drive on 12 Nov 2026).
+- Clips added 13 Nov 2026 from Ganushi's Drive (Taweelah1B.mp4, 702 MB, 30 min; Forest2CCTV_Footage.mp4, 259 MB,
+  11 min): a 12-second real-time stretch of each, no audio, 1280 x 720, about 1.5 MB each (public/video/cam-hydro-aisle.mp4
+  and cam-air-racks.mp4, with posters). Checked every two seconds: no people, number plates or outside views; the only
+  door in view is the hydro container's internal end door. The cameras' own date stamps stay in the picture. Shown as
+  "CAM 01 · Hydro container aisle · Abu Dhabi" and "CAM 02 · Air-cooled racks · Abu Dhabi"; site names stay off the page.

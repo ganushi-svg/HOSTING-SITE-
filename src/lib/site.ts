@@ -259,10 +259,14 @@ export const airVideos = {
 // back as a seamless 5.6 s loop; 720p, 30 fps, no audio.
 export const hydroContainerVideo = { src: "/video/hydro-container-night.mp4", poster: "/video/hydro-container-night-poster.webp", caption: "Hydro container at night · Abu Dhabi" };
 
-// Site camera recordings (Ganushi KC, 12 Nov 2026): two clips, labelled "Site camera · Recorded on site" (never "live").
-// TODO: Ganushi to share the Drive folder with the two camera clips; each is trimmed, compressed, checked for faces,
-// plates and security detail, then added here as { src, poster, cam: "CAM 01", caption }.
-export const siteCameras: { src: string; poster: string; cam: string; caption: string }[] = [];
+// Site camera recordings (Ganushi KC, 13 Nov 2026), labelled "Site camera · Recorded on site" (never "live").
+// From her Drive (Taweelah1B.mp4 and Forest2CCTV_Footage.mp4): a 12 s stretch of each, real time, no audio, 1280 x 720,
+// about 1.5 MB each. Checked frame by frame: no people, number plates or outside views; the camera's own date stamp is
+// kept as proof of a recording. Site names stay off the page (content/services.md › Monitoring samples and site cameras).
+export const siteCameras: { src: string; poster: string; cam: string; caption: string }[] = [
+  { src: "/video/cam-hydro-aisle.mp4", poster: "/video/cam-hydro-aisle-poster.webp", cam: "CAM 01", caption: "Hydro container aisle · Abu Dhabi" },
+  { src: "/video/cam-air-racks.mp4", poster: "/video/cam-air-racks-poster.webp", cam: "CAM 02", caption: "Air-cooled racks · Abu Dhabi" },
+];
 
 export const siteVideo = {
   // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.
