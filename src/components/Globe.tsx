@@ -13,7 +13,7 @@ import "./globe-hub.css";
  * set as the earlier static globe) into Segments in Abu Dhabi, with bright pulses travelling along them. The globe
  * sways ±24° so Abu Dhabi stays in view while the USA and Europe sweep across. Runs only while on screen.
  * At Abu Dhabi stands a small 3D Segments data centre (hall with the logo board, two containers with dry coolers and a
- * Segments flag; rendered offline, public/brand/segments-hub.webp) in place of the old text pin.
+ * Segments flag) was replaced on 14 Nov 2026 by the Segments logo mark alone (Ganushi).
  */
 type Site = { name: string; lat: number; lon: number; label?: string; lx?: number; ly?: number };
 const HUB: Site = { name: "Segments", lat: 24.45, lon: 54.4 };
@@ -225,8 +225,11 @@ export function Globe() {
       <span className="globe-shadow" aria-hidden="true" />
       <canvas ref={canvasRef} width={BASE_SIZE} height={BASE_SIZE} aria-hidden="true" />
       <figcaption ref={pinRef} className="globe-hub">
-        {/* eslint-disable-next-line @next/next/no-img-element -- small animated WebP of the 3D Segments data centre */}
-        <img src="/brand/segments-hub.webp" width={300} height={300} alt="Segments data centre in Abu Dhabi, 3D illustration with the Segments flag" />
+        <span className="globe-hub-badge">
+          <span className="globe-hub-ring" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element -- small brand mark on the globe */}
+          <img src="/logo-mark.webp" width={136} height={160} alt="Segments logo" />
+        </span>
         <span className="globe-hub-label"><b>Segments</b> Abu Dhabi</span>
       </figcaption>
     </figure>
