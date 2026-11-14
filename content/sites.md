@@ -52,7 +52,7 @@ Ganushi does not want installation-phase photos on the site. The four WhatsApp p
 fit-out, site exterior, a hydro container being installed, and a water tank with pumps) were deleted from the repository
 on 12 Nov 2026; none of them was on the page at the time. Do not add construction or fit-out photos again.
 
-## Immersion cooling container (Ganushi KC, 14 Nov 2026)
+## Immersion (not on the site; removed 14 Nov 2026) cooling container (Ganushi KC, 14 Nov 2026)
 - Ganushi asked for the immersion container to be shown as a third setup after the hydro container, from her immersion
   build walkthrough (3D concept model of a container with a sealed dielectric tank, a separate closed water loop and two
   dry coolers on a steel frame above). The maker's marks in that model ("ZERO", "BY MARA", "Apollo", the vessel label) are
