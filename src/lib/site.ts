@@ -272,6 +272,9 @@ export const siteCameras: { src: string; poster: string; cam: string; caption: s
 // rendered from her immersion build model (two dry coolers on a steel frame above a container with a sealed dielectric
 // tank), with the maker's marks replaced by the Segments mark. General description only: no capacity or performance figures.
 export const immersionSetup = {
+  eyebrow: "Immersion cooling",
+  tag: "3D model · turns and opens the tank",
+  loopLabel: "How heat leaves the container",
   title: "Miners sealed in a cooling fluid, inside the container",
   intro: "Our immersion container holds the miners in a sealed tank of dielectric fluid, a liquid that carries heat but not electricity. No fans push air through the machines: the fluid takes their heat straight off the boards.",
   points: [
@@ -286,6 +289,48 @@ export const immersionSetup = {
     { title: "Cooled water back", text: "The water returns to the tank to go again.", tone: "cool" },
   ],
   video: { src: "/video/immersion-3d.mp4", poster: "/video/immersion-3d-poster.webp", label: "3D model of the Segments immersion container turning and opening to show the tank", caption: "Immersion container, 3D model · Abu Dhabi" },
+};
+
+// Air-cooled hall and hydro container as 3D motions (Ganushi, 14 Nov 2026: the same as the immersion setup). Rendered
+// from Segments' own models built on the published layer structure (content/cooling-structure.md): no dimensions or
+// figures beyond what that file publishes.
+export const airSetup3d = {
+  eyebrow: "Air-cooled hall",
+  tag: "3D model · air moving through the hall",
+  loopLabel: "How air moves through the hall",
+  title: "Desert air, filtered and cooled before it reaches a miner",
+  intro: "Outside air comes in through a hooded intake, passes two layers of filters and an evaporative wet pad that cools it, then a dry pad that catches droplets. It crosses the cold aisle, flows through the miners and leaves the hot aisle through large exhaust fans.",
+  points: [
+    "Filters and pads on a set cleaning and replacement schedule.",
+    "Separate cold and hot aisles, so warm air never loops back.",
+    "Racks of air-cooled miners between the two aisles.",
+  ],
+  loop: [
+    { title: "Air in", text: "Through the hood and panel filters.", tone: "cool" },
+    { title: "Cooled on the pads", text: "The wet pad cools it, the dry pad catches droplets.", tone: "cool" },
+    { title: "Through the miners", text: "From the cold aisle across each rack.", tone: "heat" },
+    { title: "Heat out", text: "Exhaust fans push the hot aisle air outside.", tone: "warm" },
+  ],
+  video: { src: "/video/air-3d.mp4", poster: "/video/air-3d-poster.webp", label: "3D model of a Segments air-cooled hall with air flowing from the filters and pads through the miners to the exhaust fans", caption: "Air-cooled hall, 3D model · Abu Dhabi" },
+};
+export const hydroSetup3d = {
+  eyebrow: "Hydro container",
+  tag: "3D model · coolant flowing",
+  loopLabel: "How coolant carries the heat away",
+  title: "Every miner on its own coolant line",
+  intro: "Each hydro miner connects to supply and return hoses with quick-connect fittings. A sealed internal loop carries the heat to a plate heat exchanger, and a hybrid dry/wet cooling tower outside releases it, while sensors and leak strips watch the whole loop.",
+  points: [
+    "Sealed internal loop with a circulation pump and make-up tank.",
+    "Plate heat exchanger keeps the miner coolant apart from the tower water.",
+    "Tower rated for 35 °C supply and 45 °C return.",
+  ],
+  loop: [
+    { title: "Coolant in", text: "Cool coolant runs down each supply manifold.", tone: "cool" },
+    { title: "Through every miner", text: "It picks up the heat and returns up the manifold.", tone: "heat" },
+    { title: "Heat exchanger", text: "The plate exchanger hands the heat to the tower water.", tone: "warm" },
+    { title: "Cooling tower", text: "The tower releases it and cooled water comes back.", tone: "air" },
+  ],
+  video: { src: "/video/hydro-3d.mp4", poster: "/video/hydro-3d-poster.webp", label: "3D model of a Segments hydro container with coolant flowing through the miners to a cooling tower", caption: "Hydro container, 3D model · Abu Dhabi" },
 };
 
 export const siteVideo = {
