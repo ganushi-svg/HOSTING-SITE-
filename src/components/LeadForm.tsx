@@ -46,7 +46,7 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
     return (
       <div className="form-done" role="status" aria-live="polite">
         <span className="form-done-ico" aria-hidden="true"><CheckCircle2 size={30} strokeWidth={1.8} /></span>
-        <h4>Request sent</h4>
+        <h4>Quote request received</h4>
         <p>Thank you. Your enquiry is with our team, and {contact.person}, our {contact.personTitle}, will reply by email{sentTo ? <> to <b>{sentTo}</b></> : null}.</p>
         <p className="form-done-sub">Need an answer sooner? Call in office hours or WhatsApp after hours on {contact.phone}.</p>
         <button type="button" className="button button-outline" onClick={() => { setStatus("idle"); setSentTo(""); }}>Send another request</button>
@@ -80,7 +80,7 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
         <span>I agree that Segments Cloud may use these details to reply to this enquiry. <a href="#privacy" onClick={() => { const d = document.getElementById("privacy"); if (d instanceof HTMLDetailsElement) d.open = true; }}>Privacy notice</a>.</span>
       </label>
       <button type="submit" className="button form-submit" disabled={status === "sending"}>
-        {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending…</> : <>Send request <QuoteIcon /></>}
+        {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending your request…</> : <>Get my hosting quote <QuoteIcon /></>}
       </button>
       {message && <p className={`form-feedback ${status}`} role="alert">{message}</p>}
     </form>
