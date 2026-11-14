@@ -9,9 +9,8 @@ export type Pill = "ok" | "watch" | "risk" | "info";
 
 export const siteStatusSample = {
   title: "Site status",
-  intro: "How a site looks to our operations team: machines reporting, health, temperatures and anything that needs a look.",
+  intro: "How a site looks to our operations team: machine health, temperatures and anything that needs a look.",
   kpis: [
-    { label: "Machines reporting", value: "468" },
     { label: "Healthy", value: "97.4%" },
     { label: "Offline, last 24 h", value: "3" },
     { label: "Back from repair, 2 weeks", value: "21" },
@@ -27,37 +26,25 @@ export const siteStatusSample = {
     { hall: "Hall E", c: 78 },
     { hall: "Hall F", c: 70 },
   ],
-  halls: [
-    { hall: "Hall A", status: "Normal", pill: "ok" as Pill, miners: 96, note: "All machines hashing" },
-    { hall: "Hall B", status: "Normal", pill: "ok" as Pill, miners: 84, note: "Pads cleaned this week" },
-    { hall: "Hall E", status: "Watch", pill: "watch" as Pill, miners: 72, note: "Intake filters booked for change" },
-    { hall: "Hall F", status: "Normal", pill: "ok" as Pill, miners: 64, note: "Two units back from repair" },
-  ],
 };
 
 export const powerSample = {
   title: "Power headroom",
   intro: "Before a single machine is placed we check the hall's power: supply, a safety margin, the load already running and what is left.",
+  // Shares only, no kW or hall list (Ganushi, 14 Nov 2026: nothing on the page may read as a site size next to 45 MW).
   kpis: [
-    { label: "Supply capacity", value: "1,200 kW" },
     { label: "Safety margin", value: "15%" },
-    { label: "Usable", value: "1,020 kW" },
-    { label: "Running load", value: "870 kW" },
-    { label: "Safe headroom", value: "150 kW" },
+    { label: "Running load", value: "85% of usable" },
+    { label: "Safe headroom", value: "15% of usable" },
     { label: "Fleet efficiency", value: "17.5 J/TH" },
   ] as Kpi[],
-  // One stacked bar of the supply: what runs now, what is free, and the margin we never use (kW).
+  // One stacked bar of a hall's supply, in percent: what runs now, what is free, and the margin we never use.
   bar: [
-    { key: "miners", label: "Miners", kw: 780 },
-    { key: "cooling", label: "Cooling", kw: 70 },
-    { key: "other", label: "Other loads", kw: 20 },
-    { key: "free", label: "Safe headroom", kw: 150 },
-    { key: "margin", label: "Safety margin", kw: 180 },
-  ],
-  halls: [
-    { hall: "Hall 1", capacity: 400, load: 300, headroom: 40 },
-    { hall: "Hall 2", capacity: 450, load: 330, headroom: 52 },
-    { hall: "Hall 3", capacity: 350, load: 240, headroom: 58 },
+    { key: "miners", label: "Miners", pct: 65 },
+    { key: "cooling", label: "Cooling", pct: 6 },
+    { key: "other", label: "Other loads", pct: 1.5 },
+    { key: "free", label: "Safe headroom", pct: 12.5 },
+    { key: "margin", label: "Safety margin", pct: 15 },
   ],
 };
 
