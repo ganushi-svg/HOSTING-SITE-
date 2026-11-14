@@ -9,7 +9,8 @@ Publish at "Abu Dhabi" level: "sites all around Abu Dhabi" (Ganushi, 3 Nov 2026;
 - Total operating power capacity: 45 MW (content/performance.md).
 - Power capacity per site: the per-site supply, load and balance figures are internal and live in Drive ›
   "POWER UTILIZATION NEW" (reviewed 12 Nov 2026). They are not copied into this repository and are never shown on the
-  website. TODO: Ganushi to confirm how the published 45 MW (content/performance.md) relates to that sheet.
+  website. Ganushi decided on 14 Nov 2026 to keep presenting 45 MW and to hide anything on the page that lists sites or
+  halls with capacities, so no page figure can be added up against it (the sample power view now shows shares only).
 
 ## Caption style (Ganushi, 12 Nov 2026)
 Ganushi asked for the best captions in the site's style. Every photo and video caption is now one short, calm phrase followed by " · Abu Dhabi" (plus the month for installation-phase and quality photos), e.g. "Cooling pads facing the miner racks · Abu Dhabi". Area level only; no site names. Captions live in src/lib/site.ts.
