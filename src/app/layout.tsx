@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { JetBrains_Mono, Manrope } from "next/font/google";
-import { contact, site } from "@/lib/site";
+import { contact, pricing, site } from "@/lib/site";
 import { Nav } from "@/components/Nav";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Pip } from "@/components/Pip";
@@ -16,7 +16,7 @@ const body = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"],
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-mono", display: "swap" });
 
 export const viewport: Viewport = {
-  themeColor: "#04070f",
+  themeColor: "#0b0711",
   width: "device-width",
   initialScale: 1,
   colorScheme: "dark",
@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `Bitcoin Mining Hosting in the ${site.serviceArea} | ${site.name}`, template: `%s | ${site.name}` },
+  title: { default: `Bitcoin Mining Hosting in Abu Dhabi, ${site.serviceArea} | ${site.name}`, template: `%s | ${site.name}` },
   description: site.description,
   applicationName: site.name,
   keywords: ["Bitcoin mining hosting", "ASIC miner hosting", "crypto mining colocation", "mining hosting UAE", "mining hosting Abu Dhabi", "mining hosting Dubai", "hydro miner hosting", "hydro cooled miner hosting", "air cooled miner hosting", "Antminer hosting", "ASIC repair UAE", "Segments Cloud"],
@@ -39,7 +39,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   const org = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    // ProfessionalService (a LocalBusiness type) so the Dubai office can show in local results; @id links the Service
+    // in page.tsx to this entity (SEO audit, 14 Nov 2026).
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": `${site.url}/#organization`,
     name: site.name,
     legalName: site.legalNames[0],
     alternateName: site.legalNames[1],
@@ -51,6 +54,8 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     description: site.description,
     email: contact.email,
     telephone: contact.phone,
+    priceRange: `${pricing.turnkeyPowerFromLabel}–${pricing.tiers[pricing.tiers.length - 1].rateLabel} per kWh`,
+    knowsAbout: ["Bitcoin mining hosting", "ASIC miner hosting", "Hydro-cooled mining", "Air-cooled mining", "ASIC repair"],
     address: { "@type": "PostalAddress", streetAddress: "Office 2712, Concord Tower, Media City", addressLocality: "Dubai", addressCountry: "AE" },
   };
   return (
