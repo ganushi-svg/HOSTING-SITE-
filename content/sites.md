@@ -51,3 +51,14 @@ Retired from the page (replaced by better shots): power-distribution; hall-fan-w
 Ganushi does not want installation-phase photos on the site. The four WhatsApp photos from Aug–Sep 2025 (fan wall during
 fit-out, site exterior, a hydro container being installed, and a water tank with pumps) were deleted from the repository
 on 12 Nov 2026; none of them was on the page at the time. Do not add construction or fit-out photos again.
+
+## Immersion cooling container (Ganushi KC, 14 Nov 2026)
+- Ganushi asked for the immersion container to be shown as a third setup after the hydro container, from her immersion
+  build walkthrough (3D concept model of a container with a sealed dielectric tank, a separate closed water loop and two
+  dry coolers on a steel frame above). The maker's marks in that model ("ZERO", "BY MARA", "Apollo", the vessel label) are
+  replaced by the Segments mark, at her request.
+- The page shows a 10-second 3D motion rendered from that model (public/video/immersion-3d.mp4): a slow swing that opens
+  into a cutaway of the tank. Labelled as a 3D model, not a photo. The model's own notes say dimensions, hidden connections
+  and operating limits still need site/OEM verification, so the page gives a general description only: no capacity,
+  machine count, temperatures or two-phase claims.
+- TODO: Ganushi to add real photos of the immersion container when ready.
