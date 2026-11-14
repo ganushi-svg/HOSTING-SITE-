@@ -19,7 +19,6 @@ import {
   Sliders,
   ChevronDown,
   MessageSquare,
-  Mail,
   X,
   Globe,
   Calculator,
@@ -98,7 +97,14 @@ export default function SegmentsHostingPage() {
 
   const [contactName, setContactName] = useState<string>("");
   const [contactCompany, setContactCompany] = useState<string>("");
-  const [contactReach, setContactReach] = useState<string>("");
+  const [contactEmail, setContactEmail] = useState<string>("");
+  const [contactPhone, setContactPhone] = useState<string>("");
+  const [contactTier, setContactTier] = useState<string>("");
+  const [contactModels, setContactModels] = useState<string>("");
+  const [consent, setConsent] = useState<boolean>(false);
+  const [sendState, setSendState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [sendError, setSendError] = useState<string>("");
+  const [offerWhatsapp, setOfferWhatsapp] = useState<boolean>(false);
   const [contactFleetSummary, setContactFleetSummary] = useState<string>("");
   const [quoteLockedBanner, setQuoteLockedBanner] = useState<boolean>(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -152,6 +158,8 @@ export default function SegmentsHostingPage() {
       hostingMode === "turnkey" ? `Turnkey from ${pricing.turnkeyPowerFromLabel}/kWh` : `${tierFor(calc.qty).rateLabel}/kWh tier`
     } · est. ${money(calc.monthlyPowerUsd)} power per 30 days`;
     setContactFleetSummary(summary);
+    setContactModels(`${selectedMiner.name} × ${calc.qty}`);
+    setContactTier(hostingMode === "turnkey" ? "turnkey-mw" : calc.qty >= 100 ? "100-plus" : calc.qty >= 50 ? "50-99" : "under-50");
     setQuoteLockedBanner(true);
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -162,13 +170,43 @@ export default function SegmentsHostingPage() {
       contactFleetSummary && `Fleet: ${contactFleetSummary}`,
       contactName && `Name: ${contactName}`,
       contactCompany && `Company: ${contactCompany}`,
-      contactReach && `Contact: ${contactReach}`,
+      contactEmail && `Email: ${contactEmail}`,
+      contactPhone && `Phone: ${contactPhone}`,
     ].filter(Boolean).join("\n");
-  }, [contactFleetSummary, contactName, contactCompany, contactReach]);
+  }, [contactFleetSummary, contactName, contactCompany, contactEmail, contactPhone]);
 
   const whatsappHref = `${contact.whatsappUrl}?text=${encodeURIComponent(enquiryText)}`;
-  const mailHref = `mailto:${contact.email}?subject=${encodeURIComponent(`Hosting quote${contactCompany ? `: ${contactCompany}` : ""}`)}&body=${encodeURIComponent(enquiryText)}`;
-  const canSend = contactName.trim().length > 0 && (contactFleetSummary.trim().length > 0 || contactReach.trim().length > 0);
+
+  // Sends the quote request to the enquiry inbox through /api/enquiry (the hosting site's Resend route). If our side fails
+  // (server or network), the same details are offered on WhatsApp so no lead is lost.
+  async function submitQuote(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (sendState === "sending") return;
+    setSendState("sending");
+    setSendError("");
+    setOfferWhatsapp(false);
+    const website = String(new FormData(e.currentTarget).get("website") || "");
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: contactName, email: contactEmail, phone: contactPhone, company: contactCompany,
+          miners: contactTier, models: contactModels, notes: contactFleetSummary, consent: consent ? "yes" : "", website,
+        }),
+      });
+      const result: { message?: string } = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (res.status >= 500) setOfferWhatsapp(true);
+        throw new Error(result.message || "We could not send your request. Please try WhatsApp or call us.");
+      }
+      setSendState("sent");
+    } catch (err) {
+      if (!(err instanceof Error) || err.name === "TypeError") setOfferWhatsapp(true);
+      setSendState("error");
+      setSendError(err instanceof Error && err.name !== "TypeError" ? err.message : "We could not reach our server. Please try WhatsApp or call us.");
+    }
+  }
 
 
   const maxTemp = 90, minTemp = 60;
@@ -902,36 +940,71 @@ export default function SegmentsHostingPage() {
                   <button type="button" aria-label="Dismiss" onClick={() => setQuoteLockedBanner(false)} className="p-2 -m-2 text-slate-300 hover:text-white"><X className="w-4 h-4" aria-hidden="true" /></button>
                 </div>
               )}
-              <div className="grid sm:grid-cols-2 gap-4">
-                <label className="space-y-1.5 text-xs font-mono uppercase text-slate-400">Full name *
-                  <input value={contactName} onChange={(e) => setContactName(e.target.value)} autoComplete="name" maxLength={100} className={inputCls} />
+              {sendState === "sent" ? (
+                <div role="status" aria-live="polite" className="space-y-4 py-4">
+                  <CheckCircle2 className="w-10 h-10 text-[#10B981]" aria-hidden="true" />
+                  <h3 className="text-2xl font-bold text-white">Quote request received</h3>
+                  <p className="text-sm text-slate-300">Thank you. Your enquiry is with our team, and {contact.person}, our {contact.personTitle}, will reply by email to <b className="text-white">{contactEmail}</b>.</p>
+                  <p className="text-xs text-slate-400">Need an answer sooner? Call in office hours or WhatsApp after hours on {contact.phone}.</p>
+                  <button type="button" onClick={() => { setSendState("idle"); setContactFleetSummary(""); setContactModels(""); setContactTier(""); setQuoteLockedBanner(false); }}
+                    className="rounded-xl border border-white/15 px-4 py-2.5 text-sm text-slate-200 hover:bg-white/5">Send another request</button>
+                </div>
+              ) : (
+              <form onSubmit={submitQuote} className="space-y-5">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <label className="space-y-1.5 text-xs font-mono uppercase text-slate-400">Full name *
+                    <input required value={contactName} onChange={(e) => setContactName(e.target.value)} autoComplete="name" maxLength={100} className={inputCls} />
+                  </label>
+                  <label className="space-y-1.5 text-xs font-mono uppercase text-slate-400">Work email *
+                    <input required type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} autoComplete="email" maxLength={254} className={inputCls} />
+                  </label>
+                  <label className="space-y-1.5 text-xs font-mono uppercase text-slate-400">Company
+                    <input value={contactCompany} onChange={(e) => setContactCompany(e.target.value)} autoComplete="organization" maxLength={150} className={inputCls} />
+                  </label>
+                  <label className="space-y-1.5 text-xs font-mono uppercase text-slate-400">Phone / WhatsApp
+                    <input type="tel" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} autoComplete="tel" maxLength={40} className={inputCls} />
+                  </label>
+                  <label className="space-y-1.5 text-xs font-mono uppercase text-slate-400">Fleet tier
+                    <select value={contactTier} onChange={(e) => setContactTier(e.target.value)} className={inputCls}>
+                      <option value="">Select a tier</option>
+                      <option value="under-50">Under 50</option>
+                      <option value="50-99">50–99</option>
+                      <option value="100-plus">100+ Plug &amp; Play</option>
+                      <option value="turnkey-mw">Turnkey MW</option>
+                    </select>
+                  </label>
+                  <label className="space-y-1.5 text-xs font-mono uppercase text-slate-400">Machine models
+                    <input value={contactModels} onChange={(e) => setContactModels(e.target.value)} maxLength={200} placeholder="e.g. Antminer S21 XP" className={inputCls} />
+                  </label>
+                </div>
+                <label className="block space-y-1.5 text-xs font-mono uppercase text-slate-400">Fleet details
+                  <textarea value={contactFleetSummary} onChange={(e) => setContactFleetSummary(e.target.value)} rows={3} maxLength={4000}
+                    placeholder="Quantity, timeline, cooling preference, questions" className={inputCls} />
                 </label>
-                <label className="space-y-1.5 text-xs font-mono uppercase text-slate-400">Company
-                  <input value={contactCompany} onChange={(e) => setContactCompany(e.target.value)} autoComplete="organization" maxLength={150} className={inputCls} />
+                <div className="hidden" aria-hidden="true"><label>Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
+                <label className="flex items-start gap-3 text-xs text-slate-300 min-h-[44px]">
+                  <input type="checkbox" required checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 w-5 h-5 shrink-0 accent-[#7C3AED]" />
+                  <span>I agree that Segments Cloud may use these details to reply to this enquiry.</span>
                 </label>
-              </div>
-              <label className="block space-y-1.5 text-xs font-mono uppercase text-slate-400">Email or phone
-                <input value={contactReach} onChange={(e) => setContactReach(e.target.value)} autoComplete="email" maxLength={200} className={inputCls} />
-              </label>
-              <label className="block space-y-1.5 text-xs font-mono uppercase text-slate-400">Fleet details
-                <textarea value={contactFleetSummary} onChange={(e) => setContactFleetSummary(e.target.value)} rows={3} maxLength={1000}
-                  placeholder="e.g. 85 × Antminer S21 XP, air-cooled, ready to ship next month" className={inputCls} />
-              </label>
-              <div className="flex flex-wrap gap-3 pt-1">
-                <a href={canSend ? whatsappHref : undefined} aria-disabled={!canSend} target="_blank" rel="noopener noreferrer"
-                  onClick={(e) => { if (!canSend) e.preventDefault(); }}
-                  className={`inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm transition ${canSend ? "bg-[#7C3AED] hover:bg-[#6D28D9] text-white" : "bg-white/5 text-slate-500 cursor-not-allowed"}`}>
-                  <MessageSquare className="w-4 h-4" aria-hidden="true" />
-                  Get my hosting quote on WhatsApp
-                </a>
-                <a href={canSend ? mailHref : undefined} aria-disabled={!canSend}
-                  onClick={(e) => { if (!canSend) e.preventDefault(); }}
-                  className={`inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border text-sm transition ${canSend ? "border-white/15 text-slate-200 hover:bg-white/5" : "border-white/5 text-slate-600 cursor-not-allowed"}`}>
-                  <Mail className="w-4 h-4" aria-hidden="true" />
-                  Send by email
-                </a>
-              </div>
-              <p className="text-[11px] text-slate-500">Add your name and either your fleet details or how to reach you. Your message opens in WhatsApp or your email app, ready to send to {contact.person}.</p>
+                <div className="flex flex-wrap gap-3 pt-1">
+                  <button type="submit" disabled={sendState === "sending"}
+                    className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-70 text-white font-semibold text-sm transition">
+                    {sendState === "sending" ? "Sending your request…" : <>Get my hosting quote <ArrowRight className="w-4 h-4" aria-hidden="true" /></>}
+                  </button>
+                  <a href={whatsappHref} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-[#10B981]/40 text-[#10B981] text-sm hover:bg-[#10B981]/10 transition">
+                    <MessageSquare className="w-4 h-4" aria-hidden="true" />
+                    Or WhatsApp us
+                  </a>
+                </div>
+                {sendError && <p role="alert" className="rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-200">{sendError}</p>}
+                {offerWhatsapp && (
+                  <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-3 text-sm text-slate-200 hover:bg-white/5">
+                    <MessageSquare className="w-4 h-4 text-[#10B981]" aria-hidden="true" />Send this request on WhatsApp instead
+                  </a>
+                )}
+              </form>
+              )}
             </div>
           </div>
         </section>
