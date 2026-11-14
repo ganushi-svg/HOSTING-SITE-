@@ -12,16 +12,34 @@ type State = "idle" | "sending" | "success" | "error";
  * Turnkey MW; values in src/lib/enquiry.ts MINER_RANGES) and a clean confirmation panel replaces the form after a
  * successful send, so a live demo ends on a clear "sent" state. Posts to /api/enquiry.
  */
+const TIERS: Record<string, string> = { "under-50": "Under 50", "50-99": "50–99", "100-plus": "100+ Plug & Play", "turnkey-mw": "Turnkey MW" };
+function whatsappText(d: Record<string, FormDataEntryValue>) {
+  const v = (k: string) => String(d[k] || "").trim();
+  return [
+    "Hello Segments, I would like a hosting quote.",
+    `Name: ${v("name")}`,
+    v("company") && `Company: ${v("company")}`,
+    v("email") && `Email: ${v("email")}`,
+    v("miners") && `Fleet tier: ${TIERS[v("miners")] || v("miners")}`,
+    v("models") && `Models: ${v("models")}`,
+    v("notes") && `Message: ${v("notes").slice(0, 600)}`,
+  ].filter(Boolean).join("\n");
+}
+
 export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
   const [status, setStatus] = useState<State>("idle");
   const [message, setMessage] = useState("");
   const [sentTo, setSentTo] = useState("");
+  // If sending fails on our side (server or network), keep the visitor's details and offer the same enquiry on WhatsApp,
+  // so no lead is lost (14 Nov 2026).
+  const [fallback, setFallback] = useState("");
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "sending") return;
     setStatus("sending");
     setMessage("");
+    setFallback("");
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
     try {
@@ -31,12 +49,16 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
         body: JSON.stringify(data),
       });
       const result: { message?: string } = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(result.message || "We could not send your request. Please email or call us.");
+      if (!response.ok) {
+        if (response.status >= 500) setFallback(whatsappText(data));
+        throw new Error(result.message || "We could not send your request. Please email or call us.");
+      }
       setSentTo(String(data.email || ""));
       setStatus("success");
       window.dispatchEvent(new Event("pip-cheer")); // Pip reacts to a sent enquiry
       form.reset();
     } catch (error) {
+      if (!(error instanceof Error) || error.name === "TypeError") setFallback(whatsappText(data));
       setStatus("error");
       setMessage(error instanceof Error ? error.message : "We could not send your request. Please email or call us.");
     }
@@ -83,6 +105,11 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
         {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending your request…</> : <>Get my hosting quote <QuoteIcon /></>}
       </button>
       {message && <p className={`form-feedback ${status}`} role="alert">{message}</p>}
+      {fallback && contact.whatsappUrl && (
+        <a className="button button-outline form-wa" style={{ justifySelf: "start", marginTop: 4 }} href={`${contact.whatsappUrl}?text=${encodeURIComponent(fallback)}`} target="_blank" rel="noopener noreferrer">
+          Send this request on WhatsApp instead
+        </a>
+      )}
     </form>
   );
 }
