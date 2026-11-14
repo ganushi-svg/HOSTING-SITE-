@@ -35,7 +35,6 @@ function StatusView() {
   return (
     <>
       <Kpis items={s.kpis} />
-      <div className="mon-split">
         <figure className="mon-chart" aria-label={`Median maximum chip temperature by hall, against a ${s.tempLimit} °C limit`}>
           <figcaption>Median max chip temperature by hall</figcaption>
           <div className="mon-bars">
@@ -49,47 +48,24 @@ function StatusView() {
             ))}
           </div>
         </figure>
-        <div className="mon-table-wrap">
-        <table className="mon-table">
-          <thead><tr><th scope="col">Hall</th><th scope="col">Status</th><th scope="col" className="num">Miners</th><th scope="col">Note</th></tr></thead>
-          <tbody>
-            {s.halls.map((h) => (
-              <tr key={h.hall}><th scope="row">{h.hall}</th><td><span className={pillCls(h.pill)}>{h.status}</span></td><td className="num">{h.miners}</td><td>{h.note}</td></tr>
-            ))}
-          </tbody>
-        </table>
-        </div>
-      </div>
     </>
   );
 }
 
 function PowerView() {
   const s = powerSample;
-  const total = s.bar.reduce((a, b) => a + b.kw, 0);
   return (
     <>
       <Kpis items={s.kpis} />
-      <figure className="mon-chart" aria-label="Hall supply split into running load, safe headroom and safety margin">
-        <figcaption>Where the supply goes</figcaption>
+      <figure className="mon-chart" aria-label="Share of a hall's supply: running load, safe headroom and safety margin">
+        <figcaption>Where a hall&apos;s supply goes, in % of supply</figcaption>
         <div className="mon-stack">
-          {s.bar.map((b) => <span key={b.key} className={`seg-${b.key}`} style={{ flexGrow: b.kw }} title={`${b.label}: ${b.kw} kW`} />)}
+          {s.bar.map((b) => <span key={b.key} className={`seg-${b.key}`} style={{ flexGrow: b.pct }} title={`${b.label}: ${b.pct}%`} />)}
         </div>
         <ul className="mon-legend">
-          {s.bar.map((b) => <li key={b.key}><i className={`seg-${b.key}`} />{b.label} <b className="num">{b.kw} kW</b></li>)}
-          <li className="mon-legend-total">Supply <b className="num">{total.toLocaleString("en-US")} kW</b></li>
+          {s.bar.map((b) => <li key={b.key}><i className={`seg-${b.key}`} />{b.label} <b className="num">{b.pct}%</b></li>)}
         </ul>
       </figure>
-      <div className="mon-table-wrap">
-      <table className="mon-table">
-        <thead><tr><th scope="col">Hall</th><th scope="col" className="num">Capacity</th><th scope="col" className="num">Running load</th><th scope="col" className="num">Safe headroom</th></tr></thead>
-        <tbody>
-          {s.halls.map((h) => (
-            <tr key={h.hall}><th scope="row">{h.hall}</th><td className="num">{h.capacity} kW</td><td className="num">{h.load} kW</td><td className="num">{h.headroom} kW</td></tr>
-          ))}
-        </tbody>
-      </table>
-        </div>
     </>
   );
 }
