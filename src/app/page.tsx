@@ -8,6 +8,7 @@ import { LegalNotices } from "@/components/LegalNotices";
 import { HostingOverview } from "@/components/HostingOverview";
 import { MonitoringSamples } from "@/components/MonitoringSamples";
 import { SiteCameras } from "@/components/SiteCameras";
+import { ImmersionSetup } from "@/components/ImmersionSetup";
 import { MachinesTable } from "@/components/MachinesTable";
 import { CountUp } from "@/components/CountUp";
 import { PowerCalculator } from "@/components/PowerCalculator";
@@ -144,12 +145,12 @@ export default function Home() {
           <OpsPanel />
           <div className="setups">
             <div className="setups-head">
-              <p className="eyebrow">The two setups</p>
-              <h3>How our air-cooled and hydro-cooling mining systems are built</h3>
+              <p className="eyebrow">Our cooling setups</p>
+              <h3>How our air-cooled, hydro and immersion mining systems are built</h3>
               <p className="muted">Pick a system, tap a layer to see what it does, then see it for real in the photos and video from our sites.</p>
             </div>
             <Tabs
-              label="The two setups"
+              label="Our cooling setups"
               tabs={[
                 {
                   id: "setup-air", label: "Air-cooled mining system",
@@ -174,6 +175,14 @@ export default function Home() {
                         <SitePhoto photo={photos.hydroContainerDusk} crop sizes="(min-width: 840px) 36vw, 100vw" />
                         <SiteVideo src={hydroVideos[0].src} poster={hydroVideos[0].poster} label="Hydro-cooling mining system video" caption={hydroVideos[0].caption} />
                       </div>
+                    </div>
+                  ),
+                },
+                {
+                  id: "setup-immersion", label: "Immersion cooling system",
+                  content: (
+                    <div className="setup-pane">
+                      <ImmersionSetup />
                     </div>
                   ),
                 },

@@ -268,6 +268,26 @@ export const siteCameras: { src: string; poster: string; cam: string; caption: s
   { src: "/video/cam-air-racks.mp4", poster: "/video/cam-air-racks-poster.webp", cam: "CAM 02", caption: "Air-cooled racks · Abu Dhabi" },
 ];
 
+// Immersion cooling system (Ganushi KC, 14 Nov 2026; content/sites.md › Immersion): the third setup tab. The 3D motion is
+// rendered from her immersion build model (two dry coolers on a steel frame above a container with a sealed dielectric
+// tank), with the maker's marks replaced by the Segments mark. General description only: no capacity or performance figures.
+export const immersionSetup = {
+  title: "Miners sealed in a cooling fluid, inside the container",
+  intro: "Our immersion container holds the miners in a sealed tank of dielectric fluid, a liquid that carries heat but not electricity. No fans push air through the machines: the fluid takes their heat straight off the boards.",
+  points: [
+    "A separate closed water loop carries the heat out of the tank.",
+    "Two dry coolers on a steel frame above the container release it to the air.",
+    "Sealed from dust and outside air, built for the UAE heat.",
+  ],
+  loop: [
+    { title: "Heat in the tank", text: "Miner heat passes into the dielectric fluid.", tone: "heat" },
+    { title: "Warm water out", text: "The closed water loop picks the heat up.", tone: "warm" },
+    { title: "Heat to air", text: "The dry coolers above release it outside.", tone: "air" },
+    { title: "Cooled water back", text: "The water returns to the tank to go again.", tone: "cool" },
+  ],
+  video: { src: "/video/immersion-3d.mp4", poster: "/video/immersion-3d-poster.webp", label: "3D model of the Segments immersion container turning and opening to show the tank", caption: "Immersion container, 3D model · Abu Dhabi" },
+};
+
 export const siteVideo = {
   // content/sites.md › Video. Drive › site folder › installed. Muted, first 5 seconds, no people.
   src: "/video/installed-miners.mp4",
@@ -318,7 +338,7 @@ export const services = {
   overview:
     "We have mined Bitcoin for our own account since 2017, so we know what it takes to keep machines running in the UAE heat. Today Segments Cloud operates 45 MW of power at sites all around Abu Dhabi and hosts both hydro and air-cooled machines, with a site in-charge and hosting technicians on site 24/7 at every site, and every site fully monitored. Our repair center is staffed by technicians trained by Bitmain. Every machine you send us is tracked on our fleet platform, and if one fails we collect it, diagnose it and send you a quote before any work starts. Each month you receive a report with every machine's running days, energy and charge. You pay only for the days it actually ran.",
   power: ["Power capacity is tracked for every site and zone.", "Load is read from the fleet platform before new machines are placed."],
-  cooling: ["Air-cooled halls for air-cooled ASICs.", "A hydro-cooled zone for hydro models."],
+  cooling: ["Air-cooled halls for air-cooled ASICs.", "A hydro-cooled zone for hydro models.", "An immersion container: miners sealed in dielectric fluid, cooled by a closed water loop and dry coolers."],
   operations: [
     "Hosting technicians on site 24/7 and a site in-charge at each site, with every site fully monitored.",
     "In-house repair: pickup from the site, intake and diagnosis at the Segments repair center, quote, repair and return to the rack.",
