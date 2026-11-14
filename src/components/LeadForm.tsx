@@ -62,7 +62,7 @@ export function LeadForm({ defaultModels = "" }: { defaultModels?: string }) {
         <span>I agree that Segments Cloud may use these details to reply to this enquiry. <a href="#privacy" onClick={() => { const d = document.getElementById("privacy"); if (d instanceof HTMLDetailsElement) d.open = true; }}>Privacy notice</a>.</span>
       </label>
       <button type="submit" className="button form-submit" disabled={status === "sending"}>
-        {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending…</> : <>Send request <QuoteIcon /></>}
+        {status === "sending" ? <><LoaderCircle className="spin" size={18} aria-hidden="true" /> Sending…</> : <>Get my hosting quote <QuoteIcon /></>}
       </button>
       {message && <p className={`form-feedback ${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
     </form>

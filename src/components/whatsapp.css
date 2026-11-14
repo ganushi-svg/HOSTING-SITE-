@@ -1,0 +1,8 @@
+/* Floating WhatsApp button: logo only, no text (Ganushi, 14 Nov 2026). Keeps each theme's position rules. */
+a.whatsapp-float.wa-round { width: 58px; height: 58px; padding: 0; gap: 0; justify-content: center; border-radius: 50%;
+  background: transparent; border: 0; box-shadow: 0 10px 26px -8px rgba(37, 211, 102, 0.6), 0 6px 16px -6px rgba(0, 0, 0, 0.6); -webkit-backdrop-filter: none; backdrop-filter: none; }
+a.whatsapp-float.wa-round:hover { transform: translateY(-2px) scale(1.05); }
+a.whatsapp-float.wa-round .wa-ring { left: 0; top: 0; width: 58px; height: 58px; margin-top: 0; }
+a.whatsapp-float.wa-round .wa-label { display: none; }
+a.whatsapp-float.wa-round:focus-visible { outline: 3px solid #25d366; outline-offset: 3px; }
+@media (max-width: 720px) { a.whatsapp-float.wa-round { width: 52px; height: 52px; } a.whatsapp-float.wa-round .wa-icon { width: 52px; height: 52px; } a.whatsapp-float.wa-round .wa-ring { width: 52px; height: 52px; } }
