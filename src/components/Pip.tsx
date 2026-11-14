@@ -24,7 +24,7 @@ type Tip = { id: string; kicker: string; text: string; chip?: { label: string; t
 const TIP_IDS = ["infrastructure", "pricing", "calculator", "faq", "contact"];
 function tipFor(id: string): Tip | null {
   switch (id) {
-    case "infrastructure": return { id, kicker: "Infrastructure", text: "Our power, air and hydro cooling, repair center and monitoring in one place. See our air, hydro and immersion setups below." };
+    case "infrastructure": return { id, kicker: "Infrastructure", text: "Our power, air and hydro cooling, repair center and monitoring in one place. See our air and hydro setups below." };
     case "pricing": return { id, kicker: "Pricing", text: `Plug and play starts at ${pricing.plugFromLabel} per kWh for 100+ machines, and you are only billed for the days your machines run.`, chip: { label: "Estimate my bill", to: "calculator" } };
     case "calculator": return { id, kicker: "Calculator", text: "Pick a machine and a quantity and I'll show the monthly hosting power bill. Hosting cost only, never mining revenue." };
     case "faq": return { id, kicker: "FAQ", text: "Can't see your question here? Ask me anything about hosting your miners.", chip: { label: `Ask ${PIP.name}`, ask: true } };
