@@ -1,0 +1,18 @@
+/* Immersion cooling setup (Ganushi, 14 Nov 2026). Theme tokens only; motion is the video itself. */
+.imm-pane { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.imm-visual { position: relative; min-width: 0; }
+.imm-visual .site-video video { aspect-ratio: 16 / 9; height: auto; object-fit: cover; background: #0d0b16; }
+.imm-visual .site-video figcaption { margin-top: 2px; }
+.imm-tag { position: absolute; top: 12px; left: 12px; padding: 6px 10px; border-radius: 999px; font: 600 0.72rem/1 var(--ff-body); color: #fff;
+  background: rgba(0, 0, 0, 0.55); border: 1px solid rgba(255, 255, 255, 0.2); pointer-events: none; }
+.imm-card { padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+.imm-card h4 { margin: 0; font: 700 1.2rem/1.25 var(--ff-display); color: var(--hi, #f8fafc); }
+.imm-card .muted { margin: 0; }
+.imm-loop { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.imm-loop li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 9px; align-items: start; padding: 10px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.03); }
+.imm-loop .num { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; font-size: 0.75rem; color: #fff; }
+.imm-loop .is-heat .num { background: #7c3aed; } .imm-loop .is-warm .num { background: #ea7a3c; } .imm-loop .is-air .num { background: #64748b; } .imm-loop .is-cool .num { background: #0ea5c4; }
+.imm-loop b { display: block; font-size: 0.86rem; color: var(--hi, #f8fafc); }
+.imm-loop small { display: block; font-size: 0.76rem; line-height: 1.4; color: var(--lo, #94a3b8); margin-top: 2px; }
+@media (max-width: 900px) { .imm-pane { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .imm-loop { grid-template-columns: 1fr; } }
