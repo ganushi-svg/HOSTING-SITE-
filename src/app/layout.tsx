@@ -16,7 +16,7 @@ const body = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700"],
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-mono", display: "swap" });
 
 export const viewport: Viewport = {
-  themeColor: "#0b0711",
+  themeColor: "#050505",
   width: "device-width",
   initialScale: 1,
   colorScheme: "dark",
