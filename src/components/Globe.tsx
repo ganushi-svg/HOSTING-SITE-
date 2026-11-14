@@ -2,14 +2,18 @@
 
 import { useEffect, useRef } from "react";
 import { capacity } from "@/lib/site";
+import "./globe-hub.css";
 
 /**
- * Hero globe (Ganushi, 4 Nov 2026): a rotating Earth drawn on a canvas with no library. The texture is an
- * equirectangular render of Natural Earth land (public/brand/earth-tex.webp); the sphere is
+ * Hero globe (Ganushi, 4 Nov 2026; sharper Earth and 3D hub 14 Nov 2026): a rotating Earth drawn on a canvas with no
+ * library. The texture is NASA Blue Marble imagery (public domain: land from Blue Marble 2002, ocean shading from NASA's
+ * land/ocean/ice map; public/brand/earth-tex-hd.webp, 2560 x 1280), rendered at the screen's own resolution; the sphere is
  * sampled per pixel each frame, lit from the upper left, with a blue atmosphere rim. Light rays curve over the
  * surface from client cities in the USA and Europe (the regions in content/performance.md; the cities are the same
  * set as the earlier static globe) into Segments in Abu Dhabi, with bright pulses travelling along them. The globe
  * sways ±24° so Abu Dhabi stays in view while the USA and Europe sweep across. Runs only while on screen.
+ * At Abu Dhabi stands a small 3D Segments data centre (hall with the logo board, two containers with dry coolers and a
+ * Segments flag; rendered offline, public/brand/segments-hub.webp) in place of the old text pin.
  */
 type Site = { name: string; lat: number; lon: number; label?: string; lx?: number; ly?: number };
 const HUB: Site = { name: "Segments", lat: 24.45, lon: 54.4 };
@@ -25,7 +29,7 @@ const SITES: Site[] = [
   { name: "Stockholm", lat: 59.3, lon: 18.1, label: "Sweden", lx: 0, ly: -8 },
   { name: "Warsaw", lat: 52.2, lon: 21.0, label: "Poland", lx: 26, ly: -6 },
 ];
-const SIZE = 400; // internal canvas size
+const BASE_SIZE = 400; // canvas size before it is matched to the screen
 const TILT = (26 * Math.PI) / 180; // camera tilt (north pole leans towards the viewer)
 const BASE_LON = 8, SWAY = 24, PERIOD = 38; // degrees, degrees, seconds
 
@@ -40,10 +44,15 @@ export function Globe() {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const R = SIZE / 2 - 14, C = SIZE / 2;
+    // Match the canvas to the displayed size and pixel density (sharp on retina screens), within 360 – 640 px.
+    const cssW = canvas.getBoundingClientRect().width || BASE_SIZE;
+    const SIZE = Math.round(Math.max(360, Math.min(640, cssW * Math.min(window.devicePixelRatio || 1, 2))));
+    canvas.width = SIZE; canvas.height = SIZE;
+    const K = SIZE / BASE_SIZE; // scale for line widths, dots and labels
+    const R = SIZE / 2 - 14 * K, C = SIZE / 2;
     const N = SIZE * SIZE;
     const img = new Image();
-    img.src = "/brand/earth-tex.webp";
+    img.src = "/brand/earth-tex-hd.webp";
     let tex: ImageData | null = null;
     let TW = 0, TH = 0;
 
@@ -134,7 +143,7 @@ export function Globe() {
         const grad = ctx.createLinearGradient(pts[0].x, pts[0].y, hs[0], hs[1]);
         grad.addColorStop(0, "rgba(34,211,238,0.35)"); grad.addColorStop(1, "rgba(251,210,78,0.95)");
         for (const [w, style] of [[6, "rgba(90,160,255,0.10)"], [1.6, grad]] as const) {
-          ctx.lineWidth = w; ctx.strokeStyle = style; ctx.lineCap = "round";
+          ctx.lineWidth = w * K; ctx.strokeStyle = style; ctx.lineCap = "round";
           ctx.beginPath(); let on = false;
           for (const q of pts) { if (q.z > -0.02) { if (!on) { ctx.moveTo(q.x, q.y); on = true; } else ctx.lineTo(q.x, q.y); } else on = false; }
           ctx.stroke();
@@ -149,24 +158,24 @@ export function Globe() {
             const q = pts[j]; if (q.z < 0) continue;
             const a = (1 - k / 9) * Math.min(1, (q.z + 0.1) * 3);
             ctx.fillStyle = `rgba(255,255,255,${0.9 * a})`;
-            ctx.beginPath(); ctx.arc(q.x, q.y, 1.2 + (1 - k / 9) * 1.8, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(q.x, q.y, (1.2 + (1 - k / 9) * 1.8) * K, 0, Math.PI * 2); ctx.fill();
           }
           const q = pts[Math.min(STEPS, Math.floor(hi))];
-          if (q.z > 0) { ctx.fillStyle = "rgba(255,255,255,0.35)"; ctx.beginPath(); ctx.arc(q.x, q.y, 6, 0, Math.PI * 2); ctx.fill(); }
+          if (q.z > 0) { ctx.fillStyle = "rgba(255,255,255,0.35)"; ctx.beginPath(); ctx.arc(q.x, q.y, 6 * K, 0, Math.PI * 2); ctx.fill(); }
         }
         // origin marker with a ping ring and country label
         if (p[2] > 0.02) {
           const [sx, sy] = screen(p);
           const vis = Math.min(1, p[2] * 2.2);
           const ping = (t * 0.6 + idx * 0.3) % 1;
-          ctx.strokeStyle = `rgba(34,211,238,${(1 - ping) * 0.8 * vis})`; ctx.lineWidth = 1.2;
-          ctx.beginPath(); ctx.arc(sx, sy, 3 + ping * 11, 0, Math.PI * 2); ctx.stroke();
-          ctx.fillStyle = `rgba(34,211,238,${vis})`; ctx.beginPath(); ctx.arc(sx, sy, 3, 0, Math.PI * 2); ctx.fill();
-          ctx.fillStyle = `rgba(255,255,255,${vis})`; ctx.beginPath(); ctx.arc(sx, sy, 1.3, 0, Math.PI * 2); ctx.fill();
+          ctx.strokeStyle = `rgba(34,211,238,${(1 - ping) * 0.8 * vis})`; ctx.lineWidth = 1.2 * K;
+          ctx.beginPath(); ctx.arc(sx, sy, (3 + ping * 11) * K, 0, Math.PI * 2); ctx.stroke();
+          ctx.fillStyle = `rgba(34,211,238,${vis})`; ctx.beginPath(); ctx.arc(sx, sy, 3 * K, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = `rgba(255,255,255,${vis})`; ctx.beginPath(); ctx.arc(sx, sy, 1.3 * K, 0, Math.PI * 2); ctx.fill();
           if (s.label && p[2] > 0.25) {
-            ctx.font = "600 11px Space Grotesk, system-ui, sans-serif"; ctx.textAlign = "center";
-            ctx.lineWidth = 3; ctx.strokeStyle = `rgba(4,7,15,${0.9 * vis})`; ctx.fillStyle = `rgba(214,228,255,${vis})`;
-            const lx = sx + (s.lx ?? 0), ly = sy + (s.ly ?? -9);
+            ctx.font = `600 ${Math.round(11 * K)}px Space Grotesk, system-ui, sans-serif`; ctx.textAlign = "center";
+            ctx.lineWidth = 3 * K; ctx.strokeStyle = `rgba(4,7,15,${0.9 * vis})`; ctx.fillStyle = `rgba(214,228,255,${vis})`;
+            const lx = sx + (s.lx ?? 0) * K, ly = sy + (s.ly ?? -9) * K;
             ctx.strokeText(s.label.toUpperCase(), lx, ly); ctx.fillText(s.label.toUpperCase(), lx, ly);
           }
         }
@@ -174,13 +183,12 @@ export function Globe() {
       // hub: expanding gold rings and a core
       for (let n = 0; n < 3; n++) {
         const ph = (t * 0.45 + n / 3) % 1;
-        ctx.strokeStyle = `rgba(251,210,78,${(1 - ph) * 0.9})`; ctx.lineWidth = 2 - ph;
-        ctx.beginPath(); ctx.arc(hs[0], hs[1], 6 + ph * 26, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = `rgba(251,210,78,${(1 - ph) * 0.8})`; ctx.lineWidth = (2 - ph) * K;
+        ctx.beginPath(); ctx.ellipse(hs[0], hs[1], (18 + ph * 34) * K, (9 + ph * 17) * K, 0, 0, Math.PI * 2); ctx.stroke();
       }
-      ctx.fillStyle = "rgba(251,210,78,0.35)"; ctx.beginPath(); ctx.arc(hs[0], hs[1], 12, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "#fbd24e"; ctx.strokeStyle = "#2a1a02"; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(hs[0], hs[1], 6.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-      pin.style.transform = `translate(calc(${(hs[0] / SIZE) * 100}cqw - 50%), calc(${(hs[1] / SIZE) * 100}cqh + 22px))`;
+      // the 3D data centre's platform centre sits on Abu Dhabi
+      pin.style.setProperty("--hx", `${(hs[0] / SIZE) * 100}cqw`);
+      pin.style.setProperty("--hy", `${(hs[1] / SIZE) * 100}cqh`);
     };
 
     let raf = 0, visible = true, running = false;
@@ -215,8 +223,12 @@ export function Globe() {
       {/* eslint-disable-next-line @next/next/no-img-element -- static poster shown until the canvas draws */}
       <img className="globe-poster" src="/brand/globe-earth.webp" width={1040} height={1040} alt="" aria-hidden="true" />
       <span className="globe-shadow" aria-hidden="true" />
-      <canvas ref={canvasRef} width={SIZE} height={SIZE} aria-hidden="true" />
-      <figcaption ref={pinRef} className="globe-pin globe-pin-live"><b>Segments</b><span>Abu Dhabi</span></figcaption>
+      <canvas ref={canvasRef} width={BASE_SIZE} height={BASE_SIZE} aria-hidden="true" />
+      <figcaption ref={pinRef} className="globe-hub">
+        {/* eslint-disable-next-line @next/next/no-img-element -- small animated WebP of the 3D Segments data centre */}
+        <img src="/brand/segments-hub.webp" width={300} height={300} alt="Segments data centre in Abu Dhabi, 3D illustration with the Segments flag" />
+        <span className="globe-hub-label"><b>Segments</b> Abu Dhabi</span>
+      </figcaption>
     </figure>
   );
 }
