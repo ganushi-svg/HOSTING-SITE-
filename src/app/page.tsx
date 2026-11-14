@@ -75,11 +75,25 @@ export default function Home() {
   const shownFaqs = faqs.slice(0, FAQ_COUNT);
   // Structured data for search engines (Ganushi, 4 Nov 2026). Every value comes from site.ts / models.ts, so nothing here is invented.
   const jsonLd = [
-    { "@context": "https://schema.org", "@type": "WebSite", name: site.name, url: site.url, inLanguage: "en" },
+    { "@context": "https://schema.org", "@type": "WebSite", "@id": `${site.url}/#website`, name: site.name, url: site.url, inLanguage: "en", publisher: { "@id": `${site.url}/#organization` } },
     {
       "@context": "https://schema.org", "@type": "Service", name: "Bitcoin mining hosting", serviceType: "ASIC miner hosting",
-      description: site.description, provider: { "@type": "Organization", name: site.name, url: site.url },
+      description: site.description, provider: { "@id": `${site.url}/#organization` },
       areaServed: { "@type": "Country", name: "United Arab Emirates" }, availableChannel: { "@type": "ServiceChannel", serviceUrl: `${site.url}/#contact` },
+      // Every published rate (SEO audit, 14 Nov 2026): the three plug and play tiers and the turnkey power rate.
+      hasOfferCatalog: {
+        "@type": "OfferCatalog", name: "Hosting rates",
+        itemListElement: [
+          ...pricing.tiers.map((t) => ({
+            "@type": "Offer", name: `Plug and play hosting, ${t.label}`, priceCurrency: "USD", availability: "https://schema.org/InStock",
+            priceSpecification: { "@type": "UnitPriceSpecification", price: t.rateUsd, priceCurrency: "USD", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "KWH" } },
+          })),
+          {
+            "@type": "Offer", name: "Turnkey build, from 1 MW", priceCurrency: "USD", availability: "https://schema.org/InStock",
+            priceSpecification: { "@type": "UnitPriceSpecification", price: pricing.turnkeyPowerFromUsd, priceCurrency: "USD", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "KWH" }, description: `Power from this rate per kWh, plus capex of ${pricing.turnkeyCapexPerMwLabel} per MW.` },
+          },
+        ],
+      },
       offers: {
         "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock",
         priceSpecification: { "@type": "UnitPriceSpecification", price: pricing.plugFromUsd, priceCurrency: "USD", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "KWH" }, description: "Plug and play hosting from this rate per kWh; the rate is set by fleet size." },

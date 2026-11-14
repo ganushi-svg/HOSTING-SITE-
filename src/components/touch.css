@@ -1,0 +1,10 @@
+/* Touch targets on phones (14 Nov 2026 mobile audit): links and small buttons get at least a 40-44 px tap area
+   without changing how they look. Imported by Footer.tsx so it loads on every page. */
+@media (pointer: coarse) {
+  .footer-links a, .footer-bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer-links { row-gap: 0; }
+  .vcard-save { display: inline-flex; align-items: center; min-height: 40px; }
+  .pw-close { width: 36px; height: 36px; top: 4px; right: 4px; }
+  .pip-perch-tip .pw-close { width: 32px; height: 32px; top: 2px; right: 2px; }
+  .pw-chips button, .pw-chips a { min-height: 40px; }
+}
