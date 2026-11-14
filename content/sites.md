@@ -61,4 +61,3 @@ on 12 Nov 2026; none of them was on the page at the time. Do not add constructio
   into a cutaway of the tank. Labelled as a 3D model, not a photo. The model's own notes say dimensions, hidden connections
   and operating limits still need site/OEM verification, so the page gives a general description only: no capacity,
   machine count, temperatures or two-phase claims.
-- TODO: Ganushi to add real photos of the immersion container when ready.
