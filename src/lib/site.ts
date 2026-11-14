@@ -9,7 +9,8 @@ export const site = {
   legalNames: ["Segments Cloud Computing LLC", "Segments Cloud Electronics LLC"], // both group companies, shown in the footer (CLAUDE.md)
   serviceArea: "UAE", // content/contact.md
   description:
-    "ASIC mining hosting in the UAE: 45 MW of operating capacity at sites around Abu Dhabi, plug and play hosting from $0.058 per kWh, turnkey builds, air and hydro-cooled halls, in-house repair and monthly power reports.",
+    // Kept under 160 characters so search results show it in full (SEO audit, 14 Nov 2026).
+    "Bitcoin mining hosting in Abu Dhabi, UAE: 45 MW, hosting from $0.058/kWh, air and hydro cooling, 24/7 technicians, in-house repair and monthly reports.",
   // TODO: set NEXT_PUBLIC_SITE_URL to the real domain once approved (CLAUDE.md › Domain)
   url: (process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || "http://localhost:3000").replace(/\/$/, ""),
   // Keep the preview out of search engines until management approves the launch.
