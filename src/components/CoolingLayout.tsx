@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import type React from "react";
 import { airLayers, hydroLayers } from "@/lib/cooling-layout";
+import "./hologram.css";
 
 /**
  * Interactive section drawing of a cooling system (Ganushi, 4 Nov 2026): the air-cooled hall from drawing SC-CH-01
@@ -34,10 +35,20 @@ export function CoolingLayout({ kind }: { kind: "air" | "hydro" }) {
         <p className="muted">{kind === "air" ? "A section through one hall, drawn from our hall drawing. Tap a layer to see what it does." : "A section through one container and its cooling tower. Tap a layer to see what it does."}</p>
       </div>
       <div className="layout-body">
-        <div className="panel layout-stage" onPointerMove={tilt} onPointerLeave={untilt}>
+        {/* Hologram projection (Ganushi, 16 Nov 2026): base, light cone, scanlines, scan band, corners and a flicker on each layer change. */}
+        <div className="panel layout-stage holo" onPointerMove={tilt} onPointerLeave={untilt}>
+          <span className="holo-beam" aria-hidden="true" />
+          <span className="holo-base" aria-hidden="true" />
           <div className="sec-3d">
             <div className="sec-float">{kind === "air" ? <AirSection {...props} /> : <HydroSection {...props} />}</div>
           </div>
+          <span className="holo-fx" aria-hidden="true">
+            <span className="holo-lines" />
+            <span className="holo-scan" />
+            <span className="holo-flick" key={`${kind}-${active}`} />
+            <span className="holo-frame" />
+            <span className="holo-tag">Layer {String(active + 1).padStart(2, "0")} · projection</span>
+          </span>
         </div>
         <div className="layout-side">
           <ol className="layout-list">
