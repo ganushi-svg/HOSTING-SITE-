@@ -1,7 +1,11 @@
+"use client";
+
 import type React from "react";
 import type { Model } from "@/lib/models";
 import "./hologram.css";
+import { useCallback, useState } from "react";
 import { MinerTeardown } from "./MinerTeardown";
+import { MinerTeardown3D } from "./MinerTeardown3D";
 
 /**
  * The representative 3D miner render beside the power calculator (Ganushi, 4 Nov 2026). Each time a value
@@ -59,14 +63,18 @@ export function CalcMiner({ cooling, watts, qty, slug }: { cooling: Model["cooli
   const hydro = cooling === "Hydro";
   const key = hydro ? "hydro" : "air";
   const kw = ((watts * qty) / 1000).toLocaleString("en-US", { maximumFractionDigits: 1 });
+  // The live 3D teardown replaces the photo render and the line drawing once WebGL is up; they stay as the fallback.
+  const [is3d, set3d] = useState(false);
+  const onReady = useCallback((ok: boolean) => set3d(ok), []);
   return (
-    <figure className={`calc-miner holo has-teardown${hydro ? " is-hydro" : ""}`}>
+    <figure className={`calc-miner holo has-teardown${hydro ? " is-hydro" : ""}${is3d ? " is-3d" : ""}`}>
       {/* Hologram projector under the miner (Ganushi, 16 Nov 2026) */}
       <span className="holo-beam" aria-hidden="true" />
       <span className="holo-base" aria-hidden="true" />
       <span className="holo-fx" aria-hidden="true"><span className="holo-frame" /><span className="holo-tag">Hologram · {hydro ? "hydro" : "air"}-cooled</span></span>
       <div className="cm-stage">
         {/* Teardown first (exploded, labelled parts fly together), then the assembled render powers up. */}
+        <MinerTeardown3D slug={slug} cooling={cooling} onReady={onReady} />
         <MinerTeardown slug={slug} cooling={cooling} />
         <div className="cm-assembly">
           <span className="cm-grid" aria-hidden="true" />

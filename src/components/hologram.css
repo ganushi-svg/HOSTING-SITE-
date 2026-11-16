@@ -100,3 +100,31 @@
 }
 /* The teardown labels use the top of the stage, so the calculator's hologram tag sits bottom-right. */
 .calc-miner.holo .holo-tag { top: auto; bottom: 16px; right: 18px; }
+
+/* Live 3D teardown (16 Nov 2026). The canvas fills a wider stage; callouts sit in two aligned columns with thin leaders. */
+.calc-miner.is-3d .cm-stage { max-width: none; aspect-ratio: 16 / 10; }
+@media (max-width: 640px) { .calc-miner.is-3d .cm-stage { aspect-ratio: 4 / 3.4; } }
+.calc-miner.is-3d .cm-assembly, .calc-miner.is-3d .cm-teardown { display: none; }
+.td3 { position: absolute; inset: 0; z-index: 2; }
+.td3 .td3-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.td3 .td3-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.td3 .td3-lines polyline { fill: none; stroke: color-mix(in srgb, var(--accent, #c084fc) 80%, white); stroke-width: 1; opacity: 0; }
+.td3 .td3-lines circle { fill: var(--accent, #c084fc); opacity: 0; }
+.td3 .td3-callout { position: absolute; left: 0; top: 0; max-width: 34%; padding: 5px 9px; border-radius: 6px; opacity: 0; pointer-events: none;
+  background: rgba(8, 6, 14, 0.78); border: 1px solid color-mix(in srgb, var(--accent, #c084fc) 45%, transparent);
+  font: 600 12px/1.25 var(--ff-body, system-ui, sans-serif); color: var(--hi, #f8fafc); will-change: transform, opacity; }
+.td3 .td3-callout b { display: block; font-weight: 650; }
+.td3 .td3-callout small { display: block; margin-top: 2px; font: 500 10.5px/1.2 var(--ff-mono, ui-monospace, monospace); color: color-mix(in srgb, var(--accent, #c084fc) 70%, white); }
+.td3 .td3-note { position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%); white-space: nowrap; font: 500 10.5px/1 var(--ff-mono, ui-monospace, monospace); letter-spacing: 0.06em; color: var(--lo, #94a3b8); }
+@media (max-width: 640px) { .td3 .td3-callout { font-size: 10px; padding: 3px 6px; max-width: 30%; } .td3 .td3-callout small { display: none; } .td3 .td3-note { font-size: 9px; white-space: normal; text-align: center; width: 92%; } }
+
+.td3 .td3-callout i { display: none; }
+.td3 .td3-legend { position: absolute; left: 6px; top: 6px; margin: 0; padding: 4px 6px; list-style: none; display: grid; gap: 2px; opacity: 0; pointer-events: none;
+  background: rgba(8, 6, 14, 0.72); border: 1px solid color-mix(in srgb, var(--accent, #c084fc) 35%, transparent); border-radius: 6px;
+  font: 600 9px/1.25 var(--ff-body, system-ui, sans-serif); color: var(--hi, #f8fafc); }
+.td3 .td3-legend i, .td3.is-narrow .td3-callout i { display: inline-grid; place-items: center; width: 13px; height: 13px; margin-right: 4px; border-radius: 50%;
+  font: 700 9px/1 var(--ff-mono, ui-monospace, monospace); font-style: normal; color: #0b0711; background: var(--accent, #c084fc); }
+.td3.is-narrow .td3-callout { padding: 0; border: 0; background: none; max-width: none; }
+.td3.is-narrow .td3-callout i { width: 20px; height: 20px; margin: 0; font-size: 11px; box-shadow: 0 0 0 3px rgba(8, 6, 14, 0.7); }
+.td3.is-narrow .td3-callout b, .td3.is-narrow .td3-callout small { display: none; }
+@media (max-width: 640px) { .calc-miner.is-3d .cm-stage { aspect-ratio: 1 / 1; } .calc-miner.is-3d .holo-tag { display: none; } }
