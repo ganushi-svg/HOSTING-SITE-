@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Model } from "@/lib/models";
 import "./hologram.css";
+import { MinerTeardown } from "./MinerTeardown";
 
 /**
  * The representative 3D miner render beside the power calculator (Ganushi, 4 Nov 2026). Each time a value
@@ -59,37 +60,41 @@ export function CalcMiner({ cooling, watts, qty }: { cooling: Model["cooling"]; 
   const key = hydro ? "hydro" : "air";
   const kw = ((watts * qty) / 1000).toLocaleString("en-US", { maximumFractionDigits: 1 });
   return (
-    <figure className={`calc-miner holo${hydro ? " is-hydro" : ""}`}>
+    <figure className={`calc-miner holo has-teardown${hydro ? " is-hydro" : ""}`}>
       {/* Hologram projector under the miner (Ganushi, 16 Nov 2026) */}
       <span className="holo-beam" aria-hidden="true" />
       <span className="holo-base" aria-hidden="true" />
       <span className="holo-fx" aria-hidden="true"><span className="holo-frame" /><span className="holo-tag">Hologram · {hydro ? "hydro" : "air"}-cooled</span></span>
       <div className="cm-stage">
-        <span className="cm-grid" aria-hidden="true" />
-        {/* eslint-disable-next-line @next/next/no-img-element -- transparent WebP layers stacked for the effect */}
-        <img className="cm-real" src={`/miners/turntable/${key}-calc.webp`} width={720} height={540} alt={`Representative ${key === "hydro" ? "hydro" : "air"}-cooled miner render powering up`} decoding="async" />
-        <span className="cm-holo" style={{ "--holo-mask": `url(/miners/turntable/${key}-calc.webp)` } as React.CSSProperties} aria-hidden="true"><span className="cm-holo-tint" /><span className="cm-holo-scan" /></span>
-        {/* eslint-disable-next-line @next/next/no-img-element -- blueprint trace of the same render */}
-        <img className="cm-print" src={`/miners/turntable/${key}-blueprint.webp`} width={720} height={540} alt="" aria-hidden="true" decoding="async" />
-        <svg className="cm-fx" viewBox="0 0 720 540" aria-hidden="true">
-          {hydro ? (
-            <>
-              <path className="cm-lead" d={HYDRO.lead} />
-              <path className="cm-flow" d={HYDRO.lead} />
-              <path className="cm-flow cm-flow-late" d={HYDRO.inner} />
-              {HYDRO.coolant.map((d) => <path key={d} className="cm-flow cm-water" d={d} />)}
-            </>
-          ) : (
-            <>
-              <path className="cm-lead" d={AIR.lead} />
-              <path className="cm-lead" d={AIR.lead2} />
-              <path className="cm-flow" d={AIR.lead} />
-              <path className="cm-flow" d={AIR.lead2} />
-              <path className="cm-flow cm-flow-late" d={AIR.inner} />
-              <g className="cm-fans">{AIR.fans.map((f) => <Fan key={`${f.cx}-${f.cy}`} {...f} />)}</g>
-            </>
-          )}
-        </svg>
+        {/* Teardown first (exploded, labelled parts fly together), then the assembled render powers up. */}
+        <MinerTeardown cooling={cooling} />
+        <div className="cm-assembly">
+          <span className="cm-grid" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element -- transparent WebP layers stacked for the effect */}
+          <img className="cm-real" src={`/miners/turntable/${key}-calc.webp`} width={720} height={540} alt={`Representative ${key === "hydro" ? "hydro" : "air"}-cooled miner render powering up`} decoding="async" />
+          <span className="cm-holo" style={{ "--holo-mask": `url(/miners/turntable/${key}-calc.webp)` } as React.CSSProperties} aria-hidden="true"><span className="cm-holo-tint" /><span className="cm-holo-scan" /></span>
+          {/* eslint-disable-next-line @next/next/no-img-element -- blueprint trace of the same render */}
+          <img className="cm-print" src={`/miners/turntable/${key}-blueprint.webp`} width={720} height={540} alt="" aria-hidden="true" decoding="async" />
+          <svg className="cm-fx" viewBox="0 0 720 540" aria-hidden="true">
+            {hydro ? (
+              <>
+                <path className="cm-lead" d={HYDRO.lead} />
+                <path className="cm-flow" d={HYDRO.lead} />
+                <path className="cm-flow cm-flow-late" d={HYDRO.inner} />
+                {HYDRO.coolant.map((d) => <path key={d} className="cm-flow cm-water" d={d} />)}
+              </>
+            ) : (
+              <>
+                <path className="cm-lead" d={AIR.lead} />
+                <path className="cm-lead" d={AIR.lead2} />
+                <path className="cm-flow" d={AIR.lead} />
+                <path className="cm-flow" d={AIR.lead2} />
+                <path className="cm-flow cm-flow-late" d={AIR.inner} />
+                <g className="cm-fans">{AIR.fans.map((f) => <Fan key={`${f.cx}-${f.cy}`} {...f} />)}</g>
+              </>
+            )}
+          </svg>
+        </div>
       </div>
       <figcaption>
         <span className="cm-status"><i aria-hidden="true" /> Powering up</span>
