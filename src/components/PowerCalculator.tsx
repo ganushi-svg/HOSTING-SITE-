@@ -99,7 +99,7 @@ export function PowerCalculator() {
           <input id={`${id}-d`} type="range" min={1} max={31} value={d} onChange={(e) => setDays(+e.target.value)} />
         </label>
         <div className={`full calc-miner-wrap${run ? " is-run" : ""}`} key={run}>
-          <CalcMiner cooling={models.find((m) => m.slug === slug)?.cooling ?? "Air"} watts={w} qty={n} />
+          <CalcMiner slug={slug} cooling={models.find((m) => m.slug === slug)?.cooling ?? "Air"} watts={w} qty={n} />
         </div>
       </form>
       <div className="panel calc-out" aria-live="polite">
