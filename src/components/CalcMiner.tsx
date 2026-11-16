@@ -55,7 +55,7 @@ const HYDRO = {
   ],
 };
 
-export function CalcMiner({ cooling, watts, qty }: { cooling: Model["cooling"]; watts: number; qty: number }) {
+export function CalcMiner({ cooling, watts, qty, slug }: { cooling: Model["cooling"]; watts: number; qty: number; slug?: string }) {
   const hydro = cooling === "Hydro";
   const key = hydro ? "hydro" : "air";
   const kw = ((watts * qty) / 1000).toLocaleString("en-US", { maximumFractionDigits: 1 });
@@ -67,7 +67,7 @@ export function CalcMiner({ cooling, watts, qty }: { cooling: Model["cooling"]; 
       <span className="holo-fx" aria-hidden="true"><span className="holo-frame" /><span className="holo-tag">Hologram · {hydro ? "hydro" : "air"}-cooled</span></span>
       <div className="cm-stage">
         {/* Teardown first (exploded, labelled parts fly together), then the assembled render powers up. */}
-        <MinerTeardown cooling={cooling} />
+        <MinerTeardown slug={slug} cooling={cooling} />
         <div className="cm-assembly">
           <span className="cm-grid" aria-hidden="true" />
           {/* eslint-disable-next-line @next/next/no-img-element -- transparent WebP layers stacked for the effect */}

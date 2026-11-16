@@ -92,3 +92,50 @@ Ganushi KC asked for the S21+ air-cooled and S21+ Hydro rows to get their own pi
 images from Bitmain's own S21+ and S21+ Hyd. listings (shop.bitmain.com gallery, 12 Nov 2026), cut out with Adobe's
 background removal: the S21+ uses Bitmain's more frontal S21+ shot (same chassis family as the S21 XP), and the S21+ Hydro
 uses Bitmain's S21+ Hyd. shot from the other side, so neither row repeats the S21 XP or S21 XP Hydro picture.
+
+## Internals (for the calculator teardown illustration)
+
+Researched 16 Nov 2026 from Bitmain support specification pages and user guides, MicroBT manuals and repair guides (D-Central). Reseller-only claims are left out; anything not stated by a reliable source is "not published" and the illustration shows that part as the typical layout without a count or name. Used in src/lib/miner-internals.ts. Dimensions L × W × H in mm.
+
+| Model | Hashboards | Fans | Power supply | Control board | Coolant | Dimensions |
+|---|---|---|---|---|---|---|
+| Antminer Z15 Pro | 3 | 2 (position not published) | APW12, built in | not published | – | 428 × 195 × 290 |
+| Antminer S21 XP | 3 | 4 | APW171215 | yes (name not published) | – | 449 × 219 × 293 |
+| Antminer S21+ | not published | not published | APW171215 | not published | – | 450 × 219 × 293 |
+| Antminer S21 | 3 | 4 (2 intake, 2 exhaust) | APW17 | Amlogic | – | 400 × 195 × 290 incl. PSU |
+| Antminer S19 XP | 3 | 4 × 12038 (2 + 2) | APW12, on top | Zynq-based | – | 400 × 195.5 × 290 incl. PSU |
+| Whatsminer M30S++ | 3 | 2 × 14 cm (front intake, rear exhaust) | P221B / P222B | CB6 | – | 430 × 155 × 226 |
+| Antminer L9 | 3 | 4 × 12038 | APW171215 | CV1835 | – | 400 × 195 × 290 |
+| Antminer L7 | 4 | 4 (2 + 2) | APW12 | Zynq-based, at the rear | – | 370 × 195.5 × 290 incl. PSU |
+| Antminer D9 | not published | 4 × 12038 | APW12 | not published | – | 430 × 195.5 × 290 incl. PSU |
+| Antminer KS5 | not published | 4 × 12038 | APW171215A | not published | – | 430 × 195.5 × 290 |
+| Antminer AL1 | not published | not published | not published | not published | – | 430 × 195 × 290 |
+| IceRiver ALEO AE3 / AE2, AL3 | not published (IceRiver states its product images are conceptual) | not published | not published | not published | – | AE3 370 × 195 × 290; AL3 430 × 195 × 290 |
+| Antminer S21 XP Hydro | 3 (manifold for 3) | none listed | APW11 | Hyd. series | 2 quick connectors, OD10 | 339 × 173 × 207 |
+| Antminer S21+ Hydro | not published | none listed | not published | not published | OD10 | 339 × 173 × 207 |
+| Antminer S21 Hydro | 3 | none listed | APW11 | Hyd. series | 2 quick connectors, OD10 | 339 × 173 × 207 |
+| Antminer S19 XP Hydro | 3 | none listed | APW11 | Hyd. series | 2 quick connectors, OD10 | 410 × 170 × 209 |
+| Antminer S19 Pro+ Hydro | not published | none listed | not published | not published | OD10 | 410 × 196 × 209 |
+| Antminer S19 Pro Hydro | not published | none listed | APW11 | not published | not published | 410 × 196 × 209 |
+
+Not published for any hydro model: whether each hashboard has its own cold plate. Sources: support.bitmain.com specification pages for S21, S21 XP, S19 XP, L9, L7, D9, KS5 Pro, Z15 Pro, AL1, S21 XP Hyd, S21 Hyd, S19 XP Hyd, S19 Pro Hyd; Bitmain user guides and product manuals (S21+, S21 XP, S21 XP Hyd, S21 Hyd, S21+ Hyd, S19 XP Hyd, S19 Pro+ Hyd, S19 Pro Hydro); MicroBT M30S series manual and support.whatsminer.com; D-Central repair guides (S21, S19 XP, L7, M30S); iceriver.io product pages.
+
+Source URLs:
+- S21 https://support.bitmain.com/hc/en-us/articles/23794895251609-S21-Specification · https://d-central.tech/manuals/antminer-s21-maintenance-repair-guide
+- S21 XP https://support.bitmain.com/hc/en-us/articles/35383015643673-S21-XP-Specifications
+- S21+ (Bitmain guide) https://apextomining.com/apexto/uploads/2024/10/S21-User-Guide-V1.2.0.pdf
+- S19 XP https://support.bitmain.com/hc/en-us/articles/8906244096409-S19-XP-Specifications · https://d-central.tech/manuals/antminer-s19-xp-maintenance-repair-guide/
+- M30S++ https://jsbit.com/wp-content/uploads/2025/12/WhatsMiner-M30S-Series-Manual.pdf · https://support.whatsminer.com/en-US/article/676 · https://d-central.tech/whatsminer-m30s-maintenance-repair-guide/
+- L9 https://support.bitmain.com/hc/en-us/articles/33850555425305-L9-Specifications
+- L7 https://support.bitmain.com/hc/en-us/articles/4415138525337-L7-Specifications · https://d-central.tech/manuals/antminer-l7-maintenance-repair-guide/
+- D9 https://support.bitmain.com/hc/en-us/articles/18573797811353-D9-Specifications
+- KS5 https://cdn.webshopapp.com/shops/353164/files/456537090/ks5-product-datasheet-v20.pdf
+- Z15 Pro https://support.bitmain.com/hc/en-us/articles/19259431024281-Z15-Pro-Specifications
+- AL1 https://support.bitmain.com/hc/en-us/articles/35412695385881-ALPH-Miner-AL1-Specifications
+- IceRiver https://www.iceriver.io/product/iceriver-aleo-ae3/ · https://www.iceriver.io/product/iceriver-alph-al3/
+- S21 XP Hyd https://support.bitmain.com/hc/en-us/articles/34523540504857-S21-XP-Hyd-Specification
+- S21 Hyd https://support.bitmain.com/hc/en-us/articles/26824251926681-S21-Hyd-Specification
+- S21+ Hyd (Bitmain manual) https://oneminers.com/cdn/shop/files/Antminer_S21_Plus_Hyd_Manual-V1.2-oneminers.pdf
+- S19 XP Hyd https://support.bitmain.com/hc/en-us/articles/36035119865113-Bitcoin-Miner-S19-XP-Hyd-Specifications
+- S19 Pro+ Hyd https://tophash.ua/storage/5448/Antminer-S19-Pro+-Hyd-Product-Manual_V1.0.1.pdf
+- S19 Pro Hyd https://www.antminerdistribution.com/wp-content/uploads/2022/05/S19-Pro-Hydro-Manual-1.pdf
