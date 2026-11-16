@@ -2,7 +2,7 @@ import type React from "react";
 import { Clock, Droplets, FileBarChart, Mail, MapPin, Phone, Wrench, Zap } from "lucide-react";
 import { CoolingLayout } from "@/components/CoolingLayout";
 import { OpsPanel } from "@/components/OpsPanel";
-import { Globe } from "@/components/Globe";
+import { GlobeArcs } from "@/components/GlobeArcs";
 import { LeadForm } from "@/components/LeadForm";
 import { LegalNotices } from "@/components/LegalNotices";
 import { HostingOverview } from "@/components/HostingOverview";
@@ -124,7 +124,7 @@ export default function Home() {
 
           </div>
           <div className="hero-visual">
-            <Globe />
+            <GlobeArcs />
             <p className="globe-note"><span aria-hidden="true" />{capacity.clientsHosted.toLocaleString("en-US")}+ clients from {capacity.clientRegionsLabel} host with Segments</p>
           </div>
         </div>
