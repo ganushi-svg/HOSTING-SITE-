@@ -29,6 +29,7 @@ import { capacity, contact, faqs, onboarding, pricing, repair, site, siteCameras
 import { models } from "@/lib/models";
 import { airLayers, hydroLayers } from "@/lib/cooling-layout";
 import { siteStatusSample } from "@/lib/monitoring-samples";
+import { GlobeArcs } from "@/components/GlobeArcs";
 
 // UAE dirham is pegged to the US dollar at 3.6725 (Central Bank of the UAE). Used only to show the estimate in AED.
 const AED_PER_USD = 3.6725;
@@ -323,20 +324,19 @@ export default function SegmentsHostingPage() {
                   <span className="font-mono text-xs text-[#22D3EE] tabular-nums">{capacity.totalMw} MW</span>
                 </div>
 
-                <div className="relative aspect-square max-h-[300px] mx-auto my-2 flex items-center justify-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/brand/globe-earth.webp" alt="Globe centred on the Middle East, where Segments hosts in Abu Dhabi" width={1040} height={1040} className="w-full h-full object-contain opacity-90" />
-                  <div className="absolute bottom-3 inset-x-4 rounded-xl border border-white/15 bg-[#0B0711]/90 p-3 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/logo-mark.webp" alt="" width={24} height={24} className="w-6 h-6 object-contain" />
-                      <div>
-                        <div className="text-xs font-bold text-white">Segments Abu Dhabi</div>
-                        <div className="text-[10px] font-mono text-[#22D3EE]">Air &amp; hydro zones</div>
-                      </div>
+                <div className="relative mx-auto my-2 flex justify-center">
+                  <GlobeArcs className="max-w-[420px]" />
+                </div>
+                <div className="mt-2 flex items-center justify-between rounded-xl border border-white/15 bg-[#0B0711]/90 p-3">
+                  <div className="flex items-center gap-2.5">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logo-mark.webp" alt="" width={24} height={24} className="w-6 h-6 object-contain" />
+                    <div>
+                      <div className="text-xs font-bold text-white">Segments Abu Dhabi</div>
+                      <div className="text-[10px] font-mono text-[#22D3EE]">Air &amp; hydro zones</div>
                     </div>
-                    <span className="font-mono text-xs text-[#10B981] tabular-nums">{capacity.uptimePct}% uptime</span>
                   </div>
+                  <span className="font-mono text-xs text-[#10B981] tabular-nums">{capacity.uptimePct}% uptime</span>
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-white/10 text-xs text-slate-300 text-center">
