@@ -1,4 +1,6 @@
+import type React from "react";
 import type { Model } from "@/lib/models";
+import "./hologram.css";
 
 /**
  * The representative 3D miner render beside the power calculator (Ganushi, 4 Nov 2026). Each time a value
@@ -57,11 +59,16 @@ export function CalcMiner({ cooling, watts, qty }: { cooling: Model["cooling"]; 
   const key = hydro ? "hydro" : "air";
   const kw = ((watts * qty) / 1000).toLocaleString("en-US", { maximumFractionDigits: 1 });
   return (
-    <figure className={`calc-miner${hydro ? " is-hydro" : ""}`}>
+    <figure className={`calc-miner holo${hydro ? " is-hydro" : ""}`}>
+      {/* Hologram projector under the miner (Ganushi, 16 Nov 2026) */}
+      <span className="holo-beam" aria-hidden="true" />
+      <span className="holo-base" aria-hidden="true" />
+      <span className="holo-fx" aria-hidden="true"><span className="holo-frame" /><span className="holo-tag">Hologram · {hydro ? "hydro" : "air"}-cooled</span></span>
       <div className="cm-stage">
         <span className="cm-grid" aria-hidden="true" />
         {/* eslint-disable-next-line @next/next/no-img-element -- transparent WebP layers stacked for the effect */}
         <img className="cm-real" src={`/miners/turntable/${key}-calc.webp`} width={720} height={540} alt={`Representative ${key === "hydro" ? "hydro" : "air"}-cooled miner render powering up`} decoding="async" />
+        <span className="cm-holo" style={{ "--holo-mask": `url(/miners/turntable/${key}-calc.webp)` } as React.CSSProperties} aria-hidden="true"><span className="cm-holo-tint" /><span className="cm-holo-scan" /></span>
         {/* eslint-disable-next-line @next/next/no-img-element -- blueprint trace of the same render */}
         <img className="cm-print" src={`/miners/turntable/${key}-blueprint.webp`} width={720} height={540} alt="" aria-hidden="true" decoding="async" />
         <svg className="cm-fx" viewBox="0 0 720 540" aria-hidden="true">

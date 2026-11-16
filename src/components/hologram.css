@@ -1,0 +1,70 @@
+/* Hologram style (Ganushi, 16 Nov 2026) for the two cooling drawings and the calculator miner. The drawing or render is
+   projected from a glowing base: a light cone, fine scanlines, a slow scan band, corner brackets and a short flicker when
+   the view changes. Colour follows each theme's accent (orchid on violet, amber on yellow, sky blue on earth).
+   Motion is transform and opacity only (CLAUDE.md performance rule); overlays never take pointer events. */
+.holo { --holo: var(--accent, #c084fc); position: relative; isolation: isolate; }
+.holo > .holo-fx { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; overflow: hidden; z-index: 2; }
+
+/* Projector base and light cone, behind the content */
+.holo-base, .holo-beam { position: absolute; left: 50%; pointer-events: none; z-index: 0; }
+.holo-base { bottom: 4%; width: 74%; height: 11%; transform: translateX(-50%); border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--holo) 55%, transparent), color-mix(in srgb, var(--holo) 12%, transparent) 62%, transparent 72%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--holo) 40%, transparent) inset; }
+.holo-base::before, .holo-base::after { content: ""; position: absolute; inset: 22% 18%; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--holo) 55%, transparent); }
+.holo-base::after { inset: -8% -6%; border-color: color-mix(in srgb, var(--holo) 28%, transparent); animation: holo-ring 3.6s ease-out infinite; }
+.holo-beam { bottom: 9%; width: 82%; height: 86%; transform: translateX(-50%);
+  background: linear-gradient(0deg, color-mix(in srgb, var(--holo) 22%, transparent), color-mix(in srgb, var(--holo) 6%, transparent) 55%, transparent 85%);
+  clip-path: polygon(30% 100%, 70% 100%, 100% 0, 0 0); opacity: 0.75; animation: holo-beam 5s ease-in-out infinite; }
+
+/* Scanlines and moving scan band, over the content */
+.holo-lines { position: absolute; inset: 0; opacity: 0.22;
+  background: repeating-linear-gradient(0deg, color-mix(in srgb, var(--holo) 45%, transparent) 0 1px, transparent 1px 4px); mix-blend-mode: screen; }
+.holo-scan { position: absolute; left: 0; right: 0; top: 0; height: 22%; opacity: 0.5;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--holo) 26%, transparent) 70%, color-mix(in srgb, var(--holo) 60%, transparent) 96%, transparent);
+  mix-blend-mode: screen; animation: holo-scan 5.5s linear infinite; }
+.holo-flick { position: absolute; inset: 0; background: color-mix(in srgb, var(--holo) 18%, transparent); mix-blend-mode: screen; opacity: 0; animation: holo-flick 0.55s ease-out 1; }
+.holo-frame { position: absolute; inset: 10px; }
+.holo-frame::before, .holo-frame::after { content: ""; position: absolute; width: 22px; height: 22px; border: 1.5px solid color-mix(in srgb, var(--holo) 75%, transparent); }
+.holo-frame::before { left: 0; top: 0; border-right: 0; border-bottom: 0; }
+.holo-frame::after { right: 0; bottom: 0; border-left: 0; border-top: 0; }
+.holo-tag { position: absolute; right: 16px; top: 14px; font: 600 10px/1 var(--ff-mono, ui-monospace, monospace); letter-spacing: 0.16em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--holo) 85%, white); opacity: 0.8; }
+.holo-tag::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: var(--holo); vertical-align: 1px; animation: holo-blink 1.6s ease-in-out infinite; }
+
+/* Cooling drawings: the section floats in the projection */
+.layout-stage.holo .sec-3d { position: relative; z-index: 1; }
+.layout-stage.holo .section { opacity: 0.96; }
+
+/* Calculator miner: the render itself gets a holographic tint and scan, masked to the miner's own shape */
+.calc-miner.holo .cm-stage { z-index: 1; }
+.cm-holo { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  -webkit-mask: var(--holo-mask) center / contain no-repeat; mask: var(--holo-mask) center / contain no-repeat; }
+.cm-holo-tint { position: absolute; inset: 0; mix-blend-mode: screen; opacity: 0.32;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--holo) 70%, transparent), transparent 55%, color-mix(in srgb, var(--holo) 50%, transparent)),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--holo) 70%, transparent) 0 1px, transparent 1px 3px); }
+.cm-holo-scan { position: absolute; left: 0; right: 0; top: 0; height: 26%; mix-blend-mode: screen; opacity: 0.8;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--holo) 45%, transparent) 80%, color-mix(in srgb, white 60%, var(--holo)) 97%, transparent);
+  animation: holo-scan 3.8s linear infinite; }
+.calc-miner.holo .cm-real { animation: holo-hover 6s ease-in-out infinite; }
+.calc-miner.holo .holo-base { bottom: 15%; width: 58%; }
+.calc-miner.holo .holo-beam { bottom: 19%; height: 76%; width: 64%; }
+/* Materialise on each change (the calculator re-mounts the miner with .is-run) */
+.is-run .calc-miner.holo .cm-holo-scan { animation: holo-materialise 1.4s cubic-bezier(.3, 0, .2, 1) 1, holo-scan 3.8s linear 1.4s infinite; }
+.is-run .calc-miner.holo .cm-holo-tint { animation: holo-tint-in 1.6s ease-out 1; }
+
+@keyframes holo-scan { from { transform: translateY(-110%); } to { transform: translateY(480%); } }
+@keyframes holo-materialise { from { transform: translateY(380%); opacity: 1; } to { transform: translateY(-110%); opacity: 1; } }
+@keyframes holo-tint-in { 0% { opacity: 0.9; } 100% { opacity: 0.32; } }
+@keyframes holo-flick { 0% { opacity: 0.9; } 20% { opacity: 0.1; } 35% { opacity: 0.6; } 100% { opacity: 0; } }
+@keyframes holo-ring { 0% { transform: scale(0.86); opacity: 0.9; } 100% { transform: scale(1.12); opacity: 0; } }
+@keyframes holo-beam { 0%, 100% { opacity: 0.6; } 50% { opacity: 0.9; } }
+@keyframes holo-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes holo-hover { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+/* Reduced motion: slower and softer, never none (CLAUDE.md) */
+@media (prefers-reduced-motion: reduce) {
+  .holo-scan, .cm-holo-scan { animation-duration: 12s; }
+  .holo-base::after { animation-duration: 8s; }
+  .calc-miner.holo .cm-real { animation-duration: 14s; }
+  .holo-flick { animation-duration: 1.2s; }
+}
