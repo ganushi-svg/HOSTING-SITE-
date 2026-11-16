@@ -1,0 +1,19 @@
+/* GlobeArcs (16 Nov 2026): the globe.gl hero globe. The static picture shows until the WebGL globe is ready, then fades.
+   The Segments badge is an HTML element globe.gl positions over Abu Dhabi; it never takes pointer events. */
+.globe-arcs { position: relative; margin: 0; width: min(100%, 520px); aspect-ratio: 1; }
+.globe-arcs .ga-poster { position: absolute; inset: 7%; width: 86%; height: 86%; object-fit: contain; transition: opacity 0.8s ease; }
+.globe-arcs .ga-stage { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; }
+.globe-arcs.is-ready .ga-stage { opacity: 1; }
+.globe-arcs.is-ready .ga-poster { opacity: 0; }
+.globe-arcs .ga-stage canvas { display: block; outline: none; }
+.globe-arcs .ga-stage > div { pointer-events: auto; }
+
+.ga-hub { position: relative; display: grid; justify-items: center; gap: 6px; transform: translate(0, -50%); pointer-events: none; }
+.ga-hub-mark { position: relative; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 26%;
+  background: radial-gradient(circle at 50% 35%, #2a1d45, #0b0711 75%); border: 1px solid rgba(192, 132, 252, 0.8);
+  box-shadow: 0 0 0 1px rgba(251, 210, 78, 0.35), 0 8px 18px rgba(0, 0, 0, 0.55), 0 0 22px rgba(124, 58, 237, 0.6); }
+.ga-hub-mark img { width: 62%; height: auto; display: block; }
+.ga-hub-label { white-space: nowrap; padding: 3px 9px; border-radius: 999px; font: 600 12px/1.2 var(--ff-body, var(--font-sans, system-ui), sans-serif);
+  color: #f8fafc; background: rgba(11, 7, 17, 0.85); border: 1px solid rgba(251, 210, 78, 0.6); }
+.ga-hub-label b { color: #fbd24e; }
+@media (max-width: 560px) { .ga-hub-mark { width: 38px; height: 38px; } .ga-hub-label { font-size: 11px; } }
